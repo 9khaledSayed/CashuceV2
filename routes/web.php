@@ -25,13 +25,14 @@ Route::group([
 
     Auth::routes(['verify' => false]);
     Route::redirect('/', 'login/company');
+    Route::redirect('/login', '/login/company');
     Route::get('login/company', 'Auth\LoginController@loginCompanyForm');
     Route::get('login/employee', 'Auth\LoginController@loginEmployeeForm');
     Route::get('login/provider', 'Auth\LoginController@loginProviderForm');
 
-    Route::post('/login/company', 'Auth\LoginController@loginCompany');
-    Route::post('/login/employee', 'Auth\LoginController@loginEmployee');
-    Route::post('/login/provider', 'Auth\LoginController@loginProvider');
+    Route::post('login/company', 'Auth\LoginController@loginCompany')->name('login.company');
+    Route::post('login/employee', 'Auth\LoginController@loginEmployee')->name('login.employee');
+    Route::post('login/provider', 'Auth\LoginController@loginProvider')->name('login.provider');
 
     Route::namespace('Dashboard')
         ->prefix('dashboard')
