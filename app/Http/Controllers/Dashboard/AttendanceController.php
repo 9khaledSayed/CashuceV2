@@ -88,7 +88,7 @@ class AttendanceController extends Controller
 
         $this->authorize('view_attendance_record_page');
         $request->validate([
-           'barcode' => 'required|numeric|min:8|exists:employees,barcode',
+            'barcode' => 'required|numeric|min:8|exists:employees,barcode',
         ]);
         $employee = Employee::where('barcode', $request->barcode)->first();
         $dateTime = Carbon::now();
@@ -102,8 +102,8 @@ class AttendanceController extends Controller
     {
         $this->authorize('view_attendance_record_page');
         $request->validate([
-           'employee_id' => 'required|numeric|exists:employees,id',
-           'date_time' => 'required',
+            'employee_id' => 'required|numeric|exists:employees,id',
+            'date_time' => 'required',
         ]);
         $employee = Employee::find($request->employee_id);
 
@@ -288,9 +288,24 @@ class AttendanceController extends Controller
         return $minutes - ($minutes % 15);
     }
 
-    public function extractExcel()
+    public function extractExcel(Request $request)
     {
-        $attendances = Attendance::get()->map(function($attendance){
+        $attendances = Attendance::get();
+        $fileName = 'attendances.xlsx';
+        if(isset($request->full_date)){
+            $attendances = Attendance::where('date', $request->full_date)->get();
+            $fileName = $request->full_date . '&&attendances.xlsx';
+        }
+
+        if(isset($request->month)){
+            $dateChunk = explode('-',$request->month);
+            $attendances = Attendance::whereMonth('date', $dateChunk[1])->whereYear('date', $dateChunk[0])->get();
+            $fileName = $request->month . '&&attendances.xlsx';
+        }
+
+
+
+        $attendances = $attendances->map(function($attendance){
             $employee = $attendance->employee ;
             $time_in = $attendance->time_in->format('h:iA');
             $work_shift = $employee->workShift;
@@ -329,7 +344,7 @@ class AttendanceController extends Controller
             ];
         });
 
-        //dd($attendances);
+
         $header_style = (new StyleBuilder())
             ->setFontSize(8)
             ->setFontBold()
@@ -343,7 +358,7 @@ class AttendanceController extends Controller
         return (new FastExcel($attendances))
             ->headerStyle($header_style)
             ->rowsStyle($rows_style)
-            ->download('file.xlsx');
+            ->download($fileName);
     }
 
 }

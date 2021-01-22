@@ -64,27 +64,27 @@ var KTUserListDatatable = function() {
                     field: 'job_number',
                     title: locator.__('Job Number'),
                 },{
-                field: "employee",
-                title: locator.__("Employee Name"),
-                width: 200,
-                sortable:true,
-                // callback function support for column rendering
-                template: function(data) {
-                    var output = '';
-                    var stateNo = KTUtil.getRandomInt(0, 6);
-                    var states = [
-                        'success',
-                        'brand',
-                        'danger',
-                        'success',
-                        'warning',
-                        'primary',
-                        'info'
-                    ];
-                    var state = states[stateNo];
-                    let employee = data.employee
-                    let name = employeeName(employee);
-                    output = '<div class="kt-user-card-v2" >\
+                    field: "employee",
+                    title: locator.__("Employee Name"),
+                    width: 200,
+                    sortable:true,
+                    // callback function support for column rendering
+                    template: function(data) {
+                        var output = '';
+                        var stateNo = KTUtil.getRandomInt(0, 6);
+                        var states = [
+                            'success',
+                            'brand',
+                            'danger',
+                            'success',
+                            'warning',
+                            'primary',
+                            'info'
+                        ];
+                        var state = states[stateNo];
+                        let employee = data.employee
+                        let name = employeeName(employee);
+                        output = '<div class="kt-user-card-v2" >\
 								<div class="kt-user-card-v2__pic">\
 									<div class="kt-badge kt-badge--xl kt-badge--' + state + '">' + name.substring(0, 2) + '</div>\
 								</div>\
@@ -93,43 +93,46 @@ var KTUserListDatatable = function() {
 								</div>\
 							</div>';
 
-                    return output;
-                }
-            }, {
-                field: 'time_in',
-                title: locator.__('Time In'),
-            }, {
-                field: 'time_out',
-                title: locator.__('Time Out'),
-            }, {
-                field: 'total_working_hours',
-                title: locator.__('Total Working Hours'),
-            }, {
-                field: 'supervisor',
-                title: locator.__('Supervisor'),
-                visible: false,
-            },{
-                field: 'department',
-                title: locator.__('Department'),
-                textAlign: 'center',
-                visible: false,
-            }, {
-                field: 'nationality',
-                title: locator.__('Nationality'),
-                visible: false,
-            }, {
-                field: 'date',
-                title: locator.__('Date'),
-                type: 'date',
-                width: 80,
-                autoHide: false,
-                overflow: 'visible',
-            }]
+                        return output;
+                    }
+                }, {
+                    field: 'time_in',
+                    title: locator.__('Time In'),
+                }, {
+                    field: 'time_out',
+                    title: locator.__('Time Out'),
+                }, {
+                    field: 'total_working_hours',
+                    title: locator.__('Total Working Hours'),
+                }, {
+                    field: 'supervisor',
+                    title: locator.__('Supervisor'),
+                    visible: false,
+                },{
+                    field: 'department',
+                    title: locator.__('Department'),
+                    textAlign: 'center',
+                    visible: false,
+                }, {
+                    field: 'nationality',
+                    title: locator.__('Nationality'),
+                    visible: false,
+                }, {
+                    field: 'date',
+                    title: locator.__('Date'),
+                    type: 'date',
+                    width: 80,
+                    autoHide: false,
+                    overflow: 'visible',
+                }]
         });
     }
 
 
 
+    $('.full-date').on('change', function() {
+        datatable.search($(this).val(), 'date');
+    });
     $('#kt_form_date').on('change', function() {
         datatable.search($(this).val(), 'date');
     });

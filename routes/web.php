@@ -21,10 +21,10 @@ Route::group([
         'localeCookieRedirect',
         'localizationRedirect',
         'localeViewPath' ]
-    ], function() {
+], function() {
 
     Auth::routes(['verify' => false]);
-    Route::redirect('/', 'login/company');
+    Route::redirect('/', '/login/company');
     Route::redirect('/login', '/login/company');
     Route::get('login/company', 'Auth\LoginController@loginCompanyForm');
     Route::get('login/employee', 'Auth\LoginController@loginEmployeeForm');
