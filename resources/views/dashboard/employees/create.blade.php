@@ -65,22 +65,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step">
-                                <div class="kt-wizard-v1__nav-body">
-                                    <div class="kt-wizard-v1__nav-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" class="kt-svg-icon kt-svg-icon--xl">
-                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <rect x="0" y="0" width="24" height="24"/>
-                                                <path d="M2,6 L21,6 C21.5522847,6 22,6.44771525 22,7 L22,17 C22,17.5522847 21.5522847,18 21,18 L2,18 C1.44771525,18 1,17.5522847 1,17 L1,7 C1,6.44771525 1.44771525,6 2,6 Z M11.5,16 C13.709139,16 15.5,14.209139 15.5,12 C15.5,9.790861 13.709139,8 11.5,8 C9.290861,8 7.5,9.790861 7.5,12 C7.5,14.209139 9.290861,16 11.5,16 Z" fill="#000000" opacity="0.3" transform="translate(11.500000, 12.000000) rotate(-345.000000) translate(-11.500000, -12.000000) "/>
-                                                <path d="M2,6 L21,6 C21.5522847,6 22,6.44771525 22,7 L22,17 C22,17.5522847 21.5522847,18 21,18 L2,18 C1.44771525,18 1,17.5522847 1,17 L1,7 C1,6.44771525 1.44771525,6 2,6 Z M11.5,16 C13.709139,16 15.5,14.209139 15.5,12 C15.5,9.790861 13.709139,8 11.5,8 C9.290861,8 7.5,9.790861 7.5,12 C7.5,14.209139 9.290861,16 11.5,16 Z M11.5,14 C12.6045695,14 13.5,13.1045695 13.5,12 C13.5,10.8954305 12.6045695,10 11.5,10 C10.3954305,10 9.5,10.8954305 9.5,12 C9.5,13.1045695 10.3954305,14 11.5,14 Z" fill="#000000"/>
-                                            </g>
-                                        </svg>
-                                    </div>
-                                    <div class="kt-wizard-v1__nav-label">
-                                        3. {{__('Salary Information')}}
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -138,7 +122,7 @@
                                                         </div>
                                                         <div class="form-group row">
                                                             <div class="col-lg-12">
-                                                                <label>{{__('Trial Period')}}</label>
+                                                                <label>{{__('Trial Period in days')}}</label>
                                                                 <input name="test_period" class="form-control" type="number" min="1">
                                                             </div>
                                                         </div>
@@ -471,53 +455,33 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--end: Form Wizard Step 2-->
-
-
-
-                        <!--begin: Form Wizard Step 4-->
-                        <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
-                            <div class="kt-section kt-section--first">
-                                <div class="kt-wizard-v1__form">
-                                    <div class="row">
-                                        <div class="col-xl-12">
                                             <div class="kt-section__body">
-                                                <div class="kt-section">
-                                                    <div class="kt-section__body">
-                                                        <h3 class="kt-section__title kt-section__title-lg">{{__('Salary Information')}} :</h3>
-                                                        <div class="form-group row">
-                                                            <div class="col-lg-12">
-                                                                <label>{{__('Basic Salary')}} *</label>
-                                                                <input name="salary" class="form-control" type="text">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <div class="form-group">
-                                                                <div class="col-lg-12">
-                                                                    <h3 class="kt-section__title kt-section__title-lg" style="margin: 25px 0 20px 0;">{{__('Allowances')}}</h3>
+                                                <h3 class="kt-section__title kt-section__title-lg">{{__('Salary Information')}} :</h3>
+                                                <div class="form-group row">
+                                                    <div class="col-lg-12">
+                                                        <label>{{__('Basic Salary')}} *</label>
+                                                        <input name="salary" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="form-group">
+                                                        <div class="col-lg-12">
+                                                            <h3 class="kt-section__title kt-section__title-lg" style="margin: 25px 0 20px 0;">{{__('Allowances')}}</h3>
 
-                                                                    <div class="kt-checkbox-list">
+                                                            <div class="kt-checkbox-list">
 
-                                                                        @foreach($allowances as $allowance)
-                                                                            <label class="kt-checkbox kt-checkbox--bold  @if($allowance->type == 1) kt-checkbox--success @else kt-checkbox--danger @endif ">
-                                                                                <input name="allowance[]" value="{{$allowance->id}}" type="checkbox">
-                                                                                {{$allowance->name()}}
-                                                                                @if($allowance->value)
-                                                                                    ( {{$allowance->value . __(' S.R')}} )
-                                                                                @else
-                                                                                    {{ '( ' .$allowance->percentage . ' % )' }}
-                                                                                @endif
-                                                                                <span></span>
-                                                                            </label>
-                                                                        @endforeach
-                                                                    </div>
-                                                                </div>
+                                                                @foreach($allowances as $allowance)
+                                                                    <label class="kt-checkbox kt-checkbox--bold  @if($allowance->type == 1) kt-checkbox--success @else kt-checkbox--danger @endif ">
+                                                                        <input name="allowance[]" value="{{$allowance->id}}" type="checkbox">
+                                                                        {{$allowance->name()}}
+                                                                        @if($allowance->value)
+                                                                            ( {{$allowance->value . __(' S.R')}} )
+                                                                        @else
+                                                                            {{ '( ' .$allowance->percentage . ' % )' }}
+                                                                        @endif
+                                                                        <span></span>
+                                                                    </label>
+                                                                @endforeach
                                                             </div>
                                                         </div>
                                                     </div>
@@ -529,7 +493,8 @@
                             </div>
                         </div>
 
-                        <!--end: Form Wizard Step 4-->
+                        <!--end: Form Wizard Step 2-->
+
 
                         <!--begin: Form Actions -->
                         <div class="kt-form__actions">
