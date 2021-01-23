@@ -97,8 +97,11 @@ var expireDocs = function() {
                     field: 'expire_date',
                     title: locator.__('Expire Date'),
                 }, {
-                    field: 'days_left',
-                    title: locator.__('Days Left'),
+                    field: 'service_days_left',
+                    title: locator.__('Service Days Left'),
+                }, {
+                    field: 'trail_days_left',
+                    title: locator.__('Trail Days Left'),
                 }]
         });
 

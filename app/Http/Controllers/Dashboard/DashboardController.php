@@ -25,12 +25,10 @@ class DashboardController extends Controller
         $attendanceSummary = $this->attendanceSummary($request);
         $employeesStatistics = $this->employeesStatistics();
         $departments = $this->departmentsSection();
-        $endedEmployees = $this->endedEmployees();
         $activities = $this->employeesActivities();
 
         return view('dashboard.index', compact([
             'employeesStatistics',
-            'endedEmployees',
             'activities',
             'departments',
             'employeesInTrail',
@@ -91,9 +89,12 @@ class DashboardController extends Controller
         return $departments;
     }
 
-    public function endedEmployees()
+    public function endedEmployees(Request $request)
     {
-        return Employee::withoutGlobalScope(new ServiceStatusScope())->where('service_status', 0)->take(10)->get();
+        if($request->ajax()){
+            $endedEmployees = Employee::withoutGlobalScope(new ServiceStatusScope())->where('service_status', 0)->take(10)->get();
+            return response()->json($endedEmployees);
+        }
     }
 
     public function employeesActivities()
@@ -171,24 +172,30 @@ class DashboardController extends Controller
 
     public function expiringDocs(Request $request)
     {
-        $employeesInTrail = Employee::whereNotNull('contract_period')->get()->count();
+        $employeesInTrail = Employee::whereNotNull('test_period')->get()->count();
         $activeEmployees = Company::find(Company::companyID())->employees;
 
         if($request->ajax()){
             $expiringDocs = $activeEmployees->map(function ($employee){
                 $now = Carbon::now();
-                $contractEndDate = $employee->contract_end_date;
-                if(isset($contractEndDate)){
-                    $leftDays = $contractEndDate->diff($now)->days;
-                    if($leftDays < 50 && $leftDays > 0){
+                if(isset($employee->contract_end_date) && isset($employee->test_period)){
+                    $serviceLeftDays = $employee->contract_end_date->diff($now)->days;
+                    $trailEndDate = $employee->contract_end_date->addDays($employee->test_period);
+                    $trailLeftDays = 0;
+                    if($trailEndDate->lt($now)){
+                        $trailLeftDays = ($employee->contract_end_date->addDays($employee->test_period))->diff($now)->days;
+
+                    }
+//                    if($serviceLeftDays < 50 && $serviceLeftDays > 0){
                         return[
                             'id' => $employee->id,
                             'job_number' => $employee->job_number,
                             'name' => $employee->name(),
                             'expire_date' => $employee->contract_end_date->format('Y-m-d'),
-                            'days_left' => $leftDays . __(' Days Left'),
+                            'service_days_left' => $serviceLeftDays . __(' Days Left'),
+                            'trail_days_left' => $trailLeftDays . __(' Days Left'),
                         ];
-                    }
+//                    }
                 }
             })->filter();
 

@@ -1,4 +1,23 @@
 @extends('layouts.dashboard')
+@push('styles')
+    <style>
+        .kt-switch.kt-switch--outline.kt-switch--warning input:checked ~ span:before {
+            background-color: #1dc9b7;
+        }
+        .kt-switch.kt-switch--outline.kt-switch--warning input:checked ~ span:after {
+            background-color: #ffffff;
+            opacity: 1;
+        }
+        .kt-switch.kt-switch--icon input:empty ~ span:after {
+            content: "\f2be";
+        }
+        .kt-switch.kt-switch--icon input:checked ~ span:after {
+            content: '\f2ad';
+        }
+
+
+    </style>
+@endpush
 
 @section('content')
     <!--Begin::Dashboard 6-->
@@ -346,64 +365,21 @@
     <!--Begin::Row-->
     <div class="row">
         <div class="col-lg-6">
-
             <!--begin:: Widgets/Sale Reports-->
-            <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
-                <div class="kt-portlet__head">
+            <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+                <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
                             {{__('Ended Employees')}}
                         </h3>
                     </div>
                 </div>
-                <div class="kt-portlet__body">
-                    <!--begin::Widget 11-->
-                    <div class="kt-widget11">
-                        <div class="kt-scroll" data-scroll="true" data-height="400" style="height: 400px;">
-                            <div class="table-responsive">
-                            <table class="table" style="text-align: center">
-                                <thead>
-                                <tr>
-                                    <td>{{__('Name')}}</td>
-                                    <td>{{__('Email')}}</td>
-                                    <td>{{__('Job Number')}}</td>
-                                    <td>{{__('Role')}}</td>
-                                    <td>{{__('Account Status')}}</td>
-                                    <td class="">{{__('Created')}}</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($endedEmployees as $employee)
-                                    <tr>
-                                        <td>
-                                            <a href="{{route('dashboard.employees.show', $employee)}}" class="kt-widget11__title">{{$employee->name()}}</a>
-                                            <span class="kt-widget11__sub">{{$employee->role->name()}}</span>
-                                        </td>
-                                        <td>{{$employee->email}}</td>
-                                        <td>{{$employee->job_number}}</td>
-                                        <td><span class="kt-badge kt-badge--inline kt-badge--brand">{{$employee->role->name()}}</span></td>
-                                        @if($employee->email_verified_at)
-                                        <td>
-                                            <span class="kt-badge kt-badge--inline kt-badge--success">
-                                                {{__('Activated')}}
-                                            </span>
-                                        </td>
-                                        @else
-                                            <td>
-                                            <span class="kt-badge kt-badge--inline kt-badge--danger">
-                                                {{__('Not Activated')}}
-                                            </span>
-                                            </td>
-                                        @endif
-                                        <td class=" kt-font-brand kt-font-bold">{{$employee->created_at->format('D M d Y')}}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        </div>
-                    </div>
-                    <!--end::Widget 11-->
+
+                <div class="kt-portlet__body kt-portlet__body--fit">
+                    <!--begin: Datatable -->
+                    <div class="kt-datatable" id="ended_employees_table"></div>
+
+                    <!--end: Datatable -->
                 </div>
             </div>
 
@@ -458,17 +434,74 @@
 
 
 
+    <!--begin::Modal-->
+    <div class="modal fade" id="back-to-service" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!--begin::Form-->
+                    <form class="kt-form kt-form--label-right back-to-service-form" method="POST" action="">
+                        <div class="kt-portlet__body">
 
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Contract Start Date')}}</label>
+                                <div class="col-lg-6 col-md-9 col-sm-12">
+                                    <div class="input-group date">
+                                        <input name="contract_start_date" value="{{old('contract_start_date')}}" type="text" class="form-control datepicker" readonly/>
+                                        <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="la la-calendar"></i>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Contract End Date')}}</label>
+                                <div class="col-lg-6 col-md-9 col-sm-12">
+                                    <div class="input-group date">
+                                        <input name="contract_end_date" value="{{old('contract_end_date')}}" type="text" class="form-control datepicker" readonly/>
+                                        <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="la la-calendar"></i>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__foot" style="text-align: center">
+                            <div class="kt-form__actions">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-primary submit-back-to-service">{{__('confirm')}}</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('back')}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--end::Form-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--end::Modal-->
 
 @endsection
 
 @push('scripts')
     <script src="{{asset('js/datatables/attendance_summary.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/datatables/expiring_documents.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/datatables/ended_employees.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/plugins/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
-
     <!--end::Page Vendors -->
-
     <script>
         $(function () {
             var demo11 = function() {
@@ -477,8 +510,6 @@
                     {label: "{{$department['name']}}", data: {{$department['percentage']}}, color:  KTApp.getStateColor("{{$department['color']}}")},
                     @endforeach
                 ];
-
-
 
                 $.plot($("#kt_flotcharts_11"), data, {
                     series: {

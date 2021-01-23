@@ -162,7 +162,11 @@
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label>{{__('Nationality')}} *</label>
-                                                                <select name="nationality_id"  class="form-control kt-selectpicker" title="Choose">
+                                                                <select name="nationality_id"
+                                                                        data-size="7"
+                                                                        data-live-search="true"
+                                                                        data-show-subtext="true"
+                                                                        class="form-control kt-selectpicker" title="Choose">
                                                                     <option value="">{{__('Choose')}}</option>
                                                                     @foreach($nationalities as $nationality)
                                                                         <option value="{{$nationality->id}}"
@@ -446,6 +450,13 @@
                                                         </div>
                                                         <div class="form-group row">
                                                             <div class="col-lg-4">
+                                                                <label>{{__('Contract Period')}} *</label>
+                                                                <select name="contract_period" class="form-control selectpicker" title="Choose">
+                                                                    <option value="12" @if($employee->contract_period == 12) selected @endif >{{ __('1 year') }}</option>
+                                                                    <option value="24" @if($employee->contract_period == 24) selected @endif>{{ __('2 years') }}</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-4">
                                                                 <label>{{__('Contract Start Date')}} *</label>
                                                                 <div class="input-group date">
                                                                     <input name="contract_start_date" type="text" class="form-control datepicker" readonly value="{{$employee->contract_start_date->format('Y-m-d')}}"/>
@@ -456,21 +467,16 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-3" id="period">
-                                                                <label>{{__('Contract period')}} *</label>
-                                                                <select name="contract_period" id="period" class="form-control" title="Choose">
-                                                                    @if($employee->contract_period == 12)
-                                                                        <option value="12" selected>{{ __('1 year') }}</option>
-                                                                        <option value="24">{{ __('2 years') }}</option>
-                                                                    @elseif($employee->contract_period == 24)
-                                                                        <option value="24" selected>{{ __('2 years') }}</option>
-                                                                        <option value="12">{{ __('1 year') }}</option>
-                                                                    @endif
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-lg-5">
+                                                            <div class="col-lg-4">
                                                                 <label>{{__('Contract End Date')}} *</label>
-                                                                <input name="contract_end_date" class="form-control" value="{{ $employee->contract_end_date }}" type="text" readonly>
+                                                                <div class="input-group date">
+                                                                    <input name="contract_end_date" type="text" class="form-control datepicker" readonly value="{{$employee->contract_end_date->format('Y-m-d')}}"/>
+                                                                    <div class="input-group-append">
+                                                                    <span class="input-group-text">
+                                                                        <i class="la la-calendar"></i>
+                                                                    </span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -586,14 +592,16 @@
     <script type=text/javascript>
         $(function(){
             var sections = $("#section") ;
-            var department_id = $('#department').val();
-            console.log(department_id);
+            var departmentSelect = $("#department");
+            var department_id = departmentSelect.val();
+
             sectionAjax(department_id);
 
-            $('#department').change(function(){
+            departmentSelect.change(function(){
                 department_id = $(this).val();
                 sectionAjax(department_id);
             });
+
             function sectionAjax(department_id) {
                 if(department_id){
                     $.ajax({

@@ -28,6 +28,7 @@ class ProviderController extends Controller
 
     public function store(Request $request)
     {
+
         Provider::create($this->validator($request));
         return redirect(route('dashboard.providers.index'));
     }

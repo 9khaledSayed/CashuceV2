@@ -75,6 +75,7 @@ Route::group([
             Route::get('expire_docs', 'DashboardController@expiringDocs');
             Route::get('attendance_summery', 'DashboardController@attendanceSummary');
             Route::get('attendances/excel', 'AttendanceController@extractExcel');
+            Route::get('ended_employees', 'DashboardController@endedEmployees');
 
 
             Route::resources([

@@ -92,7 +92,12 @@ var KTDatatableLocalSortDemo = function() {
 
                         submitBtn.click(function (e) {
                             e.preventDefault();
-
+                            swal.fire({
+                                title: locator.__('Loading...'),
+                                onOpen: function () {
+                                    swal.showLoading();
+                                }
+                            });
                             $.ajax({
                                 method: 'get',
                                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -212,7 +217,7 @@ var KTDatatableLocalSortDemo = function() {
                     title: locator.__('Service Status'),
                     textAlign: 'center',
                     template: function(row) {
-                        var status = row.service_status === '1' ? 'checked' : 'unchecked';
+                        var status = row.service_status ? 'checked' : 'unchecked';
                         return '\
                             <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--warning">\
                             <label class="service-change">\

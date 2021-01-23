@@ -45,10 +45,17 @@ class EndService extends Command
         $employees = Employee::withoutGlobalScope(ParentScope::class)
             ->withoutGlobalScope(ServiceStatusScope::class)
             ->withoutGlobalScope(SupervisorScope::class)->get();
+
+        $today = Carbon::today();
         foreach ($employees as $employee){
             if(isset($employee->contract_end_date)){
-                if($employee->contract_end_date->lt(Carbon::today())){
+                if($employee->contract_end_date->lt($today)){
                     $employee->service_status = 0;
+                    $employee->save();
+                }
+
+                if($employee->contract_start_date->lte($today) && $employee->contract_end_date->gte($today) && !$employee->service_status){
+                    $employee->service_status = 1;
                     $employee->save();
                 }
             }

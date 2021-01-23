@@ -431,7 +431,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3" id="period">
-                                                                <label>{{__('Contract period')}} *</label>
+                                                                <label>{{__('Contract Period')}} *</label>
                                                                 <select name="contract_period" id="period" class="form-control" title="Choose" disabled="disabled">
                                                                     @if($employee->contract_period == 12)
                                                                         <option value="12" selected >{{ __('1 year') }}</option>

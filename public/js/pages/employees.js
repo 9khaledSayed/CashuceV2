@@ -255,13 +255,16 @@ jQuery(document).ready(function() {
         var contractStartDate = $("input[name='contract_start_date']").val();
         var contractPeriod = $("select[name='contract_period']").val();
         var startDate = new Date(contractStartDate);
-        //console.log(add_years(value, 12).toString());
 
-        if(contractPeriod != '' && contractStartDate != ''){
+        if(contractPeriod !== '' && contractStartDate !== ''){
             var endDate = add_years(startDate, contractPeriod);
             endDate = subtract_aDay(endDate);
-            $("input[name='contract_end_date']").val(endDate.toISOString());
-            //console.log(endDate);
+
+            let month = endDate.getMonth() + 1;
+            let day = endDate.getDate();
+            let year = endDate.getFullYear();
+
+            $("input[name='contract_end_date']").val(year + '-' + month + '-' + day);
         }
     }
 
