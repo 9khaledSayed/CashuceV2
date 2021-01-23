@@ -239,30 +239,16 @@ jQuery(document).ready(function() {
         calcEndDate();
     })
 
-
-
-    function add_years(dt,n)
-    {
-        return new Date(dt.setMonth(dt.getMonth() + n));
-    }
-
-    function subtract_aDay(dt)
-    {
-        return new Date(dt.setDate(dt.getDate() - 1));
-    }
-
     function calcEndDate() {
         var contractStartDate = $("input[name='contract_start_date']").val();
         var contractPeriod = $("select[name='contract_period']").val();
         var startDate = new Date(contractStartDate);
 
         if(contractPeriod !== '' && contractStartDate !== ''){
-            var endDate = add_years(startDate, contractPeriod);
-            endDate = subtract_aDay(endDate);
 
-            let month = endDate.getMonth() + 1;
-            let day = endDate.getDate();
-            let year = endDate.getFullYear();
+            let month = startDate.getMonth();
+            let day = startDate.getDate();
+            let year = startDate.getFullYear() + (contractPeriod/12);
 
             $("input[name='contract_end_date']").val(year + '-' + month + '-' + day);
         }
