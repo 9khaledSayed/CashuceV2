@@ -470,7 +470,7 @@
                                                             <div class="col-lg-4">
                                                                 <label>{{__('Contract End Date')}} *</label>
                                                                 <div class="input-group date">
-                                                                    <input name="contract_end_date" type="text" class="form-control datepicker" readonly value="{{$employee->contract_end_date->format('Y-m-d')}}"/>
+                                                                    <input name="contract_end_date" type="text" class="form-control datepicker" readonly value="{{$employee->contract_end_date}}"/>
                                                                     <div class="input-group-append">
                                                                     <span class="input-group-text">
                                                                         <i class="la la-calendar"></i>

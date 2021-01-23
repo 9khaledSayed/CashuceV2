@@ -33,7 +33,7 @@ class Provider extends Authenticatable implements MustVerifyEmail
 
         static::creating(function ($model){
             $model->company_id = Company::companyID();
-            $role = Role::where('label', 'provider')->firstOrFail();
+            $role = Role::withoutGlobalScope(new ParentScope())->where('label', 'provider')->firstOrFail();
             $model->role_id = $role->id;
         });
     }
