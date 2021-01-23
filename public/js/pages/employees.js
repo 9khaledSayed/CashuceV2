@@ -231,14 +231,13 @@ jQuery(document).ready(function() {
         }
     })
 
-    $("input[name='contract_start_date']").on('focusout', function () {
+    $("input[name='contract_start_date']").on('change', function () {
         calcEndDate();
     })
 
     $("select[name='contract_period']").on('change', function () {
         calcEndDate();
     })
-
 
 
     function add_years(dt,n)
