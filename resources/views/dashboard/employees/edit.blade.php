@@ -138,12 +138,6 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-12">
-                                                                <label>{{__('Trial Period')}}</label>
-                                                                <input name="test_period" class="form-control" type="text" value="{{$employee->test_period}}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
                                                             <div class="col-lg-6">
                                                                 <label>{{__('Birthdate')}} *</label>
                                                                 <div class="input-group date">
@@ -439,13 +433,17 @@
                                                     <div class="kt-section__body">
                                                         <h3 class="kt-section__title kt-section__title-lg">{{__('Contract Information')}}</h3>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-12">
+                                                            <div class="col-lg-6">
                                                                 <label>{{__('Contract Type')}} *</label>
                                                                 <select name="contract_type" class="form-control kt-selectpicker" title="Choose" >
                                                                     @foreach($contract_type as $key => $value)
                                                                         <option value="{{$key}}" @if($employee->contract_type == $key) selected @endif>{{__($value)}}</option>
                                                                     @endforeach
                                                                 </select>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label>{{__('Trial Period')}}</label>
+                                                                <input name="test_period" class="form-control" type="text" value="{{$employee->test_period}}">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
@@ -505,20 +503,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--end: Form Wizard Step 2-->
-
-                        <!--begin: Form Wizard Step 4-->
-                        <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
-                            <div class="kt-section kt-section--first">
-                                <div class="kt-wizard-v1__form">
-                                    <div class="row">
-                                        <div class="col-xl-12">
                                             <div class="kt-section__body">
                                                 <div class="kt-section">
                                                     <div class="kt-section__body">
@@ -535,17 +519,17 @@
                                                                     <h3 class="kt-section__title kt-section__title-lg" style="margin: 25px 0 20px 0;">{{__('Allowances')}}</h3>
                                                                     <div class="kt-checkbox-list">
                                                                         @foreach($allowances as $allowance)
-                                                                        <label class="kt-checkbox kt-checkbox--bold  @if($allowance->type == 1) kt-checkbox--success @else kt-checkbox--danger @endif ">
-                                                                            <input name="allowance[]" @if($employee->allowances->contains($allowance)) checked @endif value="{{$allowance->id}}" type="checkbox">
-                                                                            {{$allowance->name()}}
+                                                                            <label class="kt-checkbox kt-checkbox--bold  @if($allowance->type == 1) kt-checkbox--success @else kt-checkbox--danger @endif ">
+                                                                                <input name="allowance[]" @if($employee->allowances->contains($allowance)) checked @endif value="{{$allowance->id}}" type="checkbox">
+                                                                                {{$allowance->name()}}
 
-                                                                            @if($allowance->value)
-                                                                           ( {{$allowance->value . __(' S.R')}} )
-                                                                            @else
-                                                                            {{ '( ' .$allowance->percentage . ' % )' }}
-                                                                            @endif
-                                                                            <span></span>
-                                                                        </label>
+                                                                                @if($allowance->value)
+                                                                                    ( {{$allowance->value . __(' S.R')}} )
+                                                                                @else
+                                                                                    {{ '( ' .$allowance->percentage . ' % )' }}
+                                                                                @endif
+                                                                                <span></span>
+                                                                            </label>
                                                                         @endforeach
                                                                     </div>
                                                                 </div>
@@ -560,7 +544,7 @@
                             </div>
                         </div>
 
-                        <!--end: Form Wizard Step 4-->
+                        <!--end: Form Wizard Step 2-->
 
                         <!--begin: Form Actions -->
                         <div class="kt-form__actions">

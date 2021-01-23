@@ -121,12 +121,6 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-12">
-                                                                <label>{{__('Trial Period in days')}}</label>
-                                                                <input name="test_period" class="form-control" type="number" min="1">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
                                                             <div class="col-lg-6">
                                                                 <label>{{__('Birthdate')}} *</label>
                                                                 <div class="input-group date">
@@ -395,13 +389,17 @@
                                                         <div class="kt-section__body">
                                                             <h3 class="kt-section__title kt-section__title-lg">{{__('Contract Information')}} :</h3>
                                                             <div class="form-group row">
-                                                                <div class="col-lg-12">
+                                                                <div class="col-lg-6">
                                                                     <label>{{__('Contract Type')}} *</label>
                                                                     <select name="contract_type" class="form-control kt-selectpicker" title="Choose">
                                                                         @foreach($contract_type as $key => $value)
                                                                             <option value="{{$key}}">{{__($value)}}</option>
                                                                         @endforeach
                                                                     </select>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <label>{{__('Trial Period in days')}}</label>
+                                                                    <input name="test_period" class="form-control" type="number" min="1">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
