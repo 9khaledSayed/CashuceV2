@@ -28,9 +28,15 @@ class AttendanceController extends Controller
     public function index(Request $request)
     {
         $this->authorize('view_attendance_sheet');
+
+        $fullDate = isset($request->full_date) ? $request->full_date : Carbon::today()->format('Y-m-d');
+
         if ($request->ajax()) {
-            $attendance = Attendance::orderBy('created_at', 'desc')
-                ->get()->map(function ($attendance){
+            $attendances = Attendance::orderBy('created_at', 'desc')->get();
+
+            $attendances = $attendances->where('date', $fullDate);
+
+            $attendances = $attendances->map(function ($attendance){
                     $employee = $attendance->employee;
                     $isIncludedInSupervised = (isset($employee));
                     if($isIncludedInSupervised){
@@ -59,12 +65,13 @@ class AttendanceController extends Controller
                     }
 
                 })->filter();
-            return response()->json($attendance);
+            return response()->json($attendances);
         }else{
             return view('dashboard.attendances.index', [
                 'supervisors' =>  Company::supervisors(),
                 'nationalities' => Nationality::get(),
                 'departments' => Department::get(),
+                'fullDate' => $fullDate,
             ]);
         }
 
@@ -297,11 +304,11 @@ class AttendanceController extends Controller
             $fileName = $request->full_date . '&&attendances.xlsx';
         }
 
-        if(isset($request->month)){
-            $dateChunk = explode('-',$request->month);
-            $attendances = Attendance::whereMonth('date', $dateChunk[1])->whereYear('date', $dateChunk[0])->get();
-            $fileName = $request->month . '&&attendances.xlsx';
-        }
+//        if(isset($request->month)){
+//            $dateChunk = explode('-',$request->month);
+//            $attendances = Attendance::whereMonth('date', $dateChunk[1])->whereYear('date', $dateChunk[0])->get();
+//            $fileName = $request->month . '&&attendances.xlsx';
+//        }
 
 
 

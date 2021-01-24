@@ -22,7 +22,7 @@
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
-                    {{__('Attendance Sheet')}}
+                    {{__('Attendance Sheet')}} <span class="kt-font-brand selected-date"> {{$fullDate}}</span>
                 </h3>
             </div>
             <div class="kt-portlet__head-label">
@@ -45,24 +45,7 @@
                                 </span>
                                 </div>
                             </div>
-                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Full Date')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
-                                        <div class="input-group date">
-                                            <input name="full_date" type="text" class="form-control full-date" readonly/>
-                                            <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="la la-calendar"></i>
-                                            </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                            </div>
 
                         </div>
                     </div>
@@ -71,14 +54,32 @@
                 <div class="row align-items-center mt-5">
                     <div class="col-xl-12 order-2 order-xl-1">
                         <div class="row align-items-center">
+{{--                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">--}}
+{{--                                <div class="kt-form__group kt-form__group--inline">--}}
+{{--                                    <div class="kt-form__label">--}}
+{{--                                        <label>{{__('Month')}}:</label>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="kt-form__control">--}}
+{{--                                        <div class="input-group date">--}}
+{{--                                            <input name="date" type="text" class="form-control datepic" id="kt_form_date" readonly/>--}}
+{{--                                            <div class="input-group-append">--}}
+{{--                                            <span class="input-group-text">--}}
+{{--                                                <i class="la la-calendar"></i>--}}
+{{--                                            </span>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+
+{{--                            </div>--}}
                             <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
-                                        <label>{{__('Month')}}:</label>
+                                        <label>{{__('Full Date')}}:</label>
                                     </div>
                                     <div class="kt-form__control">
                                         <div class="input-group date">
-                                            <input name="date" type="text" class="form-control datepic" id="kt_form_date" readonly/>
+                                            <input name="full_date" type="text" class="form-control full-date" readonly/>
                                             <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i class="la la-calendar"></i>
@@ -164,6 +165,8 @@
     <script src="{{asset('js/datatables/attendances.js')}}" type="text/javascript"></script>
     <script>
         $(function () {
+
+
             $('#kt_form_date').datepicker({
                 rtl: true,
                 language: appLang,
@@ -184,6 +187,7 @@
                 clearBtn: true,
                 lang: 'ar'
             });
+            $(".full-date").datepicker('setDate', "{{ $fullDate }}");
 
             $("#excelBtn").click(function () {
                 //
