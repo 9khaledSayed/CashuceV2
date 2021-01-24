@@ -247,8 +247,8 @@ jQuery(document).ready(function() {
 
         if(contractPeriod !== '' && contractStartDate !== ''){
 
-            let month = startDate.getMonth();
-            let day = startDate.getDate();
+            let month = startDate.getMonth() + 1;
+            let day = startDate.getDate() - 1;
             let year = startDate.getFullYear() + (contractPeriod/12);
 
             $("input[name='contract_end_date']").val(year + '-' + month + '-' + day);
