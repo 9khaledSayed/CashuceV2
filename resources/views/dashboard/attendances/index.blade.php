@@ -22,7 +22,7 @@
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
-                    {{__('Attendance Sheet')}} <span class="kt-font-brand selected-date"> {{$fullDate}}</span>
+                    {{__('Attendance Sheet')}} <span class="kt-font-brand selected-date"> {{$fullDate . __(' ( Today ) ')}}</span>
                 </h3>
             </div>
             <div class="kt-portlet__head-label">
