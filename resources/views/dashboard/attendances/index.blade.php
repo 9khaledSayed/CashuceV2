@@ -79,7 +79,7 @@
                                     </div>
                                     <div class="kt-form__control">
                                         <div class="input-group date">
-                                            <input name="full_date" type="text" class="form-control full-date" readonly/>
+                                            <input name="full_date" type="text" value="{{$fullDate}}" class="form-control full-date" readonly/>
                                             <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i class="la la-calendar"></i>
@@ -187,7 +187,6 @@
                 clearBtn: true,
                 lang: 'ar'
             });
-            $(".full-date").datepicker('setDate', "{{ $fullDate }}");
 
             $("#excelBtn").click(function () {
                 //
