@@ -226,6 +226,11 @@ var KTDatatableLocalSortDemo = function() {
                             </label>\
                             </span>';
                     },
+                },{
+                    field: 'service_status_search', // 0 inActive or 1 active
+                    title: locator.__('Service Status'),
+                    textAlign: 'center',
+                    visible: false,
                 }, {
                     field: 'email_verified_at',
                     title: locator.__('Account Status'),
@@ -297,6 +302,7 @@ var KTDatatableLocalSortDemo = function() {
         $('#kt_form_nationality').on('change', function() {
             datatable.search($(this).val().toLowerCase(), 'nationality');
         });
+
         $('#kt_form_department').on('change', function() {
             datatable.search($(this).val().toLowerCase(), 'department');
         });

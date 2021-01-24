@@ -39,7 +39,7 @@ class AttendanceController extends Controller
                     $isIncludedInSupervised = (isset($employee));
                     if($isIncludedInSupervised){
                         $ShiftType = $attendance->employee->workShift->type;
-
+                        $date = $attendance->date->format('Y-m-d ');
                         if(isset($attendance->time_out2) && $ShiftType == 'divided'){
                             $timeOut = $attendance->time_out2->format('h:i') ?? null;
                         }elseif(isset($attendance->time_out)){
@@ -312,7 +312,7 @@ class AttendanceController extends Controller
 
         $attendances = $attendances->map(function($attendance){
             $employee = $attendance->employee ;
-            $time_in = $attendance->time_in->format('h:iA');
+            $time_in = $attendance->time_in->format('Y-m-d h:iA');
             $work_shift = $employee->workShift;
             $time_out = $work_shift->type == 'divided' ? $attendance->time_out2 : $attendance->time_out;
             $shift_start_time = $work_shift->type == 'once' ? $work_shift->check_in_time :  $work_shift->shift_start_time;
@@ -340,8 +340,8 @@ class AttendanceController extends Controller
                 __('Job Number') => $employee->job_number,
                 __('Employee Name') => $employee->name(),
                 __('Shift Start Time') => isset($shift_start_time) ? $shift_start_time->format('h:iA') : '',
-                __('TimeIn') => $time_in,
-                __('Time Out') => isset($time_out) ? $time_out->format('h:iA') : '',
+                __('Time In') => $time_in,
+                __('Time Out') => isset($time_out) ? $time_out->format('Y-m-d h:iA') : '',
                 __('Shift Work Hours') => $shift_work_hours,
                 __('Total Working Hours') => $total_working_hours,
                 __('Delay') => $delay,

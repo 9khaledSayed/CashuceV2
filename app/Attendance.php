@@ -13,6 +13,7 @@ class Attendance extends Model
         'time_out'  => 'date:h:i',
         'time_in2'  => 'date:h:i',
         'time_out2'  => 'date:h:i',
+        'date'  => 'date',
     ];
 
     protected static function booted()

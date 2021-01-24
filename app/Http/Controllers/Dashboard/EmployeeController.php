@@ -53,6 +53,7 @@ class EmployeeController extends Controller
                     'salary' => $employee->salary,
                     'barcode' => $employee->barcode,
                     'service_status' => $employee->service_status,
+                    'service_status_search' => $employee->service_status,
                     'email_verified_at' => $employee->email_verified_at,
                     'joined_date' => $employee->joined_date,
                 ];
