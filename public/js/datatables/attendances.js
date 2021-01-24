@@ -36,10 +36,10 @@ var KTUserListDatatable = function() {
                 serverPaging: true,
                 serverFiltering: false,
                 serverSorting: true,
-                saveState: {
-                    cookie: true,
-                    webstorage: true,
-                },
+                // saveState: {
+                //     cookie: false,
+                //     webstorage: true,
+                // },
             },
 
             // layout definition
@@ -131,13 +131,9 @@ var KTUserListDatatable = function() {
 
 
     $('.full-date').on('change', function() {
-        // datatable.search($(this).val(), 'date');
         $(".selected-date").text($(this).val())
         datatable.setDataSourceParam('full_date', $(this).val());
         datatable.reload();
-    });
-    $('#kt_form_date').on('change', function() {
-        datatable.search($(this).val(), 'date');
     });
 
     $('#kt_form_supervisor').on('change', function() {

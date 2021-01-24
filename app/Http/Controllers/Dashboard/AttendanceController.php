@@ -31,12 +31,10 @@ class AttendanceController extends Controller
 
         $fullDate = isset($request->full_date) ? $request->full_date : Carbon::today()->format('Y-m-d');
 
+
         if ($request->ajax()) {
             $attendances = Attendance::orderBy('created_at', 'desc')->get();
-
-            $attendances = $attendances->where('date', $fullDate);
-
-            $attendances = $attendances->map(function ($attendance){
+            $attendances = $attendances->where('date', $fullDate)->map(function ($attendance){
                     $employee = $attendance->employee;
                     $isIncludedInSupervised = (isset($employee));
                     if($isIncludedInSupervised){
