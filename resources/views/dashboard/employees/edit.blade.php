@@ -559,7 +559,6 @@
 
     <script type=text/javascript>
         $(function(){
-            $("input[name='contract_end_date']").datepicker('setDate', {{$employee->contract_end_date}});
             var sections = $("#section") ;
             var departmentSelect = $("#department");
             var department_id = departmentSelect.val();
