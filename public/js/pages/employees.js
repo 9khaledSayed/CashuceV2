@@ -251,7 +251,7 @@ jQuery(document).ready(function() {
             let day = startDate.getDate() - 1;
             let year = startDate.getFullYear() + (contractPeriod/12);
 
-            $("input[name='contract_end_date']").val(year + '-' + month + '-' + day);
+            $("input[name='contract_end_date']").datepicker('setDate', year + '-' + month + '-' + day);
         }
     }
 

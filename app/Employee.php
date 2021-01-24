@@ -76,7 +76,6 @@ class Employee extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'contract_start_date' => 'datetime',
-        'contract_end_date' => 'datetime',
         'created_at'  => 'date:D M d Y',
     ];
 
