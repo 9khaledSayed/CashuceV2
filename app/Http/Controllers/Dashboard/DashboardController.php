@@ -49,7 +49,7 @@ class DashboardController extends Controller
                     return $employee;
                 }
             })->filter()->count(),
-            "total_trail" => $ActiveEmployeesInCompany->whereNotNull('contract_period')->count(),
+            "total_trail" => $ActiveEmployeesInCompany->whereNotNull('test_period')->count(),
         ];
         return $employeesStatistics;
     }
