@@ -314,7 +314,7 @@ class AttendanceController extends Controller
 
             $employee = $attendance->employee ;
             if(isset($employee)){
-                $time_in = $attendance->time_in->format('Y-m-d h:iA');
+
                 $work_shift = $employee->workShift;
                 $time_out = $work_shift->type == 'divided' ? $attendance->time_out2 : $attendance->time_out;
                 $shift_start_time = $work_shift->type == 'once' ? $work_shift->check_in_time :  $work_shift->shift_start_time;
@@ -339,15 +339,15 @@ class AttendanceController extends Controller
                 }
 
                 return [
-                    __('Job Number') => $employee->job_number,
-                    __('Employee Name') => $employee->name(),
-                    __('Shift Start Time') => isset($shift_start_time) ? $shift_start_time->format('h:iA') : '',
-                    __('Time In') => $time_in,
-                    __('Time Out') => isset($time_out) ? $time_out->format('Y-m-d h:iA') : '',
-                    __('Shift Work Hours') => $shift_work_hours,
-                    __('Total Working Hours') => $total_working_hours,
-                    __('Delay') => $delay,
-                    __('Early') => $early,
+                    'Job Number' => $employee->job_number,
+                    'Employee Name' => $employee->name(),
+                    'Shift Start Time' => isset($shift_start_time) ? $shift_start_time->format('h:iA') : '',
+                    'Time In' => $this->modifyMinutes($attendance->time_in),
+                    'Time Out' => isset($time_out) ? $this->modifyMinutes($time_out) : '',
+                    'Shift Work Hours' => $shift_work_hours,
+                    'Total Working Hours' => $total_working_hours,
+                    'Delay' => $delay,
+                    'Early' => $early,
                 ];
             }
 
@@ -370,4 +370,29 @@ class AttendanceController extends Controller
             ->download($fileName);
     }
 
+
+    public function modifyMinutes(Carbon $time)
+    {
+        $minute = $time->minute;
+
+        if($minute >= 53 || $minute <= 6){
+//            dd($minute);
+            $time->minute(0);
+
+        }elseif($minute >= 7 && $minute <= 22){
+
+            $time->minute(15);
+
+        }elseif($minute >= 23 && $minute <= 36){
+
+            $time->minute(30);
+
+        }elseif($minute >= 37 && $minute <= 52){
+
+            $time->minute(45);
+
+        }
+//        dd($time);
+        return $time->format('Y-m-d h:i:s');
+    }
 }
