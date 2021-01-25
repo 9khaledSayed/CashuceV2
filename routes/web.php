@@ -74,9 +74,9 @@ Route::group([
             Route::get('employees/back_to_service/{employee}', 'EmployeeController@backToService');
             Route::get('expire_docs', 'DashboardController@expiringDocs');
             Route::get('attendance_summery', 'DashboardController@attendanceSummary');
-            Route::get('attendances/excel', 'AttendanceController@extractExcel');
-            Route::get('ended_employees', 'DashboardController@endedEmployees');
 
+            Route::get('ended_employees', 'DashboardController@endedEmployees');
+            Route::resource('attendances', 'AttendanceController')->except('show');
 
             Route::resources([
                 'employees' => 'EmployeeController',
@@ -87,7 +87,6 @@ Route::group([
                 'reports' => 'ReportController',
                 'conversations' => 'ConversationController',
                 'messages' => 'MessageController',
-                'attendances' => 'AttendanceController',
                 'vacations' => 'VacationController',
                 'attendance_forgottens' => 'AttendanceForgottenController',
                 'requests' => 'RequestController',
@@ -107,30 +106,4 @@ Route::group([
 
 });
 
-
-Route::get('/test', function (){
-    $provider = new \App\Role([
-        'name_english'  => 'Provider',
-        'name_arabic'  => 'شركة مشغلة',
-        'label' => 'provider',
-        'type' => 'System Role',
-        'company_id' => 1
-    ]);
-    $provider->saveWithoutEvents(['creating']);
-    $abilities = \App\Ability::get();
-
-    foreach($abilities->whereIn('category',['payroll', 'attendances']) as $ability){
-        $provider->allowTo($ability);
-    }
-});
-
-
-//Route::get('/data', 'TestApi@getData');
-
-
-
-Route::get('/key', function (){
-
-    Artisan::call('storage:key');
-
-});
+Route::get('/dashboard/attendances/excel', 'Dashboard\AttendanceController@extractExcel');

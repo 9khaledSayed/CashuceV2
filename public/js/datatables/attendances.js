@@ -36,10 +36,10 @@ var KTUserListDatatable = function() {
                 serverPaging: true,
                 serverFiltering: false,
                 serverSorting: true,
-                // saveState: {
-                //     cookie: false,
-                //     webstorage: true,
-                // },
+                saveState: {
+                    cookie: false,
+                    webstorage: false,
+                },
             },
 
             // layout definition

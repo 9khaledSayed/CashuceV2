@@ -22,7 +22,7 @@ class AttendanceController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:employee,company,provider');
     }
 
     public function index(Request $request)
@@ -36,10 +36,9 @@ class AttendanceController extends Controller
             $attendances = Attendance::orderBy('created_at', 'desc')->get();
             $attendances = $attendances->where('date', $fullDate)->map(function ($attendance){
                     $employee = $attendance->employee;
-                    $isIncludedInSupervised = (isset($employee));
-                    if($isIncludedInSupervised){
+
+                    if(isset($employee)){
                         $ShiftType = $attendance->employee->workShift->type;
-                        $date = $attendance->date->format('Y-m-d ');
                         if(isset($attendance->time_out2) && $ShiftType == 'divided'){
                             $timeOut = $attendance->time_out2->format('h:i') ?? null;
                         }elseif(isset($attendance->time_out)){
@@ -295,6 +294,7 @@ class AttendanceController extends Controller
 
     public function extractExcel(Request $request)
     {
+
         $attendances = Attendance::get();
         $fileName = 'attendances.xlsx';
         if(isset($request->full_date)){
@@ -311,42 +311,46 @@ class AttendanceController extends Controller
 
 
         $attendances = $attendances->map(function($attendance){
+
             $employee = $attendance->employee ;
-            $time_in = $attendance->time_in->format('Y-m-d h:iA');
-            $work_shift = $employee->workShift;
-            $time_out = $work_shift->type == 'divided' ? $attendance->time_out2 : $attendance->time_out;
-            $shift_start_time = $work_shift->type == 'once' ? $work_shift->check_in_time :  $work_shift->shift_start_time;
-            $shift_work_hours = $work_shift->work_hours;
-            $total_working_hours = $attendance->total_working_hours;
+            if(isset($employee)){
+                $time_in = $attendance->time_in->format('Y-m-d h:iA');
+                $work_shift = $employee->workShift;
+                $time_out = $work_shift->type == 'divided' ? $attendance->time_out2 : $attendance->time_out;
+                $shift_start_time = $work_shift->type == 'once' ? $work_shift->check_in_time :  $work_shift->shift_start_time;
+                $shift_work_hours = $work_shift->work_hours;
+                $total_working_hours = $attendance->total_working_hours;
 
-            $delayAllowedTime = $work_shift->is_delay_allowed? $work_shift->time_delay_allowed : Carbon::createFromTime(0,0,0);
-            $shiftStartTime = $work_shift->type == 'once' ? $work_shift->check_in_time : $work_shift->shift_start_time;
-            $shiftStartTime->addMinutes($delayAllowedTime->minute);
-            $shiftStartTime->addHours($delayAllowedTime->hour);
-            $delay = Carbon::createFromTime(0,0,0)->format('H:i');
-            $early = Carbon::createFromTime(0,0,0)->format('H:i');
+                $delayAllowedTime = $work_shift->is_delay_allowed? $work_shift->time_delay_allowed : Carbon::createFromTime(0,0,0);
+                $shiftStartTime = $work_shift->type == 'once' ? $work_shift->check_in_time : $work_shift->shift_start_time;
+                $shiftStartTime->addMinutes($delayAllowedTime->minute);
+                $shiftStartTime->addHours($delayAllowedTime->hour);
+                $delay = Carbon::createFromTime(0,0,0)->format('H:i');
+                $early = Carbon::createFromTime(0,0,0)->format('H:i');
 
 
-            if($attendance->time_in->gt($shiftStartTime)){
-                $delay = $attendance->time_in->diff($shiftStartTime)->format('%H:%I:%S');
-                $delay = date('h:i:s', strtotime($delay));
-            }else{
-                $early = $attendance->time_in->diff($shiftStartTime)->format('%H:%I:%S');
-                $early = date('h:i:s', strtotime($early));
+                if($attendance->time_in->gt($shiftStartTime)){
+                    $delay = $attendance->time_in->diff($shiftStartTime)->format('%H:%I:%S');
+                    $delay = date('h:i:s', strtotime($delay));
+                }else{
+                    $early = $attendance->time_in->diff($shiftStartTime)->format('%H:%I:%S');
+                    $early = date('h:i:s', strtotime($early));
 
+                }
+
+                return [
+                    __('Job Number') => $employee->job_number,
+                    __('Employee Name') => $employee->name(),
+                    __('Shift Start Time') => isset($shift_start_time) ? $shift_start_time->format('h:iA') : '',
+                    __('Time In') => $time_in,
+                    __('Time Out') => isset($time_out) ? $time_out->format('Y-m-d h:iA') : '',
+                    __('Shift Work Hours') => $shift_work_hours,
+                    __('Total Working Hours') => $total_working_hours,
+                    __('Delay') => $delay,
+                    __('Early') => $early,
+                ];
             }
 
-            return [
-                __('Job Number') => $employee->job_number,
-                __('Employee Name') => $employee->name(),
-                __('Shift Start Time') => isset($shift_start_time) ? $shift_start_time->format('h:iA') : '',
-                __('Time In') => $time_in,
-                __('Time Out') => isset($time_out) ? $time_out->format('Y-m-d h:iA') : '',
-                __('Shift Work Hours') => $shift_work_hours,
-                __('Total Working Hours') => $total_working_hours,
-                __('Delay') => $delay,
-                __('Early') => $early,
-            ];
         });
 
 

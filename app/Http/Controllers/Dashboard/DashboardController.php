@@ -13,14 +13,15 @@ use Spatie\Activitylog\Models\Activity;
 
 class DashboardController extends Controller
 {
+
     public function __construct()
     {
-
         $this->middleware('auth:employee,company,provider');
     }
 
     public function index(Request $request)
     {
+
         $employeesInTrail = $this->expiringDocs($request);
         $attendanceSummary = $this->attendanceSummary($request);
         $employeesStatistics = $this->employeesStatistics();
@@ -38,19 +39,22 @@ class DashboardController extends Controller
 
     public function employeesStatistics()
     {
-        $ActiveEmployeesInCompany = Company::find(Company::companyID())->employees;
+        $activeEmployees = Company::find(Company::companyID())->employees;
+        $totalSingle = $activeEmployees->map(function($employee){
+            if(!$employee->marital_status){
+                return $employee;
+            }
+        })->filter()->count();
+
         $employeesStatistics = [
-            "totalActiveEmployees" => $ActiveEmployeesInCompany->count(),
-            "total_saudis" => $this->saudisNumber($ActiveEmployeesInCompany),
-            "total_non_saudis" => $this->nonSaudisNumber($ActiveEmployeesInCompany),
-            "total_married" => $ActiveEmployeesInCompany->where('marital_status', '1')->count(),
-            "total_single" => $ActiveEmployeesInCompany->map(function($employee){
-                if(!$employee->marital_status){
-                    return $employee;
-                }
-            })->filter()->count(),
-            "total_trail" => $ActiveEmployeesInCompany->whereNotNull('test_period')->count(),
+            "totalActiveEmployees" => $activeEmployees->count(),
+            "total_saudis" => $this->saudisNumber($activeEmployees),
+            "total_non_saudis" => $this->nonSaudisNumber($activeEmployees),
+            "total_married" => $activeEmployees->where('marital_status', '1')->count(),
+            "total_single" => $totalSingle,
+            "total_trail" => $activeEmployees->whereNotNull('test_period')->count(),
         ];
+
         return $employeesStatistics;
     }
 
@@ -58,22 +62,16 @@ class DashboardController extends Controller
     {
         $totalActiveEmployees = Company::find(Company::companyID())->employees->count();
 
-        $departments = Department::get()->map(function ($department) use ($totalActiveEmployees){
-            $colors = [
-                'danger',
-                'success',
-                'brand',
-                'warning',
-                'info'
-            ];
-            $depEmployees = $department->employees;
-            if(isset($depEmployees) && $totalActiveEmployees > 0){
-                $percentage = ($department->employees->count() / $totalActiveEmployees) * 100;
+        return Department::get()->map(function ($department) use ($totalActiveEmployees){
+            $colors = [ 'danger', 'success', 'brand', 'warning','info'];
+            $activeEmployeesInDepartment = $department->employees;
+            $allDepartmentEmployees = Employee::withoutGlobalScope(new ServiceStatusScope())->where('department_id', $department->id)->get();
+
+            if(isset($activeEmployeesInDepartment) && $totalActiveEmployees > 0){
+                $percentage = ($activeEmployeesInDepartment->count() / $totalActiveEmployees) * 100;
             }else{
                 $percentage = 0;
             }
-
-            $allDepartmentEmployees = Employee::withoutGlobalScope(new ServiceStatusScope())->where('department_id', $department->id)->get();
 
             return[
                 'name' => $department->name(),
@@ -85,40 +83,23 @@ class DashboardController extends Controller
                 'color' => array_rand($colors),
             ];
         });
-
-        return $departments;
     }
 
     public function endedEmployees(Request $request)
     {
         if($request->ajax()){
-            $endedEmployees = Employee::withoutGlobalScope(new ServiceStatusScope())->where('service_status', 0)->take(10)->get();
+            $endedEmployees = Employee::withoutGlobalScope(new ServiceStatusScope())->where('service_status', 0)->get();
             return response()->json($endedEmployees);
         }
     }
 
     public function employeesActivities()
     {
-        $company = Company::find(Company::companyID());
-        return Activity::orderBy('created_at', 'desc')->get()->whereIn('causer_id', $company->id) ?? [];
+        $employeesIDS = Company::find(Company::companyID())->employees->pluck('id');
+        return Activity::orderBy('created_at', 'desc')->get()->whereIn('causer_id', $employeesIDS) ?? [];
     }
 
-    public function saudisNumber($employees)
-    {
-        return $employees->map(function ($employee){
-            if ($employee->nationality() == __('Saudi')){
-                return $employee;
-            }
-        })->filter()->count();
-    }
-    public function nonSaudisNumber($employees)
-    {
-        return $employees->map(function ($employee){
-            if ($employee->nationality() != __('Saudi')){
-                return $employee;
-            }
-        })->filter()->count();
-    }
+
 
     public function attendanceSummary(Request $request)
     {
@@ -127,11 +108,13 @@ class DashboardController extends Controller
         $absent = $totalActiveEmployees;
         $delay = 0;
         $early = 0;
-
         $employeesAttendance = [];
+
         foreach ($activeEmployees as $employee) {
+
             $todayAttendance = $employee->attendances()->whereDate('created_at', Carbon::today())->first();
             $employeeWorkShift = $employee->workShift;
+
             if(isset($todayAttendance)){
                 $absent--;
                 $employeeTimeIn = $todayAttendance->time_in;
@@ -187,14 +170,14 @@ class DashboardController extends Controller
 
                     }
 //                    if($serviceLeftDays < 50 && $serviceLeftDays > 0){
-                        return[
-                            'id' => $employee->id,
-                            'job_number' => $employee->job_number,
-                            'name' => $employee->name(),
-                            'expire_date' => $employee->contract_end_date->format('Y-m-d'),
-                            'service_days_left' => $serviceLeftDays . __(' Days Left'),
-                            'trail_days_left' => $trailLeftDays . __(' Days Left'),
-                        ];
+                    return[
+                        'id' => $employee->id,
+                        'job_number' => $employee->job_number,
+                        'name' => $employee->name(),
+                        'expire_date' => $employee->contract_end_date->format('Y-m-d'),
+                        'service_days_left' => $serviceLeftDays . __(' Days Left'),
+                        'trail_days_left' => $trailLeftDays . __(' Days Left'),
+                    ];
 //                    }
                 }
             })->filter();
@@ -202,5 +185,22 @@ class DashboardController extends Controller
             return response()->json($expiringDocs);
         }
         return $employeesInTrail;
+    }
+
+    public function saudisNumber($employees)
+    {
+        return $employees->map(function ($employee){
+            if ($employee->nationality() == __('Saudi')){
+                return $employee;
+            }
+        })->filter()->count();
+    }
+    public function nonSaudisNumber($employees)
+    {
+        return $employees->map(function ($employee){
+            if ($employee->nationality() != __('Saudi')){
+                return $employee;
+            }
+        })->filter()->count();
     }
 }

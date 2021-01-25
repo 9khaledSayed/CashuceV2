@@ -76,7 +76,7 @@
 
                 <a href="{{route('login.company')}}" class="btn btn-primary btn-elevate btn-lg">{{__('Log In As Company')}}</a>
                 <a href="{{route('login.provider')}}" class="btn btn-primary btn-elevate btn-lg">{{__('Log In As Provider')}}</a>
-                <a href="{{route('login.company')}}" class="btn btn-primary btn-elevate btn-lg">{{__('Log In As Employee')}}</a>
+                <a href="{{route('login.employee')}}" class="btn btn-primary btn-elevate btn-lg">{{__('Log In As Employee')}}</a>
             </div>
             <!--end::Action-->
         </form>
