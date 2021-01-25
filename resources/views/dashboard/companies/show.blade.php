@@ -113,9 +113,6 @@
                                             <td>
                                                 <span class="kt-widget11__sub">{{$employee->salary}}</span>
                                             </td>
-                                            <td>
-                                                <span class="kt-widget11__sub">{{$employee->role->name()}}</span>
-                                            </td>
                                             @if($employee->email_verified_at)
                                                 <td>
                                             <span class="kt-badge kt-badge--inline kt-badge--success">

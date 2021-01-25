@@ -102,7 +102,7 @@ class Company extends Authenticatable implements MustVerifyEmail
 
     public function employees()
     {
-        return $this->hasMany(Employee::class);
+        return $this->hasMany(Employee::class)->withoutGlobalScope(new ParentScope());
     }
 
     public static function supervisors()
