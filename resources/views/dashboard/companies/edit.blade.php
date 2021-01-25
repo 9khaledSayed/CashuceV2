@@ -35,14 +35,21 @@
             @method('put')
             <div class="kt-portlet__body">
                 <div class="form-group row">
-                    <div class="col-lg-6 col-md-9 col-sm-12">
-                        <label >{{__('Full Name')}} *</label>
-                        <input name="name"
-                               class="form-control"
-                               value="{{old('name') ?? $company->name}}"
+                    <div class="col-lg-4 col-md-6 col-sm-9">
+                        <label >{{__('Full Arabic Name')}} *</label>
+                        <input name="name_ar"
+                               class="form-control @error('name_ar') is-invalid @enderror"
+                               value="{{old('name_ar') ?? $company->name_ar}}"
                                type="text">
                     </div>
-                    <div class="col-lg-6 col-md-9 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-9">
+                        <label >{{__('Full English Name')}} *</label>
+                        <input name="name_en"
+                               class="form-control @error('name_en') is-invalid @enderror"
+                               value="{{old('name_en') ?? $company->name_en}}"
+                               type="text">
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-9">
                         <label for="email">{{__('Email')}}</label>
                         <input
                                 class="form-control @error('email') is-invalid @enderror"
