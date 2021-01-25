@@ -192,7 +192,7 @@
                 <div class="row align-items-center mt-5 ">
                     <div class="col-xl-12 order-2 order-xl-1">
                         <div class="row align-items-center">
-                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Supervisor')}}:</label>
@@ -209,7 +209,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Role')}}:</label>
@@ -226,7 +226,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Nationality')}}:</label>
@@ -244,8 +244,23 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        <label>{{__('Service Statues')}}:</label>
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <select class="form-control selectpicker" id="kt_form_service_status">
+                                            <option value="">{{__('All')}}</option>
+                                            <option value="1">{{__('Active')}}</option>
+                                            <option value="2">{{__('In Active')}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
-                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+
+                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Department')}}:</label>
