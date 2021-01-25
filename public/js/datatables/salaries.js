@@ -167,26 +167,21 @@ var KTDatatableLocalSortDemo = function() {
                 }]
         });
 
-        $('#kt_form_date').on('change', function() {
-            var current_datetime = new Date()
-            var value = $(this).val();
-            switch (value) {
-                case '1': // today
-                    datatable.search(current_datetime.toDateString(), 'created_at');
-                    break;
-                case '2':
-                    current_datetime.setDate(current_datetime.getDate() - 7);
-                    datatable.search(current_datetime.toDateString(), 'created_at');
-                    break;
-                case '3':
-                    current_datetime.setMonth(current_datetime.getMonth() - 1);
-                    datatable.search(current_datetime.toLocaleString('default', { month: 'short' }), 'created_at');
-                    break;
-                default:
-                    datatable.search($(this).val().toLowerCase(), 'created_at');
-            }
+        $('#from').on('change', function() {
+            checkRange();
         });
 
+        $('#to').on('change', function() {
+            checkRange();
+        });
+
+        function checkRange() {
+            var from = $("#from").val();
+            var to = $("#to").val();
+            if(from !== '' && to !== ''){
+                datatable.setDataSourceParam('from' , from);
+            }
+        }
 
 
     };

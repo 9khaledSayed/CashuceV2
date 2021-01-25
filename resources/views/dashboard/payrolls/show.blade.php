@@ -227,6 +227,42 @@
                 </div>
             </div>
             <div class="kt-portlet__body kt-portlet__body--fit">
+                <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12 order-2 order-xl-1">
+                            <div class="row align-items-center">
+                                <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                    <div class="kt-input-icon kt-input-icon--left">
+                                        <input type="text" class="form-control" placeholder="{{__('Search...')}}" id="generalSearch">
+                                        <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                        <span><i class="la la-search"></i></span>
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                    <div class="kt-form__group kt-form__group--inline">
+                                        <div class="kt-form__label">
+                                            <label>{{__('From')}}:</label>
+                                        </div>
+                                        <div class="kt-form__control">
+                                            <input name="from" type="number" min="0" class="form-control" id="from" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                    <div class="kt-form__group kt-form__group--inline">
+                                        <div class="kt-form__label">
+                                            <label>{{__('To')}}:</label>
+                                        </div>
+                                        <div class="kt-form__control">
+                                            <input name="to" type="number" min="0" class="form-control" id="to" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!--begin: Datatable -->
                 <div class="kt-datatable" id="scrolling_horizontal"></div>

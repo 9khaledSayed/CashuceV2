@@ -26,9 +26,9 @@ Route::group([
     Auth::routes(['verify' => false]);
     Route::redirect('/', '/login/company');
     Route::redirect('/login', '/login/company');
-    Route::get('login/company', 'Auth\LoginController@loginCompanyForm');
-    Route::get('login/employee', 'Auth\LoginController@loginEmployeeForm');
-    Route::get('login/provider', 'Auth\LoginController@loginProviderForm');
+    Route::get('login/company', 'Auth\LoginController@loginCompanyForm')->name('login.company');
+    Route::get('login/employee', 'Auth\LoginController@loginEmployeeForm')->name('login.employee');
+    Route::get('login/provider', 'Auth\LoginController@loginProviderForm')->name('login.provider');
 
     Route::post('login/company', 'Auth\LoginController@loginCompany')->name('login.company');
     Route::post('login/employee', 'Auth\LoginController@loginEmployee')->name('login.employee');

@@ -4,18 +4,20 @@
     <!--begin::Head-->
     <div class="kt-login__head d-flex justify-content-between">
         <div>
-        <span class="kt-login__signup-label ">{{__('Don\'t have an account yet?')}}</span>&nbsp;&nbsp;
-        <a href="{{ route("register") }}" class="kt-link kt-login__signup-link">{{__('Sign Up!')}}</a>
-    </div>
-    <div>
+            <span class="kt-login__signup-label ">{{__('Don\'t have an account yet?')}}</span>&nbsp;&nbsp;
+            <a href="{{ route("register") }}" class="kt-link kt-login__signup-link">{{__('Sign Up!')}}</a>
+        </div>
+{{--     <div>--}}
 {{--    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)--}}
 {{--        <a href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">--}}
 {{--            {{ $properties['native'] }} <i class="fa fa-globe" aria-hidden="true"></i>--}}
 {{--        </a>--}}
 {{--    @endforeach--}}
+{{--    </div>--}}
+
     </div>
 
-</div>
+
 
 <!--end::Head-->
 
@@ -68,15 +70,25 @@
                 </a>
                 <button id="" class="btn btn-primary btn-elevate kt-login__btn-primary">{{__('Sign In')}}</button>
             </div>
+            <!--begin::Action-->
+            <div class="kt-login__actions">
+
+
+                <a href="{{route('login.company')}}" class="btn btn-primary btn-elevate btn-lg">{{__('Log In As Company')}}</a>
+                <a href="{{route('login.provider')}}" class="btn btn-primary btn-elevate btn-lg">{{__('Log In As Provider')}}</a>
+                <a href="{{route('login.company')}}" class="btn btn-primary btn-elevate btn-lg">{{__('Log In As Employee')}}</a>
+            </div>
             <!--end::Action-->
         </form>
 
         <!--end::Form-->
 
     </div>
-
     <!--end::Signin-->
+
 </div>
+
+
 
 <!--end::Body-->
 @endsection
