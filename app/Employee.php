@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use anlutro\LaravelSettings\Facade as Setting;
+use Mcamara\LaravelLocalization\LaravelLocalization;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -119,7 +120,8 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
     public function name()
     {
-        return $this->{'fname_' . app()->getLocale()} . ' ' . $this->{'lname_' . app()->getLocale()};
+        $currentLocale = app()->getLocale();
+        return $this->{'fname_' . $currentLocale} . ' ' . $this->{'lname_' . $currentLocale};
     }
 
 
