@@ -42,6 +42,7 @@ class EmployeeController extends Controller
             $employees = Employee::withoutGlobalScope(new ServiceStatusScope())->get()->map(function($employee){
                 $supervisor = $employee->supervisor? $employee->supervisor->name(): '';
                 $department = $employee->department? $employee->department->name(): '';
+
                 return [
                     'id' => $employee->id,
                     'role' => $employee->role->name(),
@@ -53,7 +54,7 @@ class EmployeeController extends Controller
                     'salary' => $employee->salary,
                     'barcode' => $employee->barcode,
                     'service_status' => $employee->service_status,
-                    'service_status_search' => $employee->service_status,
+                    'service_status_search' => $employee->service_status == 0 ? 2 : 1,
                     'email_verified_at' => $employee->email_verified_at,
                     'joined_date' => $employee->joined_date,
                 ];

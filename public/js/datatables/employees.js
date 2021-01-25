@@ -227,8 +227,8 @@ var KTDatatableLocalSortDemo = function() {
                             </span>';
                     },
                 },{
-                    field: 'service_status_search', // 0 inActive or 1 active
-                    title: locator.__('Service Status'),
+                    field: 'service_status_search', // 2 inActive or 1 active
+                    title: locator.__('Service Status Search'),
                     textAlign: 'center',
                     visible: false,
                 }, {
@@ -301,6 +301,11 @@ var KTDatatableLocalSortDemo = function() {
 
         $('#kt_form_nationality').on('change', function() {
             datatable.search($(this).val().toLowerCase(), 'nationality');
+        });
+
+        $('#kt_form_service_status').on('change', function() {
+            //console.log($(this).val());
+            datatable.search($(this).val(), 'service_status_search');
         });
 
         $('#kt_form_department').on('change', function() {
