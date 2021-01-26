@@ -97,6 +97,11 @@
             max-width: 541px;
         }
 
+        @if(app()->getLocale() == 'ar')
+        .kt-login.kt-login--v1 .kt-login__wrapper .kt-login__body .kt-login__form .kt-login__options > a:not(:last-child) {
+            margin: 0 0 0 1.5rem;
+        }
+        @endif
     </style>
 </head>
 

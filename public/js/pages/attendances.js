@@ -91,6 +91,12 @@ var KTContactsAdd = function () {
                 if (barcodeInput.val().length < 8) {
                     $("#txtInput").val("");
                 }else{
+                    swal.fire({
+                        title: locator.__('Loading...'),
+                        onOpen: function () {
+                            swal.showLoading();
+                        }
+                    });
                     formEl.ajaxSubmit({
                         success: function(response) {
                             //KTApp.unblock(formEl);

@@ -35,21 +35,21 @@
                     <div class="kt-widget kt-widget--user-profile-1" style="padding-bottom:unset;">
                         <div class="kt-widget__head">
                             <div class="kt-widget__media">
-                                <div class="kt-badge kt-badge--xl kt-badge--success">{{ mb_substr( $customer->name() ,0,2,'utf-8')}}</div>
-                                <div class="text-center kt-font-bold kt-margin-t-5">
-                                    {{$customer->job_number}}
-                                </div>
+                                <div class="kt-badge kt-badge--xl kt-badge--success">{{ mb_substr( $company->name() ,0,2,'utf-8')}}</div>
+{{--                                <div class="text-center kt-font-bold kt-margin-t-5">--}}
+{{--                                    {{$company->email}}--}}
+{{--                                </div>--}}
                             </div>
                             <div class="kt-widget__content">
                                 <div class="kt-widget__section">
                                     <a href="#" class="kt-widget__username">
-                                        {{$customer->name()}}
+                                        {{$company->name()}}
                                     </a>
                                     <span class="kt-widget__subtitle">
-                               {{$customer->role->name()}}
+                               {{$company->role->name()}}
                             </span>
                                     <span class="kt-widget__subtitle">
-                                {{$customer->created_at->format('Y-m-d')}}
+                                {{$company->created_at->format('Y-m-d')}}
                             </span>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                                     {{__('Employees No')}}
                                 </a>
                                 <span class="kt-widget4__number kt-font-success">
-                                {{$customer->employees->count()}}
+                                {{$company->employees->count()}}
                             </span>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @forelse($customer->employees as $employee)
+                                    @forelse($company->employees as $employee)
                                         <tr>
                                             <td>
                                                 <span class="kt-widget11__sub">{{$employee->name()}}</span>
@@ -112,9 +112,6 @@
                                             </td>
                                             <td>
                                                 <span class="kt-widget11__sub">{{$employee->salary}}</span>
-                                            </td>
-                                            <td>
-                                                <span class="kt-widget11__sub">{{$employee->role->name()}}</span>
                                             </td>
                                             @if($employee->email_verified_at)
                                                 <td>

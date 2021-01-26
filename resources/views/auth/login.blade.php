@@ -4,18 +4,20 @@
     <!--begin::Head-->
     <div class="kt-login__head d-flex justify-content-between">
         <div>
-        <span class="kt-login__signup-label ">{{__('Don\'t have an account yet?')}}</span>&nbsp;&nbsp;
-        <a href="{{ route("register") }}" class="kt-link kt-login__signup-link">{{__('Sign Up!')}}</a>
-    </div>
-    <div>
+            <span class="kt-login__signup-label ">{{__('Don\'t have an account yet?')}}</span>&nbsp;&nbsp;
+            <a href="{{ route("register") }}" class="kt-link kt-login__signup-link">{{__('Sign Up!')}}</a>
+        </div>
+{{--     <div>--}}
 {{--    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)--}}
 {{--        <a href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">--}}
 {{--            {{ $properties['native'] }} <i class="fa fa-globe" aria-hidden="true"></i>--}}
 {{--        </a>--}}
 {{--    @endforeach--}}
+{{--    </div>--}}
+
     </div>
 
-</div>
+
 
 <!--end::Head-->
 
@@ -25,7 +27,7 @@
     <!--begin::Signin-->
     <div class="kt-login__form">
         <div class="kt-login__title">
-            <h3>{{ __('Login') }} {{isset($url)? ucwords($url) : ''}}</h3>
+            <h3>{{ __('Login') }} {{isset($url)? __(ucwords($url)) : ''}}</h3>
         </div>
         @include('layouts.dashboard.parts.errorSection')
         <!--begin::Form-->
@@ -68,15 +70,39 @@
                 </a>
                 <button id="" class="btn btn-primary btn-elevate kt-login__btn-primary">{{__('Sign In')}}</button>
             </div>
-            <!--end::Action-->
         </form>
+                    <!--begin::Divider-->
+                    <div class="kt-login__divider">
+                        <div class="kt-divider">
+                            <span></span>
+                            <span>OR</span>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <!--end::Divider-->
+
+                    <!--begin::Options-->
+                    <div class="kt-login__options">
+                        <a href="{{route('login.company')}}" class="btn btn-primary kt-btn">
+                            {{__('Log In As ') . __('Company')}}
+                        </a>
+                        <a href="{{route('login.provider')}}" class="btn btn-primary kt-btn">
+                            {{__('Log In As ') . __('Provider')}}
+                        </a>
+                        <a href="{{route('login.employee')}}" class="btn btn-primary kt-btn">
+                            {{__('Log In As ') . __('Employee')}}
+                        </a>
+                    </div>
 
         <!--end::Form-->
 
     </div>
-
     <!--end::Signin-->
+
 </div>
+
+
 
 <!--end::Body-->
 @endsection
