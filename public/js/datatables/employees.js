@@ -10,6 +10,7 @@ var KTDatatableLocalSortDemo = function() {
             "Email": "البريد اﻹلكتروني",
             "Role": "الصلاحية",
             "Salary": "الراتب",
+            "Service Status": "حالة الخدمة",
             "Show Info": "عرض البيانات",
             "Job Number": "الرقم الوظيفي",
             "Actions": "الاجراءات",

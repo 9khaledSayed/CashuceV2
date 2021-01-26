@@ -312,5 +312,8 @@
     "time_out": "وقت الخروج الفعلي",
     " ( Today ) ": " ( اليوم ) ",
     "shift_work_hours": "مدة العمل الافتراضية",
-    "total_working_hours": "مدة العمل الفعلية"
+    "total_working_hours": "مدة العمل الفعلية",
+    "Service Statue": "حالة الخدمة",
+    "Active": "نشط",
+    "In Active": "غير نشط"
 }
