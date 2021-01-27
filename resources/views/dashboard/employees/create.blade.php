@@ -405,7 +405,8 @@
                                                             <div class="form-group row">
                                                                 <div class="col-lg-4">
                                                                     <label>{{__('Contract Period')}} *</label>
-                                                                    <select name="contract_period" class="form-control selectpicker" title="Choose">
+                                                                    <select name="contract_period" class="form-control" title="Choose">
+                                                                        <option value="">{{__('custom')}}</option>
                                                                         <option value="12" selected>{{ __('1 year') }}</option>
                                                                         <option value="24">{{ __('2 years') }}</option>
                                                                     </select>
@@ -423,7 +424,14 @@
                                                                 </div>
                                                                 <div class="col-lg-4">
                                                                     <label>{{__('Contract End Date')}} *</label>
-                                                                    <input name="contract_end_date" class="form-control" type="text" readonly>
+                                                                    <div class="input-group date">
+                                                                        <input name="contract_end_date" type="text" class="form-control"/>
+                                                                        <div class="input-group-append">
+                                                                    <span class="input-group-text">
+                                                                        <i class="la la-calendar"></i>
+                                                                    </span>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

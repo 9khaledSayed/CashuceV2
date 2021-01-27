@@ -6,6 +6,8 @@ use App\Company;
 use App\Department;
 use App\Employee;
 use App\Http\Controllers\Controller;
+use App\Nationality;
+use App\Role;
 use App\Scopes\ServiceStatusScope;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

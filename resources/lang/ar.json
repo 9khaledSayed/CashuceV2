@@ -317,5 +317,10 @@
     "Log In As ": "تسجيل الدخول ",
     "All Companies": "جميع عملاء",
     "shift_work_hours": "مدة العمل الافتراضية",
-    "total_working_hours": "مدة العمل الفعلية"
+    "total_working_hours": "مدة العمل الفعلية",
+    "Service Statue": "حالة الخدمة",
+    "Active": "نشط",
+    "In Active": "غير نشط",
+    "custom": "مخصص",
+    "All Ended Employees": "جميع الموظفين المنتهية خدماتهم"
 }

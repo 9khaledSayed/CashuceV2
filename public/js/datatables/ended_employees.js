@@ -42,7 +42,7 @@ var endedEmployees = function() {
                 source: {
                     read: {
                         method: 'GET',
-                        url: '/dashboard/ended_employees',
+                        url: url,
                     },
                 },
                 pageSize: 10,
@@ -171,8 +171,51 @@ var endedEmployees = function() {
                     title: locator.__('Nationality'),
                     textAlign: 'center',
                     visible: false,
-                }],
+                },{
+                    field: 'supervisor',
+                    title: locator.__('Supervisor'),
+                    textAlign: 'center',
+                    visible: false,
+                    template:function (row){
+                        return '<a href="/dashboard/employees/' + row.id + '">' + row.supervisor + '</a>';
+                    }
+
+                },{
+                    field: 'role',
+                    title: locator.__('Role'),
+                    textAlign: 'center',
+                    visible: false,
+                },{
+                    field: 'department',
+                    title: locator.__('Department'),
+                    textAlign: 'center',
+                    visible: false,
+                },
+            ],
         });
+
+        $('#kt_form_supervisor').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'supervisor');
+        });
+
+        $('#kt_form_role').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'role');
+        });
+
+        $('#kt_form_nationality').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'nationality');
+        });
+
+        $('#kt_form_service_status').on('change', function() {
+            //console.log($(this).val());
+            datatable.search($(this).val(), 'service_status_search');
+        });
+
+        $('#kt_form_department').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'department');
+        });
+
+        $('#kt_form_status,#kt_form_type').selectpicker();
 
 
     };
