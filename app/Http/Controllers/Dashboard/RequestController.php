@@ -106,7 +106,7 @@ class RequestController extends Controller
         if ($request->status == 1){
             if($request->requestable_type == 'App\\Vacation'){
                 $vacationDays = $request->requestable->total_days;
-                $request->employee->vacations_balance -= $vacationDays;
+                $request->employee->leave_balance -= $vacationDays;
                 $request->employee->save();
             }else{
                 Attendance::firstOrCreate([

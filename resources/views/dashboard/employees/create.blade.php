@@ -307,7 +307,7 @@
                                                         <div class="form-group row">
                                                             <div class="col-lg-6">
                                                                 <label>{{__('Employee Number')}} *</label>
-                                                                <input name="job_number" class="form-control"  value="{{$employee->job_number}}" type="text" readonly>
+                                                                <input name="job_number" class="form-control"  value="" type="text">
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label>{{__('Joined Date')}} *</label>
@@ -446,6 +446,29 @@
                                                                     @endforeach
                                                                 </div>
                                                                 @error('work_shift_id')
+                                                                <span class="form-text text-danger">{{$message}}</span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="kt-section">
+                                                        <div class="kt-section__body">
+                                                            <h3 class="kt-section__title kt-section__title-lg">{{__('Leave Balance')}}:</h3>
+                                                            <div class="form-group">
+                                                                <label>{{__('Leave Balance')}}</label>
+                                                                <div class="kt-radio-list">
+                                                                    @foreach($leaveBalances as $leaveBalance)
+                                                                        <label class="kt-radio kt-radio--tick kt-radio--brand">
+                                                                            <input
+                                                                                    type="radio" name="leave_balance"
+                                                                                    value="{{$leaveBalance->days_per_year}}"
+                                                                                    @if((old('leave_balance')) == $leaveBalance->days_per_year) checked @endif>
+                                                                            {{$leaveBalance->days_per_year}}
+                                                                            <span></span>
+                                                                        </label>
+                                                                    @endforeach
+                                                                </div>
+                                                                @error('leave_balance')
                                                                 <span class="form-text text-danger">{{$message}}</span>
                                                                 @enderror
                                                             </div>

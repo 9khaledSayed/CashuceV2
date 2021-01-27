@@ -8,12 +8,12 @@ use App\Department;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use App\JobTitle;
+use App\LeaveBalance;
 use App\Nationality;
 use App\Provider;
 use App\Role;
 use App\Rules\UniqueJopNumber;
 use App\Scopes\ServiceStatusScope;
-use App\Section;
 use App\WorkShift;
 use Illuminate\Http\Request;
 
@@ -80,32 +80,33 @@ class EmployeeController extends Controller
         $this->authorize('create_employees');
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
-        $job_titles = JobTitle::all();
+        $jobTitles = JobTitle::all();
         $departments = Department::all();
         $providers = Provider::get();
         $roles = Role::get();
         $supervisors = Employee::whereNull('supervisor_id')->get();
         $workShifts = WorkShift::get();
         $employee = Employee::get()->last();
-        //dd($employee->job_number);
+        $leaveBalances = LeaveBalance::get();
+        $jobNumber = 0;
         if(isset($employee)){
-            $employee->job_number = $employee->job_number + 1;
+            $jobNumber = $employee->job_number + 1;
         }else{
-            $employee->job_number = 1000;
+            $jobNumber = 1000;
         }
 
-        //dd($job_titles);
 
         return view('dashboard.employees.create', [
             'nationalities' => $nationalities,
-            'job_titles' => $job_titles,
+            'job_titles' => $jobTitles,
             'roles' => $roles,
             'contract_type' => $this->contract_type,
             'allowances' =>$allowances,
             'supervisors' =>$supervisors,
             'workShifts' =>$workShifts,
+            'leaveBalances' =>$leaveBalances,
             'departments' => $departments,
-            'employee' => $employee,
+            'jobNumber' => $jobNumber,
             'providers' => $providers,
         ]);
     }
@@ -133,6 +134,7 @@ class EmployeeController extends Controller
         $job_titles = JobTitle::all();
         $workShifts = WorkShift::get();
         $roles = Role::get();
+        $leaveBalances = LeaveBalance::get();
         $supervisors = Employee::whereNull('supervisor_id')->get();
         return view('dashboard.employees.show', [
             'employee' => $employee,
@@ -140,6 +142,7 @@ class EmployeeController extends Controller
             'job_titles' => $job_titles,
             'roles' => $roles,
             'contract_type' => $this->contract_type,
+            'leaveBalances' =>$leaveBalances,
             'allowances' =>$allowances,
             'supervisors' =>$supervisors,
             'workShifts' =>$workShifts,
@@ -155,6 +158,7 @@ class EmployeeController extends Controller
         $job_titles = JobTitle::all();
         $workShifts = WorkShift::get();
         $roles = Role::get();
+        $leaveBalances = LeaveBalance::get();
         $providers = Provider::get();
         $departments = Department::get();
         $supervisors = Employee::whereNull('supervisor_id')->get();
@@ -164,6 +168,7 @@ class EmployeeController extends Controller
             'nationalities' => $nationalities,
             'job_titles' => $job_titles,
             'roles' => $roles,
+            'leaveBalances' =>$leaveBalances,
             'contract_type' => $this->contract_type,
             'allowances' =>$allowances,
             'supervisors' =>$supervisors,

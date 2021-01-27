@@ -76,6 +76,7 @@ Route::group([
             Route::get('attendance_summery', 'DashboardController@attendanceSummary');
 
             Route::get('ended_employees', 'DashboardController@endedEmployees');
+            Route::get('documents/{document}/download', 'DocumentController@download');
             Route::resource('attendances', 'AttendanceController')->except('show');
 
             Route::resources([
@@ -100,6 +101,8 @@ Route::group([
                 'departments' => 'DepartmentController',
                 'sections' => 'SectionController',
                 'providers' => 'ProviderController',
+                'leave_balances' => 'LeaveBalanceController',
+                'documents' => 'DocumentController',
             ]);
 
         });
@@ -107,3 +110,15 @@ Route::group([
 });
 
 Route::get('/dashboard/attendances/excel', 'Dashboard\AttendanceController@extractExcel');
+
+Route::get('/fix', function (){
+   $company = \App\Company::find(3);
+
+   $employees = $company->employees;
+
+    foreach ($employees->whereNull('department_id') as $item) {
+        $item->department_id = 23;
+        $item->save();
+    }
+    dd('dsaf');
+});

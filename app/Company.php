@@ -71,6 +71,7 @@ class Company extends Authenticatable implements MustVerifyEmail
         static::created(function ($model){
             Role::generateDefaultRoles($model->id);
             Allowance::generateDefaultAllowances($model->id);
+            LeaveBalance::generateDefaultLeaveBalances($model->id);
         });
     }
 
@@ -114,5 +115,9 @@ class Company extends Authenticatable implements MustVerifyEmail
         })->filter();
     }
 
+    public function documents()
+    {
+        return $this->morphMany(Document::class, 'documentable');
+    }
     //
 }
