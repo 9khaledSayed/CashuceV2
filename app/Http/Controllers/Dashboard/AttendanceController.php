@@ -305,11 +305,6 @@ class AttendanceController extends Controller
             $fileName = $request->full_date . '&&attendances.xlsx';
         }
 
-//        if(isset($request->month)){
-//            $dateChunk = explode('-',$request->month);
-//            $attendances = Attendance::whereMonth('date', $dateChunk[1])->whereYear('date', $dateChunk[0])->get();
-//            $fileName = $request->month . '&&attendances.xlsx';
-//        }
 
 
 
@@ -330,7 +325,8 @@ class AttendanceController extends Controller
                 $shiftStartTime->addHours($delayAllowedTime->hour);
                 $delay = Carbon::createFromTime(0,0,0)->format('H:i');
                 $early = Carbon::createFromTime(0,0,0)->format('H:i');
-
+                $date = $attendance->date;
+                $dailyWage = $employee->totalPackage() / (30 - $employee->daysOff());
 
                 if($attendance->time_in->gt($shiftStartTime)){
                     $delay = $attendance->time_in->diff($shiftStartTime)->format('%H:%I:%S');
@@ -344,17 +340,19 @@ class AttendanceController extends Controller
                 return [
                     'Job Number' => $employee->job_number,
                     'Employee Name' => $employee->{'fname_en'} . ' ' . $employee->{'lname_en'},
+                    'Date' => $date,
                     'Shift Start Time' => isset($shift_start_time) ? $shift_start_time->format('h:iA') : '',
-                    'Time In' => $this->modifyMinutes($attendance->time_in),
-                    'Time Out' => isset($time_out) ? $this->modifyMinutes($time_out) : '',
-                    'Shift Work Hours' => $shift_work_hours,
-                    'Total Working Hours' => $total_working_hours,
+                    'Time In' => $date . $this->modifyMinutes($attendance->time_in),
+                    'Time Out' => isset($time_out) ? $date . $this->modifyMinutes($time_out) : '',
+                    'Shift Work Hours' => $shift_work_hours ?? '',
+                    'Total Working Hours' => $total_working_hours ?? '',
                     'Delay' => $delay,
                     'Early' => $early,
+                    'Daily Wage' => round($dailyWage, 2),
                 ];
             }
 
-        });
+        })->filter();
 
 
         $header_style = (new StyleBuilder())
@@ -396,6 +394,6 @@ class AttendanceController extends Controller
 
         }
 
-        return $time->format('Y-m-d h:i:s');
+        return $time->format(' h:i:s');
     }
 }
