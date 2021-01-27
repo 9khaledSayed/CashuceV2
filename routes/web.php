@@ -74,9 +74,9 @@ Route::group([
             Route::get('employees/back_to_service/{employee}', 'EmployeeController@backToService');
             Route::get('expire_docs', 'DashboardController@expiringDocs');
             Route::get('attendance_summery', 'DashboardController@attendanceSummary');
-
             Route::get('ended_employees', 'DashboardController@endedEmployees');
             Route::get('employees/ended_employees', 'EmployeeController@endedEmployees')->name('employees.ended_employees');
+            Route::get('documents/{document}/download', 'DocumentController@download');
             Route::resource('attendances', 'AttendanceController')->except('show');
 
             Route::resources([
@@ -101,6 +101,8 @@ Route::group([
                 'departments' => 'DepartmentController',
                 'sections' => 'SectionController',
                 'providers' => 'ProviderController',
+                'leave_balances' => 'LeaveBalanceController',
+                'documents' => 'DocumentController',
             ]);
 
         });
@@ -108,3 +110,4 @@ Route::group([
 });
 
 Route::get('/dashboard/attendances/excel', 'Dashboard\AttendanceController@extractExcel');
+

@@ -144,8 +144,7 @@ var endedEmployees = function() {
                     title: locator.__('Full Name'),
                     textAlign: 'center',
                     template:function (row){
-                        var name = employeeName(row);
-                        return '<a href="/dashboard/employees/' + row.id + '">' + name + '</a>';
+                        return '<a href="/dashboard/employees/' + row.id + '">' + row.name + '</a>';
                     }
                 }, {
                     field: 'email',

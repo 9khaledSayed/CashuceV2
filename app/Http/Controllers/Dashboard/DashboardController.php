@@ -90,7 +90,16 @@ class DashboardController extends Controller
     public function endedEmployees(Request $request)
     {
         if($request->ajax()){
-            $endedEmployees = Employee::withoutGlobalScope(new ServiceStatusScope())->where('service_status', 0)->get();
+            $endedEmployees = Employee::withoutGlobalScope(new ServiceStatusScope())->where('service_status', 0)->get()->map(function($endedEmployee){
+
+                return [
+                    'id' => $endedEmployee->id,
+                    'name' => $endedEmployee->name(),
+                    'service_status' => $endedEmployee->service_status,
+                    'job_number' => $endedEmployee->job_number,
+                    'email' => $endedEmployee->email,
+                ];
+            });
             return response()->json($endedEmployees);
         }
     }

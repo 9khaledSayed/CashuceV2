@@ -102,7 +102,7 @@
                                             </span>
                                         </span>
                                 </a>
-                                <a href="{{route('dashboard.myProfile.change_language')}}" class="kt-widget__item ">
+                                <a href="{{route('dashboard.documents.index')}}" class="kt-widget__item ">
                                         <span class="kt-widget__section">
                                             <span class="kt-widget__icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -114,7 +114,7 @@
                                                     </g>
                                                 </svg> </span>
                                             <span class="kt-widget__desc">
-                                                {{__('Change Language')}}
+                                                {{__('Documents')}}
                                             </span>
                                         </span>
                                 </a>

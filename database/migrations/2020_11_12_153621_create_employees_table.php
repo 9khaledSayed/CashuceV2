@@ -55,7 +55,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('contract_period')->nullable();
             $table->string('allowance', 1000)->nullable();
             $table->string('phone');
-            $table->integer('vacations_balance');
+            $table->integer('leave_balance');
             $table->string('barcode');
             $table->boolean('service_status')->default(true);
             $table->string('email')->unique();

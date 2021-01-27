@@ -48,7 +48,7 @@ class EmployeeSeeder extends Seeder
             'work_shift_id' => 1,
             'job_number' => 1112,
             'barcode' => '53070424',
-            'vacations_balance' => 30,
+            'leave_balance' => 30,
             'email_verified_at' => now(),
             'password' => 'password', // password
             'remember_token' => Str::random(10),
@@ -74,7 +74,7 @@ class EmployeeSeeder extends Seeder
             'work_shift_id' => 1,
             'job_number' => 1113,
             'barcode' => '53070425',
-            'vacations_balance' => 30,
+            'leave_balance' => 30,
             'email_verified_at' => now(),
             'password' => 'password', // password
             'remember_token' => Str::random(10),
@@ -100,7 +100,7 @@ class EmployeeSeeder extends Seeder
             'work_shift_id' => 1,
             'job_number' => 1114,
             'barcode' => '53070426',
-            'vacations_balance' => 30,
+            'leave_balance' => 30,
             'email_verified_at' => now(),
             'password' => 'password', // password
             'remember_token' => Str::random(10),
@@ -126,7 +126,7 @@ class EmployeeSeeder extends Seeder
             'work_shift_id' => 1,
             'job_number' => 1116,
             'barcode' => '53070427',
-            'vacations_balance' => 30,
+            'leave_balance' => 30,
             'email_verified_at' => now(),
             'password' => 'password', // password
             'remember_token' => Str::random(10),

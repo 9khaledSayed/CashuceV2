@@ -486,6 +486,29 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="kt-section">
+                                                    <div class="kt-section__body">
+                                                        <h3 class="kt-section__title kt-section__title-lg">{{__('Leave Balance')}}:</h3>
+                                                        <div class="form-group">
+                                                            <label>{{__('Leave Balance')}}</label>
+                                                            <div class="kt-radio-list">
+                                                                @foreach($leaveBalances as $leaveBalance)
+                                                                    <label class="kt-radio kt-radio--tick kt-radio--brand">
+                                                                        <input
+                                                                                type="radio" name="leave_balance"
+                                                                                value="{{$leaveBalance->days_per_year}}"
+                                                                                @if((old('leave_balance') ?? $employee->leave_balance) == $leaveBalance->days_per_year) checked @endif>
+                                                                        {{$leaveBalance->days_per_year}}
+                                                                        <span></span>
+                                                                    </label>
+                                                                @endforeach
+                                                            </div>
+                                                            @error('leave_balance')
+                                                            <span class="form-text text-danger">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="kt-section__body">
                                                 <div class="kt-section">

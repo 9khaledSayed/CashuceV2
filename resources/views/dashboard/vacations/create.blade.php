@@ -100,7 +100,7 @@
                                                                     <div class="kt-portlet kt-portlet--unelevate kt-portlet--bordered">
                                                                         <div class="kt-portlet__body text-center">
                                                                         <span class="display-4" id="vacation_balance">
-                                                                            {{auth()->user()->vacations_balance}}
+                                                                            {{auth()->user()->leave_balance}}
                                                                         </span>
                                                                             {{__('Available Balance')}}
                                                                         </div>

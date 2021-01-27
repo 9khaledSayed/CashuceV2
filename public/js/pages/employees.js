@@ -94,6 +94,12 @@ var KTContactsAdd = function () {
                 role_id: {
                     required: true
                 },
+                leave_balance: {
+                    required: true
+                },
+                work_shift_id: {
+                    required: true
+                },
                 branch_id: {
                     required: true
                 },

@@ -53,11 +53,11 @@
                             <div class="kt-widget__content">
                                 <div class="kt-widget__section">
                                     <a href="#" class="kt-widget__username">
-                                        {{$user->name()}}
+                                        {{auth()->user()->name()}}
                                         <i class="flaticon2-correct kt-font-success"></i>
                                     </a>
                                     <span class="kt-widget__subtitle">
-                                        {{$user->role->name()}}
+                                        {{auth()->user()->role->name()}}
                                     </span>
                                 </div>
                             </div>
@@ -66,11 +66,11 @@
                             <div class="kt-widget__content">
                                 <div class="kt-widget__info">
                                     <span class="kt-widget__label">{{__('Email')}} : </span>
-                                    <a href="#" class="kt-widget__data">{{$user->email}}</a>
+                                    <a href="#" class="kt-widget__data">{{auth()->user()->email}}</a>
                                 </div>
                             </div>
                             <div class="kt-widget__items">
-                                <a href="{{route('dashboard.myProfile.account_info')}}" class="kt-widget__item kt-widget__item--active">
+                                <a href="{{route('dashboard.profile.company_profile')}}" class="kt-widget__item ">
                                     <span class="kt-widget__section">
                                         <span class="kt-widget__icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -82,11 +82,11 @@
                                             </svg>
                                         </span>
                                         <span class="kt-widget__desc">
-                                            {{__('Account Information')}}
+                                            {{__('Company Profile')}}
                                         </span>
                                         </span>
-                                    </a>
-                                    <a href="{{route('dashboard.myProfile.change_password')}}" class="kt-widget__item ">
+                                </a>
+                                <a href="{{route('dashboard.myProfile.change_password')}}" class="kt-widget__item ">
                                         <span class="kt-widget__section">
                                             <span class="kt-widget__icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -101,8 +101,8 @@
                                                 {{__('Change Password')}}
                                             </span>
                                         </span>
-                                    </a>
-                                    <a href="{{route('dashboard.documents.index')}}" class="kt-widget__item ">
+                                </a>
+                                <a href="{{route('dashboard.documents.index')}}" class="kt-widget__item kt-widget__item--active">
                                         <span class="kt-widget__section">
                                             <span class="kt-widget__icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -117,7 +117,7 @@
                                                 {{__('Documents')}}
                                             </span>
                                         </span>
-                                    </a>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -134,90 +134,45 @@
         <!--Begin:: App Content-->
         <div class="kt-grid__item kt-grid__item--fluid kt-app__content">
             <div class="row">
-                <div class="col-xl-12">
-                    <div class="kt-portlet">
-                        <div class="kt-portlet__head">
-                            <div class="kt-portlet__head-label">
-                                <h3 class="kt-portlet__head-title">{{__('Account Information')}}</h3>
+                <div class="kt-portlet">
+                @include('layouts.dashboard.parts.errorSection')
+                <!--begin::Form-->
+                    <form class="kt-form kt-form--label-right" method="POST" action="{{route('dashboard.documents.store')}}">
+                        <div class="kt-portlet__body">
+                            <div class="form-group row">
+                                <div class="col-lg-12">
+                                    <div class="dropzone dropzone-default" id="kt_dropzone_1">
+                                        <div class="dropzone-msg dz-message needsclick">
+                                            <h3 class="dropzone-msg-title">Drop files here or click to upload.</h3>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        @include('layouts.dashboard.parts.errorSection')
-                        <form class="kt-form kt-form--label-right" action="{{route('dashboard.myProfile.update_account_info')}}" method="post">
-                            @csrf
-                            <div class="kt-portlet__body">
-                                <div class="kt-section kt-section--first">
-                                    <div class="kt-section__body">
-                                        @if(session('success'))
-                                            @include('layouts.dashboard.parts.successSection')
-                                        @endif
-                                        <div class="form-group row">
-                                            <div class="col-lg-4">
-                                                <label>{{__('First Name Arabic')}} *</label>
-                                                <input name="fname_ar" class="form-control" type="text"  value="{{$user->fname_ar}}">
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <label>{{__('Middle Name Arabic')}}</label>
-                                                <input name="mname_ar" class="form-control" type="text"  value="{{$user->mname_ar}}">
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <label>{{__('Last Name Arabic')}} *</label>
-                                                <input name="lname_ar" class="form-control" type="text"  value="{{$user->lname_ar}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-lg-4">
-                                                <label>{{__('First Name English')}} *</label>
-                                                <input name="fname_en" class="form-control" type="text"  value="{{$user->fname_en}}">
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <label>{{__('Middle Name English')}}</label>
-                                                <input name="mname_en" class="form-control" type="text"  value="{{$user->mname_en}}">
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <label>{{__('Last Name English')}} *</label>
-                                                <input name="lname_en" class="form-control" type="text"  value="{{$user->lname_en}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
+                    </form>
+                    <!--end::Form-->
+                </div>
+                <div class="col-xl-12">
 
-                                            <div class="col-lg-9 col-xl-12">
-                                                <label >{{__('Email')}}</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
-                                                    <input type="text"
-                                                           class="form-control @error('name_in_english') is-invalid @enderror"
-                                                           name="email"
-                                                           value="{{old('email')??$user->email}}"
-                                                           placeholder="Email"
-                                                           aria-describedby="basic-addon1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-lg-9 col-xl-12">
-                                                <label>Language - اللغة</label>
-                                                <select class="form-control kt-selectpicker" name="lang">
-                                                    <option value="en" @if($user->lang == 'en') selected @endif>English</option>
-                                                    <option value="ar" @if($user->lang == 'ar') selected @endif>العربية - Arabic</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="kt-portlet kt-portlet--mobile">
+                        <div class="kt-portlet__head kt-portlet__head--lg">
+                            <div class="kt-portlet__head-label">
+                                <span class="kt-portlet__head-icon">
+                                    <i class="kt-font-brand flaticon2-user-1"></i>
+                                </span>
+                                <h3 class="kt-portlet__head-title">
+                                    {{__('Documents')}}
+                                </h3>
                             </div>
-                            <div class="kt-portlet__foot">
-                                <div class="kt-form__actions">
-                                    <div class="row">
-                                        <div class="col-lg-3 col-xl-3">
-                                        </div>
-                                        <div class="col-lg-9 col-xl-9">
-                                            <button type="submit" class="btn btn-success">{{__('confirm')}}</button>&nbsp;
-                                            <a href="{{route('dashboard.index')}}" class="btn btn-secondary">{{__('back')}}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
+
+                        <div class="kt-portlet__body kt-portlet__body--fit">
+
+                            <!--begin: Datatable -->
+                            <div class="kt-datatable" id="ajax_data"></div>
+
+                            <!--end: Datatable -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -231,4 +186,37 @@
 
 @push('scripts')
     <script src="{{asset('assets/js/pages/custom/user/profile.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/datatables/documents.js')}}" type="text/javascript"></script>
+    <script>
+        $(function () {
+            $('#kt_dropzone_1').dropzone({
+                url: "/dashboard/documents", // Set the url for your upload script location
+                paramName: "file", // The name that will be used to transfer the file
+                maxFiles: 1,
+                maxFilesize: 5, // MB
+                addRemoveLinks: true,
+                sending: function(file, xhr, formData) {
+                    formData.append("_token", "{{ csrf_token() }}");
+                },
+                accept: function(file, done) {
+                    if (file.name == "justinbieber.jpg") {
+                        done("Naha, you don't.");
+                    } else {
+                        done();
+                    }
+                },
+                success:function () {
+                    swal.fire({
+                        title: locator.__('Operation Done Successfully'),
+                        type: 'success',
+                        buttonsStyling: false,
+                        confirmButtonText: locator.__("OK"),
+                        confirmButtonClass: "btn btn-sm btn-bold btn-brand",
+                    });
+                    datatable.reload();
+                }
+
+            });
+        })
+    </script>
 @endpush

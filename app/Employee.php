@@ -68,6 +68,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'contract_period' => 'nullable',
         'salary' => ['required', 'numeric'],
         'phone' => ['required'],
+        'leave_balance' => 'required|numeric|min:0|max:365|exists:leave_balances,days_per_year',
         'password' => ['required', 'string', 'min:8', 'confirmed'],
 
     ];
@@ -105,7 +106,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
                  $model->company_id = Company::companyID();
                  $model->barcode = $barcode;
-                 $model->vacations_balance = 30;
+                 $model->leave_balance = 30;
 
              }
          });
@@ -131,6 +132,11 @@ class Employee extends Authenticatable implements MustVerifyEmail
     public function abilities()
     {
         return $this->role->abilities->flatten()->pluck('name')->unique();
+    }
+
+    public function documents()
+    {
+        return $this->morphMany(Document::class, 'documentable');
     }
 
 

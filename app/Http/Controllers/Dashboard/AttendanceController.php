@@ -177,6 +177,9 @@ class AttendanceController extends Controller
 
                     }elseif (!isset($todayAttendance->time_out)){
 
+                        dd($todayAttendance->time_in->diff($dateTime));
+//                        if($todayAttendance->time_in)
+
                         $todayAttendance->update([
                             'time_out' => $dateTime->format('H:i'),
                         ]);
