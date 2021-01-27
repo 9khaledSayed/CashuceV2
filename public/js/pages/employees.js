@@ -257,6 +257,9 @@ jQuery(document).ready(function() {
             $("input[name='contract_end_date']").attr("readonly", true).val(year + '-' + month + '-' + day);
             //$("input[name='contract_end_date']").datepicker('setDate', year + '-' + month + '-' + day);
         }
+        else if (contractPeriod !== ''){
+            $("input[name='contract_end_date']").attr("readonly", false).val('');
+        }
     }
 
     KTContactsAdd.init();
