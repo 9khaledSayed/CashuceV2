@@ -319,5 +319,7 @@
     "total_working_hours": "مدة العمل الفعلية",
     "Service Statue": "حالة الخدمة",
     "Active": "نشط",
-    "In Active": "غير نشط"
+    "In Active": "غير نشط",
+    "custom": "مخصص",
+    "All Ended Employees": "جميع الموظفين المنتهية خدماتهم"
 }

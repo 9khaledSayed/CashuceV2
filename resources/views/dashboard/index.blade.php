@@ -497,6 +497,9 @@
 @endsection
 
 @push('scripts')
+    <script>
+        var url = '/dashboard/ended_employees';
+    </script>
     <script src="{{asset('js/datatables/attendance_summary.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/datatables/expiring_documents.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/datatables/ended_employees.js')}}" type="text/javascript"></script>

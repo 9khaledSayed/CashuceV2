@@ -76,6 +76,7 @@ Route::group([
             Route::get('attendance_summery', 'DashboardController@attendanceSummary');
 
             Route::get('ended_employees', 'DashboardController@endedEmployees');
+            Route::get('employees/ended_employees', 'EmployeeController@endedEmployees');
             Route::resource('attendances', 'AttendanceController')->except('show');
 
             Route::resources([

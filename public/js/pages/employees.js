@@ -236,9 +236,11 @@ jQuery(document).ready(function() {
     })
 
     $("select[name='contract_period']").on('change', function () {
+        // if( $("select[name='contract_period']").val() !== '' ){
+        //     $("input[name='contract_end_date']").attr("readonly", true);
+        // }
         calcEndDate();
     })
-
 
     function calcEndDate() {
         var contractStartDate = $("input[name='contract_start_date']").val();
@@ -251,7 +253,9 @@ jQuery(document).ready(function() {
             let day = startDate.getDate() - 1;
             let year = startDate.getFullYear() + (contractPeriod/12);
 
-            $("input[name='contract_end_date']").datepicker('setDate', year + '-' + month + '-' + day);
+
+            $("input[name='contract_end_date']").attr("readonly", true).val(year + '-' + month + '-' + day);
+            //$("input[name='contract_end_date']").datepicker('setDate', year + '-' + month + '-' + day);
         }
     }
 

@@ -241,4 +241,37 @@ class EmployeeController extends Controller
         return $request->validate($rules);
     }
 
+    public function endedEmployees(Request $request)
+    {
+        //$this->authorize('ended_employees');
+
+        if ($request->ajax()){
+            $endedEmployees = Employee::withoutGlobalScope(new ServiceStatusScope())->where('service_status', 0)->get()->map(function($endedEmployee){
+                $supervisor = $endedEmployee->supervisor? $endedEmployee->supervisor->name(): '';
+                $department = $endedEmployee->department? $endedEmployee->department->name(): '';
+
+                return [
+                    'id' => $endedEmployee->id,
+                    'role' => $endedEmployee->role->name(),
+                    'supervisor' => $supervisor,
+                    'nationality' => $endedEmployee->nationality(),
+                    'name' => $endedEmployee->name(),
+                    'department' => $department,
+                    'job_number' => $endedEmployee->job_number,
+                    'email' => $endedEmployee->email,
+                ];
+            });
+
+            return response()->json($endedEmployees);
+        }else{
+
+            return view('dashboard.employees.ended_employees', [
+                'supervisors' =>  Company::supervisors(),
+                'nationalities' => Nationality::get(),
+                'roles' => Role::get(),
+                'departments' => Department::get(),
+            ]);
+        }
+    }
+
 }

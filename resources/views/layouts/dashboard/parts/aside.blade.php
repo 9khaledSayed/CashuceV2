@@ -64,6 +64,9 @@
                             @can('view_employees')
                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.employees.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('All Employees')}}</span></a></li>
                             @endcan
+
+                            <li class="kt-menu__item " aria-haspopup="true"><a href="dashboard/employees/ended_employees" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('All Ended Employees')}}</span></a></li>
+
                             @can('create_employees')
                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.employees.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('New Employee')}}</span></a></li>
                             @endcan
