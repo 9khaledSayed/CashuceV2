@@ -257,6 +257,7 @@ class EmployeeController extends Controller
                     'nationality' => $endedEmployee->nationality(),
                     'name' => $endedEmployee->name(),
                     'department' => $department,
+                    'service_status' => $endedEmployee->service_status,
                     'job_number' => $endedEmployee->job_number,
                     'email' => $endedEmployee->email,
                 ];

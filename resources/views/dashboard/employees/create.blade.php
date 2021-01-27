@@ -405,7 +405,7 @@
                                                             <div class="form-group row">
                                                                 <div class="col-lg-4">
                                                                     <label>{{__('Contract Period')}} *</label>
-                                                                    <select name="contract_period" class="form-control" title="Choose">
+                                                                    <select name="contract_period" class="form-control selectpicker" title="Choose">
                                                                         <option value="">{{__('custom')}}</option>
                                                                         <option value="12" selected>{{ __('1 year') }}</option>
                                                                         <option value="24">{{ __('2 years') }}</option>
