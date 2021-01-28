@@ -44,16 +44,16 @@ class LoginController extends Controller
         $this->middleware('guest:provider')->except('logout');
     }
 
-    public function loginCompanyForm($organization)
+    public function loginCompanyForm($organization = null)
     {
 
         return view('auth.login', ['url' => 'company', 'organization' => $organization]);
     }
-    public function loginEmployeeForm($organization)
+    public function loginEmployeeForm($organization = null)
     {
         return view('auth.login', ['url' => 'employee', 'organization' => $organization]);
     }
-    public function loginProviderForm($organization)
+    public function loginProviderForm($organization = null)
     {
         return view('auth.login', ['url' => 'provider', 'organization' => $organization]);
     }
