@@ -129,6 +129,10 @@ class Employee extends Authenticatable implements MustVerifyEmail
         return $this->{'fname_' . $currentLocale} . ' ' . $this->{'lname_' . $currentLocale};
     }
 
+    public function provider()
+    {
+        return $this->belongsTo(Provider::class);
+    }
 
     public function role()
     {
