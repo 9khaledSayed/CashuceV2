@@ -264,6 +264,7 @@ jQuery(document).ready(function() {
             //$("input[name='contract_end_date']").datepicker('setDate', year + '-' + month + '-' + day);
         }
         else if (contractPeriod !== ''){
+            console.log('hi');
             $("input[name='contract_end_date']").attr("readonly", false).val('');
         }
     }
