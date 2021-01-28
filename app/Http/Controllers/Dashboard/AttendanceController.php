@@ -314,6 +314,8 @@ class AttendanceController extends Controller
             if(isset($employee)){
 
                 $work_shift = $employee->workShift;
+                $department = $employee->department->name();
+                $company = $employee->company->name();
                 $time_out = $work_shift->type == 'divided' ? $attendance->time_out2 : $attendance->time_out;
                 $shift_start_time = $work_shift->type == 'once' ? $work_shift->check_in_time :  $work_shift->shift_start_time;
                 $shift_work_hours = $work_shift->work_hours;
@@ -340,6 +342,8 @@ class AttendanceController extends Controller
                 return [
                     'Job Number' => $employee->job_number,
                     'Employee Name' => $employee->{'fname_en'} . ' ' . $employee->{'lname_en'},
+                    'Department' => $department,
+                    'Company' => $company,
                     'Date' => $date,
                     'Shift Start Time' => isset($shift_start_time) ? $shift_start_time->format('h:iA') : '',
                     'Time In' => $date . $this->modifyMinutes($attendance->time_in),
