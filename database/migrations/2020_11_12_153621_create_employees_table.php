@@ -25,7 +25,7 @@ class CreateEmployeesTable extends Migration
             $table->unsignedBigInteger('nationality_id');
             $table->unsignedBigInteger('job_title_id')->nullable();
             $table->unsignedBigInteger('role_id');
-            $table->unique(['company_id', 'job_number']);
+            $table->unique(['company_id', 'job_number']); // 1 - 1 - 100   // 1 - 1 -100
             $table->string('fname_ar');
             $table->string('sname_ar')->nullable();
             $table->string('tname_ar')->nullable();

@@ -24,6 +24,32 @@ Route::group([
 ], function() {
 
     Auth::routes(['verify' => false]);
+
+
+
+    Route::prefix('employee')->group(function() {
+        //Employee Password Reset routes
+        Route::post('/password/email','Auth\EmployeeForgotPasswordController@sendResetLinkEmail')->name('employee.password.email');
+        Route::post('/password/reset', 'Auth\EmployeeResetPasswordController@reset')->name('employee.password.update');
+        Route::get('/password/reset', 'Auth\EmployeeForgotPasswordController@showLinkRequestForm')->name('employee.password.request');
+        Route::get('/password/reset/{token}', 'Auth\EmployeeResetPasswordController@showResetForm')->name('employee.password.reset');
+    });
+    Route::prefix('company')->group(function() {
+        //Employee Password Reset routes
+        Route::post('/password/email','Auth\CompanyForgotPasswordController@sendResetLinkEmail')->name('company.password.email');
+        Route::post('/password/reset', 'Auth\CompanyResetPasswordController@reset')->name('company.password.update');
+        Route::get('/password/reset', 'Auth\CompanyForgotPasswordController@showLinkRequestForm')->name('company.password.request');
+        Route::get('/password/reset/{token}', 'Auth\CompanyResetPasswordController@showResetForm')->name('company.password.reset');
+    });
+    Route::prefix('provider')->group(function() {
+        //Employee Password Reset routes
+        Route::post('/password/email','Auth\ProviderForgotPasswordController@sendResetLinkEmail')->name('provider.password.email');
+        Route::post('/password/reset', 'Auth\ProviderResetPasswordController@reset')->name('provider.password.update');
+        Route::get('/password/reset', 'Auth\ProviderForgotPasswordController@showLinkRequestForm')->name('provider.password.request');
+        Route::get('/password/reset/{token}', 'Auth\ProviderResetPasswordController@showResetForm')->name('provider.password.reset');
+    });
+
+
     Route::redirect('/', '/login/company');
     Route::redirect('/login', '/login/company');
     Route::get('login/company', 'Auth\LoginController@loginCompanyForm')->name('login.company');

@@ -86,7 +86,7 @@ class EmployeeController extends Controller
         $roles = Role::get();
         $supervisors = Employee::whereNull('supervisor_id')->get();
         $workShifts = WorkShift::get();
-        $employee = Employee::get()->last();
+        $employee = Employee::withoutGlobalScope(ServiceStatusScope::class)->get()->last();
         $leaveBalances = LeaveBalance::get();
         $jobNumber = 0;
         if(isset($employee)){

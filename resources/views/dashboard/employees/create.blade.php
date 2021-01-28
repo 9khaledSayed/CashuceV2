@@ -307,7 +307,7 @@
                                                         <div class="form-group row">
                                                             <div class="col-lg-6">
                                                                 <label>{{__('Employee Number')}} *</label>
-                                                                <input name="job_number" class="form-control"  value="" type="text">
+                                                                <input name="job_number" class="form-control"  value="{{$jobNumber}}" type="text">
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label>{{__('Joined Date')}} *</label>
@@ -379,7 +379,7 @@
                                                             </div>
                                                             <div class="col-lg-4">
                                                                 <label>{{__('Section')}}</label>
-                                                                <select name="section_id" id="section" class="form-control" title="Choose">
+                                                                <select name="section_id" id="section" class="form-control " title="Choose">
 
                                                                 </select>
                                                             </div>
@@ -569,7 +569,7 @@
 
                                 sectionSelect.empty();
                                 $.each(res,function(index,section){
-                                    sectionSelect.append('<option value="'+section.id+'">'+section.name_ar+'</option>');
+                                    sectionSelect.append('<option value="'+section.id+'">'+section.name+'</option>');
                                 });
 
                             }else{

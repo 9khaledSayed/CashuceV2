@@ -65,7 +65,7 @@
             </div>
             <!--begin::Action-->
             <div class="kt-login__actions">
-                <a href="{{ route('password.request') }}" class="kt-link kt-login__link-forgot">
+                <a href="{{ route((isset($url)? $url . '.' : '') . 'password.request') }}" class="kt-link kt-login__link-forgot">
                     {{ __('Forgot Your Password?') }}
                 </a>
                 <button id="" class="btn btn-primary btn-elevate kt-login__btn-primary">{{__('Sign In')}}</button>

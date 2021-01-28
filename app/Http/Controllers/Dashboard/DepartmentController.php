@@ -74,7 +74,12 @@ class DepartmentController extends Controller
 
     public function getSectionList(Department $department, Request $request)
     {
-        $sections = $department->sections;
+        $sections = $department->sections->map(function($section){
+            return [
+                "id" => $section->id,
+                "name" => $section->name(),
+            ];
+        });
         return response()->json($sections);
     }
 }

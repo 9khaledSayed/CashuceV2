@@ -406,7 +406,7 @@
                                                             </div>
                                                             <div class="col-lg-4">
                                                                 <label>{{__('Section')}}</label>
-                                                                <select name="section_id" id="section" class="form-control" title="Choose">
+                                                                <select name="section_id" id="section" class="form-control " title="Choose">
 
                                                                 </select>
                                                             </div>
@@ -604,7 +604,7 @@
                             if(res){
                                 sections.empty();
                                 $.each(res,function(index,section){
-                                    sections.append('<option value="'+section.id+'">'+section.name_ar+'</option>');
+                                    sections.append('<option value="'+section.id+'">'+section.name+'</option>');
                                 });
                                 sections.selectpicker('val', {{ $employee->section_id }}) ;
                                 sections.selectpicker('refresh');

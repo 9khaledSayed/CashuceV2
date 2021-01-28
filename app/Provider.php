@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\ProviderResetPasswordNotification;
 use App\Scopes\ParentScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
@@ -26,6 +27,11 @@ class Provider extends Authenticatable implements MustVerifyEmail
         'email' => 'required|string|email|max:255|unique:providers',
         'password' => ['required', 'string', 'min:8', 'confirmed'],
     ];
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ProviderResetPasswordNotification($token));
+    }
 
     public static function booted()
     {
