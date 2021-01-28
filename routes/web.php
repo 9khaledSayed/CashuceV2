@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::domain('{organization}.cashuce.com')->group(function ($organization) {
-    dd($organization);
+
     Route::group([
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => [
