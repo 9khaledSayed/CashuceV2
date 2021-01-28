@@ -434,6 +434,7 @@
                                                             <div class="col-lg-4">
                                                                 <label>{{__('Contract Period')}} *</label>
                                                                 <select name="contract_period" class="form-control selectpicker" title="Choose">
+                                                                    <option value="">{{__('custom')}}</option>
                                                                     <option value="12" @if($employee->contract_period == 12) selected @endif >{{ __('1 year') }}</option>
                                                                     <option value="24" @if($employee->contract_period == 24) selected @endif>{{ __('2 years') }}</option>
                                                                 </select>
@@ -452,7 +453,7 @@
                                                             <div class="col-lg-4">
                                                                 <label>{{__('Contract End Date')}} *</label>
                                                                 <div class="input-group date">
-                                                                    <input name="contract_end_date" type="text" class="form-control datepicker" readonly value="{{$employee->contract_end_date}}"/>
+                                                                    <input name="contract_end_date" type="text" class="form-control contractEnd" disabled readonly value="{{$employee->contract_end_date}}"/>
                                                                     <div class="input-group-append">
                                                                     <span class="input-group-text">
                                                                         <i class="la la-calendar"></i>
@@ -617,6 +618,14 @@
                 }
             }
 
+            $(".contractEnd").datepicker({
+                rtl: KTUtil.isRTL(),
+                todayBtn: "linked",
+                format:'yyyy-mm-dd',
+                orientation: "bottom right",
+                clearBtn: true,
+                todayHighlight: false,
+            });
 
         });
 

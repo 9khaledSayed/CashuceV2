@@ -192,7 +192,7 @@
                 //
                 var month = $('#kt_form_date').val();
                 var fullDate = $('.full-date').val();
-                window.location.replace("/dashboard/attendances/excel?month=" + month + "&full_date=" + fullDate);
+                window.location.replace("/dashboard/attendances/excel?full_date=" + fullDate);
             })
 
         })
