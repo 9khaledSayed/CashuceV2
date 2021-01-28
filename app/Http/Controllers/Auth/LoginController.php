@@ -46,16 +46,16 @@ class LoginController extends Controller
 
     public function loginCompanyForm($organization)
     {
-        dd($organization);
-        return view('auth.login', ['url' => 'company']);
+
+        return view('auth.login', ['url' => 'company', 'organization' => $organization]);
     }
-    public function loginEmployeeForm()
+    public function loginEmployeeForm($organization)
     {
-        return view('auth.login', ['url' => 'employee']);
+        return view('auth.login', ['url' => 'employee', 'organization' => $organization]);
     }
-    public function loginProviderForm()
+    public function loginProviderForm($organization)
     {
-        return view('auth.login', ['url' => 'provider']);
+        return view('auth.login', ['url' => 'provider', 'organization' => $organization]);
     }
 
     public function loginCompany(Request $request)
