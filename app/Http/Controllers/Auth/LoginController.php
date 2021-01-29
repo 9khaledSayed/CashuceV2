@@ -46,6 +46,7 @@ class LoginController extends Controller
 
     public function loginCompanyForm($company = null)
     {
+        dd($company);
         return view('auth.login', ['url' => 'company', 'company' => $company]);
     }
 
