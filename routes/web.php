@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/login/company');
-Route::domain('{organization?}.cashuce.com')->group(function ($organization = 'Admin') {
+
+Route::domain('{organization?}.cashuce.com')->group(function () {
 
     Route::group([
         'prefix' => LaravelLocalization::setLocale(),
