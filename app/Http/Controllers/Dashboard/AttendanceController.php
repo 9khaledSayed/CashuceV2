@@ -50,6 +50,8 @@ class AttendanceController extends Controller
                         $department = $employee->department? $employee->department->name(): '';
                         return [
                             'employee' => $attendance->employee,
+                            'id' => $attendance->id,
+                            'employee_id' => $attendance->employee_id,
                             'supervisor' => $supervisor,
                             'nationality' => $employee->nationality(),
                             'department' => $department,
@@ -116,6 +118,26 @@ class AttendanceController extends Controller
         $response = $this->storeAttendance($dateTime, $employee);
 
         return response()->json($response);
+    }
+
+    public function edit(Attendance $attendance)
+    {
+        //dd($attendance);
+        return view('dashboard.attendances.edit', compact('attendance'));
+    }
+
+    public function update(Attendance $attendance, Request $request)
+    {
+        //$this->validateTimeInAndOut();
+        $timeIn = Carbon::createFromFormat('h:i A', $request->time_in);
+        $timeOut = Carbon::createFromFormat('h:i A', $request->time_out);
+        $attendance->update([
+            'time_in' => $timeIn,
+            'time_out' => $timeOut,
+        ]);
+        //$attendance->update($timeIn, $timeOut);
+
+        return redirect(route('dashboard.attendances.index'));
     }
 
     public function getOperation(Employee $employee)
@@ -399,5 +421,13 @@ class AttendanceController extends Controller
         }
 
         return $time->format(' h:i:s');
+    }
+
+    public function validateTimeInAndOut()
+    {
+        return request()->validate([
+            'time_in' => 'required|date_format:h:i A',
+            'time_out' => 'required|date_format:h:i A',
+        ]);
     }
 }

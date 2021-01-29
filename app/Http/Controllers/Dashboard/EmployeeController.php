@@ -39,7 +39,7 @@ class EmployeeController extends Controller
     {
         $this->authorize('view_employees');
         if ($request->ajax()){
-            $employees = Employee::withoutGlobalScope(new ServiceStatusScope())->get()->map(function($employee){
+            $employees = Employee::withoutGlobalScope(new ServiceStatusScope())->orderBy('job_number')->get()->map(function($employee){
                 $supervisor = $employee->supervisor? $employee->supervisor->name(): '';
                 $department = $employee->department? $employee->department->name(): '';
 

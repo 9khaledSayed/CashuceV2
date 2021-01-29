@@ -124,7 +124,29 @@ var KTUserListDatatable = function() {
                     width: 80,
                     autoHide: false,
                     overflow: 'visible',
-                }]
+                },{
+                    field: 'Actions',
+                    title: locator.__('Actions'),
+                    sortable: false,
+                    width: 110,
+                    overflow: 'visible',
+                    autoHide: false,
+                    textAlign: 'center',
+                    template: function(row) {
+                        return '\
+                          <div class="dropdown">\
+                              <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown">\
+                                  <i class="la la-ellipsis-h"></i>\
+                              </a>\
+                              <div class="dropdown-menu dropdown-menu-right">\
+                                  <a class="dropdown-item" href="/dashboard/attendances/' + row.id + '/edit"><i class="la la-pencil-square-o"></i>' + locator.__('Edit') + '</a>\
+                                 \
+                                  \
+                              </div>\
+                          </div>\
+                            ';
+                    },
+                }],
         });
     }
 
