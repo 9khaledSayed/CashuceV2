@@ -8,7 +8,7 @@
 </head>
 
 @php
-    $company = 'dora';
+    $company = null;
 @endphp
 
 <!-- end::Head -->
