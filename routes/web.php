@@ -66,7 +66,7 @@ use Illuminate\Support\Facades\Route;
         Route::post('login/employee', 'Auth\LoginController@loginEmployee')->name('login.employee');
         Route::post('login/provider', 'Auth\LoginController@loginProvider')->name('login.provider');
 
-        Route::domain('{organization}.cashuce.com')->group(function () {
+        Route::domain('khaled.cashuce.com')->group(function () {
             Route::namespace('Dashboard')
                 ->prefix('dashboard')
                 ->name('dashboard.')
