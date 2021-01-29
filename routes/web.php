@@ -142,7 +142,7 @@ Route::domain('cashuce.com')->group(function () {
 });
 
 
-Route::domain('{organization?}.cashuce.com')->group(function () {
+Route::domain('{organization}.cashuce.com')->group(function () {
 
     Route::group([
         'prefix' => LaravelLocalization::setLocale(),
