@@ -5,7 +5,7 @@
     <div class="kt-login__head d-flex justify-content-between">
         <div>
             <span class="kt-login__signup-label ">{{__('Don\'t have an account yet?')}}</span>&nbsp;&nbsp;
-            <a href="{{ route("register") }}" class="kt-link kt-login__signup-link">{{__('Sign Up!')}}</a>
+            <a href="{{ route("register", $company) }}" class="kt-link kt-login__signup-link">{{__('Sign Up!')}}</a>
         </div>
 {{--     <div>--}}
 {{--    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)--}}
@@ -65,7 +65,7 @@
             </div>
             <!--begin::Action-->
             <div class="kt-login__actions">
-                <a href="{{ route((isset($url)? $url . '.' : '') . 'password.request') }}" class="kt-link kt-login__link-forgot">
+                <a href="{{ route((isset($url)? $url . '.' : '') . 'password.request', $company) }}" class="kt-link kt-login__link-forgot">
                     {{ __('Forgot Your Password?') }}
                 </a>
                 <button id="" class="btn btn-primary btn-elevate kt-login__btn-primary">{{__('Sign In')}}</button>
