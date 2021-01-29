@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\EmployeeResetPasswordNotification;
 use App\Scopes\ParentScope;
 use App\Scopes\ProviderScope;
 use App\Scopes\ServiceStatusScope;
@@ -59,7 +60,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'passport_issue_date' => ['nullable'],
         'passport_expire_date' => ['nullable'],
         'issue_place' => ['nullable'],
-        'job_number' =>['required'],
+        'job_number' =>['required|numeric'],
         'joined_date' => ['required'],
         'work_shift_id' => ['required', 'exists:work_shifts,id'],
         'contract_type' => ['required'],
@@ -80,6 +81,11 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'created_at'  => 'date:D M d Y',
     ];
 
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new EmployeeResetPasswordNotification($token));
+    }
 
     public function getDescriptionForEvent(string $eventName): string
     {
@@ -123,6 +129,10 @@ class Employee extends Authenticatable implements MustVerifyEmail
         return $this->{'fname_' . $currentLocale} . ' ' . $this->{'lname_' . $currentLocale};
     }
 
+    public function provider()
+    {
+        return $this->belongsTo(Provider::class);
+    }
 
     public function role()
     {

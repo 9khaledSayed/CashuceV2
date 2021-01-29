@@ -3,6 +3,7 @@
 namespace App;
 
 
+use App\Notifications\CompanyResetPasswordNotification;
 use App\Scopes\ParentScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -47,6 +48,12 @@ class Company extends Authenticatable implements MustVerifyEmail
     ];
 
     protected static $logUnguarded = true;
+
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CompanyResetPasswordNotification($token));
+    }
 
     public function getDescriptionForEvent(string $eventName): string
     {

@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'employees',
+        'passwords' => 'users',
     ],
 
     /*
@@ -55,7 +55,7 @@ return [
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'employees',
+            'provider' => 'users',
             'hash' => false,
         ],
     ],

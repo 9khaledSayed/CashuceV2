@@ -124,7 +124,7 @@ trait ResetsPasswords
      */
     protected function setUserPassword($user, $password)
     {
-        $user->password = Hash::make($password);
+        $user->password = $password;
     }
 
     /**
