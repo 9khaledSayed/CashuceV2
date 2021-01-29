@@ -144,11 +144,6 @@ Route::group([
 Route::get('/dashboard/attendances/excel', 'Dashboard\AttendanceController@extractExcel');
 
 
-//Route::domain('cashuce.com')->group(function () {
-//    include 'allRoutes.php';
-//});
-
-
 
 
 
