@@ -27,7 +27,7 @@
     <!--begin::Signin-->
     <div class="kt-login__form">
         <div class="kt-login__title">
-            <h3>{{ __('Login') . ' ' . $organization}} {{isset($url)? __(ucwords($url)) : ''}}</h3>
+            <h3>{{ __('Login') . ' ' . $company}} {{isset($url)? __(ucwords($url)) : ''}}</h3>
         </div>
         @include('layouts.dashboard.parts.errorSection')
         <!--begin::Form-->
