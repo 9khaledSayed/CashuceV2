@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::domain('{organization?}.cashuce.com')->group(function () {
+Route::domain('{organization}.cashuce.com')->group(function () {
 
     Route::group([
         'prefix' => LaravelLocalization::setLocale(),
