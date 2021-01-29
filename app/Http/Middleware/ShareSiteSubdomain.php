@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\URL;
 
 class ShareSiteSubdomain
 {
@@ -15,7 +16,9 @@ class ShareSiteSubdomain
      */
     public function handle($request, Closure $next)
     {
+        $company = $request->route('company') ?? '';
         view()->share('company', $request->route('company'));
+        URL::defaults(['company' => $request->route('company')]);
 
         return $next($request);
     }

@@ -5,7 +5,7 @@
     <div class="kt-login__head d-flex justify-content-between">
         <div>
             <span class="kt-login__signup-label ">{{__('Don\'t have an account yet?')}}</span>&nbsp;&nbsp;
-            <a href="{{ route("register", $company) }}" class="kt-link kt-login__signup-link">{{__('Sign Up!')}}</a>
+            <a href="{{ route("register") }}" class="kt-link kt-login__signup-link">{{__('Sign Up!')}}</a>
         </div>
 {{--     <div>--}}
 {{--    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)--}}
@@ -32,9 +32,9 @@
         @include('layouts.dashboard.parts.errorSection')
         <!--begin::Form-->
         @isset($url)
-            <form method="POST" action="{{ route("login.$url", $company) }}" aria-label="{{ __('Login') }}">
+            <form method="POST" action="{{ route("login.$url") }}" aria-label="{{ __('Login') }}">
         @else
-            <form method="POST" action="{{ route('login', $company) }}" aria-label="{{ __('Login') }}">
+            <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
         @endisset
 
         @csrf
@@ -65,7 +65,7 @@
             </div>
             <!--begin::Action-->
             <div class="kt-login__actions">
-                <a href="{{ route((isset($url)? $url . '.' : '') . 'password.request', $company) }}" class="kt-link kt-login__link-forgot">
+                <a href="{{ route((isset($url)? $url . '.' : '') . 'password.request') }}" class="kt-link kt-login__link-forgot">
                     {{ __('Forgot Your Password?') }}
                 </a>
                 <button id="" class="btn btn-primary btn-elevate kt-login__btn-primary">{{__('Sign In')}}</button>
@@ -84,13 +84,13 @@
 
                     <!--begin::Options-->
                     <div class="kt-login__options">
-                        <a href="{{route('login.company', $company)}}" class="btn btn-primary kt-btn">
+                        <a href="{{route('login.company')}}" class="btn btn-primary kt-btn">
                             {{__('Log In As ') . __('Company')}}
                         </a>
-                        <a href="{{route('login.provider', $company)}}" class="btn btn-primary kt-btn">
+                        <a href="{{route('login.provider')}}" class="btn btn-primary kt-btn">
                             {{__('Log In As ') . __('Provider')}}
                         </a>
-                        <a href="{{route('login.employee', $company)}}" class="btn btn-primary kt-btn">
+                        <a href="{{route('login.employee')}}" class="btn btn-primary kt-btn">
                             {{__('Log In As ') . __('Employee')}}
                         </a>
                     </div>

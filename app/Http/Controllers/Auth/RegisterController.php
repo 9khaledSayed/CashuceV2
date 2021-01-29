@@ -45,7 +45,7 @@ class RegisterController extends Controller
     }
 
 
-    public function register(Request $request, $company = null)
+    public function register(Request $request)
     {
         $this->validator($request->all())->validate();
 

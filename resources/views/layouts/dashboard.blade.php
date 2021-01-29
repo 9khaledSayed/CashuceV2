@@ -18,7 +18,7 @@
 <!-- begin:: Header Mobile -->
 <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
     <div class="kt-header-mobile__logo">
-        <a href="{{route('dashboard.index', '')}}">
+        <a href="{{route('dashboard.index')}}">
             <img alt="Logo" src="{{asset('assets/media/logos/logo-6-sm.png')}}" />
         </a>
     </div>
@@ -55,7 +55,7 @@
                     <div class="kt-footer__menu">
                         <a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">About</a>
                         <a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">Team</a>
-                        <a href="{{route('dashboard.feedbacks.create', '')}}" target="_blank" class="kt-footer__menu-link kt-link">Contact</a>
+                        <a href="{{route('dashboard.feedbacks.create')}}" target="_blank" class="kt-footer__menu-link kt-link">Contact</a>
                     </div>
                 </div>
             </div>
