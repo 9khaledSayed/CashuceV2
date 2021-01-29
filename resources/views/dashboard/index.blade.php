@@ -93,7 +93,7 @@
                         <div class="kt-widget24__details">
                             <div class="kt-widget24__info">
 
-                                <a href="{{                                                                                                               ('dashboard.employees.index', $company)}}">
+                                <a href="{{route('dashboard.employees.index', $company)}}">
                                     <h4 class="kt-widget24__title">
                                         {{__('Married')}}
                                     </h4>
