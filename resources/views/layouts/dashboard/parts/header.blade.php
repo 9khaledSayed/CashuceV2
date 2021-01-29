@@ -28,12 +28,12 @@
                     <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
                         <ul class="kt-menu__subnav">
                            @if(auth()->guard('company')->check())
-                            <li class="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true"><a href="{{route('dashboard.profile.company_profile')}}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-user"></i><span class="kt-menu__link-text">{{__('Company Profile')}}</span></a></li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true"><a href="{{route('dashboard.profile.company_profile','')}}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-user"></i><span class="kt-menu__link-text">{{__('Company Profile')}}</span></a></li>
                            @else
-                            <li class="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true"><a href="{{route('dashboard.myProfile.account_info')}}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-user"></i><span class="kt-menu__link-text">{{__('My Profile')}}</span></a></li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true"><a href="{{route('dashboard.myProfile.account_info', '')}}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-user"></i><span class="kt-menu__link-text">{{__('My Profile')}}</span></a></li>
                            @endif
-                            <li class="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true"><a onclick="document.getElementById('logout-form').submit();" href="javascript:" class="kt-menu__link "><i class="kt-menu__link-icon fas fa-sign-out-alt"></i><span class="kt-menu__link-text">{{__('Log Out')}}</span></a></li>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            <li class="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true"><a onclick="document.getElementById('logout-header').submit();" href="javascript:" class="kt-menu__link "><i class="kt-menu__link-icon fas fa-sign-out-alt"></i><span class="kt-menu__link-text">{{__('Log Out')}}</span></a></li>
+                            <form id="logout-header" action="{{ route('logout', '') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
                         </ul>
@@ -63,7 +63,7 @@
                     <!--begin: Head -->
                     <div class="kt-head kt-head--skin-dark kt-head--fit-x kt-head--fit-b" style="background-image: url({{asset('assets/media/misc/bg-1.jpg')}})">
                         <h3 class="kt-head__title">
-                            <a href="{{route('dashboard.notifications.index')}}" class="btn btn-success btn-sm btn-bold btn-font-md">
+                            <a href="{{route('dashboard.notifications.index', '')}}" class="btn btn-success btn-sm btn-bold btn-font-md">
                                 <span>{{__('See All Notifications')}} <i class="flaticon2-bell "></i></span>
                             </a>
                         </h3>
@@ -77,7 +77,7 @@
                         <div class="tab-pane active show" id="topbar_notifications_notifications" role="tabpanel">
                             <div class="kt-notification kt-margin-t-10 kt-margin-b-10 kt-scroll" data-scroll="true" data-height="300" data-mobile-height="200">
                                 @forelse(auth()->user()->unReadNotifications as $notification)
-                                    <a href="{{route('dashboard.notifications.mark_as_read', $notification->id)}}" class="kt-notification__item">
+                                    <a href="{{route('dashboard.notifications.mark_as_read', $notification->id, '')}}" class="kt-notification__item">
                                         <div class="kt-notification__item-icon">
                                             <i class="flaticon2-user-outline-symbol kt-font-success"></i>
                                         </div>
