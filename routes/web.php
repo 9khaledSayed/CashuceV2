@@ -21,9 +21,9 @@ Route::domain('{company?}.cashuce.com')->group(function () {
     include 'allRoutes.php';
 });
 
-Route::domain('cashuce.com')->group(function () {
-    include 'allRoutes.php';
-});
+//Route::domain('cashuce.com')->group(function () {
+//    include 'allRoutes.php';
+//});
 
 
 
