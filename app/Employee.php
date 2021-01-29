@@ -60,7 +60,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'passport_issue_date' => ['nullable'],
         'passport_expire_date' => ['nullable'],
         'issue_place' => ['nullable'],
-        'job_number' =>['required|numeric'],
+        'job_number' =>['required','numeric'],
         'joined_date' => ['required'],
         'work_shift_id' => ['required', 'exists:work_shifts,id'],
         'contract_type' => ['required'],
