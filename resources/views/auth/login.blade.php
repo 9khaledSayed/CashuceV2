@@ -34,7 +34,7 @@
         @isset($url)
             <form method="POST" action="{{ route("login.$url", $company) }}" aria-label="{{ __('Login') }}">
         @else
-            <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+            <form method="POST" action="{{ route('login', $company) }}" aria-label="{{ __('Login') }}">
         @endisset
 
         @csrf
