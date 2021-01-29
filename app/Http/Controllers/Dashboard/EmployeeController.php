@@ -35,7 +35,7 @@ class EmployeeController extends Controller
         $this->middleware('auth:employee,company,provider');
     }
 
-    public function index(Request $request, $company = null)
+    public function index(Request $request)
     {
         $this->authorize('view_employees');
         if ($request->ajax()){

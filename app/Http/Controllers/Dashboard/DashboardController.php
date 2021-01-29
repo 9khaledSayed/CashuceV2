@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $this->middleware('auth:employee,company,provider');
     }
 
-    public function index(Request $request, $company = null)
+    public function index(Request $request)
     {
 
         $employeesInTrail = $this->expiringDocs($request);
@@ -36,7 +36,6 @@ class DashboardController extends Controller
             'departments',
             'employeesInTrail',
             'attendanceSummary',
-            'company'
         ]));
     }
 
