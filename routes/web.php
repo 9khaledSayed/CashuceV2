@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::domain('{organization}.cashuce.com')->group(function ($organization = 'Admin') {
+
+Route::redirect('/', '/login/company');
+Route::domain('{organization?}.cashuce.com')->group(function ($organization = 'Admin') {
 
     Route::group([
         'prefix' => LaravelLocalization::setLocale(),
