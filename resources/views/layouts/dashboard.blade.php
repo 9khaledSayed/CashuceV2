@@ -7,9 +7,6 @@
    @include('layouts.dashboard.parts.head')
 </head>
 
-@php
-    $company = '';
-@endphp
 
 <!-- end::Head -->
 
@@ -21,7 +18,7 @@
 <!-- begin:: Header Mobile -->
 <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
     <div class="kt-header-mobile__logo">
-        <a href="{{route('dashboard.index', $company)}}">
+        <a href="{{route('dashboard.index', '')}}">
             <img alt="Logo" src="{{asset('assets/media/logos/logo-6-sm.png')}}" />
         </a>
     </div>
