@@ -61,7 +61,7 @@ class LoginController extends Controller
 
     public function loginCompany(Request $request, $company = null)
     {
-        dd($request->getBaseUrl());
+//        dd($request->getBaseUrl());
         $this->validate($request, [
             'email'   => 'required|email',
             'password' => 'required|min:6'
