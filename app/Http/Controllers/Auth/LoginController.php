@@ -44,22 +44,22 @@ class LoginController extends Controller
         $this->middleware('guest:provider')->except('logout');
     }
 
-    public function loginCompanyForm($organization = null)
+    public function loginCompanyForm($company = null)
     {
-        return view('auth.login', ['url' => 'company', 'organization' => $organization]);
+        return view('auth.login', ['url' => 'company', 'company' => $company]);
     }
 
-    public function loginEmployeeForm($organization = null)
+    public function loginEmployeeForm($company = null)
     {
-        return view('auth.login', ['url' => 'employee', 'organization' => $organization]);
+        return view('auth.login', ['url' => 'employee', 'company' => $company]);
     }
 
-    public function loginProviderForm($organization = null)
+    public function loginProviderForm($company = null)
     {
-        return view('auth.login', ['url' => 'provider', 'organization' => $organization]);
+        return view('auth.login', ['url' => 'provider', 'company' => $company]);
     }
 
-    public function loginCompany(Request $request)
+    public function loginCompany(Request $request, $company = null)
     {
         $this->validate($request, [
             'email'   => 'required|email',
@@ -73,7 +73,7 @@ class LoginController extends Controller
         return back()->withInput($request->only('email', 'remember'));
 
     }
-    public function loginEmployee(Request $request)
+    public function loginEmployee(Request $request, $company = null)
     {
         $this->validate($request, [
             'email'   => 'required|email',
@@ -86,7 +86,7 @@ class LoginController extends Controller
         }
         return back()->withInput($request->only('email', 'remember'));
     }
-    public function loginProvider(Request $request)
+    public function loginProvider(Request $request, $company = null)
     {
         $this->validate($request, [
             'email'   => 'required|email',

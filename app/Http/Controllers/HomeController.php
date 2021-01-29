@@ -16,12 +16,7 @@ class HomeController extends Controller
         $this->middleware('auth:employee,company,provider');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+    public function index($account = null)
     {
         return view('home');
     }
