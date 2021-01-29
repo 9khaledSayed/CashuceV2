@@ -55,7 +55,7 @@
                     <div class="kt-footer__menu">
                         <a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">About</a>
                         <a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">Team</a>
-                        <a href="{{route('dashboard.feedbacks.create')}}" target="_blank" class="kt-footer__menu-link kt-link">Contact</a>
+                        <a href="{{route('dashboard.feedbacks.create', '')}}" target="_blank" class="kt-footer__menu-link kt-link">Contact</a>
                     </div>
                 </div>
             </div>
