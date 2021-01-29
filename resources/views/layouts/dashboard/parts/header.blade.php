@@ -112,7 +112,7 @@
     @can('view_settings')
         <!--begin: Quick actions -->
         <div class="kt-header__topbar-item dropdown">
-            <a href="{{route('dashboard.settings.payrolls')}}"  class="kt-header__topbar-wrapper"  data-offset="10px,0px">
+            <a href="{{route('dashboard.settings.payrolls', '')}}"  class="kt-header__topbar-wrapper"  data-offset="10px,0px">
                 <span class="kt-header__topbar-icon kt-header__topbar-icon--warning"><i class="flaticon2-gear"></i></span>
             </a>
         </div>
