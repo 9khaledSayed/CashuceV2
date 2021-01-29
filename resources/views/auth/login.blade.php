@@ -84,13 +84,13 @@
 
                     <!--begin::Options-->
                     <div class="kt-login__options">
-                        <a href="{{route('login.company')}}" class="btn btn-primary kt-btn">
+                        <a href="{{route('login.company', $company)}}" class="btn btn-primary kt-btn">
                             {{__('Log In As ') . __('Company')}}
                         </a>
-                        <a href="{{route('login.provider')}}" class="btn btn-primary kt-btn">
+                        <a href="{{route('login.provider', $company)}}" class="btn btn-primary kt-btn">
                             {{__('Log In As ') . __('Provider')}}
                         </a>
-                        <a href="{{route('login.employee')}}" class="btn btn-primary kt-btn">
+                        <a href="{{route('login.employee', $company)}}" class="btn btn-primary kt-btn">
                             {{__('Log In As ') . __('Employee')}}
                         </a>
                     </div>
