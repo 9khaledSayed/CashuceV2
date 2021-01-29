@@ -32,7 +32,7 @@
                         <div class="kt-widget24__details">
                             <div class="kt-widget24__info">
 
-                                <a href="{{route('dashboard.employees.index')}}">
+                                <a href="{{route('dashboard.employees.index', $company)}}">
                                     <h4 class="kt-widget24__title">
                                         {{__('All Employees')}}
                                     </h4>
@@ -52,7 +52,7 @@
                         <div class="kt-widget24__details">
                             <div class="kt-widget24__info">
 
-                                <a href="{{route('dashboard.employees_violations.index')}}">
+                                <a href="{{route('dashboard.employees_violations.index', $company)}}">
                                     <h4 class="kt-widget24__title">
                                         {{__('Saudis')}}
                                     </h4>
@@ -73,7 +73,7 @@
                     <div class="kt-widget24">
                         <div class="kt-widget24__details">
                             <div class="kt-widget24__info">
-                                <a href="{{route('dashboard.reports.index')}}">
+                                <a href="{{route('dashboard.reports.index', $company)}}">
                                     <h4 class="kt-widget24__title">
                                         {{__('Non-Saudis')}}
                                     </h4>
@@ -93,7 +93,7 @@
                         <div class="kt-widget24__details">
                             <div class="kt-widget24__info">
 
-                                <a href="{{route('dashboard.employees.index')}}">
+                                <a href="{{                                                                                                               ('dashboard.employees.index', $company)}}">
                                     <h4 class="kt-widget24__title">
                                         {{__('Married')}}
                                     </h4>
@@ -114,7 +114,7 @@
                         <div class="kt-widget24__details">
                             <div class="kt-widget24__info">
 
-                                <a href="{{route('dashboard.employees_violations.index')}}">
+                                <a href="{{route('dashboard.employees_violations.index',$company)}}">
                                     <h4 class="kt-widget24__title">
                                         {{__('Single')}}
                                     </h4>
@@ -135,7 +135,7 @@
                     <div class="kt-widget24">
                         <div class="kt-widget24__details">
                             <div class="kt-widget24__info">
-                                <a href="{{route('dashboard.reports.index')}}">
+                                <a href="{{route('dashboard.reports.index', $company)}}">
                                     <h4 class="kt-widget24__title">
                                         {{__('Trial Period')}}
                                     </h4>
