@@ -322,5 +322,7 @@
     "Active": "نشط",
     "In Active": "غير نشط",
     "custom": "مخصص",
+    "It is not possible to record the time out process for the employee ": "لا يمكن تسجيل عملية الانصراف للموظف ",
+    " until after at least an hour.": " الا بعد ساعة علي الاقل.",
     "All Ended Employees": "المنتهية خدماتهم"
 }

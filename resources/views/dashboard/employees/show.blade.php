@@ -318,28 +318,13 @@
                                                     <div class="kt-section__body">
                                                         <h3 class="kt-section__title kt-section__title-lg">{{__('Job')}}</h3>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-6">
+                                                            <div class="col-lg-12">
                                                                 <label>{{__('Employee Number')}} *</label>
                                                                 <input name="job_number"
                                                                        class="form-control"
                                                                        disabled="disabled"
                                                                        type="text"
                                                                        value="{{$employee->job_number}}">
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <label>{{__('Joined Date')}} *</label>
-                                                                <div class="input-group date">
-                                                                    <input name="joined_date"
-                                                                           type="text"
-                                                                           class="form-control datepicker"
-                                                                           disabled="disabled"
-                                                                           value="{{$employee->joined_date}}"/>
-                                                                    <div class="input-group-append">
-                                                                        <span class="input-group-text">
-                                                                            <i class="la la-calendar"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">

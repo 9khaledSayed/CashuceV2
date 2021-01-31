@@ -120,24 +120,15 @@ class AttendanceController extends Controller
         return response()->json($response);
     }
 
-    public function edit(Attendance $attendance)
-    {
-        //dd($attendance);
-        return view('dashboard.attendances.edit', compact('attendance'));
-    }
 
     public function update(Attendance $attendance, Request $request)
     {
-        //$this->validateTimeInAndOut();
-        $timeIn = Carbon::createFromFormat('h:i A', $request->time_in);
-        $timeOut = Carbon::createFromFormat('h:i A', $request->time_out);
-        $attendance->update([
-            'time_in' => $timeIn,
-            'time_out' => $timeOut,
+        $timeIn = Carbon::createFromFormat('h:i', $request->time_in);
+        $timeOut = Carbon::createFromFormat('h:i', $request->time_out);
+        $attendance->update($this->validateTimeInAndOut());
+        return response()->json([
+            'status' => 'done'
         ]);
-        //$attendance->update($timeIn, $timeOut);
-
-        return redirect(route('dashboard.attendances.index'));
     }
 
     public function getOperation(Employee $employee)
@@ -172,7 +163,7 @@ class AttendanceController extends Controller
         $workShift = $employee->workShift ?? null;
         $response  = [];
         if (!isset($employee)){
-            $response = [
+            return [
                 "status" => true,
                 "message" => __("This employee is not under your supervision"),
             ];
@@ -183,8 +174,8 @@ class AttendanceController extends Controller
             ];
         }else{
             switch($workShift->type){
-                case "divided":
-                    $todayAttendance = $employee->attendances()->whereDate('created_at', Carbon::today())->first();
+                case "divided": // time_in, time_out, time_in2, time_out2
+                    $todayAttendance = $employee->attendances()->whereDate('date', $dateTime)->first();
                     if(!isset($todayAttendance)){ //check in
 
                         Attendance::create([
@@ -199,26 +190,39 @@ class AttendanceController extends Controller
 
                     }elseif (!isset($todayAttendance->time_out)){
 
-                        dd($todayAttendance->time_in->diff($dateTime));
-//                        if($todayAttendance->time_in)
-
-                        $todayAttendance->update([
-                            'time_out' => $dateTime->format('H:i'),
-                        ]);
-                        $response = [
-                            'status' => true,
-                            "message" => __("The operation check out  has been done successfully for employee ") . $employee->name(),
-                        ];
-
+                        $timeBetween = $todayAttendance->time_in->diffInHours($dateTime);
+                        if($timeBetween >=1) {
+                            $todayAttendance->update([
+                                'time_out' => $dateTime->format('H:i'),
+                            ]);
+                            $response = [
+                                'status' => true,
+                                "message" => __("The operation check out  has been done successfully for employee ") . $employee->name(),
+                            ];
+                        }else{
+                            $response = [
+                                'status' => false,
+                                "message" => __("It is not possible to record the time out process for the employee ") . $employee->name() . __(" until after at least an hour."),
+                            ];
+                        }
                     }elseif (!isset($todayAttendance->time_in2)){
 
-                        $todayAttendance->update([
-                            'time_in2' => $dateTime->format('H:i'),
-                        ]);
-                        $response = [
-                            'status' => true,
-                            "message" => __("The operation check in  has been done successfully for employee ") . $employee->name(),
-                        ];
+                        $timeBetween = $todayAttendance->time_out->diffInHours($dateTime);
+                        if($timeBetween >=1) {
+                            $todayAttendance->update([
+                                'time_in2' => $dateTime->format('H:i'),
+                            ]);
+                            $response = [
+                                'status' => true,
+                                "message" => __("The operation check in  has been done successfully for employee ") . $employee->name(),
+                            ];
+                        }else{
+                            $response = [
+                                'status' => false,
+                                "message" => __("It is not possible to record the time out process for the employee ") . $employee->name() . __(" until after at least an hour."),
+                            ];
+                        }
+
 
                     }elseif (!isset($todayAttendance->time_out2)){
 
@@ -227,15 +231,23 @@ class AttendanceController extends Controller
 //                    $totalWorkingHours = $workingHoursForShift2->addHours($workingHoursForShift1->format('H'));
 //                    $totalWorkingHours->addMinutes($workingHoursForShift1->format('i'));
 
-                        $totalWorkingHours = (new Carbon($todayAttendance->time_in))->diff(new Carbon($dateTime->format('H:i:s')));
-                        $todayAttendance->update([
-                            'time_out2' => $dateTime->format('H:i'),
-                            'total_working_hours' => $totalWorkingHours->format('%h:%I:%s')
-                        ]);
-                        $response = [
-                            'status' => true,
-                            "message" => __("The operation check out  has been done successfully for employee ") . $employee->name(),
-                        ];
+                        $timeBetween = $todayAttendance->time_in2->diffInHours($dateTime);
+                        if($timeBetween >=1) {
+                            $totalWorkingHours = (new Carbon($todayAttendance->time_in))->diff(new Carbon($dateTime->format('H:i:s')));
+                            $todayAttendance->update([
+                                'time_out2' => $dateTime->format('H:i'),
+                                'total_working_hours' => $totalWorkingHours->format('%h:%I:%s')
+                            ]);
+                            $response = [
+                                'status' => true,
+                                "message" => __("The operation check out  has been done successfully for employee ") . $employee->name(),
+                            ];
+                        }else{
+                            $response = [
+                                'status' => false,
+                                "message" => __("It is not possible to record the time out process for the employee ") . $employee->name() . __(" until after at least an hour."),
+                            ];
+                        }
 
                     }else{
 
@@ -247,7 +259,7 @@ class AttendanceController extends Controller
                     }
                     break;
                 case "once":
-                    $todayAttendance = $employee->attendances()->whereDate('created_at', Carbon::today())->first();
+                    $todayAttendance = $employee->attendances()->whereDate('date', $dateTime)->first();
                     if(!isset($todayAttendance)){ //check in
 
                         Attendance::create([
@@ -271,7 +283,7 @@ class AttendanceController extends Controller
                     break;
                 default: // normal && flexible
 
-                    $todayAttendance = $employee->attendances()->whereDate('created_at', Carbon::today())->first();
+                    $todayAttendance = $employee->attendances()->whereDate('date', $dateTime)->first();
                     if(!isset($todayAttendance)){ //check in
 
                         Attendance::create([
@@ -285,17 +297,25 @@ class AttendanceController extends Controller
                         ];
 
                     }elseif (!isset($todayAttendance->time_out)){
+                        $timeBetween = $todayAttendance->time_in->diffInHours($dateTime);
+                        if($timeBetween >=1){
+                            $totalWorkingHours = (new Carbon($todayAttendance->time_in))->diff(new Carbon($dateTime->format('H:i:s')))->format('%h:%I:%s');
 
-                        $totalWorkingHours = (new Carbon($todayAttendance->time_in))->diff(new Carbon($dateTime->format('H:i:s')))->format('%h:%I:%s');
+                            $todayAttendance->update([
+                                'time_out' => $dateTime->format('H:i'),
+                                'total_working_hours' => $totalWorkingHours
+                            ]);
+                            $response = [
+                                'status' => true,
+                                "message" => __("The operation check out  has been done successfully for employee ") . $employee->name(),
+                            ];
+                        }else{
+                            $response = [
+                                'status' => false,
+                                "message" => __("It is not possible to record the time out process for the employee ") . $employee->name() . __(" until after at least an hour."),
+                            ];
+                        }
 
-                        $todayAttendance->update([
-                            'time_out' => $dateTime->format('H:i'),
-                            'total_working_hours' => $totalWorkingHours
-                        ]);
-                        $response = [
-                            'status' => true,
-                            "message" => __("The operation check out  has been done successfully for employee ") . $employee->name(),
-                        ];
 
                     }else{
 
@@ -309,6 +329,8 @@ class AttendanceController extends Controller
             }
         }
 
+        $response['image_url'] = asset('storage/employees/avatars/' . ($employee->photo ?? 'default.jpg'));
+        $response['employee_name'] = $employee->name();
         return $response;
     }
 
@@ -426,8 +448,8 @@ class AttendanceController extends Controller
     public function validateTimeInAndOut()
     {
         return request()->validate([
-            'time_in' => 'required|date_format:h:i A',
-            'time_out' => 'required|date_format:h:i A',
+            'time_in' => 'required',
+            'time_out' => 'required',
         ]);
     }
 }

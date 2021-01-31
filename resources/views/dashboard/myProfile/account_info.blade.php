@@ -47,7 +47,26 @@
                     <div class="kt-widget kt-widget--user-profile-1">
                         <div class="kt-widget__head">
                             <div class="kt-widget__media">
-                                <div class="kt-badge kt-badge--xl kt-badge--success">{{ ucwords(mb_substr( auth()->user()->name() ,0,2,'utf-8'))}}</div>
+                                <form id="avatar-form" action="{{route('dashboard.profile_picture.upload')}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="form-group row">
+                                        <div class="col-lg-9 col-xl-6">
+                                            <div class="kt-avatar kt-avatar--outline kt-avatar--circle" id="kt_user_avatar_3">
+                                                <div class="kt-avatar__holder" style="width: 120px;height: 120px; background-image: url({{asset('storage/employees/avatars/' . $user->photo)}})"></div>
+                                                <label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="Change avatar">
+                                                    <i class="fa fa-pen"></i>
+                                                    <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg">
+                                                </label>
+                                                <span class="kt-avatar__cancel" data-toggle="kt-tooltip" title="" data-original-title="Cancel avatar">
+                                                    <i class="fa fa-times"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+{{--                                <div class="kt-badge kt-badge--xl kt-badge--success">{{ ucwords(mb_substr( auth()->user()->name() ,0,2,'utf-8'))}}</div>--}}
+
                             </div>
 
                             <div class="kt-widget__content">
@@ -180,7 +199,7 @@
                                         </div>
                                         <div class="form-group row">
 
-                                            <div class="col-lg-9 col-xl-12">
+                                            <div class="col-lg-12">
                                                 <label >{{__('Email')}}</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
@@ -191,15 +210,6 @@
                                                            placeholder="Email"
                                                            aria-describedby="basic-addon1">
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-lg-9 col-xl-12">
-                                                <label>Language - اللغة</label>
-                                                <select class="form-control kt-selectpicker" name="lang">
-                                                    <option value="en" @if($user->lang == 'en') selected @endif>English</option>
-                                                    <option value="ar" @if($user->lang == 'ar') selected @endif>العربية - Arabic</option>
-                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -231,4 +241,22 @@
 
 @push('scripts')
     <script src="{{asset('assets/js/pages/custom/user/profile.js')}}" type="text/javascript"></script>
+    <script>
+        $(function () {
+            var profilePicture = new KTAvatar('kt_user_avatar_3');
+            var form = $("#avatar-form");
+
+            $(profilePicture.input).on('change',function (){
+                form.ajaxSubmit({
+                    success:function () {
+                        console.log('done');
+                    }
+                })
+            })
+
+            $(profilePicture.cancel).on('click', function () {
+                console.log('canceled');
+            })
+        })
+    </script>
 @endpush

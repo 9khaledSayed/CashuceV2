@@ -57,6 +57,57 @@ var KTUserListDatatable = function() {
                 input: $('#generalSearch'),
                 delay: 400,
             },
+            rows: {
+                afterTemplate: function (row, data, index) {
+                    row.find('.edit-btn').on('click', function () {
+                        var submitBtn = $(".update-attendance-submit");
+                        var modal = $("#update-modal");
+                        var form= $(".update-attendance-form");
+
+                        form.attr('action', '/dashboard/attendances/' + data.id)
+                        $("#timeIn").val(data.time_in);
+                        $("#timeOut").val(data.time_out);
+                        modal.modal('show');
+
+                        submitBtn.click(function (e) {
+                            e.preventDefault();
+                            swal.fire({
+                                title: locator.__('Loading...'),
+                                onOpen: function () {
+                                    swal.showLoading();
+                                }
+                            });
+                            form.ajaxSubmit({
+                                error: function (err) {
+                                    if (err.hasOwnProperty('responseJSON')) {
+                                        if (err.responseJSON.hasOwnProperty('message')) {
+                                            swal.fire({
+                                                title: locator.__('Error!'),
+                                                text: locator.__(err.responseJSON.message),
+                                                type: 'error'
+                                            });
+                                        }
+                                    }
+                                    console.log(err);
+                                },
+                                success:function () {
+                                    swal.fire({
+                                        title: locator.__('Operation Done Successfully'),
+                                        type: 'success',
+                                        buttonsStyling: false,
+                                        confirmButtonText: locator.__("OK"),
+                                        confirmButtonClass: "btn btn-sm btn-bold btn-brand",
+                                    });
+                                    modal.modal('hide');
+                                    datatable.reload();
+                                }
+                            });
+
+                        });
+
+                    });
+                }
+            },
 
             // columns definition
             columns: [
@@ -139,7 +190,7 @@ var KTUserListDatatable = function() {
                                   <i class="la la-ellipsis-h"></i>\
                               </a>\
                               <div class="dropdown-menu dropdown-menu-right">\
-                                  <a class="dropdown-item" href="/dashboard/attendances/' + row.id + '/edit"><i class="la la-pencil-square-o"></i>' + locator.__('Edit') + '</a>\
+                                  <a class="dropdown-item edit-btn" href="#"><i class="la la-pencil-square-o"></i>' + locator.__('Edit') + '</a>\
                                  \
                                   \
                               </div>\

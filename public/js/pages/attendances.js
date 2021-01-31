@@ -105,14 +105,17 @@ var KTContactsAdd = function () {
                                     "title": "",
                                     "text": locator.__(response.message),
                                     "type": "error",
-                                    timer: 1000,
+                                    timer: 3000,
                                 });
                             }else {
                                 swal.fire({
-                                    "title": "",
-                                    "text": locator.__(response.message),
-                                    "type": "success",
-                                    timer: 1000,
+                                    title: response.employee_name,
+                                    text: locator.__(response.message),
+                                    timer: 3000,
+                                    imageUrl: response.image_url,
+                                    imageWidth: 200,
+                                    imageHeight: 200,
+                                    animation: true
                                 });
 
                             }

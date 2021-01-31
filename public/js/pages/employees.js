@@ -8,7 +8,8 @@ var KTContactsAdd = function () {
     var validator;
     var wizard;
     var avatar;
-
+    let selectContractPeriod = $("select[name='contract_period']");
+    var contractEndDate = $("input[name='contract_end_date']");
     let messages = {
         'ar': {
             "please fill the required data":"الرجاء مليء الحقول المطلوبة",
@@ -87,7 +88,7 @@ var KTContactsAdd = function () {
                 emp_num: {
                     required: true
                 },
-                joined_date: {
+                contract_start_date: {
                     required: true,
                     date:true
                 },
@@ -209,6 +210,39 @@ var KTContactsAdd = function () {
         avatar = new KTAvatar('kt_contacts_add_avatar');
     }
 
+    var calculateEndDate = function () {
+        var contractStartDate = $("input[name='contract_start_date']").datepicker("getDate");
+        var endDate = new Date();
+        var contractPeriodValue = selectContractPeriod.val();
+
+
+        if(contractPeriodValue !== '' && contractStartDate){
+
+            endDate.setMonth(contractStartDate.getMonth());
+            endDate.setDate(contractStartDate.getDate() - 1);
+            endDate.setFullYear(contractStartDate.getFullYear() + (contractPeriodValue/12));
+
+            contractEndDate.datepicker("setDate", endDate);
+
+        }
+    }
+
+
+    var onChangeContractPeriodOrStartDate = function () {
+
+        $("#startDateInput, #contractPeriodSelect").on('change', function () {
+            if( selectContractPeriod.val() === '' ){
+                contractEndDate.datepicker("setDate", '');
+                contractEndDate.attr("disabled", false);
+                contractEndDate.css('backgroundColor','');
+            }else {
+                calculateEndDate();
+                contractEndDate.css('backgroundColor','#AAAA');
+                contractEndDate.attr("disabled", true);
+            }
+        })
+    }
+
     return {
         // public functions
         init: function() {
@@ -218,60 +252,12 @@ var KTContactsAdd = function () {
             initValidation();
             initSubmit();
             initAvatar();
+            calculateEndDate();
+            onChangeContractPeriodOrStartDate();
         }
     };
 }();
 
 jQuery(document).ready(function() {
-    let select_contract = $("select[name='contract_type']");
-
-    if(select_contract.val() == 1){
-        $('#period').hide()
-    }
-
-    select_contract.change(function (){
-        if($(this).val() == 1){
-            $('#period').hide()
-        }else{
-            $('#period').show()
-        }
-    })
-
-    $("input[name='contract_start_date']").on('change', function () {
-        calcEndDate();
-    })
-
-    $("select[name='contract_period']").on('change', function () {
-        console.log($(this).val() === '')
-        if( $(this).val() === '' ){
-            $("input[name='contract_end_date']").attr("disabled", false);
-        }else {
-            calcEndDate();
-            $("input[name='contract_end_date']").attr("disabled", true);
-        }
-
-    })
-
-    function calcEndDate() {
-        var contractStartDate = $("input[name='contract_start_date']").val();
-        var contractPeriod = $("select[name='contract_period']").val();
-        var startDate = new Date(contractStartDate);
-
-        if(contractPeriod !== '' && contractStartDate !== ''){
-
-            let month = startDate.getMonth() + 1;
-            let day = startDate.getDate() - 1;
-            let year = startDate.getFullYear() + (contractPeriod/12);
-
-
-            $("input[name='contract_end_date']").val(year + '-' + month + '-' + day).attr("readonly", true);
-        }
-        else if (contractPeriod !== ''){
-            console.log('hi');
-            $("input[name='contract_end_date']").attr("readonly", false).val('');
-        }
-    }
-
     KTContactsAdd.init();
-
 });

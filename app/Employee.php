@@ -61,7 +61,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'passport_expire_date' => ['nullable'],
         'issue_place' => ['nullable'],
         'job_number' =>['required','numeric'],
-        'joined_date' => ['required'],
+//        'joined_date' => ['required'],
         'work_shift_id' => ['required', 'exists:work_shifts,id'],
         'contract_type' => ['required'],
         'contract_start_date' => ['required'],
@@ -76,7 +76,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'contract_start_date' => 'datetime',
+        'contract_start_date' => 'date',
         'contract_end_date' => 'date',
         'created_at'  => 'date:D M d Y',
     ];

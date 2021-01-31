@@ -3,7 +3,6 @@
 // Class definition
 var KTContactsAdd = function () {
     // Base elements
-    var wizardEl;
     var formEl;
     var validator;
     var wizard;
@@ -99,14 +98,18 @@ var KTContactsAdd = function () {
                                 "title": "",
                                 "text": locator.__(response.message),
                                 "type": "error",
-                                timer: 1000,
+                                timer: 3000,
                             });
                         }else {
+                            console.log(response.image_url)
                             swal.fire({
-                                "title": "",
-                                "text": locator.__(response.message),
-                                "type": "success",
-                                timer: 1000,
+                                title: response.employee_name,
+                                text: locator.__(response.message),
+                                timer: 3000,
+                                imageUrl: response.image_url,
+                                imageWidth: 200,
+                                imageHeight: 200,
+                                animation: true
                             });
 
                         }
@@ -149,14 +152,5 @@ var KTContactsAdd = function () {
 }();
 
 jQuery(document).ready(function() {
-    var timeDisplay = $("#time");
-
-    function refreshTime() {
-        var dateString = new Date().toLocaleString("en-US", {timeZone: "Asia/Riyadh"});
-        var formattedString = dateString.replace(", ", " - ");
-        timeDisplay.val(formattedString);
-    }
-    setInterval(refreshTime, 1000);
-
     KTContactsAdd.init();
 });

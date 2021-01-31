@@ -305,20 +305,9 @@
                                                     <div class="kt-section__body">
                                                         <h3 class="kt-section__title kt-section__title-lg">{{__('Job')}} :</h3>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-6">
+                                                            <div class="col-lg-12">
                                                                 <label>{{__('Employee Number')}} *</label>
                                                                 <input name="job_number" class="form-control"  value="{{$jobNumber}}" type="text">
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <label>{{__('Joined Date')}} *</label>
-                                                                <div class="input-group date">
-                                                                    <input name="joined_date" type="text" class="form-control datepicker" readonly />
-                                                                    <div class="input-group-append">
-                                                                        <span class="input-group-text">
-                                                                            <i class="la la-calendar"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
@@ -405,7 +394,10 @@
                                                             <div class="form-group row">
                                                                 <div class="col-lg-4">
                                                                     <label>{{__('Contract Period')}} *</label>
-                                                                    <select name="contract_period" class="form-control selectpicker" title="Choose">
+                                                                    <select name="contract_period"
+                                                                            id="contractPeriodSelect"
+                                                                            class="form-control selectpicker"
+                                                                            title="Choose">
                                                                         <option value="">{{__('custom')}}</option>
                                                                         <option value="12" selected>{{ __('1 year') }}</option>
                                                                         <option value="24">{{ __('2 years') }}</option>
@@ -414,7 +406,11 @@
                                                                 <div class="col-lg-4">
                                                                     <label>{{__('Contract Start Date')}} *</label>
                                                                     <div class="input-group date">
-                                                                        <input name="contract_start_date" type="text" class="form-control datepicker" readonly />
+                                                                        <input name="contract_start_date"
+                                                                               type="text"
+                                                                               id="startDateInput"
+                                                                               class="form-control datepicker"
+                                                                               readonly />
                                                                         <div class="input-group-append">
                                                                     <span class="input-group-text">
                                                                         <i class="la la-calendar"></i>
@@ -425,7 +421,11 @@
                                                                 <div class="col-lg-4">
                                                                     <label>{{__('Contract End Date')}} *</label>
                                                                     <div class="input-group date">
-                                                                        <input name="contract_end_date" type="text" class="form-control"/>
+                                                                        <input name="contract_end_date"
+                                                                               type="text"
+                                                                               style="background-color: #AAAA"
+                                                                               readonly
+                                                                               class="form-control datepicker"/>
                                                                         <div class="input-group-append">
                                                                     <span class="input-group-text">
                                                                         <i class="la la-calendar"></i>

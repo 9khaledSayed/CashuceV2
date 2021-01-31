@@ -37,15 +37,19 @@ class EmployeeController extends Controller
 
     public function index(Request $request)
     {
+
         $this->authorize('view_employees');
         if ($request->ajax()){
-            $employees = Employee::withoutGlobalScope(new ServiceStatusScope())->orderBy('job_number')->get()->map(function($employee){
+            $sortColumn = $request->sort['field'];
+            $sortType = $request->sort['sort'];
+
+            $employees = Employee::orderBy($sortColumn, $sortType)->get()->map(function($employee){
                 $supervisor = $employee->supervisor? $employee->supervisor->name(): '';
                 $department = $employee->department? $employee->department->name(): '';
 
                 return [
                     'id' => $employee->id,
-                    'role' => $employee->role->name(),
+                    'role_id' => $employee->role->name(),
                     'supervisor' => $supervisor,
                     'nationality' => $employee->nationality(),
                     'name' => $employee->name(),
@@ -56,7 +60,7 @@ class EmployeeController extends Controller
                     'service_status' => $employee->service_status,
                     'service_status_search' => $employee->service_status == 0 ? 2 : 1,
                     'email_verified_at' => $employee->email_verified_at,
-                    'joined_date' => $employee->joined_date,
+                    'contract_start_date' => $employee->contract_start_date->format('Y-m-d'),
                 ];
             });
 
@@ -86,13 +90,11 @@ class EmployeeController extends Controller
         $roles = Role::get();
         $supervisors = Employee::whereNull('supervisor_id')->get();
         $workShifts = WorkShift::get();
-        $employee = Employee::withoutGlobalScope(ServiceStatusScope::class)->get()->last();
+        $allJobNumbers = Employee::withoutGlobalScope(ServiceStatusScope::class)->pluck('job_number')->sort();
         $leaveBalances = LeaveBalance::get();
-        $jobNumber = 0;
-        if(isset($employee)){
-            $jobNumber = $employee->job_number + 1;
-        }else{
-            $jobNumber = 1000;
+        $jobNumber = 1000;
+        if($allJobNumbers->count() != 0){
+            $jobNumber = $allJobNumbers->last() + 1;
         }
 
 

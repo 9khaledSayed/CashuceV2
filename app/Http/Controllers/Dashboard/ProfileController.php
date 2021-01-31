@@ -75,16 +75,23 @@ class ProfileController extends Controller
         return view('dashboard.myProfile.company_profile', compact('company', 'employees'));
     }
 
-    public function changeLanguage(Request $request)
-    {
-        $user = auth()->user();
-        if ($request->post()){
-            $user->lang = $request->lang;
-            $user->save();
-            Session::put('locale', $request->lang);
-            return redirect(route('dashboard.myProfile.change_language'))->with('success', 'true');
-        }
-        return view('dashboard.myProfile.change_language', compact('user'));
 
+    public function uploadProfilePicture(Request $request)
+    {
+        $request->validate([
+            'profile_avatar' => 'required|image|mimes:jpeg,png,jpg',
+        ]);
+
+        $fileExtension = '.' . $request->file('profile_avatar')->getClientOriginalExtension();
+        $fileName = date('mdYHis') . uniqid() . $fileExtension;
+
+        $request->file('profile_avatar')->storeAs('public/employees/avatars/', $fileName);
+        auth()->user()->update([
+            'photo' => $fileName
+        ]);
+
+        return response()->json([
+            'status' => true,
+        ]);
     }
 }

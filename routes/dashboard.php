@@ -1,57 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 
-Route::group([
-    'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => [
-        'localeCookieRedirect',
-        'localizationRedirect',
-        'localeViewPath' ]
-], function() {
-
-    Auth::routes(['verify' => false]);
-
-
-
-    Route::prefix('employee')->group(function() {
-        //Employee Password Reset routes
-        Route::post('/password/email','Auth\EmployeeForgotPasswordController@sendResetLinkEmail')->name('employee.password.email');
-        Route::post('/password/reset', 'Auth\EmployeeResetPasswordController@reset')->name('employee.password.update');
-        Route::get('/password/reset', 'Auth\EmployeeForgotPasswordController@showLinkRequestForm')->name('employee.password.request');
-        Route::get('/password/reset/{token}', 'Auth\EmployeeResetPasswordController@showResetForm')->name('employee.password.reset');
-    });
-    Route::prefix('company')->group(function() {
-        //Employee Password Reset routes
-        Route::post('/password/email','Auth\CompanyForgotPasswordController@sendResetLinkEmail')->name('company.password.email');
-        Route::post('/password/reset', 'Auth\CompanyResetPasswordController@reset')->name('company.password.update');
-        Route::get('/password/reset', 'Auth\CompanyForgotPasswordController@showLinkRequestForm')->name('company.password.request');
-        Route::get('/password/reset/{token}', 'Auth\CompanyResetPasswordController@showResetForm')->name('company.password.reset');
-    });
-    Route::prefix('provider')->group(function() {
-        //Employee Password Reset routes
-        Route::post('/password/email','Auth\ProviderForgotPasswordController@sendResetLinkEmail')->name('provider.password.email');
-        Route::post('/password/reset', 'Auth\ProviderResetPasswordController@reset')->name('provider.password.update');
-        Route::get('/password/reset', 'Auth\ProviderForgotPasswordController@showLinkRequestForm')->name('provider.password.request');
-        Route::get('/password/reset/{token}', 'Auth\ProviderResetPasswordController@showResetForm')->name('provider.password.reset');
-    });
-
-
-    Route::redirect('/', '/login/company');
-    Route::redirect('/login', '/login/company');
-    Route::get('login/company', 'Auth\LoginController@loginCompanyForm')->name('login.company');
-    Route::get('login/employee', 'Auth\LoginController@loginEmployeeForm')->name('login.employee');
-    Route::get('login/provider', 'Auth\LoginController@loginProviderForm')->name('login.provider');
-
-    Route::post('login/company', 'Auth\LoginController@loginCompany')->name('login.company');
-    Route::post('login/employee', 'Auth\LoginController@loginEmployee')->name('login.employee');
-    Route::post('login/provider', 'Auth\LoginController@loginProvider')->name('login.provider');
-
-    Route::namespace('Dashboard')
-        ->prefix('dashboard')
-        ->name('dashboard.')
-        ->middleware('auth:employee,company,provider')
-//        ->middleware('verified')
-        ->group(function () {
+    Route::name('dashboard.')->group(function () {
             Route::get('/', 'DashboardController@index')->name('index');
             Route::get('/abilities', 'AbilityController@index');
             Route::get('/violations/{violation}/additions', 'ViolationController@additions');
@@ -89,6 +40,8 @@ Route::group([
             Route::get('ended_employees', 'DashboardController@endedEmployees');
             Route::get('employees/ended_employees', 'EmployeeController@endedEmployees')->name('employees.ended_employees');
             Route::get('documents/{document}/download', 'DocumentController@download');
+            Route::get('attendances_sheet/excel', 'AttendanceController@extractExcel');
+            Route::post('profile_picture/upload', 'ProfileController@uploadProfilePicture')->name('profile_picture.upload');
             Route::resource('attendances', 'AttendanceController')->except('show');
 
             Route::resources([
@@ -118,7 +71,3 @@ Route::group([
             ]);
 
         });
-
-});
-
-Route::get('/dashboard/attendances/excel', 'Dashboard\AttendanceController@extractExcel');

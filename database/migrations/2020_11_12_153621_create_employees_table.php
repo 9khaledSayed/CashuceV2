@@ -34,6 +34,7 @@ class CreateEmployeesTable extends Migration
             $table->string('sname_en')->nullable();
             $table->string('tname_en')->nullable();
             $table->string('lname_en');
+            $table->string('photo')->nullable(); // new
             $table->string('city_name_ar')->nullable();
             $table->string('city_name_en')->nullable();
             $table->string('job_number');
@@ -48,7 +49,7 @@ class CreateEmployeesTable extends Migration
             $table->date('passport_issue_date')->nullable();
             $table->date('passport_expire_date')->nullable();
             $table->string('issue_place')->nullable();
-            $table->date('joined_date');
+//            $table->date('joined_date');
             $table->string('contract_type');
             $table->date('contract_start_date');
             $table->date('contract_end_date')->nullable();

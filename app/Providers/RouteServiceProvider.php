@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use \Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,8 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
+    protected $fordealNamespace = 'App\Http\Controllers\Dashboard\Fordeal';
+    protected $dashboardNamespace = 'App\Http\Controllers\Dashboard';
 
     /**
      * The path to the "home" route for your application.
@@ -32,7 +35,6 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-
         parent::boot();
     }
 
@@ -46,6 +48,10 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
+
+        $this->mapDashboardRoutes();
+
+        $this->mapFordealRoutes();
 
         //
     }
@@ -77,5 +83,38 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    protected function mapDashboardRoutes()
+    {
+        Route::group([
+            'domain' => '{company?}.' . config('app.url'),
+            'prefix' => LaravelLocalization::setLocale() . '/dashboard',
+            'namespace' => $this->dashboardNamespace,
+            'middleware' => [
+                'web',
+//                'verified',
+                'auth:employee,company,provider',
+                'localeCookieRedirect',
+                'localizationRedirect',
+                'localeViewPath' ],
+        ], base_path('routes/dashboard.php'));
+
+    }
+
+    protected function mapFordealRoutes()
+    {
+        Route::group([
+            'domain' => '{company}.' . config('app.url'),
+            'prefix' => LaravelLocalization::setLocale() . '/dashboard',
+            'namespace' => $this->fordealNamespace,
+            'middleware' => [
+                'web',
+//                'verified',
+                'auth:employee,company,provider',
+                'localeCookieRedirect',
+                'localizationRedirect',
+                'localeViewPath' ],
+        ], base_path('routes/fordeal.php'));
     }
 }

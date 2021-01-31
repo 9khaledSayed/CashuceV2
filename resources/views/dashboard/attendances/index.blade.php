@@ -54,24 +54,6 @@
                 <div class="row align-items-center mt-5">
                     <div class="col-xl-12 order-2 order-xl-1">
                         <div class="row align-items-center">
-{{--                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">--}}
-{{--                                <div class="kt-form__group kt-form__group--inline">--}}
-{{--                                    <div class="kt-form__label">--}}
-{{--                                        <label>{{__('Month')}}:</label>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="kt-form__control">--}}
-{{--                                        <div class="input-group date">--}}
-{{--                                            <input name="date" type="text" class="form-control datepic" id="kt_form_date" readonly/>--}}
-{{--                                            <div class="input-group-append">--}}
-{{--                                            <span class="input-group-text">--}}
-{{--                                                <i class="la la-calendar"></i>--}}
-{{--                                            </span>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
-{{--                            </div>--}}
                             <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
@@ -159,24 +141,72 @@
     </div>
 
     <!-- end:: Content -->
+    <!--begin::Modal-->
+    <div class="modal fade" id="update-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{__('Update Info')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!--begin::Form-->
+                    <form class="kt-form kt-form--label-right update-attendance-form" method="POST" action="">
+                        @method('put')
+                        @csrf
+                        <div class="kt-portlet__body">
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Time in')}}</label>
+                                <div class="col-lg-6 col-md-9 col-sm-12">
+                                    <div class="input-group timepicker">
+                                        <input class="form-control" name="time_in" value="" id="timeIn" readonly="" type="text">
+                                        <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="la la-clock-o"></i>
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Time out')}}</label>
+                                <div class="col-lg-6 col-md-9 col-sm-12">
+                                    <div class="input-group timepicker">
+                                        <input class="form-control" name="time_out"  value="" id="timeOut" placeholder="Select time in" type="text">
+                                        <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="la la-clock-o"></i>
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__foot" style="text-align: center">
+                            <div class="kt-form__actions">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-primary update-attendance-submit">{{__('confirm')}}</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('back')}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--end::Form-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--end::Modal-->
 @endsection
 
 @push('scripts')
     <script src="{{asset('js/datatables/attendances.js')}}" type="text/javascript"></script>
     <script>
         $(function () {
-
-
-            $('#kt_form_date').datepicker({
-                rtl: true,
-                language: appLang,
-                orientation: "bottom",
-                format: "yyyy-mm",
-                viewMode: "months",
-                minViewMode: "months",
-                clearBtn: true,
-            });
-
             $('.full-date').datepicker({
                 rtl: true,
                 language: appLang,
@@ -185,15 +215,26 @@
                 // viewMode: "months",
                 // minViewMode: "months",
                 clearBtn: true,
-                lang: 'ar'
+                lang: appLang
+            });
+
+            $('#timeIn, #timeOut').timepicker({
+                minuteStep: 1,
+                defaultTime: '',
+                showSeconds: false,
+                showMeridian: false,
+                snapToStep: true
             });
 
             $("#excelBtn").click(function () {
                 //
                 var month = $('#kt_form_date').val();
                 var fullDate = $('.full-date').val();
-                window.location.replace("/dashboard/attendances/excel?full_date=" + fullDate);
-            })
+                window.location.replace("/dashboard/attendances_sheet/excel?full_date=" + fullDate);
+            });
+
+
+
 
         })
     </script>

@@ -50,10 +50,10 @@ var KTDatatableLocalSortDemo = function() {
                 serverPaging: true,
                 serverFiltering: false,
                 serverSorting: true,
-                // saveState: {
-                //     cookie: true,
-                //     webstorage: true,
-                // },
+                saveState: {
+                    cookie: false,
+                    webstorage: false,
+                },
             },
 
             // layout definition
@@ -63,7 +63,7 @@ var KTDatatableLocalSortDemo = function() {
             },
 
             // column sorting
-            sortable: false,
+            sortable: true,
 
             pagination: true,
 
@@ -186,7 +186,7 @@ var KTDatatableLocalSortDemo = function() {
                     textAlign: 'center',
                 },
                 {
-                    field: 'name',
+                    field: 'fname_ar',
                     title: locator.__('Full Name'),
                     textAlign: 'center',
                     template:function (row){
@@ -203,7 +203,7 @@ var KTDatatableLocalSortDemo = function() {
                     textAlign: 'center',
                 }
                 , {
-                    field: 'role',
+                    field: 'role_id',
                     title: locator.__('Role'),
                     textAlign: 'center',
                 }
@@ -264,7 +264,7 @@ var KTDatatableLocalSortDemo = function() {
                     }
 
                 },{
-                    field: 'joined_date',
+                    field: 'contract_start_date',
                     title: locator.__('Joined Date'),
                     textAlign: 'center',
                     autoHide: false,
