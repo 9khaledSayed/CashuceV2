@@ -152,8 +152,7 @@
                 </div>
                 <div class="modal-body">
                     <!--begin::Form-->
-                    <form class="kt-form kt-form--label-right update-attendance-form" method="POST" action="">
-                        @method('put')
+                    <form class="kt-form kt-form--label-right update-attendance-form" method="get" action="">
                         @csrf
                         <div class="kt-portlet__body">
                             <div class="form-group row">

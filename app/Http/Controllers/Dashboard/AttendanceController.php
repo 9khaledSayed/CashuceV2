@@ -126,10 +126,13 @@ class AttendanceController extends Controller
         $timeIn = Carbon::createFromFormat('h:i A', $request->time_in);
         $timeOut = Carbon::createFromFormat('h:i A', $request->time_out);
         $this->validateTimeInAndOut();
+        $totalWorkingHours = $timeIn->diff($timeOut);
         $attendance->update([
             'time_in' => $timeIn->format('h:i'),
             'time_out' => $timeOut->format('h:i'),
+            'total_working_hours' => $totalWorkingHours->format('%h:%I:%s'),
         ]);
+
         return response()->json([
             'status' => 'done'
         ]);

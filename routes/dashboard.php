@@ -42,6 +42,7 @@ use Illuminate\Support\Facades\Route;
             Route::get('documents/{document}/download', 'DocumentController@download');
             Route::get('attendances_sheet/excel', 'AttendanceController@extractExcel');
             Route::post('profile_picture/upload', 'ProfileController@uploadProfilePicture')->name('profile_picture.upload');
+            Route::get('attendances/update/{attendance}', 'AttendanceController@update');
             Route::resource('attendances', 'AttendanceController')->except('show');
 
             Route::resources([

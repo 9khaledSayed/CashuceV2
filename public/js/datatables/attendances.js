@@ -64,7 +64,7 @@ var KTUserListDatatable = function() {
                         var modal = $("#update-modal");
                         var form= $(".update-attendance-form");
 
-                        form.attr('action', '/dashboard/attendances/' + data.id)
+                        form.attr('action', '/dashboard/attendances/update/' + data.id)
                         $("#timeIn").timepicker().val(data.time_in);
                         $("#timeOut").timepicker().val(data.time_out);
                         modal.modal('show');
@@ -78,6 +78,19 @@ var KTUserListDatatable = function() {
                                 }
                             });
                             form.ajaxSubmit({
+
+                                success:function () {
+                                    swal.fire({
+                                        title: locator.__('Operation Done Successfully'),
+                                        type: 'success',
+                                        buttonsStyling: false,
+                                        confirmButtonText: locator.__("OK"),
+                                        confirmButtonClass: "btn btn-sm btn-bold btn-brand",
+                                    });
+                                    modal.modal('hide');
+                                    datatable.reload();
+                                },
+
                                 error: function (err) {
                                     if (err.hasOwnProperty('responseJSON')) {
                                         if (err.responseJSON.hasOwnProperty('message')) {
@@ -89,17 +102,6 @@ var KTUserListDatatable = function() {
                                         }
                                     }
                                     console.log(err);
-                                },
-                                success:function () {
-                                    swal.fire({
-                                        title: locator.__('Operation Done Successfully'),
-                                        type: 'success',
-                                        buttonsStyling: false,
-                                        confirmButtonText: locator.__("OK"),
-                                        confirmButtonClass: "btn btn-sm btn-bold btn-brand",
-                                    });
-                                    modal.modal('hide');
-                                    datatable.reload();
                                 }
                             });
 
