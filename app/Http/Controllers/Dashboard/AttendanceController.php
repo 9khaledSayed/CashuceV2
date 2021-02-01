@@ -123,8 +123,8 @@ class AttendanceController extends Controller
 
     public function update(Attendance $attendance, Request $request)
     {
-        $timeIn = Carbon::createFromFormat('h:i', $request->time_in);
-        $timeOut = Carbon::createFromFormat('h:i', $request->time_out);
+        $timeIn = Carbon::createFromFormat('h:i A', $request->time_in);
+        $timeOut = Carbon::createFromFormat('h:i A', $request->time_out);
         $attendance->update($this->validateTimeInAndOut());
         return response()->json([
             'status' => 'done'
