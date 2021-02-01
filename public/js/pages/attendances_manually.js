@@ -126,7 +126,8 @@ var KTContactsAdd = function () {
                         swal.fire({
                             title: locator.__(response.message),
                             text: errors,
-                            type: 'error'
+                            type: 'error',
+                            timer: 3000,
                         });
                     }
                 });

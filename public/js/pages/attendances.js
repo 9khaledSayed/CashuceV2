@@ -134,7 +134,7 @@ var KTContactsAdd = function () {
                                 title: locator.__(response.message),
                                 text: errors,
                                 type: 'error',
-                                timer: 1000,
+                                timer: 3000,
                             });
                             barcodeInput.val("");
                         }
