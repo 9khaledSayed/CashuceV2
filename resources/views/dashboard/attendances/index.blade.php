@@ -228,7 +228,7 @@
                 //
                 var month = $('#kt_form_date').val();
                 var fullDate = $('.full-date').val();
-                window.location.replace("/dashboard/attendances_sheet/excel?full_date=" + fullDate);
+                window.location.replace("/attendances_sheet/excel?full_date=" + fullDate);
             });
 
 
