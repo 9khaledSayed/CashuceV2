@@ -328,8 +328,8 @@ class AttendanceController extends Controller
                     break;
             }
         }
-
-        $response['image_url'] = asset('storage/employees/avatars/' . ($employee->photo ?? 'default.jpg'));
+        $photoName = isset($employee->photo) ? $employee->photo : 'default.jpg';
+        $response['image_url'] = asset('storage/employees/avatars/' . $photoName);
         $response['employee_name'] = $employee->name();
         return $response;
     }
