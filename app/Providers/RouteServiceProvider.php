@@ -18,6 +18,7 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'App\Http\Controllers';
     protected $fordealNamespace = 'App\Http\Controllers\Dashboard\Fordeal';
     protected $dashboardNamespace = 'App\Http\Controllers\Dashboard';
+    protected $domain = 'cashuce.com';
 
     /**
      * The path to the "home" route for your application.
@@ -67,6 +68,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
+             ->domain($this->domain)
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
     }
@@ -89,7 +91,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapDashboardRoutes()
     {
         Route::group([
-            'domain' => config('app.url'),
+            'domain' => $this->domain,
             'prefix' => LaravelLocalization::setLocale() . '/dashboard',
             'namespace' => $this->dashboardNamespace,
             'middleware' => [
