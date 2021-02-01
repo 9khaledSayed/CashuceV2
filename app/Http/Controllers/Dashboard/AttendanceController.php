@@ -374,6 +374,7 @@ class AttendanceController extends Controller
 
                 $delayAllowedTime = $work_shift->is_delay_allowed? $work_shift->time_delay_allowed : Carbon::createFromTime(0,0,0);
                 $shiftStartTime = $work_shift->type == 'once' ? $work_shift->check_in_time : $work_shift->shift_start_time;
+                $shiftStartTime = Carbon::createFromTimeString($shiftStartTime);
                 $shiftStartTime->addMinutes($delayAllowedTime->minute);
                 $shiftStartTime->addHours($delayAllowedTime->hour);
                 $delay = Carbon::createFromTime(0,0,0)->format('H:i');
@@ -396,7 +397,7 @@ class AttendanceController extends Controller
                     'Department' => $department,
                     'Supplier' => $provider,
                     'Date' => $date,
-                    'Shift Start Time' => isset($shift_start_time) ? $shift_start_time->format('h:iA') : '',
+                    'Shift Start Time' => isset($shift_start_time) ? Carbon::createFromTimeString($shift_start_time)->format('h:iA') : '',
                     'Time In' => $date . $this->modifyMinutes($attendance->time_in),
                     'Time Out' => isset($time_out) ? $date . $this->modifyMinutes($time_out) : '',
                     'Shift Work Hours' => $shift_work_hours ?? '',
