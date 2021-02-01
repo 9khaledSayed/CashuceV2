@@ -52,6 +52,7 @@ class CompanyController extends Controller
 
     public function show(Company $company)
     {
+        dd($company->toArray());
         return view('dashboard.companies.show', compact('company'));
     }
 
