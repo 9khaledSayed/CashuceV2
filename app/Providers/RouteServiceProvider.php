@@ -49,9 +49,10 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+//        $this->mapFordealRoutes();
+
         $this->mapDashboardRoutes();
 
-        $this->mapFordealRoutes();
 
         //
     }
@@ -88,7 +89,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapDashboardRoutes()
     {
         Route::group([
-            'domain' => '{company?}.' . config('app.url'),
+            'domain' => '{company}.' . config('app.url'),
             'prefix' => LaravelLocalization::setLocale() . '/dashboard',
             'namespace' => $this->dashboardNamespace,
             'middleware' => [
@@ -105,7 +106,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapFordealRoutes()
     {
         Route::group([
-            'domain' => '{company}.' . config('app.url'),
+            'domain' => 'fordeal.' . config('app.url'),
             'prefix' => LaravelLocalization::setLocale() . '/dashboard',
             'namespace' => $this->fordealNamespace,
             'middleware' => [

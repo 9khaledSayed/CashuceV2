@@ -16,6 +16,7 @@ use App\Rules\UniqueJopNumber;
 use App\Scopes\ServiceStatusScope;
 use App\WorkShift;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class EmployeeController extends Controller
 {
@@ -79,38 +80,33 @@ class EmployeeController extends Controller
     }
 
 
-    public function create(Request $request)
+    public function create($view =null, $data = null)
     {
         $this->authorize('create_employees');
-        $allowances = Allowance::all();
-        $nationalities = Nationality::all();
-        $jobTitles = JobTitle::all();
-        $departments = Department::all();
-        $providers = Provider::get();
-        $roles = Role::get();
-        $supervisors = Employee::whereNull('supervisor_id')->get();
-        $workShifts = WorkShift::get();
+        $view = isset($view) ? $view :'dashboard.employees.create';
         $allJobNumbers = Employee::withoutGlobalScope(ServiceStatusScope::class)->pluck('job_number')->sort();
-        $leaveBalances = LeaveBalance::get();
         $jobNumber = 1000;
+
         if($allJobNumbers->count() != 0){
             $jobNumber = $allJobNumbers->last() + 1;
         }
 
-
-        return view('dashboard.employees.create', [
-            'nationalities' => $nationalities,
-            'job_titles' => $jobTitles,
-            'roles' => $roles,
+        $data = isset($data) ? $data : [
+            'nationalities' => Nationality::all(),
+            'job_titles' => JobTitle::all(),
+            'roles' => Role::get(),
             'contract_type' => $this->contract_type,
-            'allowances' =>$allowances,
-            'supervisors' =>$supervisors,
-            'workShifts' =>$workShifts,
-            'leaveBalances' =>$leaveBalances,
-            'departments' => $departments,
+            'allowances' => Allowance::all(),
+            'supervisors' => Employee::whereNull('supervisor_id')->get(),
+            'workShifts' => WorkShift::get(),
+            'leaveBalances' => LeaveBalance::get(),
+            'departments' => Department::all(),
             'jobNumber' => $jobNumber,
-            'providers' => $providers,
-        ]);
+            'providers' => Provider::get(),
+        ];
+
+
+        return view($view, $data);
     }
 
 
