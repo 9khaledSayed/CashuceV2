@@ -125,7 +125,11 @@ class AttendanceController extends Controller
     {
         $timeIn = Carbon::createFromFormat('h:i A', $request->time_in);
         $timeOut = Carbon::createFromFormat('h:i A', $request->time_out);
-        $attendance->update($this->validateTimeInAndOut());
+        $this->validateTimeInAndOut();
+        $attendance->update([
+            'time_in' => $timeIn->format('h:i'),
+            'time_out' => $timeOut->format('h:i'),
+        ]);
         return response()->json([
             'status' => 'done'
         ]);
