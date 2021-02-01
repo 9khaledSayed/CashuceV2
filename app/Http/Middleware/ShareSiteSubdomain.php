@@ -16,7 +16,7 @@ class ShareSiteSubdomain
      */
     public function handle($request, Closure $next)
     {
-        $company = $request->route('company') ?? '';
+
         view()->share('company', $request->route('company'));
         URL::defaults(['company' => $request->route('company')]);
         $route = $request->route();

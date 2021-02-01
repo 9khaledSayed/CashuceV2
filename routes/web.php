@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group([
-    'domain' => '{company}.' . config('app.url'),
+    'domain' => config('app.url'),
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => [
         'localeCookieRedirect',
@@ -64,8 +64,9 @@ Route::group([
 
 });
 
-Route::domain(config('app.url'))->group(function () {
-    Route::redirect('/', 'http://main.' . config('app.url'));
-});
+//Route::domain(config('app.url'))->group(function () {
+//
+//    Route::redirect('/', 'https://main.' . config('app.url'));
+//});
 
 

@@ -49,7 +49,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-//        $this->mapFordealRoutes();
+        $this->mapFordealRoutes();
 
         $this->mapDashboardRoutes();
 
@@ -89,7 +89,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapDashboardRoutes()
     {
         Route::group([
-            'domain' => '{company}.' . config('app.url'),
+            'domain' => config('app.url'),
             'prefix' => LaravelLocalization::setLocale() . '/dashboard',
             'namespace' => $this->dashboardNamespace,
             'middleware' => [
