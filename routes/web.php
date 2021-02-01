@@ -65,7 +65,7 @@ Route::group([
 });
 
 Route::domain(config('app.url'))->group(function () {
-    Route::redirect('/', 'http://main.localhost:8000');
+    Route::redirect('/', 'http://main.' . config('app.url'));
 });
 
 

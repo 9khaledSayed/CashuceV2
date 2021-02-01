@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'localhost:8000'),
+    'url' => env('APP_URL', 'cashuce.com'),
 
     'asset_url' => env('ASSET_URL', null),
 
