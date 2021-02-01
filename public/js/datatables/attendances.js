@@ -65,8 +65,8 @@ var KTUserListDatatable = function() {
                         var form= $(".update-attendance-form");
 
                         form.attr('action', '/dashboard/attendances/' + data.id)
-                        $("#timeIn").val(data.time_in);
-                        $("#timeOut").val(data.time_out);
+                        $("#timeIn").timepicker().val(data.time_in);
+                        $("#timeOut").timepicker().val(data.time_out);
                         modal.modal('show');
 
                         submitBtn.click(function (e) {
@@ -185,16 +185,7 @@ var KTUserListDatatable = function() {
                     textAlign: 'center',
                     template: function(row) {
                         return '\
-                          <div class="dropdown">\
-                              <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown">\
-                                  <i class="la la-ellipsis-h"></i>\
-                              </a>\
-                              <div class="dropdown-menu dropdown-menu-right">\
-                                  <a class="dropdown-item edit-btn" href="#"><i class="la la-pencil-square-o"></i>' + locator.__('Edit') + '</a>\
-                                 \
-                                  \
-                              </div>\
-                          </div>\
+                          <a class="edit-btn" href="#"><i class="la la-pencil-square-o"></i>' + locator.__('Edit') + '</a>\
                             ';
                     },
                 }],

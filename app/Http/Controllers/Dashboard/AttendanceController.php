@@ -40,9 +40,9 @@ class AttendanceController extends Controller
                     if(isset($employee)){
                         $ShiftType = $attendance->employee->workShift->type;
                         if(isset($attendance->time_out2) && $ShiftType == 'divided'){
-                            $timeOut = $attendance->time_out2->format('h:i') ?? null;
+                            $timeOut = $attendance->time_out2->format('h:i A') ?? null;
                         }elseif(isset($attendance->time_out)){
-                            $timeOut = $attendance->time_out->format('h:i') ?? null;
+                            $timeOut = $attendance->time_out->format('h:i A') ?? null;
                         }else{
                             $timeOut = null;
                         }
@@ -56,7 +56,7 @@ class AttendanceController extends Controller
                             'nationality' => $employee->nationality(),
                             'department' => $department,
                             'job_number' => $attendance->employee->job_number,
-                            'time_in' => $attendance->time_in->format('h:i'),
+                            'time_in' => $attendance->time_in->format('h:i A'),
                             'time_out' => $timeOut,
                             'total_working_hours' => $attendance->total_working_hours,
                             'date' => $attendance->date,
@@ -328,8 +328,8 @@ class AttendanceController extends Controller
                     break;
             }
         }
-        $photoName = isset($employee->photo) ? $employee->photo : 'default.jpg';
-        $response['image_url'] = asset('storage/employees/avatars/' . $photoName);
+
+        $response['image_url'] = asset('storage/employees/avatars/' . ($employee->photo ?? 'default.jpg'));
         $response['employee_name'] = $employee->name();
         return $response;
     }

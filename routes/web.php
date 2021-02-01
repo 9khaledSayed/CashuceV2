@@ -52,7 +52,6 @@ Route::group([
     });
 
     Route::redirect('/', '/login/company');
-//    Route::redirect('/login', '/login/company');
     Route::get('login/company', 'Auth\LoginController@loginCompanyForm')->name('login.company');
     Route::get('login/employee', 'Auth\LoginController@loginEmployeeForm')->name('login.employee');
     Route::get('login/provider', 'Auth\LoginController@loginProviderForm')->name('login.provider');

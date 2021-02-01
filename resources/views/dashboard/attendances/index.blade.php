@@ -160,7 +160,7 @@
                                 <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Time in')}}</label>
                                 <div class="col-lg-6 col-md-9 col-sm-12">
                                     <div class="input-group timepicker">
-                                        <input class="form-control" name="time_in" value="" id="timeIn" readonly="" type="text">
+                                        <input class="form-control" name="time_in" value="" id="timeIn" readonly type="text">
                                         <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="la la-clock-o"></i>
@@ -173,7 +173,7 @@
                                 <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Time out')}}</label>
                                 <div class="col-lg-6 col-md-9 col-sm-12">
                                     <div class="input-group timepicker">
-                                        <input class="form-control" name="time_out"  value="" id="timeOut" placeholder="Select time in" type="text">
+                                        <input class="form-control" name="time_out"  value="" id="timeOut" readonly placeholder="Select time in" type="text">
                                         <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="la la-clock-o"></i>
@@ -219,11 +219,10 @@
             });
 
             $('#timeIn, #timeOut').timepicker({
-                minuteStep: 1,
+                minuteStep: 5,
                 defaultTime: '',
                 showSeconds: false,
-                showMeridian: false,
-                snapToStep: true
+                showMeridian: true,
             });
 
             $("#excelBtn").click(function () {
