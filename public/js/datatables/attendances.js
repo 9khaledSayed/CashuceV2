@@ -185,8 +185,8 @@ var KTUserListDatatable = function() {
                     textAlign: 'center',
                     template: function(row) {
                         return '\
-                          <a class="edit-btn" href="#"><i class="la la-pencil-square-o"></i>' + locator.__('Edit') + '</a>\
-                            ';
+                        <a class="btn btn-sm btn-clean btn-icon btn-icon-md edit-btn" href="#"><i class="la la-pencil-square-o"></i>' + locator.__('Edit') + '</a>\
+                          ';
                     },
                 }],
         });
