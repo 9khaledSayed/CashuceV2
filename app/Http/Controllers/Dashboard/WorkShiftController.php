@@ -68,6 +68,10 @@ class WorkShiftController extends Controller
 
     public function update(Request $request, WorkShift $workShift)
     {
+        if(!$request->has('is_delay_allowed')){
+            $request['is_delay_allowed'] = 0;
+        }
+//        dd($this->validator($request, $workShift->id));
         $workShift->update($this->validator($request, $workShift->id));
         return redirect(route('dashboard.work_shifts.index'));
     }

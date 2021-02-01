@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'App\Http\Controllers';
     protected $fordealNamespace = 'App\Http\Controllers\Dashboard\Fordeal';
     protected $dashboardNamespace = 'App\Http\Controllers\Dashboard';
-    protected $domain = 'cashuce.com';
+    protected $domain;
 
     /**
      * The path to the "home" route for your application.
@@ -27,6 +27,13 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/home';
     public const Dashboard = '/dashboard';
+
+    public function __construct($app)
+    {
+        parent::__construct($app);
+        $this->domain = config('app.url');
+    }
+
 
     /**
      * Define your route model bindings, pattern filters, etc.

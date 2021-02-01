@@ -129,8 +129,10 @@ class DashboardController extends Controller
             if(isset($todayAttendance)){
                 $absent--;
                 $employeeTimeIn = $todayAttendance->time_in;
+
                 $shiftStartTime = $employeeWorkShift->type == 'once' ? $employeeWorkShift->check_in_time :  $employeeWorkShift->shift_start_time;
                 $delayAllowedTime = $employeeWorkShift->is_delay_allowed? $employeeWorkShift->time_delay_allowed : Carbon::createFromTime(0,0,0);
+                $shiftStartTime = Carbon::createFromTimeString($shiftStartTime);
                 $shiftStartTime->addMinutes($delayAllowedTime->minute);
                 $shiftStartTime->addHours($delayAllowedTime->hour);
                 $employeeTimeOut = isset($todayAttendance->time_out) ? $todayAttendance->time_out->format('h:iA') : '';

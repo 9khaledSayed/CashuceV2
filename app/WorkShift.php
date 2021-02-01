@@ -27,13 +27,13 @@ class WorkShift extends Model
         'type' => ['required', 'string', 'max:255'],
     ];
     protected $casts = [
-        'shift_start_time' => 'date:h:i',
-        'shift_end_time' => 'date:h:i',
-        'second_shift_start_time' => 'date:h:i',
-        'second_shift_end_time' => 'date:h:i',
-        'check_in_time' => 'date:h:i',
-        'overtime_hours' => 'date:h:i',
-        'time_delay_allowed' => 'date:h:i',
+        'shift_start_time' => 'time',
+        'shift_end_time' => 'time',
+        'second_shift_start_time' => 'time',
+        'second_shift_end_time' => 'time',
+        'check_in_time' => 'time',
+        'overtime_hours' => 'time',
+        'time_delay_allowed' => 'date',
     ];
 
     protected static $logUnguarded = true;
