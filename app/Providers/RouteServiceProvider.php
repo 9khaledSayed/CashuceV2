@@ -31,7 +31,7 @@ class RouteServiceProvider extends ServiceProvider
     public function __construct($app)
     {
         parent::__construct($app);
-        $this->domain =  config('app.url');
+        $this->domain = config('app.url');
     }
 
 

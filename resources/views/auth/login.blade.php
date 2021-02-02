@@ -83,17 +83,15 @@
                     <!--end::Divider-->
 
                     <!--begin::Options-->
-{{--                    <div class="kt-login__options">--}}
-{{--                        <a href="{{route('login.company')}}" class="btn btn-primary kt-btn">--}}
-{{--                            {{__('Log In As ') . __('Company')}}--}}
-{{--                        </a>--}}
-{{--                        <a href="{{route('login.provider')}}" class="btn btn-primary kt-btn">--}}
-{{--                            {{__('Log In As ') . __('Provider')}}--}}
-{{--                        </a>--}}
-{{--                        <a href="{{route('login.employee')}}" class="btn btn-primary kt-btn">--}}
-{{--                            {{__('Log In As ') . __('Employee')}}--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
+                    <div class="kt-login__options">
+                        @foreach(['employee', 'company', 'provider'] as $guard)
+                            @if($guard != $url)
+                                <a href='{{route("login." . $guard)}}' class="btn btn-primary kt-btn">
+                                    {{__('Log In As ') . __(ucwords($guard))}}
+                                </a>
+                            @endif
+                        @endforeach
+                    </div>
 
         <!--end::Form-->
 
