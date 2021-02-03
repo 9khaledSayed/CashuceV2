@@ -106,7 +106,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapDashboardRoutes()
     {
         Route::group([
-            'domain' => $this->domain,
+//            'domain' => $this->domain,
             'prefix' => LaravelLocalization::setLocale() . '/dashboard',
             'namespace' => $this->dashboardNamespace,
             'middleware' => $this->groupMiddlewares,
@@ -117,7 +117,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapFordealRoutes()
     {
         Route::group([
-            'domain' => $this->domain,
+//            'domain' => $this->domain,
             'prefix' => LaravelLocalization::setLocale() . '/dashboard',
             'namespace' => $this->fordealNamespace,
             'middleware' => $this->groupMiddlewares,
