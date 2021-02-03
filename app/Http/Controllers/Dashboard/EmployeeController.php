@@ -80,10 +80,9 @@ class EmployeeController extends Controller
     }
 
 
-    public function create($view =null, $data = null)
+    public function create()
     {
         $this->authorize('create_employees');
-        $view = isset($view) ? $view :'dashboard.employees.create';
         $allJobNumbers = Employee::withoutGlobalScope(ServiceStatusScope::class)->pluck('job_number')->sort();
         $jobNumber = 1000;
 
@@ -91,7 +90,7 @@ class EmployeeController extends Controller
             $jobNumber = $allJobNumbers->last() + 1;
         }
 
-        $data = isset($data) ? $data : [
+        $data = [
             'nationalities' => Nationality::all(),
             'job_titles' => JobTitle::all(),
             'roles' => Role::get(),
@@ -106,7 +105,7 @@ class EmployeeController extends Controller
         ];
 
 
-        return view($view, $data);
+        return view('dashboard.employees.create', $data);
     }
 
 

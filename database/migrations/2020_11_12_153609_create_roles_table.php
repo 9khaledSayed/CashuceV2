@@ -20,6 +20,7 @@ class CreateRolesTable extends Migration
             $table->string('name_arabic');
             $table->string('label')->nullable();
             $table->string('type')->default('Owner Role');
+            $table->string('for')->default('public');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +30,7 @@ class CreateRolesTable extends Migration
             $table->string('name');
             $table->string('label')->nullable();
             $table->string('category')->nullable();
+            $table->string('for')->default('shared');
             $table->timestamps();
         });
 

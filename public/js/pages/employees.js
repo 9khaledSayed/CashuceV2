@@ -182,8 +182,6 @@ var KTContactsAdd = function () {
                                 "text": locator.__("The operation has been done successfully !"),
                                 "type": "success",
                                 "confirmButtonClass": "btn btn-secondary"
-                            }).then(function (){
-                                window.location.replace("/dashboard/employees");
                             });
                         }
 

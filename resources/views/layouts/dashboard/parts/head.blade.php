@@ -4,7 +4,7 @@
 <meta name="description" content="Latest updates and statistic charts">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-
+<meta content="no-cache" />
 <!--begin::Fonts -->
 {{--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">--}}
 
