@@ -2,6 +2,7 @@
 
 use App\Ability;
 use App\Employee;
+use App\Scopes\ParentScope;
 use \Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Support\Facades\Route;
 
@@ -139,13 +140,11 @@ Route::domain(config('app.url'))->group(function () {
 
 Route::get('edit', function(){
 
-    $jobTitles = \App\JobTitle::get();
+    $jobTitles = \App\JobTitle::withoutGlobalScope(ParentScope::class)->whereIn('id', [1,3,4,5,6,7,8,13,16,17,18,19,20,21,22,23,25])->get();
 
     foreach ($jobTitles as $jobTitle) {
-        if(in_array($jobTitle->id, [1,3,4,5,6,7,8,13,16,17,18,19,20,21,22,23,25])){
-            $jobTitles->company_id = 3;
-            $jobTitle->save();
-        }
+        $jobTitles->company_id = 3;
+        $jobTitle->save();
 
     }
     dd('done');
