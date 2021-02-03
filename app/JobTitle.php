@@ -25,7 +25,7 @@ class JobTitle extends Model
 
     public static function booted()
     {
-//        static::addGlobalScope(new ParentScope());
+        static::addGlobalScope(new ParentScope());
         static::creating(function ($model){
             $model->company_id = Company::companyID();
         });
