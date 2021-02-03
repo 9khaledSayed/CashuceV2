@@ -57,10 +57,14 @@
                         {{__('Back')}}
                     </a>
                     &nbsp;
-                    <div class="dropdown dropdown-inline">
-                        <a href="{{route('dashboard.employees.create')}}" class="btn btn-brand btn-icon-sm">
-                            <i class="flaticon2-plus"></i> {{__('Add New')}}
-                        </a>
+                    <div class="dropdown">
+                        <button class="btn btn-brand dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Options
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
+                            <a class="dropdown-item" href="{{route('dashboard.employees.create')}}">{{__('Add New')}}</a>
+                            <a class="dropdown-item" href="{{route('dashboard.employees.export')}}">{{__('Export')}}</a>
+                        </div>
                     </div>
                 </div>
             </div>

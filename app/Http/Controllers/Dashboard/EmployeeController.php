@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Allowance;
+use App\Attendance;
 use App\Company;
 use App\Department;
 use App\Employee;
@@ -15,8 +16,11 @@ use App\Role;
 use App\Rules\UniqueJopNumber;
 use App\Scopes\ServiceStatusScope;
 use App\WorkShift;
+use Box\Spout\Writer\Style\StyleBuilder;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class EmployeeController extends Controller
 {
@@ -276,5 +280,39 @@ class EmployeeController extends Controller
             ]);
         }
     }
+    public function extractExcel(Request $request)
+    {
+        $employees = Employee::get();
+
+        $fileName = 'employees.xlsx';
+
+        $employees = $employees->map(function($employee){
+
+            return [
+                'id' => $employee->id,
+                'job_number' => $employee->job_number,
+                'name' => $employee->name()
+            ];
+
+
+        })->filter();
+
+        $header_style = (new StyleBuilder())
+            ->setFontSize(8)
+            ->setFontBold()
+            ->build();
+
+        $rows_style = (new StyleBuilder())
+            ->setFontSize(8)
+            ->setBackgroundColor("EDEDED")
+            ->build();
+
+
+        return (new FastExcel($employees))
+            ->headerStyle($header_style)
+            ->rowsStyle($rows_style)
+            ->download($fileName);
+    }
+
 
 }
