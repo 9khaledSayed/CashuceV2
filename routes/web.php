@@ -143,7 +143,7 @@ Route::get('edit', function(){
     $jobTitles = \App\JobTitle::withoutGlobalScope(ParentScope::class)->whereIn('id', [1,3,4,5,6,7,8,13,16,17,18,19,20,21,22,23,25])->get();
 
     foreach ($jobTitles as $jobTitle) {
-        $jobTitles->company_id = 3;
+        $jobTitle->company_id = 3;
         $jobTitle->save();
 
     }
