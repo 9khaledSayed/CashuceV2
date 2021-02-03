@@ -66,10 +66,10 @@ Route::group([
 
 Route::get('attendances_sheet/excel', 'Dashboard\AttendanceController@extractExcel');
 
-Route::domain(config('app.url'))->group(function () {
-
-    Route::redirect('/', 'https://main.' . config('app.url'));
-});
+//Route::domain(config('app.url'))->group(function () {
+//
+//    Route::redirect('/', 'https://main.' . config('app.url'));
+//});
 
 //Route::get('fix', function(){
 //   $fordeal = new \App\Role([
