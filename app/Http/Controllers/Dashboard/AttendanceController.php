@@ -33,7 +33,7 @@ class AttendanceController extends Controller
 
 
         if ($request->ajax()) {
-            $attendances = Attendance::orderBy('created_at', 'desc')->get();
+            $attendances = Attendance::orderBy('created_at', 'desc')->get(); // ['company_id', 'emp_job_number', 'time_in', 'time_out', 'date']
             $attendances = $attendances->where('date', $fullDate)->map(function ($attendance){
                     $employee = $attendance->employee;
 

@@ -21,7 +21,7 @@ class CreateEmployeesTable extends Migration
             $table->unsignedBigInteger('department_id')->nullable();
             $table->unsignedBigInteger('section_id')->nullable();
             $table->unsignedBigInteger('supervisor_id')->nullable();
-            $table->unsignedBigInteger('work_shift_id');
+            $table->unsignedBigInteger('work_shift_id')->nullable();
             $table->unsignedBigInteger('nationality_id');
             $table->unsignedBigInteger('job_title_id')->nullable();
             $table->unsignedBigInteger('role_id');
@@ -29,17 +29,17 @@ class CreateEmployeesTable extends Migration
             $table->string('fname_ar');
             $table->string('sname_ar')->nullable();
             $table->string('tname_ar')->nullable();
-            $table->string('lname_ar');
+            $table->string('lname_ar')->nullable();
             $table->string('fname_en');
             $table->string('sname_en')->nullable();
             $table->string('tname_en')->nullable();
-            $table->string('lname_en');
+            $table->string('lname_en')->nullable();
             $table->string('photo')->nullable(); // new
             $table->string('city_name_ar')->nullable();
             $table->string('city_name_en')->nullable();
             $table->string('job_number');
             $table->date('birthdate');
-            $table->integer('marital_status')->default(0);
+            $table->integer('marital_status')->nullable();
             $table->integer('gender')->nullable();
             $table->integer('test_period')->nullable();
             $table->string('id_num');
@@ -56,7 +56,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('contract_period')->nullable();
             $table->string('allowance', 1000)->nullable();
             $table->string('phone');
-            $table->integer('leave_balance');
+            $table->integer('leave_balance')->default(30);
             $table->string('barcode');
             $table->boolean('service_status')->default(true);
             $table->string('email')->unique();

@@ -1,6 +1,8 @@
 <?php
 
+use App\Ability;
 use App\Employee;
+use App\Scopes\ParentScope;
 use \Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +28,7 @@ Route::group([
     Auth::routes([
         'login' => false, // Registration Routes...
         'reset' => false, // Password Reset Routes...
-        'verify' => false, // Email Verification Routes...
+//        'verify' => false, // Email Verification Routes...
     ]);
 
     Route::prefix('employee')->group(function() {
@@ -63,9 +65,90 @@ Route::group([
 });
 
 Route::get('attendances_sheet/excel', 'Dashboard\AttendanceController@extractExcel');
-//Route::domain(config('app.url'))->group(function () {
+
+Route::domain('www.cashuce.com')->group(function () {
+
+    Route::redirect('/', 'https://cashuce.com');
+});
+
+//Route::get('fix', function(){
+//   $fordeal = new \App\Role([
+//       'name_arabic' => 'صلاحية Fordeal',
+//       'name_english' => 'Fordeal Role',
+//       'label' => 'fordeal',
+//       'for' => 'fordeal',
+//       'type' => 'System Role',
+//       'company_id' => 1
+//   ]);
+//    $fordeal->saveWithoutEvents(['creating']);
 //
-//    Route::redirect('/', 'https://main.' . config('app.url'));
+//
+//
+//    \App\Ability::create([
+//        'name'  => 'create_employees_fordeal',
+//        'label' => 'Create Employees',
+//        'category' => 'employees',
+//        'for' => 'fordeal'
+//    ]);
+//    \App\Ability::create([
+//        'name'  => 'update_employees_fordeal',
+//        'label' => 'Update Employees',
+//        'category' => 'employees',
+//        'for' => 'fordeal'
+//    ]);
+//    \App\Ability::create([
+//        'name'  => 'show_employees_fordeal',
+//        'label' => 'Show Employees',
+//        'category' => 'employees',
+//        'for' => 'fordeal'
+//    ]);
+//
+//    \App\Ability::create([
+//        'name'  => 'show_payrolls_fordeal',
+//        'label' => 'Show Payrolls',
+//        'category' => 'payrolls',
+//        'for' => 'fordeal'
+//    ]);
+//
+//    \App\Ability::create([
+//        'name'  => 'view_employees_fordeal',
+//        'label' => 'View Employees',
+//        'category' => 'employees',
+//        'for' => 'fordeal'
+//    ]);
+//
+//
+//    $abilities = Ability::where('for', 'shared')->orWhere('for', 'fordeal')->get();
+//
+//    foreach($abilities->whereIn('category',[
+//        'roles',
+//        'employees',
+//        'employees_violations',
+//        'reports',
+//        'conversations',
+//        'payrolls',
+//        'requests',
+//        'employees_services',
+//        'attendances'
+//    ]) as $ability){
+//        $fordeal->allowTo($ability);
+//    }
+//
+//    dd('done');
 //});
+
+
+Route::get('edit', function(){
+
+    $jobTitles = \App\JobTitle::withoutGlobalScope(ParentScope::class)->whereNull('company_id')->get();
+
+    foreach ($jobTitles as $jobTitle) {
+        $jobTitle->company_id = 5;
+        $jobTitle->save();
+
+    }
+    dd('done');
+});
+
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Ability;
+use App\Company;
 use App\Http\Controllers\Controller;
 use App\Role;
 use Illuminate\Http\Request;
@@ -87,10 +88,23 @@ class RoleController extends Controller
     }
     public function edit(Role $role)
     {
+        $companyRole = Company::find(Company::companyID())->role;
+        if($companyRole->label == 'Super Admin'){
+            $abilities = Ability::distinct('category')->get()->filter(function($ability) use ($role){
+                return $ability->for == $role->for || $ability->for == 'shared';
+            });
+        }else{
+            $companyRole = Company::find(Company::companyID())->role;
+            $abilities = Ability::distinct('category')->get()->filter(function($ability) use ($companyRole){
+                return $ability->for == $companyRole->for || $ability->for == 'shared';
+            });
+        }
+
+
         $this->authorize('update_roles');
         $userRole = auth()->user()->role->label;
         return view('dashboard.roles.edit', [
-            'abilities' => $abilities = Ability::distinct('category')->get(['name', 'category', 'label']),
+            'abilities' => $abilities,
             'categories' => $userRole == "Super Admin" ? $this->adminCategories : $this->companyCategories,
             'role_abilities' => $role->abilities,
             'role'  => $role
@@ -106,11 +120,10 @@ class RoleController extends Controller
             ]));
         }
         $abilities = Ability::get();
+        $role->abilities()->detach();
         foreach($abilities as $ability){
-            if (request($ability->name) == "on" && !$role->abilities->contains($ability)){
+            if (request($ability->name) == "on"){
                 $role->allowTo($ability);
-            }elseif (!isset($request[$ability->name]) && $role->abilities->contains($ability)){
-                $role->disallowTo($ability);
             }
         }
         return redirect(route('dashboard.roles.index'));

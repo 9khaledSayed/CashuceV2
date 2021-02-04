@@ -19,6 +19,13 @@ class RouteServiceProvider extends ServiceProvider
     protected $fordealNamespace = 'App\Http\Controllers\Dashboard\Fordeal';
     protected $dashboardNamespace = 'App\Http\Controllers\Dashboard';
     protected $domain;
+    protected $groupMiddlewares = [
+        'web',
+//                'verified',
+        'auth:employee,company,provider',
+        'localeCookieRedirect',
+        'localizationRedirect',
+        'localeViewPath' ];
 
     /**
      * The path to the "home" route for your application.
@@ -62,6 +69,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapDashboardRoutes();
 
 
+
         //
     }
 
@@ -75,9 +83,9 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-             ->domain($this->domain)
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+            ->domain($this->domain)
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
     }
 
     /**
@@ -90,9 +98,9 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
     }
 
     protected function mapDashboardRoutes()
@@ -101,13 +109,7 @@ class RouteServiceProvider extends ServiceProvider
             'domain' => $this->domain,
             'prefix' => LaravelLocalization::setLocale() . '/dashboard',
             'namespace' => $this->dashboardNamespace,
-            'middleware' => [
-                'web',
-//                'verified',
-                'auth:employee,company,provider',
-                'localeCookieRedirect',
-                'localizationRedirect',
-                'localeViewPath' ],
+            'middleware' => $this->groupMiddlewares,
         ], base_path('routes/dashboard.php'));
 
     }
@@ -115,16 +117,10 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapFordealRoutes()
     {
         Route::group([
-            'domain' => 'fordeal.' . config('app.url'),
+            'domain' => $this->domain,
             'prefix' => LaravelLocalization::setLocale() . '/dashboard',
             'namespace' => $this->fordealNamespace,
-            'middleware' => [
-                'web',
-//                'verified',
-                'auth:employee,company,provider',
-                'localeCookieRedirect',
-                'localizationRedirect',
-                'localeViewPath' ],
+            'middleware' => $this->groupMiddlewares,
         ], base_path('routes/fordeal.php'));
     }
 }

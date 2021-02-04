@@ -4,7 +4,7 @@
 
 <div class="kt-login__head">
     <span class="kt-login__signup-label">{{__('Already have an account ?')}}</span>&nbsp;&nbsp;
-    <a href="{{ route("login") }}" class="kt-link kt-login__signup-link">{{__('Log in!')}}</a>
+    <a href="{{ route("login.company") }}" class="kt-link kt-login__signup-link">{{__('Log in!')}}</a>
 </div>
 
 

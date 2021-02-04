@@ -123,6 +123,7 @@ class Company extends Authenticatable implements MustVerifyEmail
         })->filter();
     }
 
+
     public function documents()
     {
         return $this->morphMany(Document::class, 'documentable');

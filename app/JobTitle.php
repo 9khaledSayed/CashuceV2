@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\ParentScope;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -20,6 +21,16 @@ class JobTitle extends Model
     {
         $baseName = class_basename(__CLASS__);
         return "$baseName has been {$eventName}";
+    }
+
+    public static function booted()
+    {
+        static::addGlobalScope(new ParentScope());
+        static::creating(function ($model){
+            $model->company_id = Company::companyID();
+        });
+
+
     }
 
     public function name()
