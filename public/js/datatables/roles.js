@@ -48,6 +48,7 @@ var KTDatatableChildRemoteDataDemo = function() {
                 serverPaging: true,
                 serverFiltering: false,
                 serverSorting: true,
+                saveState: tablesSaveStatus,
             },
 
             // layout definition

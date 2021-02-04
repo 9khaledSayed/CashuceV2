@@ -31,15 +31,12 @@ var KTUserListDatatable = function() {
                         url: '/dashboard/attendances',
                     },
                 },
-                autoColumns:true,
+                autoColumns:false,
                 pageSize: 10,
                 serverPaging: true,
                 serverFiltering: false,
                 serverSorting: true,
-                saveState: {
-                    cookie: false,
-                    webstorage: false,
-                },
+                saveState: tablesSaveStatus,
             },
 
             // layout definition

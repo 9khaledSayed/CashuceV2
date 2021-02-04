@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
     Route::name('dashboard.')->group(function () {
             Route::get('/', 'DashboardController@index')->name('index');
+            Route::get('/departments_statistics', 'DashboardController@departmentsSection');
             Route::get('/abilities', 'AbilityController@index');
             Route::get('/violations/{violation}/additions', 'ViolationController@additions');
             Route::any('profile/company_profile', 'ProfileController@companyProfile')->name('profile.company_profile');

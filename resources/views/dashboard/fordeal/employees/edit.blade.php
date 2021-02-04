@@ -397,7 +397,7 @@
                                                                     <div class="kt-checkbox-list">
                                                                         @foreach($allowances as $allowance)
                                                                             <label class="kt-checkbox kt-checkbox--bold  @if($allowance->type == 1) kt-checkbox--success @else kt-checkbox--danger @endif ">
-                                                                                <input name="allowance[]" @if($employee->allowances->contains($allowance)) checked @endif value="{{$allowance->id}}" type="checkbox">
+                                                                                <input name="allowance[]" disabled @if($employee->allowances->contains($allowance)) checked @endif value="{{$allowance->id}}" type="checkbox">
                                                                                 {{$allowance->name()}}
 
                                                                                 @if($allowance->value)

@@ -49,10 +49,7 @@ var endedEmployees = function() {
                 serverPaging: true,
                 serverFiltering: false,
                 serverSorting: true,
-                // saveState: {
-                //     cookie: true,
-                //     webstorage: true,
-                // },
+                saveState: tablesSaveStatus,
             },
 
             // layout definition
@@ -105,16 +102,19 @@ var endedEmployees = function() {
                                     console.log(err);
                                 }
                             }).done(function (res) {
-                                swal.fire({
-                                    title: locator.__('Operation Done Successfully'),
-                                    text: locator.__(res.message),
-                                    type: 'success',
-                                    buttonsStyling: false,
-                                    confirmButtonText: locator.__("OK"),
-                                    confirmButtonClass: "btn btn-sm btn-bold btn-brand",
-                                });
-                                modal.modal('hide');
-                                datatable.reload();
+                                if(res.status === true){
+                                    swal.fire({
+                                        title: locator.__('Operation Done Successfully'),
+                                        text: locator.__(res.message),
+                                        type: 'success',
+                                        buttonsStyling: false,
+                                        confirmButtonText: locator.__("OK"),
+                                        confirmButtonClass: "btn btn-sm btn-bold btn-brand",
+                                    });
+                                    modal.modal('hide');
+                                    datatable.reload();
+                                }
+
                             });
 
                         });

@@ -1,3 +1,7 @@
+var tablesSaveStatus = {
+    cookie: false,
+    webstorage: false,
+}
 $(function (){
     let arrows;
 

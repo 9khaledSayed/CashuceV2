@@ -327,7 +327,7 @@
                                                             </div>
                                                             <div class="form-group row">
 
-                                                                <div class="col-lg-4">
+                                                                <div class="col-lg-12">
                                                                     <label>{{__('Contract Start Date')}} *</label>
                                                                     <div class="input-group date">
                                                                         <input name="contract_start_date"
@@ -387,7 +387,7 @@
 
                                                                 @foreach($allowances as $allowance)
                                                                     <label class="kt-checkbox kt-checkbox--bold  @if($allowance->type == 1) kt-checkbox--success @else kt-checkbox--danger @endif ">
-                                                                        <input name="allowance[]" value="{{$allowance->id}}" type="checkbox">
+                                                                        <input name="allowance[]" disabled value="{{$allowance->id}}" type="checkbox">
                                                                         {{$allowance->name()}}
                                                                         @if($allowance->value)
                                                                             ( {{$allowance->value . __(' S.R')}} )
