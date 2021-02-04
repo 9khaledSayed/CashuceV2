@@ -43,18 +43,33 @@
                                 title="{{__('Select')}}">
                             <option
                                     value="fname_ar"
-                                    data-content="<span class='kt-badge kt-badge--brand kt-badge--inline kt-badge--rounded'>{{__('fname_ar')}}</span>"
-                            >{{__('fname_ar')}}</option>
+                                    data-content="<span class='kt-badge kt-badge--brand kt-badge--inline kt-badge--rounded'>{{__('First Name Arabic')}}</span>"
+                            >{{__('First Name Arabic')}}</option>
 
                             <option
                                     value="sname_ar"
-                                    data-content="<span class='kt-badge kt-badge--brand kt-badge--inline kt-badge--rounded'>{{__('sname_ar')}}</span>"
-                            >{{__('sname_ar')}}</option>
+                                    data-content="<span class='kt-badge kt-badge--brand kt-badge--inline kt-badge--rounded'>{{__('Second Name Arabic')}}</span>"
+                            >{{__('Second Name Arabic')}}</option>
 
                             <option
                                     value="city_name_ar"
-                                    data-content="<span class='kt-badge kt-badge--brand kt-badge--inline kt-badge--rounded'>{{__('city_name_ar')}}</span>"
-                            >{{__('city_name_ar')}}</option>
+                                    data-content="<span class='kt-badge kt-badge--brand kt-badge--inline kt-badge--rounded'>{{__('City Name Arabic')}}</span>"
+                            >{{__('City Name Arabic')}}</option>
+
+                            <option
+                                    value="fname_en"
+                                    data-content="<span class='kt-badge kt-badge--brand kt-badge--inline kt-badge--rounded'>{{__('First Name Engilsh')}}</span>"
+                            >{{__('First Name Engilsh')}}</option>
+
+                            <option
+                                    value="sname_en"
+                                    data-content="<span class='kt-badge kt-badge--brand kt-badge--inline kt-badge--rounded'>{{__('Second Name English')}}</span>"
+                            >{{__('Second Name English')}}</option>
+
+                            <option
+                                    value="city_name_en"
+                                    data-content="<span class='kt-badge kt-badge--brand kt-badge--inline kt-badge--rounded'>{{__('City Name English')}}</span>"
+                            >{{__('City Name English')}}</option>
 
                         </select>
                     </div>
