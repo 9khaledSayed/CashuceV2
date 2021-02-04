@@ -63,7 +63,7 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
                             <a class="dropdown-item" href="{{route('dashboard.employees.create')}}">{{__('Add New')}}</a>
-                            <a class="dropdown-item" href="{{route('dashboard.employees.export')}}">{{__('Export')}}</a>
+                            <a class="dropdown-item" href="{{route('dashboard.employees.export.form')}}">{{__('Export')}}</a>
                         </div>
                     </div>
                 </div>

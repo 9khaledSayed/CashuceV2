@@ -281,22 +281,38 @@ class EmployeeController extends Controller
             ]);
         }
     }
+
+    public function extractExcelForm()
+    {
+        return view('dashboard.employees.extract_form');
+    }
+
     public function extractExcel(Request $request)
     {
-        $employees = Employee::get();
+        $employees = Employee::select($request->employees_data)->get();
+        //dd($request->employees_data[1]);
+        //dd(count($request->employees_data));
+        //$emp_arr[] = 0;
+        for($i=0; $i<count($request->employees_data); $i++)
+        {
+
+//            $employees = $employees->map(function($employee){
+//
+//                return [
+//                    $employee.''
+//                ];
+//
+//            })->filter();
+//            $emp_arr[$i] = $employees;
+        }
+        //dd($emp_arr[1]);
+
+
+
 
         $fileName = 'employees.xlsx';
 
-        $employees = $employees->map(function($employee){
 
-            return [
-                'id' => $employee->id,
-                'job_number' => $employee->job_number,
-                'name' => $employee->name()
-            ];
-
-
-        })->filter();
 
         $header_style = (new StyleBuilder())
             ->setFontSize(8)
