@@ -332,7 +332,7 @@ var KTUserListDatatable = function() {
             selection();
             selectedFetch();
             selectedStatusUpdate();
-            selectedDelete();
+            // selectedDelete();
             updateTotal();
 
         },

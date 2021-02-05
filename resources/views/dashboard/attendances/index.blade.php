@@ -28,16 +28,16 @@
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title ">
                     <div class="input-group date">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
+                        <div class="input-group-prepend ">
+                            <span class="input-group-text btn">
                                 <i class="fa fa fa-arrow-alt-circle-left kt-font-brand" id="minus"></i>
                             </span>
                         </div>
 
                         <input name="full_date" id="date-field" type="text" value="{{$fullDate}}" class="form-control text-center font-weight-bold kt-font-brand " readonly/>
 
-                        <div class="input-group-append">
-                            <span class="input-group-text">
+                        <div class="input-group-append ">
+                            <span class="input-group-text btn">
                                 <i class="fa fa fa-arrow-alt-circle-right kt-font-brand" id="plus"></i>
                             </span>
                         </div>
