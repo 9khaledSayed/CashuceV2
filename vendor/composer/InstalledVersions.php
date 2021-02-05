@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '17ca866fb3419e8d1eb4412a44eaa608c11cd340',
+    'reference' => '1a3d2785f4ecdd2bfb5ee66ccb0d6dbd49796a41',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -453,7 +453,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '17ca866fb3419e8d1eb4412a44eaa608c11cd340',
+      'reference' => '1a3d2785f4ecdd2bfb5ee66ccb0d6dbd49796a41',
     ),
     'laravel/tinker' => 
     array (
@@ -584,6 +584,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '943b5d70cc5ae7483f6aff6ff43d7e34592ca0f5',
+    ),
+    'petercoles/multilingual-country-list' => 
+    array (
+      'pretty_version' => '1.2.8',
+      'version' => '1.2.8.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '44064e30be0481eb10b2d55b2dd90bcf11731a28',
     ),
     'phar-io/manifest' => 
     array (

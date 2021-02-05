@@ -166,4 +166,10 @@ Route::get('/fix_names', function (){
 });
 
 
+Route::get('/countries', function (){
+
+    dd(Countries::lookup('ar'));
+});
+
+
 

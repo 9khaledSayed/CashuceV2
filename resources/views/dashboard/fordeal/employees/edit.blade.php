@@ -92,7 +92,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-6">
+                                                            <div class="col-lg-4">
                                                                 <label>{{__('Birthdate')}} *</label>
                                                                 <div class="input-group date">
                                                                     <input
@@ -108,7 +108,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-6">
+                                                            <div class="col-lg-4">
                                                                 <label>{{__('Nationality')}} *</label>
                                                                 <select name="nationality_id"
                                                                         data-size="7"
@@ -120,6 +120,21 @@
                                                                         <option value="{{$nationality->id}}"
                                                                                 @if($employee->nationality_id == $nationality->id)selected @endif
                                                                         >{{$nationality->name()}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <label>{{__('City')}} *</label>
+                                                                <select name="city_id"
+                                                                        data-size="7"
+                                                                        data-live-search="true"
+                                                                        data-show-subtext="true"
+                                                                        class="form-control kt-selectpicker" title="Choose">
+                                                                    <option value="">{{__('Choose')}}</option>
+                                                                    @foreach($cities as $city)
+                                                                        <option value="{{$city->id}}"
+                                                                                @if($employee->city_id == $city->id)selected @endif
+                                                                        >{{$city->name()}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -181,16 +196,6 @@
                                                                         </span>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-lg-6">
-                                                                <label>{{__('City Name In Arabic')}}</label>
-                                                                <input name="city_name_ar" class="form-control" type="text" value="{{$employee->city_name_ar}}">
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <label>{{__('City Name In English')}}</label>
-                                                                <input name="city_name_en" class="form-control" type="text" value="{{$employee->city_name_en}}">
                                                             </div>
                                                         </div>
                                                     </div>

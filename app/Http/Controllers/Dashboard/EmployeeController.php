@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Allowance;
 use App\Attendance;
+use App\City;
 use App\Company;
 use App\Department;
 use App\Employee;
@@ -96,6 +97,7 @@ class EmployeeController extends Controller
 
         $data = [
             'nationalities' => Nationality::all(),
+            'cities' => City::all(),
             'job_titles' => JobTitle::all(),
             'roles' => Role::get(),
             'contract_type' => $this->contract_type,
@@ -140,6 +142,7 @@ class EmployeeController extends Controller
         return view('dashboard.employees.show', [
             'employee' => $employee,
             'nationalities' => $nationalities,
+            'cities' => City::all(),
             'job_titles' => $job_titles,
             'roles' => $roles,
             'contract_type' => $this->contract_type,
@@ -156,6 +159,7 @@ class EmployeeController extends Controller
         $this->authorize('update_employees');
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
+        $cities = City::all();
         $job_titles = JobTitle::all();
         $workShifts = WorkShift::get();
         $roles = Role::get();
@@ -167,6 +171,7 @@ class EmployeeController extends Controller
         return view('dashboard.employees.edit', [
             'employee' => $employee,
             'nationalities' => $nationalities,
+            'cities' => $cities,
             'job_titles' => $job_titles,
             'roles' => $roles,
             'leaveBalances' =>$leaveBalances,

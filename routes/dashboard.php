@@ -61,6 +61,7 @@ use Illuminate\Support\Facades\Route;
                 'requests' => 'RequestController',
                 'payrolls' => 'PayrollController',
                 'nationalities' => 'NationalityController',
+                'cities' => 'CityController',
                 'job_titles' => 'JobTitleController',
                 'allowances' => 'AllowanceController',
                 'work_shifts' => 'WorkShiftController',
