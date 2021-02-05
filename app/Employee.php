@@ -31,14 +31,8 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
 
     public static $rules = [
-        'fname_ar' => ['required', 'string'],
-        'sname_ar' => ['required', 'string'],
-        'tname_ar' => ['nullable', 'string'],
-        'lname_ar' => ['required', 'string'],
-        'fname_en' => ['required', 'string'],
-        'sname_en' => ['required', 'string'],
-        'tname_en' => ['nullable', 'string'],
-        'lname_en' => ['required', 'string'],
+        'name_ar' => ['required', 'string'],
+        'name_en' => ['required', 'string'],
         'email' => 'sometimes|required|email|unique:employees',
         'provider_id' => 'nullable|numeric|exists:providers,id',
         'supervisor_id' => 'nullable|numeric|exists:employees,id',
@@ -75,10 +69,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
     ];
 
     public static $fordealRules = [
-        'fname_ar' => ['required', 'string'],
-        'sname_ar' => ['required', 'string'],
-        'fname_en' => ['required', 'string'],
-        'sname_en' => ['required', 'string'],
+        'name_en' => ['required', 'string'],
         'email' => 'sometimes|required|email|unique:employees',
         'provider_id' => 'nullable|numeric|exists:providers,id',
         'supervisor_id' => 'nullable|numeric|exists:employees,id',
@@ -90,7 +81,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'job_title_id' => 'required|numeric|exists:job_titles,id',
         'marital_status' => ['required'],
         'gender' => ['required'],
-        'test_period' => ['required'],
+//        'test_period' => ['required'],
         'city_name_ar' => ['required'],
         'city_name_en' => ['required'],
         'id_num' => ['required'],
@@ -166,7 +157,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
     public function name()
     {
         $currentLocale = app()->getLocale();
-        return $this->{'fname_' . $currentLocale} . ' ' . $this->{'lname_' . $currentLocale};
+        return $this->{'name_' . $currentLocale};
     }
 
     public function provider()

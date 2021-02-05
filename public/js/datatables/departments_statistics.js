@@ -50,16 +50,9 @@ var departmentStatistics = function() {
 
             // columns definition
             columns: [
-                {
-                    field: 'id',
-                    title: '#',
-                    sortable: 'asc',
-                    width: 30,
-                    type: 'number',
-                    selector: false,
-                    textAlign: 'center',
-                }, {
+                 {
                     field: 'name',
+                     width: 300,
                     title: locator.__('Name'),
                     textAlign: 'center',
                 },{

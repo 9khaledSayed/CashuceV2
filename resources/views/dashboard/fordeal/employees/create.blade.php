@@ -85,23 +85,9 @@
                                                     <div class="kt-section__body">
                                                         <h3 class="kt-section__title kt-section__title-lg">{{__('Basic Information')}} :</h3>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-6">
-                                                                <label>{{__('First Name Arabic')}} *</label>
-                                                                <input name="fname_ar" class="form-control" type="text">
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <label>{{__('Second Name Arabic')}}</label>
-                                                                <input name="sname_ar" class="form-control" type="text">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-lg-6">
-                                                                <label>{{__('First Name English')}} *</label>
-                                                                <input name="fname_en" class="form-control" type="text">
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <label>{{__('Second Name English')}}</label>
-                                                                <input name="sname_en" class="form-control" type="text">
+                                                            <div class="col-lg-12">
+                                                                <label>{{__('Full Name')}} *</label>
+                                                                <input name="name_en" class="form-control" type="text">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
@@ -321,13 +307,6 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-lg-6">
-                                                                    <label>{{__('Trial Period in days')}}</label>
-                                                                    <input name="test_period" class="form-control" type="number" min="1">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-
-                                                                <div class="col-lg-12">
                                                                     <label>{{__('Contract Start Date')}} *</label>
                                                                     <div class="input-group date">
                                                                         <input name="contract_start_date"
