@@ -19,10 +19,30 @@
     </div>
     <!-- begin:: Content Head -->
     <div class="kt-portlet kt-portlet--mobile">
-        <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head kt-portlet__head--lg d-flex justify-content-between">
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
-                    {{__('Attendance Sheet')}} <span class="kt-font-brand selected-date"> {{$fullDate . __(' ( Today ) ')}}</span>
+                    {{__('Attendance Sheet')}}
+                </h3>
+            </div>
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title ">
+                    <div class="input-group date">
+                        <div class="input-group-prepend ">
+                            <span class="input-group-text btn">
+                                <i class="fa fa fa-arrow-alt-circle-left kt-font-brand" id="minus"></i>
+                            </span>
+                        </div>
+
+                        <input name="full_date" id="date-field" type="text" value="{{$fullDate}}" class="form-control text-center font-weight-bold kt-font-brand " readonly/>
+
+                        <div class="input-group-append ">
+                            <span class="input-group-text btn">
+                                <i class="fa fa fa-arrow-alt-circle-right kt-font-brand" id="plus"></i>
+                            </span>
+                        </div>
+                    </div>
+
                 </h3>
             </div>
             <div class="kt-portlet__head-label">
@@ -45,7 +65,6 @@
                                 </span>
                                 </div>
                             </div>
-
 
                         </div>
                     </div>
@@ -73,6 +92,7 @@
 
                             </div>
                             <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
+
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Supervisor')}}:</label>
@@ -158,11 +178,11 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
                 </div>
+
             </div>
             <!-- end:: Content Head -->
         </div>
@@ -241,14 +261,12 @@
     <script src="{{asset('js/datatables/attendances.js')}}" type="text/javascript"></script>
     <script>
         $(function () {
-            $('.full-date').datepicker({
+            $('#date-field').datepicker({
                 rtl: true,
                 language: appLang,
                 orientation: "bottom",
                 format: "yyyy-mm-dd",
-                // viewMode: "months",
-                // minViewMode: "months",
-                clearBtn: true,
+                clearBtn: false,
                 lang: appLang
             });
 
@@ -266,8 +284,30 @@
                 window.location.replace("/attendances_sheet/excel?full_date=" + fullDate);
             });
 
+            $("#plus").click(function (){
+                var dateField = $('#date-field');
+                var currentDate = dateField.datepicker("getDate");
+                var newDate = new Date();
 
+                newDate.setMonth(currentDate.getMonth());
+                newDate.setDate(currentDate.getDate() + 1);
+                newDate.setFullYear(currentDate.getFullYear());
 
+                dateField.datepicker("setDate", newDate);
+
+            });
+            $("#minus").click(function (){
+                var dateField = $('#date-field');
+                var currentDate = dateField.datepicker("getDate");
+                var newDate = new Date();
+
+                newDate.setMonth(currentDate.getMonth());
+                newDate.setDate(currentDate.getDate() - 1);
+                newDate.setFullYear(currentDate.getFullYear());
+
+                dateField.datepicker("setDate", newDate);
+
+            });
 
         })
     </script>

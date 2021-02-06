@@ -27,7 +27,7 @@ class DashboardController extends Controller
         $employeesInTrail = $this->expiringDocs($request);
         $attendanceSummary = $this->attendanceSummary($request);
         $employeesStatistics = $this->employeesStatistics();
-        $departments = $this->departmentsSection();
+        $departments = $this->departmentsSection($request);
         $activities = $this->employeesActivities();
 
         return view('dashboard.index', compact([
@@ -60,11 +60,11 @@ class DashboardController extends Controller
         return $employeesStatistics;
     }
 
-    public function departmentsSection()
+    public function departmentsSection(Request $request)
     {
         $totalActiveEmployees = Company::find(Company::companyID())->employees->count();
 
-        return Department::get()->map(function ($department) use ($totalActiveEmployees){
+        $departments =  Department::get()->map(function ($department) use ($totalActiveEmployees){
             $colors = [ 'danger', 'success', 'brand', 'warning','info'];
             $activeEmployeesInDepartment = $department->employees;
             $allDepartmentEmployees = Employee::withoutGlobalScope(new ServiceStatusScope())->where('department_id', $department->id)->get();
@@ -78,13 +78,17 @@ class DashboardController extends Controller
             return[
                 'name' => $department->name(),
                 'in_service' => $allDepartmentEmployees->where('service_status' , 1)->count(),
-                'out_service' => $allDepartmentEmployees->where('service_status' , 0)->count(),
-                'saudi_no' => $this->saudisNumber($allDepartmentEmployees),
-                'non_saudi_no' => $this->nonSaudisNumber($allDepartmentEmployees),
                 'percentage' => $percentage,
                 'color' => array_rand($colors),
             ];
         });
+
+        if ($request->ajax()){
+            return response()->json($departments);
+        }
+        else{
+            return $departments;
+        }
     }
 
     public function endedEmployees(Request $request)

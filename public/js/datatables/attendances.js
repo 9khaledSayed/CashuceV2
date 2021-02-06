@@ -31,15 +31,12 @@ var KTUserListDatatable = function() {
                         url: '/dashboard/attendances',
                     },
                 },
-                autoColumns:true,
+                autoColumns:false,
                 pageSize: 10,
                 serverPaging: true,
                 serverFiltering: false,
                 serverSorting: true,
-                saveState: {
-                    cookie: false,
-                    webstorage: false,
-                },
+                saveState: tablesSaveStatus,
             },
 
             // layout definition
@@ -185,8 +182,7 @@ var KTUserListDatatable = function() {
                     title: locator.__('Date'),
                     type: 'date',
                     width: 80,
-                    autoHide: false,
-                    overflow: 'visible',
+                    visible: false,
                 },{
                     field: 'Actions',
                     title: locator.__('Actions'),
@@ -206,8 +202,7 @@ var KTUserListDatatable = function() {
 
 
 
-    $('.full-date').on('change', function() {
-        $(".selected-date").text($(this).val())
+    $('#date-field').on('change', function() {
         datatable.setDataSourceParam('full_date', $(this).val());
         datatable.reload();
     });
@@ -342,53 +337,6 @@ var KTUserListDatatable = function() {
     }
 
     // selected records delete
-    var selectedDelete = function() {
-        $('#kt_subheader_group_actions_delete_all').on('click', function() {
-            // fetch selected IDs
-            var ids = datatable.rows('.kt-datatable__row--active').nodes().find('.kt-checkbox--single > [type="checkbox"]').map(function(i, chk) {
-                return $(chk).val();
-            });
-
-            if (ids.length > 0) {
-                // learn more: https://sweetalert2.github.io/
-                swal.fire({
-                    buttonsStyling: false,
-
-                    text: "Are you sure to delete " + ids.length + " selected records ?",
-                    type: "danger",
-
-                    confirmButtonText: "Yes, delete!",
-                    confirmButtonClass: "btn btn-sm btn-bold btn-danger",
-
-                    showCancelButton: true,
-                    cancelButtonText: "No, cancel",
-                    cancelButtonClass: "btn btn-sm btn-bold btn-brand"
-                }).then(function(result) {
-                    if (result.value) {
-                        swal.fire({
-                            title: 'Deleted!',
-                            text: 'Your selected records have been deleted! :(',
-                            type: 'success',
-                            buttonsStyling: false,
-                            confirmButtonText: "OK",
-                            confirmButtonClass: "btn btn-sm btn-bold btn-brand",
-                        })
-                        // result.dismiss can be 'cancel', 'overlay',
-                        // 'close', and 'timer'
-                    } else if (result.dismiss === 'cancel') {
-                        swal.fire({
-                            title: 'Cancelled',
-                            text: 'You selected records have not been deleted! :)',
-                            type: 'error',
-                            buttonsStyling: false,
-                            confirmButtonText: "OK",
-                            confirmButtonClass: "btn btn-sm btn-bold btn-brand",
-                        });
-                    }
-                });
-            }
-        });
-    }
 
     var updateTotal = function() {
         datatable.on('kt-datatable--on-layout-updated', function () {
@@ -404,7 +352,7 @@ var KTUserListDatatable = function() {
             selection();
             selectedFetch();
             selectedStatusUpdate();
-            selectedDelete();
+            // selectedDelete();
             updateTotal();
 
         },

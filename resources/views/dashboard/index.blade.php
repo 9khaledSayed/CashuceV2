@@ -16,6 +16,8 @@
         }
 
 
+
+
     </style>
 @endpush
 
@@ -159,47 +161,21 @@
     <!--Begin::Row-->
     <div class="row">
         <div class="col-lg-6">
-
             <!--begin:: Widgets/Sale Reports-->
-            <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
-                <div class="kt-portlet__head">
+            <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+                <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
-                            {{__('Departments')}}
+                            {{__('Employees In Departments')}}
                         </h3>
                     </div>
                 </div>
-                <div class="kt-portlet__body">
-                    <!--begin::Widget 11-->
-                    <div class="kt-widget11">
-                        <div class="kt-scroll" data-scroll="true" data-height="300">
-                            <div class="table-responsive">
-                            <table class="table" style="text-align: center">
-                                <thead>
-                                <tr>
-                                    <td>{{__('Name')}}</td>
-                                    <td>{{__('In Service')}}</td>
-                                    <td>{{__('Out Of Service')}}</td>
-                                    <td>{{__('Saudi No')}}</td>
-                                    <td>{{__('Non-Saudi No')}}</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($departments as $department)
-                                    <tr>
-                                        <td>{{$department['name']}}</td>
-                                        <td>{{$department['in_service']}}</td>
-                                        <td>{{$department['out_service']}}</td>
-                                        <td>{{$department['saudi_no']}}</td>
-                                        <td>{{$department['non_saudi_no']}}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        </div>
-                    </div>
-                    <!--end::Widget 11-->
+
+                <div class="kt-portlet__body kt-portlet__body--fit">
+                    <!--begin: Datatable -->
+                    <div class="kt-datatable" id="department_statistics_table"></div>
+
+                    <!--end: Datatable -->
                 </div>
             </div>
 
@@ -289,7 +265,7 @@
                                 <div class="kt-widget24__details">
                                     <div class="kt-widget24__info">
                                         <h4 class="kt-widget24__title">
-                                            {{__('Employees')}}
+                                            {{__('Attendees')}}
                                         </h4>
                                     </div>
                                     <span class="kt-widget24__stats kt-font-brand">
@@ -503,6 +479,7 @@
     <script src="{{asset('js/datatables/attendance_summary.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/datatables/expiring_documents.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/datatables/ended_employees.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/datatables/departments_statistics.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/plugins/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
     <!--end::Page Vendors -->
     <script>

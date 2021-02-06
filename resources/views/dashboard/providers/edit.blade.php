@@ -31,7 +31,7 @@
 
         <!--begin::Form-->
         <form class="kt-form kt-form--label-right" method="POST" action="{{route('dashboard.providers.update', $provider)}}">
-            @method('POST')
+            @method('PUT')
             @csrf
             <div class="kt-portlet__body">
 

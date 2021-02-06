@@ -85,43 +85,17 @@
                                                     <div class="kt-section__body">
                                                         <h3 class="kt-section__title kt-section__title-lg">{{__('Basic Information')}} :</h3>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-3">
-                                                                <label>{{__('First Name Arabic')}} *</label>
-                                                                <input name="fname_ar" class="form-control" type="text">
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                <label>{{__('Second Name Arabic')}}</label>
-                                                                <input name="sname_ar" class="form-control" type="text">
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                <label>{{__('Third Name Arabic')}}</label>
-                                                                <input name="tname_ar" class="form-control" type="text">
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                <label>{{__('Fourth Name Arabic')}} *</label>
-                                                                <input name="lname_ar" class="form-control" type="text">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-lg-3">
-                                                                <label>{{__('First Name English')}} *</label>
-                                                                <input name="fname_en" class="form-control" type="text">
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                <label>{{__('Second Name English')}}</label>
-                                                                    <input name="sname_en" class="form-control" type="text">
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                <label>{{__('Third Name English')}}</label>
-                                                                <input name="tname_en" class="form-control" type="text">
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                <label>{{__('Fourth Name English')}} *</label>
-                                                                <input name="lname_en" class="form-control" type="text">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
                                                             <div class="col-lg-6">
+                                                                <label>{{__('Full Name Arabic')}} *</label>
+                                                                <input name="name_ar" class="form-control" type="text">
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label>{{__('Full Name English')}}</label>
+                                                                <input name="name_en" class="form-control" type="text">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-lg-4">
                                                                 <label>{{__('Birthdate')}} *</label>
                                                                 <div class="input-group date">
                                                                     <input name="birthdate" type="text" class="form-control datepicker" readonly/>
@@ -132,7 +106,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-6">
+                                                            <div class="col-lg-4">
                                                                 <label>{{__('Nationality')}} *</label>
                                                                 <select name="nationality_id"
                                                                         data-size="7"
@@ -141,6 +115,20 @@
                                                                         class="form-control kt-selectpicker" title="Choose">
                                                                     @foreach($nationalities as $nationality)
                                                                         <option value="{{$nationality->id}}">{{$nationality->name()}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <label>{{__('City')}} *</label>
+                                                                <select name="city_id"
+                                                                        data-size="7"
+                                                                        data-live-search="true"
+                                                                        data-show-subtext="true"
+                                                                        class="form-control kt-selectpicker" title="Choose">
+                                                                    <option value="">{{__('Choose')}}</option>
+                                                                    @foreach($cities as $city)
+                                                                        <option value="{{$city->id}}"
+                                                                        >{{$city->name()}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -209,16 +197,6 @@
                                                                         </span>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-lg-6">
-                                                                <label>{{__('City Name In Arabic')}}</label>
-                                                                <input name="city_name_ar" class="form-control" type="text">
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <label>{{__('City Name In English')}}</label>
-                                                                <input name="city_name_en" class="form-control" type="text">
                                                             </div>
                                                         </div>
                                                     </div>

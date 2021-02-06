@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Allowance;
 use App\Attendance;
+use App\City;
 use App\Company;
 use App\Department;
 use App\Employee;
@@ -103,6 +104,7 @@ class EmployeeController extends Controller
 
         $data = [
             'nationalities' => Nationality::all(),
+            'cities' => City::all(),
             'job_titles' => JobTitle::all(),
             'roles' => Role::get(),
             'contract_type' => $this->contract_type,
@@ -147,6 +149,7 @@ class EmployeeController extends Controller
         return view('dashboard.employees.show', [
             'employee' => $employee,
             'nationalities' => $nationalities,
+            'cities' => City::all(),
             'job_titles' => $job_titles,
             'roles' => $roles,
             'contract_type' => $this->contract_type,
@@ -163,6 +166,7 @@ class EmployeeController extends Controller
         $this->authorize('update_employees');
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
+        $cities = City::all();
         $job_titles = JobTitle::all();
         $workShifts = WorkShift::get();
         $roles = Role::get();
@@ -174,6 +178,7 @@ class EmployeeController extends Controller
         return view('dashboard.employees.edit', [
             'employee' => $employee,
             'nationalities' => $nationalities,
+            'cities' => $cities,
             'job_titles' => $job_titles,
             'roles' => $roles,
             'leaveBalances' =>$leaveBalances,
@@ -223,11 +228,19 @@ class EmployeeController extends Controller
             ]);
             $employee->contract_end_date = $request->contract_end_date;
             $employee->save();
+
+            $response = [
+                'status' => true,
+                'message' => 'service will be ended in ' . $request->contract_end_date  . ' at 12:00 AM'
+            ];
+
+            return response()->json($response);
         }
     }
     public function backToService($id, Request $request)
     {
         $employee = Employee::withoutGlobalScope(new ServiceStatusScope())->find($id);
+
         if($request->ajax()){
             $request->validate([
                 'contract_start_date' => 'required|date',
@@ -235,7 +248,22 @@ class EmployeeController extends Controller
             ]);
             $employee->contract_start_date = $request->contract_start_date;
             $employee->contract_end_date = $request->contract_end_date;
+
+            if($request->contract_start_date == Carbon::today()->format('Y-m-d')){
+                $employee->service_status = 1;
+                $response = [
+                    'status' => true,
+                    'message' => 'Employee has been returned to service successfully'
+                ];
+            }else{
+                $response = [
+                    'status' => true,
+                    'message' => 'Employee will be returned to the service at ' . $request->contract_start_date
+                ];
+            }
+
             $employee->save();
+            return response()->json($response);
         }
     }
 
