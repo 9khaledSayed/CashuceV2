@@ -54,7 +54,7 @@
                 <div class="row align-items-center mt-5">
                     <div class="col-xl-12 order-2 order-xl-1">
                         <div class="row align-items-center">
-                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Full Date')}}:</label>
@@ -72,7 +72,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Supervisor')}}:</label>
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Nationality')}}:</label>
@@ -106,7 +106,42 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        <label>{{__('Provider')}}:</label>
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <select class="form-control selectpicker" id="kt_form_provider">
+                                            <option value="">{{__('All')}}</option>
+                                            @forelse($providers as $provider)
+                                                <option value="{{$provider->name()}}">{{$provider->name()}}</option>
+                                            @empty
+                                                <option disabled>{{__('There is no providers in your company')}}</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        <label>{{__('Section')}}:</label>
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <select class="form-control selectpicker" id="kt_form_section">
+                                            <option value="">{{__('All')}}</option>
+                                            @forelse($sections as $section)
+                                                <option value="{{$section->name()}}">{{$section->name()}}</option>
+                                            @empty
+                                                <option disabled>{{__('There is no sections in your company')}}</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Department')}}:</label>

@@ -15,6 +15,7 @@ use App\Provider;
 use App\Role;
 use App\Rules\UniqueJopNumber;
 use App\Scopes\ServiceStatusScope;
+use App\Section;
 use App\WorkShift;
 use Box\Spout\Writer\Style\StyleBuilder;
 use Carbon\Carbon;
@@ -51,6 +52,8 @@ class EmployeeController extends Controller
             $employees = Employee::orderBy($sortColumn, $sortType)->get()->map(function($employee){
                 $supervisor = $employee->supervisor? $employee->supervisor->name(): '';
                 $department = $employee->department? $employee->department->name(): '';
+                $section = $employee->section? $employee->section->name(): '';
+                $provider = $employee->provider? $employee->provider->name(): '';
 
                 return [
                     'id' => $employee->id,
@@ -59,6 +62,8 @@ class EmployeeController extends Controller
                     'nationality' => $employee->nationality(),
                     'name' => $employee->name(),
                     'department' => $department,
+                    'section' => $section,
+                    'provider' => $provider,
                     'job_number' => $employee->job_number,
                     'salary' => $employee->salary,
                     'barcode' => $employee->barcode,
@@ -76,8 +81,10 @@ class EmployeeController extends Controller
                 'employeesNo' => Employee::get()->count(),
                 'supervisors' =>  Company::supervisors(),
                 'nationalities' => Nationality::get(),
+                'providers' => Provider::get(),
                 'roles' => Role::get(),
                 'departments' => Department::get(),
+                'sections' => Section::get(),
                 ]);
         }
 
