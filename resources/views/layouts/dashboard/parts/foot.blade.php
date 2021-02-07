@@ -23,8 +23,8 @@
 <!-- end::Global Config -->
 
 <!--begin::Global Theme Bundle(used by all pages) -->
-<script src="{{asset('assets/plugins/global/plugins.bundle.js?v=<?=time();?')}}" type="text/javascript"></script>
-<script src="{{asset('assets/js/scripts.bundle.js?v=<?=time();?')}}" type="text/javascript"></script>
+<script src="{{asset('assets/plugins/global/plugins.bundle.js?v=<?=time();?>')}}" type="text/javascript"></script>
+<script src="{{asset('assets/js/scripts.bundle.js?v=<?=time();?>')}}" type="text/javascript"></script>
 
 <!--end::Global Theme Bundle -->
 
@@ -35,6 +35,6 @@
 <!--end::Page Vendors -->
 
 <!--begin::Page Scripts(used by this page) -->
-<script src="{{asset('assets/js/pages/dashboard.js?v=<?=time();?')}}" type="text/javascript"></script>
-<script src="{{asset('js/pages/globalScripts.js?v=<?=time();?')}}" type="text/javascript"></script>
+<script src="{{asset('assets/js/pages/dashboard.js?v=<?=time();?>')}}" type="text/javascript"></script>
+<script src="{{asset('js/pages/globalScripts.js?v=<?=time();?>')}}" type="text/javascript"></script>
 @stack('scripts')
