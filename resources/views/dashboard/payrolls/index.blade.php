@@ -134,7 +134,7 @@
                             <div class="kt-widget kt-widget--user-profile-2">
                                 <div class="kt-widget__head">
                                     <div class="kt-widget__info">
-                                        <a href="#" class="kt-widget__username search_item">{{ $payroll->date->translatedFormat('d F Y') }}</a>
+                                        <a href="#" class="kt-widget__username search_item">{{ $payroll->year_month->translatedFormat('F Y') }}</a>
 
                                         <div class="text-center">
                                             <a href="#" class="kt-widget__username search_item">{{$payroll->creator()}}</a>

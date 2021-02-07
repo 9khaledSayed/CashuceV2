@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Department;
+use App\Employee;
 use App\Section;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,7 +22,9 @@ class DepartmentController extends Controller
 
     public function create()
     {
-        return view('dashboard.departments.create');
+        return view('dashboard.departments.create', [
+            'supervisors' => Employee::get(),
+        ]);
     }
 
 
@@ -34,13 +37,19 @@ class DepartmentController extends Controller
 
     public function show(Department $department)
     {
-        return view('dashboard.departments.show', compact('department'));
+        return view('dashboard.departments.show', [
+            'department' => $department,
+            'supervisors' => Employee::get(),
+        ]);
     }
 
 
     public function edit(Department $department)
     {
-        return view('dashboard.departments.edit', compact('department'));
+        return view('dashboard.departments.edit', [
+            'department' => $department,
+            'supervisors' => Employee::get(),
+        ]);
     }
 
     public function update(Department $department)
@@ -69,6 +78,7 @@ class DepartmentController extends Controller
         return request()->validate([
             'name_ar'    => 'required',
             'name_en'   => 'required',
+            'supervisor_id'   => 'required|numeric|exists:employees,id',
         ]);
     }
 

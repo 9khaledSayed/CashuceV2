@@ -269,7 +269,7 @@
                                         </h4>
                                     </div>
                                     <span class="kt-widget24__stats kt-font-brand">
-                                        {{$attendanceSummary['totalActiveEmployees']}}
+                                        {{$attendanceSummary['totalAttendees']}}
                                     </span>
                                 </div>
                             </div>

@@ -35,7 +35,6 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'name_en' => ['required', 'string'],
         'email' => 'sometimes|required|email|unique:employees',
         'provider_id' => 'nullable|numeric|exists:providers,id',
-        'supervisor_id' => 'nullable|numeric|exists:employees,id',
         'department_id' => 'required|numeric|exists:departments,id',
         'section_id' => 'required|numeric|exists:sections,id',
         'role_id' => 'required|numeric|exists:roles,id',
@@ -47,14 +46,12 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'test_period' => ['required'],
         'city_id' => 'required|numeric|exists:cities,id',
         'id_num' => ['required'],
-//        'id_issue_date' => ['nullable'],
         'id_expire_date' => ['nullable'],
         'passport_num' => ['nullable'],
         'passport_issue_date' => ['nullable'],
         'passport_expire_date' => ['nullable'],
         'issue_place' => ['nullable'],
         'job_number' =>['required','numeric'],
-//        'joined_date' => ['required'],
         'work_shift_id' => ['required', 'exists:work_shifts,id'],
         'contract_type' => ['required'],
         'contract_start_date' => ['required'],
@@ -71,7 +68,6 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'name_en' => ['required', 'string'],
         'email' => 'sometimes|required|email|unique:employees',
         'provider_id' => 'nullable|numeric|exists:providers,id',
-        'supervisor_id' => 'nullable|numeric|exists:employees,id',
         'department_id' => 'required|numeric|exists:departments,id',
         'section_id' => 'required|numeric|exists:sections,id',
         'role_id' => 'required|numeric|exists:roles,id',
@@ -80,25 +76,16 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'job_title_id' => 'required|numeric|exists:job_titles,id',
         'marital_status' => ['required'],
         'gender' => ['required'],
-//        'test_period' => ['required'],
         'city_id' => 'required|numeric|exists:cities,id',
         'id_num' => ['required'],
         'id_issue_date' => ['nullable'],
         'id_expire_date' => ['nullable'],
-//        'passport_num' => ['nullable'],
-//        'passport_issue_date' => ['nullable'],
-//        'passport_expire_date' => ['nullable'],
-//        'issue_place' => ['nullable'],
         'job_number' =>['required','numeric'],
-//        'joined_date' => ['required'],
         'work_shift_id' => ['required', 'exists:work_shifts,id'],
         'contract_type' => ['required'],
         'contract_start_date' => ['required'],
-//        'contract_end_date' => ['nullable'],
-//        'contract_period' => 'nullable',
         'salary' => ['required', 'numeric'],
         'phone' => ['required'],
-//        'leave_balance' => 'required|numeric|min:0|max:365|exists:leave_balances,days_per_year',
         'password' => ['required', 'string', 'min:8', 'confirmed'],
 
     ];
@@ -145,6 +132,13 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
              }
          });
+
+        static::saving(function ($employee){
+            $supervisorID = $employee->department->supervisor_id;
+            if($supervisorID != 0){
+                $employee->supervisor_id = $supervisorID;
+            }
+        });
     }
 
     public function setPasswordAttribute($password)

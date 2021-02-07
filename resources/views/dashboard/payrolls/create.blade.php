@@ -16,7 +16,7 @@
             <div class="kt-subheader__toolbar">
                 <a href="#" class="">
                 </a>
-                <a href="{{route('dashboard.index')}}" class="btn btn-secondary">
+                <a href="{{route('dashboard.payrolls.index')}}" class="btn btn-secondary">
                     {{__('Back')}}
                 </a>
             </div>

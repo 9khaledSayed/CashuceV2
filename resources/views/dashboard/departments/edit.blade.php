@@ -52,6 +52,26 @@
                                name="name_en">
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="supervisor_id" class="col-form-label col-lg-3 col-sm-12">{{__('Supervisor')}}</label>
+                    <div class="col-lg-6 col-md-9 col-sm-12">
+                        <select class="form-control @error('supervisor_id') is-invalid @enderror kt-selectpicker"
+                            id="supervisor_id"
+                            data-size="7"
+                            data-live-search="true"
+                            data-show-subtext="true" name="supervisor_id" title="{{__('Select')}}">
+                        <option value="">{{__('choose')}}</option>
+                        @forelse($supervisors as $supervisor)
+                            <option
+                                    value="{{$supervisor->id}}"
+                                    @if($supervisor->id == (old('supervisor_id') ?? $department->supervisor_id)) selected @endif
+                            >{{$supervisor->name()  . '( ' . $supervisor->job_number . ' )'}}</option>
+                        @empty
+                            <option disabled>{{__('There is no supervisors')}}</option>
+                        @endforelse
+                    </select>
+                    </div>
+                </div>
             </div>
             <div class="kt-portlet__foot" style="text-align: center">
                 <div class="kt-form__actions">

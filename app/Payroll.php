@@ -16,6 +16,7 @@ class Payroll extends Model
     protected $dates = ['date', 'issue_date'];
     protected $casts = [
         'date'  => 'date:M-Y',
+        'year_month'  => 'date',
     ];
 
     protected static $logUnguarded = true;

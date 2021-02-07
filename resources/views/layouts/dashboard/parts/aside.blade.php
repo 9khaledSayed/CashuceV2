@@ -8,130 +8,45 @@
             <ul class="kt-menu__nav ">
                 <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('dashboard.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-protection"></i><span class="kt-menu__link-text">{{__('Dashboard')}}</span></a></li>
 
-                @canany(['view_roles','create_roles'])
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon-lock"></i><span class="kt-menu__link-text">{{__('Roles')}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
-                        <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Config</span></span></li>
-                            @can('view_roles')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.roles.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('All Roles')}}</span></a></li>
-                            @endcan
-                            @can('create_roles')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.roles.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('New Role')}}</span></a></li>
-                            @endcan
-                        </ul>
-                    </div>
-                </li>
-                @endcanany
+                @canany(['view_roles', 'create_roles', 'update_roles', 'update_roles', 'delete'])
+                    <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.roles.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-lock"></i><span class="kt-menu__link-text">{{__('All Roles')}}</span></a></li>
+                @endcan
 
-                @canany(['view_users','create_users'])
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon-user-ok"></i><span class="kt-menu__link-text">{{__('Companies')}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
-                        <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Config</span></span></li>
-                            @can('view_users')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.companies.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('All Companies')}}</span></a></li>
-                            @endcan
-                            @can('create_users')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.companies.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('New Company')}}</span></a></li>
-                            @endcan
-                        </ul>
-                    </div>
-                </li>
+                @canany(['view_users','create_users', 'update_users'])
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.companies.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-user-ok"></i><span class="kt-menu__link-text">{{__('Companies')}}</span></a></li>
                 @endcanany
 
 
                 @canany(['view_violations','create_violations'])
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-open-box"></i><span class="kt-menu__link-text">{{__('Violations Panel')}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
-                        <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Config</span></span></li>
-                            @can('view_violations')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.violations.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('AlL Violations')}}</span></a></li>
-                            @endcan
-                            @can('create_violations')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.violations.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('New Violation')}}</span></a></li>
-                            @endcan
-                        </ul>
-                    </div>
-                </li>
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.violations.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon flaticon2-open-box"></i><span class="kt-menu__link-text">{{__('Violations Panel')}}</span></a></li>
                 @endcanany
-                @canany(['view_employees','create_employees', 'view_employees_fordeal', 'create_employees_fordeal'])
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-group"></i><span class="kt-menu__link-text">{{__('Employees')}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
-                        <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Config</span></span></li>
-                            @can('view_employees')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.employees.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('All Employees')}}</span></a></li>
-                            @endcan
-                            @can('view_employees_fordeal')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.fordeal.employees_special.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('All Employees')}}</span></a></li>
-                            @endcan
-                            @can('create_employees')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.employees.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('New Employee')}}</span></a></li>
-                            @endcan
-                            @can('create_employees_fordeal')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.fordeal.employees_special.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('New Employee')}}</span></a></li>
-                            @endcan
-                        </ul>
-                    </div>
-                </li>
+
+                @canany(['view_employees','create_employees'])
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.employees.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon flaticon2-group"></i><span class="kt-menu__link-text">{{__('Employees')}}</span></a></li>
+                @endcanany
+
+                @canany(['view_employees_fordeal', 'create_employees_fordeal'])
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.fordeal.employees_special.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon flaticon2-group"></i><span class="kt-menu__link-text">{{__('Employees')}}</span></a></li>
                 @endcanany
 
                 @can('view_employees')
-                <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.employees.ended_employees')}}" class="kt-menu__link"><i class="kt-menu__link-icon fas fa-user-slash"></i><span class="kt-menu__link-text">{{__('All Ended Employees')}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a></li>
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.employees.ended_employees')}}" class="kt-menu__link"><i class="kt-menu__link-icon fas fa-user-slash"></i><span class="kt-menu__link-text">{{__('All Ended Employees')}}</span></a></li>
                 @endcan
 
                 @canany(['view_employees_violations','create_employees_violations'])
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-layers-1"></i><span class="kt-menu__link-text">{{__('Employees Violations')}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
-                        <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Config</span></span></li>
-                            @can('view_employees_violations')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.employees_violations.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('AlL Employees Violations')}}</span></a></li>
-                            @endcan
-                            @can('create_employees_violations')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.employees_violations.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('New Violation')}}</span></a></li>
-                            @endcan
-                        </ul>
-                    </div>
-                </li>
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.employees_violations.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon flaticon2-layers-1"></i><span class="kt-menu__link-text">{{__('Employees Violations')}}</span></a></li>
                 @endcanany
 
                 @canany(['view_reports','create_reports'])
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon  flaticon2-document"></i><span class="kt-menu__link-text">{{__('Reports')}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
-                        <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Config</span></span></li>
-                            @can('view_reports')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.reports.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('AlL Reports')}}</span></a></li>
-                            @endcan
-                            @can('view_reports')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.reports.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('New Report')}}</span></a></li>
-                            @endcan
-                        </ul>
-                    </div>
-                </li>
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.reports.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon  flaticon2-document"></i><span class="kt-menu__link-text">{{__('Reports')}}</span></a></li>
                 @endcan
 
                 @canany(['view_conversations','create_conversations'])
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon  flaticon-envelope"></i><span class="kt-menu__link-text">{{__('Conversations')}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
-                        <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Config</span></span></li>
-                            @can('view_conversations')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.conversations.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('AlL Conversation')}}</span></a></li>
-                            @endcan
-                            @can('view_conversations')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.conversations.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('New Conversation')}}</span></a></li>
-                            @endcan
-                        </ul>
-                    </div>
-                </li>
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.conversations.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon  flaticon-envelope"></i><span class="kt-menu__link-text">{{__('Conversations')}}</span></a></li>
                 @endcan
 
                 @canany(['view_payrolls','view_my_salaries'])
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon fas fa-comment-dollar"></i><span class="kt-menu__link-text reportCount">{{__('Payrolls')}}</span><i class="kt-menu__ver-arrow la la-angle-right" ></i></a>
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="javascript:" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon fas fa-comment-dollar"></i><span class="kt-menu__link-text reportCount">{{__('Payrolls')}}</span></a>
                         <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                             <ul class="kt-menu__subnav">
                                 @can('view_payrolls')
@@ -147,7 +62,7 @@
                 @endcan
 
                 @canany(['view_requests', 'view_my_requests'])
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-layers"></i><span class="kt-menu__link-text">{{__('Requests')}}</span><i class="kt-menu__ver-arrow la la-angle-right" ></i></a>
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="javascript:" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-layers"></i><span class="kt-menu__link-text">{{__('Requests')}}</span></a>
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
                             @can('view_requests')
@@ -163,7 +78,7 @@
                 @endcan
 
                 @canany(['create_vacation_request', 'create_attendance_record_forgotten_request'])
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-website"></i><span class="kt-menu__link-text">{{__('Employees Services')}}</span><i class="kt-menu__ver-arrow la la-angle-right" ></i></a>
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="javascript:" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-website"></i><span class="kt-menu__link-text">{{__('Employees Services')}}</span></a>
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
                             @can('create_vacation_request')
@@ -178,7 +93,7 @@
                 @endcan
 
                 @canany(['view_attendance_record_page','view_attendance_sheet', 'view_my_attendance_history'])
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon  flaticon-event-calendar-symbol"></i><span class="kt-menu__link-text">{{__('Attendance')}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon  flaticon-event-calendar-symbol"></i><span class="kt-menu__link-text">{{__('Attendance')}}</span></a>
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
                             <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Config</span></span></li>
@@ -200,7 +115,7 @@
                 @endcan
 
                 @can('view_settings')
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon  flaticon2-settings"></i><span class="kt-menu__link-text">{{__('Settings')}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon  flaticon2-settings"></i><span class="kt-menu__link-text">{{__('Settings')}}</span></a>
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
                             <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Config</span></span></li>

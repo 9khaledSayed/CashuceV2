@@ -160,7 +160,7 @@ class EmployeeController extends Controller
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
         $cities = City::all();
-        $job_titles = JobTitle::all();
+        $jobTitles = JobTitle::all();
         $workShifts = WorkShift::get();
         $roles = Role::get();
         $leaveBalances = LeaveBalance::get();
@@ -172,7 +172,7 @@ class EmployeeController extends Controller
             'employee' => $employee,
             'nationalities' => $nationalities,
             'cities' => $cities,
-            'job_titles' => $job_titles,
+            'jobTitles' => $jobTitles,
             'roles' => $roles,
             'leaveBalances' =>$leaveBalances,
             'contract_type' => $this->contract_type,

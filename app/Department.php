@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-    protected $fillable = ['name_ar', 'name_en'];
+    protected $guarded = [];
 
     public function getDescriptionForEvent(string $eventName): string
     {
@@ -24,10 +24,19 @@ class Department extends Model
 
     public static function booted()
     {
+        static::addGlobalScope(new ParentScope());
         static::creating(function ($model){
             $model->company_id = Company::companyID();
         });
-        static::addGlobalScope(new ParentScope());
+
+        static::updated(function ($department){
+            foreach ($department->employees as $employee) {
+                $employee->supervisor_id = $department->supervisor_id;
+                $employee->save();
+            }
+        });
+
+
     }
 
     public function company()

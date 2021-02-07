@@ -36,10 +36,11 @@ var departmentStatistics = function() {
                 scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
                 height: 270,
                 footer: false, // display/hide footer
+
             },
 
             // column sorting
-            sortable: true,
+            sortable: false,
 
             pagination: true,
 
@@ -52,13 +53,15 @@ var departmentStatistics = function() {
             columns: [
                  {
                     field: 'name',
-                     width: 300,
+                     width: 200,
                     title: locator.__('Name'),
                     textAlign: 'center',
                 },{
                     field: 'in_service',
+                    width: 200,
                     title: locator.__('In Service'),
                     textAlign: 'center',
+                    autoHide: false,
 
                 }],
         });

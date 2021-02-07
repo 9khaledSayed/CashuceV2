@@ -310,7 +310,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-4">
+                                                            <div class="col-lg-6">
                                                                 <label>{{__('Role')}} *</label>
                                                                 <select name="role_id" class="form-control kt-selectpicker" title="Choose" >
                                                                     @foreach($roles as $role)
@@ -318,36 +318,17 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <div class="col-lg-4">
+                                                            <div class="col-lg-6">
                                                                 <label>{{__('Job Title')}} *</label>
                                                                 <select name="job_title_id" class="form-control kt-selectpicker" title="Choose">
                                                                     <option value="">{{__('Choose')}}</option>
-                                                                    @foreach($job_titles as $job_title)
-                                                                        <option value="{{$job_title->id}}"
-                                                                                @if($employee->job_title_id == $job_title->id)selected @endif
-                                                                        >{{$job_title->name()}}</option>
+                                                                    @foreach($jobTitles as $jobTitle)
+                                                                        <option value="{{$jobTitle->id}}"
+                                                                                @if($employee->job_title_id == $jobTitle->id)selected @endif
+                                                                        >{{$jobTitle->name()}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <div class="col-lg-4">
-                                                                <label for="supervisor_id">{{__('Supervisor')}}</label>
-                                                                <select class="form-control @error('supervisor_id') is-invalid @enderror kt-selectpicker"
-                                                                        id="supervisor_id"
-                                                                        data-size="7"
-                                                                        data-live-search="true"
-                                                                        data-show-subtext="true" name="supervisor_id" title="{{__('Select')}}">
-                                                                    <option value="">{{__('choose')}}</option>
-                                                                    @forelse($supervisors as $supervisor)
-                                                                        <option
-                                                                                value="{{$supervisor->id}}"
-                                                                                @if($supervisor->id == (old('supervisor_id') ?? $employee->supervisor_id)) selected @endif
-                                                                        >{{$supervisor->name()  . '( ' . $supervisor->job_number . ' )'}}</option>
-                                                                    @empty
-                                                                        <option disabled>{{__('There is no supervisors')}}</option>
-                                                                    @endforelse
-                                                                </select>
-                                                            </div>
-
                                                         </div>
                                                         <div class="form-group row">
                                                             <div class="col-lg-4">

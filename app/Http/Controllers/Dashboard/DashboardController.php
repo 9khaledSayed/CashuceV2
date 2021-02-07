@@ -123,6 +123,7 @@ class DashboardController extends Controller
         $absent = $totalActiveEmployees;
         $delay = 0;
         $early = 0;
+        $totalAttendees = 0;
         $employeesAttendance = [];
 
         foreach ($activeEmployees as $employee) {
@@ -132,6 +133,7 @@ class DashboardController extends Controller
 
             if(isset($todayAttendance)){
                 $absent--;
+                $totalAttendees++;
                 $employeeTimeIn = $todayAttendance->time_in;
 
                 $shiftStartTime = $employeeWorkShift->type == 'once' ? $employeeWorkShift->check_in_time :  $employeeWorkShift->shift_start_time;
@@ -163,7 +165,7 @@ class DashboardController extends Controller
             return response()->json($employeesAttendance);
         }
         return [
-            'totalActiveEmployees' => $totalActiveEmployees,
+            'totalAttendees' => $totalAttendees,
             'absent' => $absent,
             'delay' => $delay,
             'early' => $early,
