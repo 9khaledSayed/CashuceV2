@@ -247,8 +247,18 @@ var KTDatatableLocalSortDemo = function() {
                     textAlign: 'center',
                     visible: false,
                 },{
+                    field: 'provider',
+                    title: locator.__('Provider'),
+                    textAlign: 'center',
+                    visible: false,
+                },{
                     field: 'department',
                     title: locator.__('Department'),
+                    textAlign: 'center',
+                    visible: false,
+                },{
+                    field: 'section',
+                    title: locator.__('Section'),
                     textAlign: 'center',
                     visible: false,
                 },{
@@ -308,6 +318,14 @@ var KTDatatableLocalSortDemo = function() {
 
         $('#kt_form_department').on('change', function() {
             datatable.search($(this).val().toLowerCase(), 'department');
+        });
+
+        $('#kt_form_section').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'section');
+        });
+
+        $('#kt_form_provider').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'provider');
         });
 
         $('#kt_form_status,#kt_form_type').selectpicker();

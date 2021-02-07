@@ -11,7 +11,9 @@ use App\Nationality;
 use App\Notifications\AlarmForEmployee;
 use App\Notifications\EmployeesLate;
 use App\Notifications\LateWarning;
+use App\Provider;
 use App\Scopes\SupervisorScope;
+use App\Section;
 use Box\Spout\Writer\Style\StyleBuilder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -48,6 +50,8 @@ class AttendanceController extends Controller
                         }
                         $supervisor = $employee->supervisor? $employee->supervisor->name(): '';
                         $department = $employee->department? $employee->department->name(): '';
+                        $provider = $employee->provider? $employee->provider->name(): '';
+                        $section = $employee->section? $employee->section->name(): '';
                         return [
                             'employee' => $attendance->employee,
                             'id' => $attendance->id,
@@ -55,6 +59,8 @@ class AttendanceController extends Controller
                             'supervisor' => $supervisor,
                             'nationality' => $employee->nationality(),
                             'department' => $department,
+                            'section' => $section,
+                            'provider' => $provider,
                             'job_number' => $attendance->employee->job_number,
                             'time_in' => $attendance->time_in->format('h:i A'),
                             'time_out' => $timeOut,
@@ -69,7 +75,9 @@ class AttendanceController extends Controller
             return view('dashboard.attendances.index', [
                 'supervisors' =>  Company::supervisors(),
                 'nationalities' => Nationality::get(),
+                'providers' => Provider::get(),
                 'departments' => Department::get(),
+                'sections' => Section::get(),
                 'fullDate' => $fullDate,
             ]);
         }

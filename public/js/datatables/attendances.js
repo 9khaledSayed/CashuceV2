@@ -163,7 +163,17 @@ var KTUserListDatatable = function() {
                     title: locator.__('Department'),
                     textAlign: 'center',
                     visible: false,
+                },{
+                    field: 'section',
+                    title: locator.__('Section'),
+                    textAlign: 'center',
+                    visible: false,
                 }, {
+                    field: 'provider',
+                    title: locator.__('Provider'),
+                    textAlign: 'center',
+                    visible: false,
+                },{
                     field: 'nationality',
                     title: locator.__('Nationality'),
                     visible: false,
@@ -207,6 +217,16 @@ var KTUserListDatatable = function() {
     $('#kt_form_department').on('change', function() {
         datatable.search($(this).val().toLowerCase(), 'department');
     });
+
+    $('#kt_form_provider').on('change', function() {
+        datatable.search($(this).val().toLowerCase(), 'provider');
+    });
+
+    $('#kt_form_section').on('change', function() {
+        datatable.search($(this).val().toLowerCase(), 'section');
+    });
+
+
 
 
 
