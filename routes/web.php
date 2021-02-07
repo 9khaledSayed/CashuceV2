@@ -171,6 +171,15 @@ Route::get('/countries', function (){
     dd(Countries::lookup('ar'));
 });
 
+Route::get('/ability', function (){
+    \App\Ability::create([
+        'name'  => 'show_payrolls_fordeal',
+        'label' => 'Show Payrolls',
+        'category' => 'payrolls',
+        'for' => 'fordeal'
+    ]);
+});
+
 
 
 

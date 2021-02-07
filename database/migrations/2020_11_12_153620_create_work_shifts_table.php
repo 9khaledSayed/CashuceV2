@@ -23,7 +23,7 @@ class CreateWorkShiftsTable extends Migration
             $table->time('shift_end_time')->nullable();
             $table->time('second_shift_start_time')->nullable();
             $table->time('second_shift_end_time')->nullable();
-            $table->time('work_hours')->nullable();
+            $table->integer('work_hours')->nullable();
             $table->time('check_in_time')->nullable();
             $table->time('overtime_hours');
             $table->boolean('is_delay_allowed')->default(false);

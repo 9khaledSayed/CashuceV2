@@ -131,7 +131,7 @@
                     <div class="col-4" style="display: none" id="timeDelayAllowed">
                         <label>{{__('Time Delay Allowed')}} *</label>
                         <input name="time_delay_allowed"
-                               value="{{old('time_delay_allowed') ?? $workShift->time_delay_allowed->format('G:i')}}"
+                               value="{{old('time_delay_allowed') ?? $workShift->time_delay_allowed}}"
                                placeholder="Select time"
                                class="form-control shiftTimes @error('time_delay_allowed') is-invalid @enderror"
                                type="text">

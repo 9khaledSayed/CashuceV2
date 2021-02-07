@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Scopes\ParentScope;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -68,6 +69,50 @@ class WorkShift extends Model
     public function name()
     {
         return $this->{'name_' . app()->getLocale()};
+    }
+
+    public function workingHours()
+    {
+        if($this->type == 'normal'){
+            $startTime = Carbon::createFromTimeString($this->shift_start_time);
+            $endTime = Carbon::createFromTimeString($this->shift_end_time);
+            return $startTime->diffInHours($this->endTime);
+
+        }elseif($this->type == 'divided'){
+
+            $startTime = Carbon::createFromTimeString($this->shift_start_time);
+            $endTime = Carbon::createFromTimeString($this->shift_end_time);
+            $secondStartTime = Carbon::createFromTimeString($this->shift_start_time);
+            $secondEndTime = Carbon::createFromTimeString($this->shift_end_time);
+
+            $firstShiftHours = $startTime->diffInHours($endTime);
+            $secondShiftHours = $secondStartTime->diffInHours($secondEndTime);
+            return  $firstShiftHours + $secondShiftHours;
+
+        }else{
+            return $this->work_hours;
+        }
+    }
+
+    public function workingDays()
+    {
+        return count(unserialize($this->work_days));
+    }
+
+    public function officialWorkingHours()
+    {
+        return $this->workingHours() * $this->workingDays();
+    }
+
+    public function officialAbsentHours()
+    {
+        return $this->workingHours() * $this->daysOff();
+    }
+
+    public function daysOff()
+    {
+        $daysOff = 7 - count(unserialize($this->work_days));
+        return $daysOff * 4;
     }
 
 }

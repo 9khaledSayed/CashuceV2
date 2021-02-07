@@ -174,7 +174,11 @@
                                     </div>
                                 </div>
                                 <div class="kt-widget__footer">
+                                    @can('show_payrolls')
                                     <a href="{{route('dashboard.payrolls.show', $payroll)}}" class="btn btn-label-brand btn-lg btn-upper">{{__('Details')}}</a>
+                                    @elsecan('show_payrolls_fordeal')
+                                    <a href="{{route('dashboard.fordeal.payroll_special.show', $payroll)}}" class="btn btn-label-brand btn-lg btn-upper">{{__('Details')}}</a>
+                                    @endcan
                                 </div>
                             </div>
 
