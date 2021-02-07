@@ -75,7 +75,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{__('End Employee Service')}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
@@ -120,7 +120,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{__('Back To Service')}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
@@ -179,24 +179,21 @@
 
             <!--begin: Search Form -->
             <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
+
                 <div class="row align-items-center">
                     <div class="col-xl-12 order-2 order-xl-1">
                         <div class="row align-items-center">
                             <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-input-icon kt-input-icon--left">
-                                    <input type="text" class="form-control" placeholder="{{__('Search...')}}" id="generalSearch">
-                                    <span class="kt-input-icon__icon kt-input-icon__icon--left">
-                                        <span><i class="la la-search"></i></span>
-                                    </span>
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        <label>{{__('Search')}}:</label>
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <input type="text" class="form-control" id="generalSearch">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row align-items-center mt-5 ">
-                    <div class="col-xl-12 order-2 order-xl-1">
-                        <div class="row align-items-center">
-                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Supervisor')}}:</label>
@@ -213,7 +210,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Role')}}:</label>
@@ -230,7 +227,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Nationality')}}:</label>
@@ -247,8 +244,9 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
+                        </div>
+                        <div class="row align-items-center  mt-3">
+                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Service Statues')}}:</label>
@@ -262,8 +260,7 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Provider')}}:</label>
@@ -280,8 +277,7 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Department')}}:</label>
@@ -289,17 +285,16 @@
                                     <div class="kt-form__control">
                                         <select class="form-control selectpicker" id="kt_form_department">
                                             <option value="">{{__('All')}}</option>
-                                                @forelse($departments as $department)
-                                                    <option value="{{$department->name()}}">{{$department->name()}}</option>
-                                                @empty
-                                                    <option disabled>{{__('There is no departments in your company')}}</option>
-                                                @endforelse
+                                            @forelse($departments as $department)
+                                                <option value="{{$department->name()}}">{{$department->name()}}</option>
+                                            @empty
+                                                <option disabled>{{__('There is no departments in your company')}}</option>
+                                            @endforelse
                                         </select>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
                                         <label>{{__('Section')}}:</label>

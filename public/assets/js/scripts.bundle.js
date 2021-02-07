@@ -4540,7 +4540,8 @@ var KTUtil = function() {
         },
 
         isRTL: function() {
-            return (KTUtil.attr(KTUtil.get('html'), 'direction') == 'rtl');
+            return (KTUtil.attr(KTUtil.get('html'), 'dir') == 'rtl');
+
         },
 
         //

@@ -57,6 +57,15 @@ var KTDatatableLocalSortDemo = function() {
             layout: {
                 scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
                 footer: false, // display/hide footer
+                icons:{
+                    // pagination: {
+                    //     next: 'la la-angle-right',
+                    //     prev: 'la la-angle-left',
+                    //     first: 'la la-angle-double-left',
+                    //     last: 'la la-angle-double-right',
+                    //     more: 'la la-ellipsis-h'
+                    // }
+                }
             },
 
             // column sorting
