@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard\Fordeal;
 
 use App\Allowance;
+use App\City;
 use App\Company;
 use App\Department;
 use App\Employee;
@@ -84,6 +85,7 @@ class FordealEmployeeController extends EmployeeController
             'nationalities' => Nationality::all(),
             'job_titles' => JobTitle::all(),
             'roles' => Role::get(),
+            'cities' => City::all(),
             'contract_type' => $this->contract_type,
             'allowances' => Allowance::all(),
             'supervisors' => Employee::whereNull('supervisor_id')->get(),
@@ -122,6 +124,7 @@ class FordealEmployeeController extends EmployeeController
             'nationalities' => Nationality::all(),
             'job_titles' => JobTitle::all(),
             'roles' => Role::get(),
+            'cities' => City::all(),
             'contract_type' => $this->contract_type,
             'allowances' => Allowance::all(),
             'supervisors' =>Employee::whereNull('supervisor_id')->get(),
@@ -162,6 +165,7 @@ class FordealEmployeeController extends EmployeeController
             'nationalities' => $nationalities,
             'job_titles' => $job_titles,
             'roles' => $roles,
+            'cities' => City::all(),
             'contract_type' => $this->contract_type,
             'leaveBalances' =>$leaveBalances,
             'allowances' =>$allowances,
