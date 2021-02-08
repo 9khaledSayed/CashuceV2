@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Notifications\EmployeeResetPasswordNotification;
+use App\Scopes\CompletedScope;
 use App\Scopes\ParentScope;
 use App\Scopes\ProviderScope;
 use App\Scopes\ServiceStatusScope;
@@ -90,6 +91,42 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
     ];
 
+
+    public static $saveRules = [
+        'name_ar' => ['nullable', 'string'],
+        'name_en' => ['nullable', 'string'],
+        'email' => 'sometimes|nullable|email|unique:employees',
+        'provider_id' => 'nullable|numeric|exists:providers,id',
+        'department_id' => 'nullable|numeric|exists:departments,id',
+        'section_id' => 'nullable|numeric|exists:sections,id',
+        'role_id' => 'nullable|numeric|exists:roles,id',
+        'birthdate' => ['nullable', 'date'],
+        'nationality_id' => 'nullable|numeric|exists:nationalities,id',
+        'job_title_id' => 'nullable|numeric|exists:job_titles,id',
+        'marital_status' => ['nullable'],
+        'gender' => ['nullable'],
+        'test_period' => ['nullable'],
+        'city_id' => 'nullable|numeric|exists:cities,id',
+        'id_num' => ['nullable'],
+        'id_expire_date' => ['nullable'],
+        'passport_num' => ['nullable'],
+        'passport_issue_date' => ['nullable'],
+        'passport_expire_date' => ['nullable'],
+        'issue_place' => ['nullable'],
+        'job_number' =>['nullable','numeric'],
+        'work_shift_id' => ['nullable', 'exists:work_shifts,id'],
+        'contract_type' => ['nullable'],
+        'contract_start_date' => ['nullable'],
+        'contract_end_date' => ['nullable'],
+        'contract_period' => 'nullable',
+        'salary' => ['nullable', 'numeric'],
+        'phone' => ['nullable'],
+        'leave_balance' => 'nullable|numeric|min:0|max:365|exists:leave_balances,days_per_year',
+        'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+
+    ];
+
+
     protected $casts = [
         'email_verified_at' => 'datetime',
         'contract_start_date' => 'date',
@@ -111,6 +148,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
     public static function booted()
     {
+        static::addGlobalScope(new CompletedScope());
         static::addGlobalScope(new ParentScope());
         static::addGlobalScope(new SupervisorScope());
         static::addGlobalScope(new ServiceStatusScope());
@@ -128,15 +166,16 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
                  $model->company_id = Company::companyID();
                  $model->barcode = $barcode;
-                 $model->leave_balance = 30;
 
              }
          });
 
         static::saving(function ($employee){
-            $supervisorID = $employee->department->supervisor_id;
-            if($supervisorID != 0){
-                $employee->supervisor_id = $supervisorID;
+            if($employee->is_compleated){
+                $supervisorID = $employee->department->supervisor_id;
+                if($supervisorID != 0){
+                    $employee->supervisor_id = $supervisorID;
+                }
             }
         });
     }

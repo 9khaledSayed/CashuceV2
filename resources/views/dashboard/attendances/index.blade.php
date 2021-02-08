@@ -28,27 +28,44 @@
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title ">
                     <div class="input-group date">
-                        <div class="input-group-prepend ">
+                        <div class="input-group-prepend " id="minus">
                             <span class="input-group-text btn">
-                                <i class="fa fa fa-arrow-alt-circle-left kt-font-brand" id="minus"></i>
+                                <i class="fa fa fa-arrow-alt-circle-left kt-font-brand"></i>
                             </span>
                         </div>
 
                         <input name="full_date" id="date-field" type="text" value="{{$fullDate}}" class="form-control text-center font-weight-bold kt-font-brand " readonly/>
 
-                        <div class="input-group-append ">
+                        <div class="input-group-append " id="plus">
                             <span class="input-group-text btn">
-                                <i class="fa fa fa-arrow-alt-circle-right kt-font-brand" id="plus"></i>
+                                <i class="fa fa fa-arrow-alt-circle-right kt-font-brand" ></i>
                             </span>
                         </div>
                     </div>
 
                 </h3>
+
             </div>
-            <div class="kt-portlet__head-label">
-                <a href="#" id="excelBtn" class="btn btn-danger btn-icon-sm ml-2 mr-2">
-                    <i class="la la-file-excel-o"></i> {{__('Export')}}
-                </a>
+            <div class="kt-portlet__head-toolbar">
+                <div class="dropdown dropdown-inline">
+                <button type="button" class="btn btn-danger btn-icon-sm " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="la la-file-excel-o"></i>  {{__('Export')}}
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <ul class="kt-nav">
+                        <li class="kt-nav__item">
+                            <a href="#" id="this-day-export" class="kt-nav__link">
+                                <span class="kt-nav__link-text">{{__('Export This Day')}}</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item">
+                            <a href="#" id="this-month-export" class="kt-nav__link">
+                                <span class="kt-nav__link-text">{{__('Export This Month')}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             </div>
         </div>
         <!-- end:: Content Head -->
@@ -57,47 +74,26 @@
                 <div class="row align-items-center">
                     <div class="col-xl-12 order-2 order-xl-1">
                         <div class="row align-items-center">
-                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-input-icon kt-input-icon--left">
-                                    <input type="text" class="form-control" placeholder="{{__('Search')}}..." id="generalSearch">
-                                    <span class="kt-input-icon__icon kt-input-icon__icon--left">
-                                    <span><i class="la la-search"></i></span>
-                                </span>
-                                </div>
-                            </div>
+                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
 
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row align-items-center mt-5">
-                    <div class="col-xl-12 order-2 order-xl-1">
-                        <div class="row align-items-center">
-                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Full Date')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
-                                        <div class="input-group date">
-                                            <input name="full_date" type="text" value="{{$fullDate}}" class="form-control full-date" readonly/>
-                                            <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="la la-calendar"></i>
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Search')}}:</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <div class="kt-input-icon kt-input-icon--left">
+                                            <input type="text" class="form-control" id="generalSearch">
+                                            <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                                <span><i class="la la-search"></i></span>
                                             </span>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
 
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Supervisor')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12">{{__('Supervisor')}}:</label>
+
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
                                         <select class="form-control selectpicker" id="kt_form_supervisor">
                                             <option value="">{{__('All')}}</option>
                                             @forelse($supervisors as $supervisor)
@@ -109,12 +105,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Nationality')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
+                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12">{{__('Nationality')}}:</label>
+
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
                                         <select class="form-control selectpicker" id="kt_form_nationality">
                                             <option value="">{{__('All')}}</option>
                                             @forelse($nationalities as $nationality)
@@ -126,12 +121,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Provider')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row align-items-center ">
+                    <div class="col-xl-12 order-2 order-xl-1">
+                        <div class="row align-items-center">
+
+
+                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12">{{__('Provider')}}:</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
                                         <select class="form-control selectpicker" id="kt_form_provider">
                                             <option value="">{{__('All')}}</option>
                                             @forelse($providers as $provider)
@@ -143,12 +145,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Section')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
+                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12">{{__('Section')}}:</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
                                         <select class="form-control selectpicker" id="kt_form_section">
                                             <option value="">{{__('All')}}</option>
                                             @forelse($sections as $section)
@@ -160,13 +160,10 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-2 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Department')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
+                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12">{{__('Department')}}:</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
                                         <select class="form-control selectpicker" id="kt_form_department">
                                             <option value="">{{__('All')}}</option>
                                             @forelse($departments as $department)
@@ -277,37 +274,42 @@
                 showMeridian: true,
             });
 
-            $("#excelBtn").click(function () {
-                //
-                var month = $('#kt_form_date').val();
-                var fullDate = $('.full-date').val();
-                window.location.replace("/attendances_sheet/excel?full_date=" + fullDate);
+            $("#this-day-export").click(function () {
+                var fullDate = $('#date-field').val();
+                window.location.replace("/attendances_sheet/excel?this_day=" + fullDate);
+            });
+
+            $("#this-month-export").click(function () {
+                var fullDate = $('#date-field').val();
+                window.location.replace("/attendances_sheet/excel?this_month=" + fullDate);
             });
 
             $("#plus").click(function (){
-                var dateField = $('#date-field');
-                var currentDate = dateField.datepicker("getDate");
-                var newDate = new Date();
-
-                newDate.setMonth(currentDate.getMonth());
-                newDate.setDate(currentDate.getDate() + 1);
-                newDate.setFullYear(currentDate.getFullYear());
-
-                dateField.datepicker("setDate", newDate);
-
+                changeDate('plus');
             });
             $("#minus").click(function (){
+                changeDate('minus');
+
+            });
+
+            function changeDate(operation) {
                 var dateField = $('#date-field');
                 var currentDate = dateField.datepicker("getDate");
                 var newDate = new Date();
+                var result;
+                
+                if (operation === "plus"){
+                     result = currentDate.getDate() + 1
+                }else {
+                     result = currentDate.getDate() - 1
+                }
 
                 newDate.setMonth(currentDate.getMonth());
-                newDate.setDate(currentDate.getDate() - 1);
+                newDate.setDate(result);
                 newDate.setFullYear(currentDate.getFullYear());
 
                 dateField.datepicker("setDate", newDate);
-
-            });
+            }
 
         })
     </script>

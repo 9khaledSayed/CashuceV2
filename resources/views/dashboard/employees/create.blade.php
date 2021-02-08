@@ -486,16 +486,20 @@
 
 
                         <!--begin: Form Actions -->
-                        <div class="kt-form__actions">
-                            <div class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
-                                {{__('Previous')}}
+                        <div class="kt-form__actions d-flex justify-content-between">
+{{--                            <div class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u m-0" data-ktwizard-type="action-prev">--}}
+{{--                                {{__('Previous')}}--}}
+{{--                            </div>--}}
+                            <div class="btn btn-primary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u m-auto" id="action-save">
+                                {{__('Save')}}
                             </div>
-                            <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
-                                {{__('Submit')}}
-                            </div>
-                            <div class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
-                                {{__('Next')}}
-                            </div>
+{{--                            <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u m-0" data-ktwizard-type="action-submit">--}}
+{{--                                {{__('Submit')}}--}}
+{{--                            </div>--}}
+
+{{--                            <div class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u m-0" data-ktwizard-type="action-next">--}}
+{{--                                {{__('Next')}}--}}
+{{--                            </div>--}}
                         </div>
 
                         <!--end: Form Actions -->

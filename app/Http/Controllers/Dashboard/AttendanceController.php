@@ -359,9 +359,17 @@ class AttendanceController extends Controller
 
         $attendances = Attendance::get();
         $fileName = 'attendances.xlsx';
-        if(isset($request->full_date)){
-            $attendances = Attendance::where('date', $request->full_date)->get();
-            $fileName = $request->full_date . '&&attendances.xlsx';
+        if(isset($request->this_day)){
+
+            $attendances = Attendance::where('date', $request->this_day)->get();
+            $fileName = $request->this_day . '&&attendances.xlsx';
+
+        }elseif(isset($request->this_month)){
+
+            $date = Carbon::createFromFormat('Y-m-d', $request->this_month);
+            $attendances = Attendance::whereMonth('date', $date->format('m'))->get();
+            $fileName = $date->format('F') . '&&attendances.xlsx';
+
         }
 
 

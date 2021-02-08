@@ -45,6 +45,7 @@ use Illuminate\Support\Facades\Route;
             Route::get('documents/{document}/download', 'DocumentController@download');
             Route::post('profile_picture/upload', 'ProfileController@uploadProfilePicture')->name('profile_picture.upload');
             Route::get('attendances/update/{attendance}', 'AttendanceController@update');
+            Route::get('employee_form/save', 'EmployeeController@save');
             Route::resource('attendances', 'AttendanceController')->except('show');
 
             Route::resources([
@@ -72,6 +73,7 @@ use Illuminate\Support\Facades\Route;
                 'providers' => 'ProviderController',
                 'leave_balances' => 'LeaveBalanceController',
                 'documents' => 'DocumentController',
+                'archives' => 'ArchiveController',
             ]);
 
         });

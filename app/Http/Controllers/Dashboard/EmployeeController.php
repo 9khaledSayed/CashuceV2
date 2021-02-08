@@ -15,6 +15,7 @@ use App\Nationality;
 use App\Provider;
 use App\Role;
 use App\Rules\UniqueJopNumber;
+use App\Scopes\CompletedScope;
 use App\Scopes\ServiceStatusScope;
 use App\Section;
 use App\WorkShift;
@@ -95,7 +96,7 @@ class EmployeeController extends Controller
     public function create()
     {
         $this->authorize('create_employees');
-        $allJobNumbers = Employee::withoutGlobalScope(ServiceStatusScope::class)->pluck('job_number')->sort();
+        $allJobNumbers = Employee::withoutGlobalScopes([ServiceStatusScope::class, CompletedScope::class])->pluck('job_number')->sort();
         $jobNumber = 1000;
 
         if($allJobNumbers->count() != 0){
@@ -137,8 +138,9 @@ class EmployeeController extends Controller
     }
 
 
-    public function show(Employee $employee)
+    public function show($id)
     {
+        $employee = Employee::withoutGlobalScope(ServiceStatusScope::class)->find($id);
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
         $job_titles = JobTitle::all();
@@ -161,9 +163,10 @@ class EmployeeController extends Controller
     }
 
 
-    public function edit(Employee $employee)
+    public function edit($id)
     {
         $this->authorize('update_employees');
+        $employee = Employee::withoutGlobalScope(ServiceStatusScope::class)->find($id);
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
         $cities = City::all();
@@ -192,8 +195,9 @@ class EmployeeController extends Controller
     }
 
 
-    public function update(Request $request, Employee $employee)
+    public function update(Request $request, $id)
     {
+        $employee = Employee::withoutGlobalScope(ServiceStatusScope::class)->find($id);
         $this->authorize('update_employees');
         if($request->ajax()){
             $employee->update($this->validator($request, $employee->id));
@@ -315,6 +319,7 @@ class EmployeeController extends Controller
             ]);
         }
     }
+
 
     public function extractExcelForm()
     {

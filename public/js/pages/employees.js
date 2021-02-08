@@ -6,6 +6,7 @@ var KTContactsAdd = function () {
     var wizardEl;
     var formEl;
     var validator;
+    var saveValidator;
     var wizard;
     var avatar;
     let selectContractPeriod = $("select[name='contract_period']");
@@ -151,6 +152,39 @@ var KTContactsAdd = function () {
 
             }
         });
+        saveValidator = formEl.validate({
+            // Validate only visible fields
+            ignore: ":hidden",
+
+            // Validation rules
+            rules: {
+                // Step 1
+                name_ar: {
+                    required: true
+                },
+                name_en: {
+                    required: true
+                },
+            },
+
+            // Display error
+            invalidHandler: function(event, validator) {
+                KTUtil.scrollTop();
+
+                swal.fire({
+                    "title": "",
+                    "text": locator.__("please fill the required data"),
+                    "type": "error",
+                    "buttonStyling": false,
+                    "confirmButtonClass": "btn btn-brand btn-sm btn-bold"
+                });
+            },
+
+            // Submit valid form
+            submitHandler: function (form) {
+
+            }
+        });
     }
 
     var initSubmit = function() {
@@ -204,6 +238,55 @@ var KTContactsAdd = function () {
         });
     }
 
+    var initSave = function() {
+        var btn = formEl.find('[id="action-save"]');
+
+        btn.on('click', function(e) {
+            e.preventDefault();
+            let lang = appLang === 'en' ? '/' + appLang : '';
+            // See: src\js\framework\base\app.js
+            KTApp.progress(btn);
+            formEl.ajaxSubmit({
+                url : lang + '/dashboard/archives',
+                type : 'post',
+                success: function(response) {
+                    KTApp.unprogress(btn);
+                    //KTApp.unblock(formEl);
+                    if(response.status == 3){
+                        swal.fire({
+                            "title": "",
+                            "text": response.message,
+                            "type": "error",
+                            "confirmButtonClass": "btn btn-secondary"
+                        });
+                    }else{
+                        swal.fire({
+                            "title": "",
+                            "text": locator.__("The operation has been done successfully !"),
+                            "type": "success",
+                            "confirmButtonClass": "btn btn-secondary"
+                        });
+                    }
+
+                }
+                ,error:function (err){
+                    KTApp.unprogress(btn);
+                    let response = err.responseJSON;
+                    let errors = '';
+                    $.each(response.errors, function( index, value ) {
+                        errors += value + '\n';
+                    });
+                    swal.fire({
+                        title: locator.__(response.message),
+                        text: errors,
+                        type: 'error'
+                    });
+                }
+            });
+
+        });
+    }
+
     var initAvatar = function() {
         avatar = new KTAvatar('kt_contacts_add_avatar');
     }
@@ -249,6 +332,7 @@ var KTContactsAdd = function () {
             initWizard();
             initValidation();
             initSubmit();
+            initSave();
             initAvatar();
             calculateEndDate();
             onChangeContractPeriodOrStartDate();

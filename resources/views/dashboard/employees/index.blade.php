@@ -53,10 +53,13 @@
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <a href="{{route('dashboard.employees.create')}}" class="btn btn-brand btn-icon-sm ml-2 mr-2">
-                        <i class="flaticon2-plus"></i> {{__('Add New')}}
+                        <i class="fa fa-plus"></i> {{__('Add New')}}
+                    </a>
+                    <a href="{{route('dashboard.archives.index')}}" class="btn btn-primary btn-icon-sm ml-2 mr-2">
+                        <i class="fa fa-archive"></i> {{__('Archives')}}
                     </a>
                     <a href="{{route('dashboard.employees.export.form')}}" class="btn btn-danger btn-icon-sm ml-2 mr-2">
-                        <i class="la la-file-excel-o"></i> {{__('Export')}}
+                        <i class="fa fa-file-excel"></i> {{__('Export')}}
                     </a>
                 </div>
             </div>
