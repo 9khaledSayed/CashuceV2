@@ -124,7 +124,6 @@
                                                                     <option value="">{{__('Choose')}}</option>
                                                                     @foreach($cities as $city)
                                                                         <option value="{{$city->id}}"
-                                                                                @if($employee->city_id == $city->id)selected @endif
                                                                         >{{$city->name()}}</option>
                                                                     @endforeach
                                                                 </select>
