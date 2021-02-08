@@ -52,20 +52,12 @@
             </div>
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
-                    <a href="#" class="btn btn-clean btn-icon-sm">
-                        <i class="la la-long-arrow-left"></i>
-                        {{__('Back')}}
+                    <a href="{{route('dashboard.employees.create')}}" class="btn btn-brand btn-icon-sm ml-2 mr-2">
+                        <i class="flaticon2-plus"></i> {{__('Add New')}}
                     </a>
-                    &nbsp;
-                    <div class="dropdown">
-                        <button class="btn btn-brand dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Options
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                            <a class="dropdown-item" href="{{route('dashboard.employees.create')}}">{{__('Add New')}}</a>
-                            <a class="dropdown-item" href="{{route('dashboard.employees.export.form')}}">{{__('Export')}}</a>
-                        </div>
-                    </div>
+                    <a href="{{route('dashboard.employees.export.form')}}" class="btn btn-danger btn-icon-sm ml-2 mr-2">
+                        <i class="la la-file-excel-o"></i> {{__('Export')}}
+                    </a>
                 </div>
             </div>
         </div>

@@ -70,7 +70,7 @@ class PayrollController extends Controller
             'total_net_salary' => $payroll->salaries->pluck('net_salary')->sum(),
         ]);
 
-        return redirect(route('dashboard.payrolls.show', $payroll));
+        return redirect(route('dashboard.payrolls.index'));
     }
 
 

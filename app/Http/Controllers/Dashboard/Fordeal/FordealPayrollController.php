@@ -20,7 +20,7 @@ class FordealPayrollController extends PayrollController
     public function show(Payroll $payroll, Request $request)
     {
 
-//        $this->authorize('show_payrolls');
+        $this->authorize('show_payrolls_fordeal');
         if($request->ajax()){
             $salaries = Salary::where('payroll_id', $payroll->id)->get()->map(function ($salary){
                 $employee = $salary->employee;
