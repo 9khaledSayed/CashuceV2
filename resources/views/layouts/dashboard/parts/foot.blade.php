@@ -18,13 +18,16 @@
             }
         }
     };
+
+    var ts = (new Date()).getTime(); //Used to prevent JS/CSS caching
+
 </script>
 
 <!-- end::Global Config -->
 
 <!--begin::Global Theme Bundle(used by all pages) -->
 <script src="{{asset('assets/plugins/global/plugins.bundle.js')}}" type="text/javascript"></script>
-<script src="{{asset('assets/js/scripts.bundle.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/js/scripts.bundle.js?<%=ts %>')}}" type="text/javascript"></script>
 
 <!--end::Global Theme Bundle -->
 
@@ -35,6 +38,6 @@
 <!--end::Page Vendors -->
 
 <!--begin::Page Scripts(used by this page) -->
-<script src="{{asset('assets/js/pages/dashboard.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/pages/globalScripts.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/js/pages/dashboard.js?<%=ts %>')}}" type="text/javascript"></script>
+<script src="{{asset('js/pages/globalScripts.js?<%=ts %>')}}" type="text/javascript"></script>
 @stack('scripts')
