@@ -90,7 +90,7 @@ class PayrollController extends Controller
                         'nationality' => $employee->nationality(),
                         'salary' => $employee->salary,
                         'officialWorkingHours' => $officialWorkingHours,
-                        'hourly_wage' => $employee->salary / $officialWorkingHours,
+                        'hourly_wage' => number_format($employee->salary / $officialWorkingHours, 2),
                         'hra' => $employee->hra(),
                         'transfer' => $employee->transfer(),
                         'other_allowances' => $employee->otherAllowances(),
