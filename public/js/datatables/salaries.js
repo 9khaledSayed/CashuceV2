@@ -101,6 +101,14 @@ var KTDatatableLocalSortDemo = function() {
                     title: locator.__('Salary'),
                     autoHide: false,
                 }, {
+                    field: 'officialWorkingHours',
+                    title: locator.__('Official Working Hours'),
+                    autoHide: false,
+                }, {
+                    field: 'hourly_wage',
+                    title: locator.__('Hourly Wage'),
+                    autoHide: false,
+                }, {
                     field: 'hra',
                     title: locator.__('HRA'),
                     autoHide: false,

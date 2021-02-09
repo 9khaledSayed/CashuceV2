@@ -286,5 +286,5 @@
     <script>
         var payroll_id = {{$payroll->id}};
     </script>
-    <script src="{{asset('js/datatables/fordeal/salaries.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/datatables/fordeal/salaries.js?<%=ts %>')}}" type="text/javascript"></script>
 @endpush

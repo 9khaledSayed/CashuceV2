@@ -113,6 +113,10 @@ var KTDatatableLocalSortDemo = function() {
                     title: locator.__('Official Absent Hours'),
                     autoHide: false,
                 }, {
+                    field: 'hourly_wage',
+                    title: locator.__('Hourly Wage'),
+                    autoHide: false,
+                }, {
                     field: 'salary',
                     title: locator.__('Salary'),
                     autoHide: false,

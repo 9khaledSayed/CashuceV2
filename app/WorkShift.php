@@ -101,7 +101,11 @@ class WorkShift extends Model
 
     public function officialWorkingHours()
     {
-        return $this->workingHours() * $this->workingDays();
+        $totalHours = $this->workingHours() * $this->workingDays();
+        if ($totalHours == 0){
+            return 1;
+        }
+        return  $totalHours;
     }
 
     public function officialAbsentHours()
