@@ -105,6 +105,7 @@ class FordealEmployeeController extends EmployeeController
         if($request->ajax()){
             $employee = Employee::create($this->validator($request));
             $employee->allowances()->attach($request->allowance);
+            $employee->update(['is_completed', true]);
             return response()->json([
                 'status' => true,
             ]);

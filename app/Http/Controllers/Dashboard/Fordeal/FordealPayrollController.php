@@ -10,8 +10,10 @@ use App\Payroll;
 use App\Provider;
 use App\Rules\UniqueMonth;
 use App\Salary;
+use Box\Spout\Writer\Style\StyleBuilder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class FordealPayrollController extends PayrollController
 {
@@ -47,7 +49,45 @@ class FordealPayrollController extends PayrollController
         return view('dashboard.fordeal.payrolls.show', compact('payroll'));
     }
 
+    public function excel(Payroll $payroll)
+    {
+        $fileName = 'payroll.xlsx';
 
+        $salaries = Salary::where('payroll_id', $payroll->id)->get()->map(function ($salary){
+            $employee = $salary->employee;
+            $provider = $employee->provider;
+            $provider = isset($provider) ? $employee->provider->name(): '';
+            $officialWorkingHours = isset($employee->workShift) ? $employee->workShift->officialWorkingHours() : 1;
+            $officialAbsentHours = isset($employee->workShift) ? $employee->workShift->officialAbsentHours() : 0;
+            return [
+                'Job Number' => $employee->job_number,
+                'Employee' => $employee->name_en,
+                'Department' => $employee->department->name(),
+                'Supplier' => $provider,
+                'Official Working Hours' => $officialWorkingHours,
+                'Official Working Hours With OverTime' => $officialWorkingHours,
+                'Official Absent Hours' => $officialAbsentHours,
+                'Hourly Wage' => number_format($employee->salary / $officialWorkingHours, 2),
+                'Salary' => $employee->salary,
+                'Net Pay' => $salary->net_salary,
+            ];
+        });
+
+        $header_style = (new StyleBuilder())
+            ->setFontSize(8)
+            ->setFontBold()
+            ->build();
+
+        $rows_style = (new StyleBuilder())
+            ->setFontSize(8)
+            ->setBackgroundColor("EDEDED")
+            ->build();
+
+        return (new FastExcel($salaries))
+            ->headerStyle($header_style)
+            ->rowsStyle($rows_style)
+            ->download($fileName);
+    }
 
     public function destroy(Payroll $payroll)
     {

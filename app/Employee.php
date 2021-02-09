@@ -187,8 +187,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
     public function name()
     {
-        $currentLocale = app()->getLocale();
-        return $this->{'name_' . $currentLocale};
+        return $this->{'name_' . app()->getLocale()};
     }
 
     public function provider()
