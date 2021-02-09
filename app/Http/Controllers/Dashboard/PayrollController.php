@@ -127,7 +127,7 @@ class PayrollController extends Controller
         foreach ($employees as $employee) {
             $payrollDay = setting('payroll_day') ?? 30;
             $workDays = $employee->workDays($payroll->date->month);
-            $workDays = $workDays > $payrollDay ? $payrollDay : $workDays;  // 26 - 25
+            $workDays = ($workDays > $payrollDay) ? $payrollDay : $workDays;  // 26 - 25
             $daysOff = $employee->daysOff();
             $totalPackage = $workDays * ($employee->totalPackage()/(30 - $daysOff));
             $deductions = $employee->deductions() + $employee->gosiDeduction();

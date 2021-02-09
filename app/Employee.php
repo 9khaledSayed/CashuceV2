@@ -333,7 +333,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
     public function workDays($month)
     {
-        $work_days = Attendance::where('employee_id', $this->id)->whereNotNull(['time_in', 'time_out'])->whereMonth('created_at', $month)->count();
+        $work_days = Attendance::where('employee_id', $this->id)->whereNotNull(['time_in', 'time_out'])->whereMonth('date', $month)->count();
         return $work_days;
     }
 

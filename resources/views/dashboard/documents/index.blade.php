@@ -191,6 +191,7 @@
         $(function () {
             $('#kt_dropzone_1').dropzone({
                 url: "/dashboard/documents", // Set the url for your upload script location
+                method:'post',
                 paramName: "file", // The name that will be used to transfer the file
                 maxFiles: 1,
                 maxFilesize: 5, // MB
