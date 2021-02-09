@@ -363,4 +363,58 @@ var KTUserListDatatable = function() {
 KTUtil.ready(function() {
 
     KTUserListDatatable.init();
+
+    $('#date-field').datepicker({
+        rtl: true,
+        language: appLang,
+        orientation: "bottom",
+        format: "yyyy-mm-dd",
+        clearBtn: false,
+        lang: appLang
+    });
+
+    $('#timeIn, #timeOut').timepicker({
+        minuteStep: 5,
+        defaultTime: '',
+        showSeconds: false,
+        showMeridian: true,
+    });
+
+    $("#this-day-export").click(function () {
+        var fullDate = $('#date-field').val();
+        window.location.replace("/attendances_sheet/excel?this_day=" + fullDate);
+    });
+
+    $("#this-month-export").click(function () {
+        var fullDate = $('#date-field').val();
+        window.location.replace("/attendances_sheet/excel?this_month=" + fullDate);
+    });
+
+    $("#plus").click(function (){
+        changeDate('plus');
+    });
+    $("#minus").click(function (){
+        changeDate('minus');
+
+    });
+
+    function changeDate(operation) {
+        var dateField = $('#date-field');
+        var currentDate = dateField.datepicker("getDate");
+        var newDate = new Date();
+        var result;
+
+        if (operation === "plus"){
+            result = currentDate.getDate() + 1
+        }else {
+            result = currentDate.getDate() - 1
+        }
+
+        newDate.setMonth(currentDate.getMonth());
+        newDate.setDate(result);
+        newDate.setFullYear(currentDate.getFullYear());
+
+        dateField.datepicker("setDate", newDate);
+    }
+
 });

@@ -1,23 +1,23 @@
 @extends('layouts.dashboard')
 
 @push('styles')
-<style>
-    .kt-switch.kt-switch--outline.kt-switch--warning input:checked ~ span:before {
-        background-color: #1dc9b7;
-    }
-    .kt-switch.kt-switch--outline.kt-switch--warning input:checked ~ span:after {
-        background-color: #ffffff;
-        opacity: 1;
-    }
-    .kt-switch.kt-switch--icon input:empty ~ span:after {
-        content: "\f2be";
-    }
-    .kt-switch.kt-switch--icon input:checked ~ span:after {
-        content: '\f2ad';
-    }
+    <style>
+        .kt-switch.kt-switch--outline.kt-switch--warning input:checked ~ span:before {
+            background-color: #1dc9b7;
+        }
+        .kt-switch.kt-switch--outline.kt-switch--warning input:checked ~ span:after {
+            background-color: #ffffff;
+            opacity: 1;
+        }
+        .kt-switch.kt-switch--icon input:empty ~ span:after {
+            content: "\f2be";
+        }
+        .kt-switch.kt-switch--icon input:checked ~ span:after {
+            content: '\f2ad';
+        }
 
 
-</style>
+    </style>
 @endpush
 
 @section('content')
@@ -49,19 +49,6 @@
                 <h3 class="kt-portlet__head-title">
                     {{__('Archives')}} ( {{ $employeesNo }} )
                 </h3>
-            </div>
-            <div class="kt-portlet__head-toolbar">
-                <div class="kt-portlet__head-wrapper">
-                    <a href="{{route('dashboard.employees.create')}}" class="btn btn-brand btn-icon-sm ml-2 mr-2">
-                        <i class="fa fa-plus"></i> {{__('Add New')}}
-                    </a>
-                    <a href="{{route('dashboard.employees.archives')}}" class="btn btn-primary btn-icon-sm ml-2 mr-2">
-                        <i class="fa fa-archive"></i> {{__('Archives')}}
-                    </a>
-                    <a href="{{route('dashboard.employees.export.form')}}" class="btn btn-danger btn-icon-sm ml-2 mr-2">
-                        <i class="fa fa-file-excel"></i> {{__('Export')}}
-                    </a>
-                </div>
             </div>
         </div>
 

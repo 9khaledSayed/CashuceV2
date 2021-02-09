@@ -140,7 +140,7 @@ class EmployeeController extends Controller
 
     public function show($id)
     {
-        $employee = Employee::withoutGlobalScope(ServiceStatusScope::class)->find($id);
+        $employee = Employee::withoutGlobalScopes([ServiceStatusScope::class, CompletedScope::class])->find($id);
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
         $job_titles = JobTitle::all();
@@ -166,7 +166,7 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $this->authorize('update_employees');
-        $employee = Employee::withoutGlobalScope(ServiceStatusScope::class)->find($id);
+        $employee = Employee::withoutGlobalScopes([ServiceStatusScope::class, CompletedScope::class])->find($id);
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
         $cities = City::all();
@@ -197,7 +197,7 @@ class EmployeeController extends Controller
 
     public function update(Request $request, $id)
     {
-        $employee = Employee::withoutGlobalScope(ServiceStatusScope::class)->find($id);
+        $employee = Employee::withoutGlobalScopes([ServiceStatusScope::class, CompletedScope::class])->find($id);
         $this->authorize('update_employees');
         if($request->ajax()){
             $employee->update($this->validator($request, $employee->id));

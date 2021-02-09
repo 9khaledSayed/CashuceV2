@@ -43,7 +43,7 @@ var KTDatatableLocalSortDemo = function() {
                 source: {
                     read: {
                         method: 'GET',
-                        url: '/dashboard/employees/archives',
+                        url: '/dashboard/archives',
                     },
                 },
                 pageSize: 10,
@@ -159,8 +159,7 @@ var KTDatatableLocalSortDemo = function() {
 		                          <i class="la la-ellipsis-h"></i>\
 		                      </a>\
 		                      <div class="dropdown-menu dropdown-menu-right">\
-		                          <a class="dropdown-item" href="/dashboard/employees/' + row.id + '/edit"><i class="la la-pencil-square-o"></i>' + locator.__('Edit Info') + '</a>\
-		                          <a class="dropdown-item" href="/dashboard/employees/' + row.id + '"><i class="la la-eye"></i>' + locator.__('Show Info') + '</a>\
+		                          <a class="dropdown-item" href="/dashboard/archives/' + row.id + '/edit"><i class="la la-pencil-square-o"></i>' + locator.__('Edit Info') + '</a>\
 		                      </div>\
 		                  </div>\
                         ';
@@ -168,36 +167,6 @@ var KTDatatableLocalSortDemo = function() {
                 }],
         });
 
-        $('#kt_form_supervisor').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'supervisor');
-        });
-
-        $('#kt_form_role').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'role');
-        });
-
-        $('#kt_form_nationality').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'nationality');
-        });
-
-        $('#kt_form_service_status').on('change', function() {
-            //console.log($(this).val());
-            datatable.search($(this).val(), 'service_status_search');
-        });
-
-        $('#kt_form_department').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'department');
-        });
-
-        $('#kt_form_section').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'section');
-        });
-
-        $('#kt_form_provider').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'provider');
-        });
-
-        $('#kt_form_status,#kt_form_type').selectpicker();
 
     };
 
