@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Company extends Authenticatable implements MustVerifyEmail
+class Company extends Authenticatable
 {
     use Notifiable;
     use LogsActivity;
