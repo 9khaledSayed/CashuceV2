@@ -357,7 +357,7 @@ class AttendanceController extends Controller
     public function extractExcel(Request $request)
     {
 
-        $attendances = Attendance::get();
+        $attendances = Attendance::orderBy('date', 'desc')->get();
         $fileName = 'attendances.xlsx';
         if(isset($request->this_day)){
 
