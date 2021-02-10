@@ -416,6 +416,7 @@ class AttendanceController extends Controller
                     'Shift Start Time' => isset($shift_start_time) ? Carbon::createFromTimeString($shift_start_time)->format('h:iA') : '',
                     'Time In' => $date . $this->modifyMinutes($attendance->time_in),
                     'Time Out' => isset($time_out) ? $date . $this->modifyMinutes($time_out) : '',
+                    'WorkShift' => $work_shift->name_en,
                     'Shift Work Hours' => $shift_work_hours ?? '',
                     'Total Working Hours' => $total_working_hours ?? '',
                     'Delay' => $delay,

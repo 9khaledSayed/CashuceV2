@@ -222,6 +222,7 @@ var KTDatatableLocalSortDemo = function() {
                 } ,{
                     field: 'service_status',
                     title: locator.__('Service Status'),
+                    autoHide: false,
                     textAlign: 'center',
                     template: function(row) {
                         var status = row.service_status === '1' ? 'checked' : 'unchecked';

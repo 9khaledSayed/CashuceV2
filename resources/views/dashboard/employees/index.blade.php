@@ -326,5 +326,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{asset('js/datatables/employees.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/datatables/employees.js?<%=ts %>')}}" type="text/javascript"></script>
 @endpush
