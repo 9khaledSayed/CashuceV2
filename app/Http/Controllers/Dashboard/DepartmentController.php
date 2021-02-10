@@ -78,7 +78,7 @@ class DepartmentController extends Controller
         return request()->validate([
             'name_ar'    => 'required',
             'name_en'   => 'required',
-            'supervisor_id'   => 'required|numeric|exists:employees,id',
+            'supervisor_id'   => 'nullable|numeric|exists:employees,id',
         ]);
     }
 
