@@ -358,7 +358,7 @@ class EmployeeController extends Controller
         $request->validate([
             'excel_file' => 'required|file|max:50000|mimes:xlsx'
         ]);
-        $allEmployeesBeforeImport = Employee::count();
+        $allEmployeesBeforeImport = Employee::withoutGlobalScope(CompletedScope::class)->count();
 
         $users = (new FastExcel)->import($request->file('excel_file'), function ($row) {
             $validator = Validator::make($row, [
@@ -393,12 +393,12 @@ class EmployeeController extends Controller
                     'contract_start_date' => $row['Contract Start Date'],
                     'contract_end_date' => $row['Contract End Date'],
                     'salary' => $row['Salary'],
-                    'is_completed' => true,
+                    'is_completed' => false,
                 ]);
             }
         });
 
-        $allEmployeesAfterImport = Employee::count();
+        $allEmployeesAfterImport = Employee::withoutGlobalScope(CompletedScope::class)->count();
         $newEmployees = $allEmployeesAfterImport - $allEmployeesBeforeImport;
 
         return redirect(route('dashboard.employees.import'))->with('message', "There are $newEmployees Employees has been registered into your company");

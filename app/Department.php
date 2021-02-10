@@ -58,4 +58,9 @@ class Department extends Model
     {
         return $this->hasMany(Employee::class);
     }
+
+    public function supervisor()
+    {
+        return $this->hasMany(Employee::class, 'supervisor_id');
+    }
 }

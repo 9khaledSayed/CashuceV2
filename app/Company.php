@@ -121,9 +121,9 @@ class Company extends Authenticatable
 
     public static function supervisors()
     {
-        return Employee::get()->map(function($employee){
-            if($employee->role->label == 'Supervisor'){
-                return $employee;
+        return Department::get()->map(function($department){
+            if($department->supervisor_id){
+               return Employee::find($department->supervisor_id);
             }
         })->filter();
     }
