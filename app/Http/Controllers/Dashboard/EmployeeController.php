@@ -22,6 +22,7 @@ use App\WorkShift;
 use Box\Spout\Writer\Style\StyleBuilder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use Rap2hpoutre\FastExcel\FastExcel;
 
@@ -328,30 +329,8 @@ class EmployeeController extends Controller
 
     public function extractExcel(Request $request)
     {
-        $employees = Employee::select($request->employees_data)->get();
-        //dd($request->employees_data[1]);
-        //dd(count($request->employees_data));
-        //$emp_arr[] = 0;
-        for($i=0; $i<count($request->employees_data); $i++)
-        {
-
-//            $employees = $employees->map(function($employee){
-//
-//                return [
-//                    $employee.''
-//                ];
-//
-//            })->filter();
-//            $emp_arr[$i] = $employees;
-        }
-        //dd($emp_arr[1]);
-
-
-
-
         $fileName = 'employees.xlsx';
-
-
+        $employees = Employee::select($request->employees_data)->get();
 
         $header_style = (new StyleBuilder())
             ->setFontSize(8)
@@ -363,11 +342,67 @@ class EmployeeController extends Controller
             ->setBackgroundColor("EDEDED")
             ->build();
 
-
         return (new FastExcel($employees))
             ->headerStyle($header_style)
             ->rowsStyle($rows_style)
             ->download($fileName);
+    }
+
+    public function showImportForm()
+    {
+        return view('dashboard.employees.import_form');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'excel_file' => 'required|file|max:50000|mimes:xlsx'
+        ]);
+        $allEmployeesBeforeImport = Employee::count();
+
+        $users = (new FastExcel)->import($request->file('excel_file'), function ($row) {
+            $validator = Validator::make($row, [
+                "Name English"    => "required|String|max:191",
+                "BirthDate"    => "required|date",
+                "ID Number"    => "required|numeric",
+                "Issue Date"    => "required|date",
+                "Expire Date"    => "required|date",
+                "Mobile"    => "required",
+                "Email"    => 'sometimes|required|email|unique:employees',
+                "Password"    => "required|min:8",
+                "Job Number"    => ["required","numeric", new UniqueJopNumber()],
+                "Trail Period Days"    => "required|numeric",
+                "Contract Period Months"    => "required|numeric",
+                "Contract Start Date"    => "required|date",
+                "Contract End Date"    => "required|date",
+                "Salary"    => "required|numeric",
+            ]);
+            if (!$validator->fails()){
+                Employee::firstOrCreate([
+                    'name_en' => $row['Name English'],
+                    'birthdate' => $row['BirthDate'],
+                    'id_num' => $row['ID Number'],
+                    'id_issue_date' => $row['Issue Date'],
+                    'id_expire_date' => $row['Expire Date'],
+                    'phone' => $row['Mobile'],
+                    'email' => $row['Email'],
+                    'password' => $row['Password'],
+                    'job_number' => $row['Job Number'],
+                    'test_period' => $row['Trail Period Days'],
+                    'contract_period' => $row['Contract Period Months'],
+                    'contract_start_date' => $row['Contract Start Date'],
+                    'contract_end_date' => $row['Contract End Date'],
+                    'salary' => $row['Salary'],
+                    'is_completed' => true,
+                ]);
+            }
+        });
+
+        $allEmployeesAfterImport = Employee::count();
+        $newEmployees = $allEmployeesAfterImport - $allEmployeesBeforeImport;
+
+        return redirect(route('dashboard.employees.import'))->with('message', "There are $newEmployees Employees has been registered into your company");
+
     }
 
 

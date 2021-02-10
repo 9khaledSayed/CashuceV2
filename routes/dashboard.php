@@ -39,6 +39,8 @@ use Illuminate\Support\Facades\Route;
             Route::get('expire_docs', 'DashboardController@expiringDocs');
             Route::get('attendance_summery', 'DashboardController@attendanceSummary');
             Route::get('extract_excel_form', 'EmployeeController@extractExcelForm')->name('employees.export.form');
+            Route::get('import', 'EmployeeController@showImportForm')->name('employees.import');
+            Route::post('import', 'EmployeeController@import')->name('employees.import');
             Route::get('extract_excel', 'EmployeeController@extractExcel')->name('employees.export');
             Route::get('ended_employees', 'DashboardController@endedEmployees');
             Route::get('employees/ended_employees', 'EmployeeController@endedEmployees')->name('employees.ended_employees');

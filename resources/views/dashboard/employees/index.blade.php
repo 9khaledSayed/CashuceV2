@@ -61,6 +61,9 @@
                     <a href="{{route('dashboard.employees.export.form')}}" class="btn btn-danger btn-icon-sm ml-2 mr-2">
                         <i class="fa fa-file-excel"></i> {{__('Export')}}
                     </a>
+                    <a href="{{route('dashboard.employees.import')}}" class="btn btn-warning btn-icon-sm ml-2 mr-2">
+                        <i class="fa fa-file-excel"></i> {{__('Import')}}
+                    </a>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    {{__('Export_form')}}
+                    {{__('Export')}}
                 </h3>
                 <span class="kt-subheader__separator kt-subheader__separator--v"></span>
             </div>
@@ -24,7 +24,7 @@
         <div class="kt-portlet__head">
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
-                    {{__('New Conversation')}}
+                    {{__('EXport')}}
                 </h3>
             </div>
         </div>

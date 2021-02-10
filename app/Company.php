@@ -88,6 +88,11 @@ class Company extends Authenticatable
         $this->attributes['password'] = Hash::make($password);
     }
 
+    public static function instance()
+    {
+        return auth()->guard('company')->check() ? auth()->user() : Company::find(auth()->user()->company_id);
+    }
+
     public static function companyID()
     {
         return auth()->guard('company')->check() ? auth()->user()->id : auth()->user()->company_id;
