@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Scopes\ParentScope;
+use App\Scopes\SupervisorScope;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -52,6 +53,6 @@ class Report extends Model
 
     public function supervisor()
     {
-        return $this->belongsTo(Employee::class, 'supervisor_id')->withoutGlobalScope(ParentScope::class);
+        return $this->belongsTo(Employee::class, 'supervisor_id')->withoutGlobalScopes([ParentScope::class, SupervisorScope::class]);
     }
 }

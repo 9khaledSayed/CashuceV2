@@ -175,6 +175,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
                 $supervisorID = $employee->department->supervisor_id;
                 if($supervisorID != 0){
                     $employee->supervisor_id = $supervisorID;
+                    $employee->save();
                 }
             }
         });
@@ -412,7 +413,8 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
     public static function isSupervisor()
     {
-        return ( auth()->guard('employee')->check() && auth()->user()->role->label == 'Supervisor');
+        $id = auth()->user()->id;
+        return Department::where('supervisor_id', '!=', 0)->pluck('supervisor_id')->contains($id) && !auth()->guard('company')->check();
     }
 
     public static function supervisorID()

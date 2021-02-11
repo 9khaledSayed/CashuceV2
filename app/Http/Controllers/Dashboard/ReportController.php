@@ -29,8 +29,7 @@ class ReportController extends Controller
     public function create()
     {
         $this->authorize('create_reports');
-        $user = auth()->user();
-        $employees = auth()->guard('company') ? $user->employees : $user->supervisedEmployees;
+        $employees = Employee::get();
         return view('dashboard.reports.create', compact('employees'));
     }
 
@@ -88,7 +87,7 @@ class ReportController extends Controller
             'employee_id' => $report->employee_id,
             'hr_id' => auth()->user()->id,
         ]);
-        $content = "<h4>" . __('You have a report from : ')
+        $content = "<h4>" . __('report from : ')
             .  $report->supervisor->name()
             . " ( " .  $report->supervisor->role->name()
             . " )</h4>"
