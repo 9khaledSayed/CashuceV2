@@ -183,19 +183,19 @@
         </div>
         <div class="col-lg-6">
             <!--begin::Portlet-->
-            <div class="kt-portlet">
+            <div class="kt-portlet kt-portlet--tab">
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
-                        <span class="kt-portlet__head-icon kt-hidden">
-                            <i class="la la-gear"></i>
-                        </span>
+												<span class="kt-portlet__head-icon kt-hidden">
+													<i class="la la-gear"></i>
+												</span>
                         <h3 class="kt-portlet__head-title">
-                            {{__('Employees In Departments')}}
+                            Pie Chart
                         </h3>
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                    <div id="kt_flotcharts_11" style="height: 300px;"></div>
+                    <div id="kt_morris_4" style="height:500px;"></div>
                 </div>
             </div>
             <!--End::Dashboard 6-->
@@ -481,10 +481,4 @@
     <script src="{{asset('js/datatables/ended_employees.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/datatables/departments_statistics.js?<%=ts %>')}}" type="text/javascript"></script>
     <script src="{{asset('assets/plugins/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
-    <!--end::Page Vendors -->
-    <script >
-        $(function () {
-
-        })
-    </script>
 @endpush

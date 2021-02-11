@@ -78,29 +78,23 @@ var departmentStatistics = function() {
         $('#department_statistics_table').on('kt-datatable--on-ajax-done', function(e, response) {
                 var data = [];
                 $.each(response, function(index, value){
-                    data[index] = {label: value.name, data: value.percentage }
+                    data[index] = {label: value.name, value: value.percentage }
                 })
 
-                $.plot($("#kt_flotcharts_11"), data, {
-                    series: {
-                        pie: {
-                            show: true,
-                            label: {
-                                show: true,
-                                radius: 1,
-                                formatter: function(label, series) {
-                                    return '<div style="font-size:8pt;font-weight: 900;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
-                                },
-                                background: {
-                                    opacity: 0.8
-                                }
-                            }
-                        }
-                    },
-                    legend: {
-                        show: false
-                    }
-                });
+            new Morris.Donut({
+                element: 'kt_morris_4',
+                data: data,
+                colors: ["#22b9ff",
+                    "#282a3c",
+                    "#5867dd",
+                    "#34bfa3",
+                    "#36a3f7",
+                    "#ffb822",
+                    "#fd3995",
+                    "#c5cbe3",
+                    "#3d4465",
+                    "#3e4466"]
+            });
         });
     };
     return {
