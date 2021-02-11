@@ -79,16 +79,10 @@ class DashboardController extends Controller
                 'name' => $department->name(),
                 'in_service' => $allDepartmentEmployees->where('service_status' , 1)->count(),
                 'percentage' => $percentage,
-                'color' => array_rand($colors),
             ];
         });
 
-        if ($request->ajax()){
-            return response()->json($departments);
-        }
-        else{
-            return $departments;
-        }
+        return json_decode($departments);
     }
 
     public function endedEmployees(Request $request)

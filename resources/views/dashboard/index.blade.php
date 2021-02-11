@@ -479,15 +479,15 @@
     <script src="{{asset('js/datatables/attendance_summary.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/datatables/expiring_documents.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/datatables/ended_employees.js')}}" type="text/javascript"></script>
-    <script src="{{asset('js/datatables/departments_statistics.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/datatables/departments_statistics.js?<%=ts %>')}}" type="text/javascript"></script>
     <script src="{{asset('assets/plugins/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
     <!--end::Page Vendors -->
-    <script>
+    <script >
         $(function () {
             var demo11 = function() {
                 var data = [
                     @foreach($departments as $department)
-                    {label: "{{$department['name']}}", data: {{$department['percentage']}}, color:  KTApp.getStateColor("{{$department['color']}}")},
+                    {label: "{{$department->name}}", data: {{$department->percentage}}},
                     @endforeach
                 ];
 

@@ -51,14 +51,15 @@ var departmentStatistics = function() {
 
             // columns definition
             columns: [
+
                  {
                     field: 'name',
-                     width: 200,
+                     width: 150,
                     title: locator.__('Name'),
                     textAlign: 'center',
                 },{
                     field: 'in_service',
-                    width: 200,
+                    width: 150,
                     title: locator.__('In Service'),
                     textAlign: 'center',
                     autoHide: false,
