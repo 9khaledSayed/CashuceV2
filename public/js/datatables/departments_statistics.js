@@ -35,7 +35,7 @@ var departmentStatistics = function() {
             // layout definition
             layout: {
                 scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
-                height: 270,
+                height: 600,
                 footer: false, // display/hide footer
 
             },
@@ -56,12 +56,12 @@ var departmentStatistics = function() {
 
                  {
                     field: 'name',
-                     width: 150,
+                     width: 200,
                     title: locator.__('Name'),
                     textAlign: 'center',
                 },{
                     field: 'in_service',
-                    width: 150,
+                    width: 200,
                     title: locator.__('In Service'),
                     textAlign: 'center',
                     autoHide: false,

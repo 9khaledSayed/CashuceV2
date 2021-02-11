@@ -64,19 +64,17 @@ class DashboardController extends Controller
 
         $departments =  Department::get()->map(function ($department) use ($totalActiveEmployees){
             $colors = [ 'danger', 'success', 'brand', 'warning','info', 'dark', 'info', 'primary', 'secondary', 'muted'];
-            $activeEmployeesInDepartment = $department->employees;
-            $allDepartmentEmployees = Employee::withoutGlobalScope(new ServiceStatusScope())->where('department_id', $department->id)->get();
+            $activeEmployeesInDepartment = $department->employees->count();
 
-            if(isset($activeEmployeesInDepartment) && $totalActiveEmployees > 0){
-                $percentage = ($activeEmployeesInDepartment->count() / $totalActiveEmployees) * 100;
+            if($activeEmployeesInDepartment > 0 && $totalActiveEmployees > 0){
+                $percentage = ($activeEmployeesInDepartment / $totalActiveEmployees) * 100;
             }else{
                 $percentage = 0;
             }
-
             return[
                 'name' => $department->name(),
-                'in_service' => $allDepartmentEmployees->where('service_status' , 1)->count(),
-                'percentage' => $percentage,
+                'in_service' => $activeEmployeesInDepartment,
+                'percentage' => number_format($percentage, 2),
             ];
         });
 
