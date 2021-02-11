@@ -82,7 +82,7 @@ class PayrollController extends Controller
                 $employee = $salary->employee;
                 $deductions = $employee->deductions();
                 $gosiDeduction = $employee->gosiDeduction();
-                $officialWorkingHours = isset($employee->workShift) ? $employee->workShift->officialWorkingHours() : 1;
+                $officialWorkingHours = 208;
                     return [
                         'job_number' => $employee->job_number,
                         'employee_name' => $employee->name(),
