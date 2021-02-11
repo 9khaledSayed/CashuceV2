@@ -484,36 +484,7 @@
     <!--end::Page Vendors -->
     <script >
         $(function () {
-            var demo11 = function() {
-                var data = [
-                    @foreach($departments as $department)
-                    {label: "{{$department->name}}", data: {{$department->percentage}}},
-                    @endforeach
-                ];
 
-                $.plot($("#kt_flotcharts_11"), data, {
-                    series: {
-                        pie: {
-                            show: true,
-                            radius: 1,
-                            label: {
-                                show: true,
-                                radius: 1,
-                                formatter: function(label, series, ) {
-                                    return '<div style="font-size:12pt;font-weight:900;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
-                                },
-                                background: {
-                                    opacity: 0.8
-                                }
-                            }
-                        }
-                    },
-                    legend: {
-                        show: false
-                    }
-                });
-            }
-            demo11();
         })
     </script>
 @endpush

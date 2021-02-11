@@ -27,13 +27,11 @@ class DashboardController extends Controller
         $employeesInTrail = $this->expiringDocs($request);
         $attendanceSummary = $this->attendanceSummary($request);
         $employeesStatistics = $this->employeesStatistics();
-        $departments = $this->departmentsSection($request);
         $activities = $this->employeesActivities();
 
         return view('dashboard.index', compact([
             'employeesStatistics',
             'activities',
-            'departments',
             'employeesInTrail',
             'attendanceSummary',
         ]));
@@ -65,7 +63,7 @@ class DashboardController extends Controller
         $totalActiveEmployees = Company::find(Company::companyID())->employees->count();
 
         $departments =  Department::get()->map(function ($department) use ($totalActiveEmployees){
-            $colors = [ 'danger', 'success', 'brand', 'warning','info'];
+            $colors = [ 'danger', 'success', 'brand', 'warning','info', 'dark', 'info', 'primary', 'secondary', 'muted'];
             $activeEmployeesInDepartment = $department->employees;
             $allDepartmentEmployees = Employee::withoutGlobalScope(new ServiceStatusScope())->where('department_id', $department->id)->get();
 
