@@ -46,7 +46,7 @@ class Payroll extends Model
                 $workDays = $payroll->include_attendance? $employee->workDays($payroll->date->month) : 30;
                 $workDays = $workDays > $payrollDay ? $payrollDay : $workDays;  // 26 - 25
                 $daysOff = $employee->daysOff();
-                $totalPackage = $workDays * ($employee->totalPackage()/(30P));
+                $totalPackage = $workDays * ($employee->totalPackage()/(30));
                 $deductions = $employee->deductions() + $employee->gosiDeduction();
                 $netPay = $totalPackage  - $deductions;
 
