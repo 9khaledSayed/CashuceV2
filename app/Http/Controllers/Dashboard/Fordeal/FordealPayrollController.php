@@ -57,7 +57,7 @@ class FordealPayrollController extends PayrollController
             $employee = $salary->employee;
             $provider = $employee->provider;
             $provider = isset($provider) ? $employee->provider->name(): '';
-            $officialWorkingHours = isset($employee->workShift) ? $employee->workShift->officialWorkingHours() : 1;
+            $officialWorkingHours = 208;
             $officialAbsentHours = isset($employee->workShift) ? $employee->workShift->officialAbsentHours() : 0;
             return [
                 'Job Number' => $employee->job_number,

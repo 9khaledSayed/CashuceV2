@@ -83,7 +83,7 @@ class PayrollController extends Controller
                 $employee = $salary->employee;
                 $deductions = $employee->deductions();
                 $gosiDeduction = $employee->gosiDeduction();
-                $officialWorkingHours = 208;
+                $officialWorkingHours = 240;
                     return [
                         'job_number' => $employee->job_number,
                         'employee_name' => $employee->name(),
@@ -131,7 +131,7 @@ class PayrollController extends Controller
             $workDays = $payroll->include_attendance? $employee->workDays($payroll->date->month) : 30;
             $workDays = ($workDays > $payrollDay) ? $payrollDay : $workDays;  // 26 - 25
             $daysOff = $employee->daysOff();
-            $totalPackage = $workDays * ($employee->totalPackage()/(30 - $daysOff));
+            $totalPackage = $workDays * ($employee->totalPackage()/(30));
             $deductions = $employee->deductions() + $employee->gosiDeduction();
             $netPay = $totalPackage  - $deductions;
 
