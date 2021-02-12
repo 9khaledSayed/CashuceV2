@@ -22,6 +22,7 @@ class CreatePayrollsTable extends Migration
             $table->dateTime('issue_date');
             $table->integer('status')->default(0);
             $table->boolean('has_changes')->default(false);
+            $table->boolean('include_attendance')->default(true);
             $table->integer('employees_no');
             $table->decimal('total_deductions');
             $table->decimal('total_net_salary')->default(0);

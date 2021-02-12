@@ -43,7 +43,7 @@ class Payroll extends Model
 
             foreach ($employees as $employee) {
                 $payrollDay = setting('payroll_day') ?? 30;
-                $workDays = $employee->workDays($payroll->date->month);
+                $workDays = $payroll->include_attendance? $employee->workDays($payroll->date->month) : 30;
                 $workDays = $workDays > $payrollDay ? $payrollDay : $workDays;  // 26 - 25
                 $daysOff = $employee->daysOff();
                 $totalPackage = $workDays * ($employee->totalPackage()/(30 - $daysOff));

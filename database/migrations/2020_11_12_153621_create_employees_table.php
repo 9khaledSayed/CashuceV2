@@ -60,6 +60,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('leave_balance')->default(30);
             $table->string('barcode');
             $table->boolean('service_status')->default(true);
+            $table->boolean('is_completed')->default(false);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->decimal('salary')->default(0);

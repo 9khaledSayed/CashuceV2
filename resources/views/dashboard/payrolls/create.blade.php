@@ -81,6 +81,17 @@
                                                                 </select>
                                                             </div>
                                                         </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-3 col-form-label">{{__('Calculation based on attendance')}}</label>
+                                                            <div class="col-3">
+                                                                <span class="kt-switch kt-switch--icon">
+                                                                    <label>
+                                                                        <input type="checkbox" @if(old('include_attendance') == "on") checked @endif name="include_attendance">
+                                                                        <span></span>
+                                                                    </label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

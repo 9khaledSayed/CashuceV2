@@ -51,7 +51,7 @@ class PayrollController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create_payrolls');
-        $request->validate(['year_month' => new UniqueMonth($request->provider_id)]);
+        $request->validate(['year_month' => ['required' ,new UniqueMonth($request->provider_id)]]);
         $payrollDay = setting('payroll_day') ?? 30;
         $employees = isset($payroll->provider_id) ? Employee::where('provider_id', $payroll->provider_id)->get() : Employee::get();
 
@@ -65,6 +65,7 @@ class PayrollController extends Controller
             'issue_date'         => Carbon::now()->toDateTimeString(),
             'employees_no'       => $employees->count(),
             'total_deductions'   => $total_deductions,
+            'include_attendance' => $request->has('include_attendance'),
         ]);
         $payroll->update([
             'total_net_salary' => $payroll->salaries->pluck('net_salary')->sum(),
@@ -109,7 +110,7 @@ class PayrollController extends Controller
     }
 
 
-    public function reissue(Payroll $payroll)
+    public function reissue(Request $request, Payroll $payroll)
     {
         $this->authorize('proceed_payrolls');
         $payroll->salaries()->delete();
@@ -123,10 +124,11 @@ class PayrollController extends Controller
             'issue_date'         => Carbon::now()->toDateTimeString(),
             'employees_no'       => $employees->count(),
             'total_deductions'   => $totalDeductions,
+            'include_attendance' => $request->has('include_attendance'),
         ]);
         foreach ($employees as $employee) {
             $payrollDay = setting('payroll_day') ?? 30;
-            $workDays = $employee->workDays($payroll->date->month);
+            $workDays = $payroll->include_attendance? $employee->workDays($payroll->date->month) : 30;
             $workDays = ($workDays > $payrollDay) ? $payrollDay : $workDays;  // 26 - 25
             $daysOff = $employee->daysOff();
             $totalPackage = $workDays * ($employee->totalPackage()/(30 - $daysOff));
