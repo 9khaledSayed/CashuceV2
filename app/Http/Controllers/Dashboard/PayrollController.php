@@ -85,6 +85,7 @@ class PayrollController extends Controller
                 $gosiDeduction = $employee->gosiDeduction();
                 $officialWorkingHours = 240;
                     return [
+                        'id' => $salary->id,
                         'job_number' => $employee->job_number,
                         'employee_name' => $employee->name(),
                         'employee_id' => $employee->id,
