@@ -43,7 +43,7 @@
                                     {{$salary->employee->name()}}
                                 </a>
                                 <span class="kt-widget__subtitle">
-                                   {{$salary->employee->roles->name()}}
+                                   {{$salary->employee->role->name()}}
                                 </span>
                                 <span class="kt-widget__subtitle">
                                     {{$salary->employee->created_at}}
