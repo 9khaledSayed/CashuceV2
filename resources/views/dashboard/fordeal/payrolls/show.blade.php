@@ -209,7 +209,7 @@
                     <div class="kt-portlet__head-actions">
                         @can('proceed_payrolls')
 {{--                            @if($payroll->status != 1)--}}
-                            <a class="btn btn-warning btn-sm btn-loading" href="{{route('dashboard.payrolls.reissue', $payroll->id)}}">
+                            <a class="btn btn-warning btn-sm btn-loading" id="reissue-btn" href="#">
                                 <i class="fa fa-redo"></i>
                                 {{__('Reissue')}}
                             </a>
@@ -284,6 +284,48 @@
     </div>
 
     <!--end::Portlet-->
+
+    <div class="modal fade" id="reissue-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{__('Reissue')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!--begin::Form-->
+                    <form class="kt-form kt-form--label-right update-attendance-form" method="get" action="{{route('dashboard.payrolls.reissue', $payroll->id)}}">
+                        @csrf
+                        <div class="kt-portlet__body">
+                            <div class="form-group row d-flex justify-content-center">
+                                <label class="col-3 col-form-label">{{__('Calculation based on attendance')}}</label>
+                                <div class="col-3">
+                                    <span class="kt-switch kt-switch--icon">
+                                        <label>
+                                            <input type="checkbox" @if($payroll->include_attendance) checked @endif name="include_attendance">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__foot" style="text-align: center">
+                            <div class="kt-form__actions">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-primary update-attendance-submit">{{__('confirm')}}</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('back')}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--end::Form-->
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
@@ -291,4 +333,12 @@
         var payroll_id = {{$payroll->id}};
     </script>
     <script src="{{asset('js/datatables/fordeal/salaries.js?<%=ts %>')}}" type="text/javascript"></script>
+    <script>
+        $(function () {
+            $('#reissue-btn').click(function () {
+                var modal = $("#reissue-modal");
+                modal.modal('show');
+            });
+        })
+    </script>
 @endpush
