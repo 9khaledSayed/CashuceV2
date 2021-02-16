@@ -186,38 +186,7 @@
 
 @push('scripts')
     <script src="{{asset('assets/js/pages/custom/user/profile.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/components/fileUploader.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/datatables/documents.js')}}" type="text/javascript"></script>
-    <script>
-        $(function () {
-            $('#kt_dropzone_1').dropzone({
-                url: "/dashboard/documents", // Set the url for your upload script location
-                method:'post',
-                paramName: "file", // The name that will be used to transfer the file
-                maxFiles: 1,
-                maxFilesize: 5, // MB
-                addRemoveLinks: true,
-                sending: function(file, xhr, formData) {
-                    formData.append("_token", "{{ csrf_token() }}");
-                },
-                accept: function(file, done) {
-                    if (file.name == "justinbieber.jpg") {
-                        done("Naha, you don't.");
-                    } else {
-                        done();
-                    }
-                },
-                success:function () {
-                    swal.fire({
-                        title: locator.__('Operation Done Successfully'),
-                        type: 'success',
-                        buttonsStyling: false,
-                        confirmButtonText: locator.__("OK"),
-                        confirmButtonClass: "btn btn-sm btn-bold btn-brand",
-                    });
-                    datatable.reload();
-                }
 
-            });
-        })
-    </script>
 @endpush

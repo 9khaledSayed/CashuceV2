@@ -45,8 +45,11 @@ use Illuminate\Support\Facades\Route;
             Route::get('ended_employees', 'DashboardController@endedEmployees');
             Route::get('employees/ended_employees', 'EmployeeController@endedEmployees')->name('employees.ended_employees');
             Route::get('documents/{document}/download', 'DocumentController@download');
+            Route::get('candidates/documents', 'CandidateController@getDocuments');
+            Route::post('candidates/{candidate}/upload_document', 'CandidateController@uploadDocuments');
             Route::post('profile_picture/upload', 'ProfileController@uploadProfilePicture')->name('profile_picture.upload');
             Route::get('attendances/update/{attendance}', 'AttendanceController@update');
+            Route::post('candidates/decision/{candidate}', 'CandidateController@decision')->name('candidates.decision');
             Route::resource('attendances', 'AttendanceController')->except('show');
 
             Route::resources([
@@ -75,6 +78,7 @@ use Illuminate\Support\Facades\Route;
                 'leave_balances' => 'LeaveBalanceController',
                 'documents' => 'DocumentController',
                 'archives' => 'ArchiveController',
+                'candidates' => 'CandidateController',
             ]);
 
         });

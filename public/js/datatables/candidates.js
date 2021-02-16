@@ -1,17 +1,16 @@
 "use strict";
 // Class definition
-var datatable;
+
 var KTDatatableLocalSortDemo = function() {
     // Private functions
     var messages = {
         'ar': {
-            "Employee":"الموظف",
-            "Manager": "المدير المباشر",
-            "Description": "الوصف",
-            "Forward to employee": "إعادة توجيه إلي الموظف",
-            "Created": "تاريخ البلاغ",
-            "Violation Date": "تاريخ المخالفة",
+            'Full Name': "الاسم بالكامل",
+            'Created': "تاريخ اﻹنشاء",
+            "Supplier": "الشركة المشغلة",
+            "Interview Date": "الصلاحية",
             "Actions": "الاجراءات",
+            "Show Info": "عرض البيانات",
             'Are you sure to delete this item?': "هل انت متأكد أنك تريد مسح هذا العنصر؟",
             'Item Deleted Successfully': "تم مسح العنصر بنجاح",
             'Yes, Delete!': "نعم امسح!",
@@ -31,14 +30,14 @@ var KTDatatableLocalSortDemo = function() {
     // basic demo
     var demo = function() {
 
-        datatable = $('.kt-datatable').KTDatatable({
+        var datatable = $('.kt-datatable').KTDatatable({
             // datasource definition
             data: {
                 type: 'remote',
                 source: {
                     read: {
                         method: 'GET',
-                        url: '/dashboard/documents',
+                        url: '/dashboard/candidates',
                     },
                 },
                 pageSize: 10,
@@ -88,7 +87,7 @@ var KTDatatableLocalSortDemo = function() {
                                 $.ajax({
                                     method: 'DELETE',
                                     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                                    url: '/dashboard/reports/' + data.id,
+                                    url: '/dashboard/candidates/' + data.id,
                                     error: function (err) {
                                         if (err.hasOwnProperty('responseJSON')) {
                                             if (err.responseJSON.hasOwnProperty('message')) {
@@ -129,9 +128,34 @@ var KTDatatableLocalSortDemo = function() {
                     selector: false,
                     textAlign: 'center',
                 }, {
-                    field: 'file_name',
-                    title: locator.__('File Name'),
+                    field: 'name',
+                    title: locator.__('Full Name'),
                     textAlign: 'center',
+
+                }, {
+                    field: 'provider',
+                    title: locator.__('Supplier'),
+                    textAlign: 'center',
+                }, {
+                    field: 'interview_date',
+                    title: locator.__('Interview Date'),
+                    textAlign: 'center',
+                }, {
+                    field: 'department',
+                    title: locator.__('Department'),
+                    textAlign: 'center',
+                }, {
+                    field: 'status_name',
+                    title: 'Status',
+                    // callback function support for column rendering
+                    template: function(row) {
+                        return '<span class="kt-badge ' + row.status_class + ' kt-badge--inline kt-badge--pill">' + row.status_name + '</span>';
+                    },
+                },{
+                    field: 'created_at',
+                    title: locator.__('Created'),
+                    textAlign: 'center',
+
                 }, {
                     field: 'Actions',
                     title: locator.__('Actions'),
@@ -141,9 +165,18 @@ var KTDatatableLocalSortDemo = function() {
                     autoHide: false,
                     textAlign: 'center',
                     template:function (row){
-                        return '\<a href="/dashboard/documents/' + row.id + '/download" class="btn btn-sm btn-primary m-btn m-btn--icon">                            \
-                            <i class="fa fa-download"></i>' + locator.__('Download') + '\
-                        </a>';
+                        return '\
+		                  <div class="dropdown">\
+		                      <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown">\
+		                          <i class="la la-ellipsis-h"></i>\
+		                      </a>\
+		                      <div class="dropdown-menu dropdown-menu-right">\
+		                          <a class="dropdown-item" href="/dashboard/candidates/' + row.id + '/edit"><i class="la la-pencil-square-o"></i>' + locator.__('Edit Info') + '</a>\
+		                          <a class="dropdown-item" href="/dashboard/candidates/' + row.id + '"><i class="la la-eye"></i>' + locator.__('Show Info') + '</a>\
+		                          <a class="dropdown-item delete-item" href="#"><i class="la la-trash"></i>' + locator.__('Delete') + '</a>\
+		                      </div>\
+		                  </div>\
+                        ';
                     }
                 }],
         });
@@ -155,23 +188,11 @@ var KTDatatableLocalSortDemo = function() {
 
     };
 
-    var uploadFile = function () {
-        var fileUploader = new FileUploader();
-        fileUploader.uploadFile("/dashboard/documents");
-        fileUploader.dropzoneEl.options.autoProcessQueue = true;
-        fileUploader.dropzoneEl.on('complete', function () {
-            datatable.reload();
-        });
-
-    };
-
     return {
         // public functions
         init: function() {
             demo();
-            uploadFile();
         },
-
     };
 }();
 

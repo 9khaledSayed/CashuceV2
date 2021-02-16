@@ -11,6 +11,12 @@ use PhpParser\Comment\Doc;
 class DocumentController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth:employee,company,provider');
+    }
+
+
     public function index(Request $request)
     {
         if($request->ajax()){
@@ -37,6 +43,10 @@ class DocumentController extends Controller
 
         auth()->user()->documents()->create([
             'file_name' => $fileName,
+        ]);
+
+        return response()->json([
+            'status' => 1
         ]);
     }
 

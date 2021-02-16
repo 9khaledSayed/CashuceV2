@@ -401,42 +401,6 @@
 
 @push('scripts')
     <script src="{{asset('js/pages/employees.js')}}" type="text/javascript"></script>
-
-    <script type=text/javascript>
-        $(function(){
-            $('#department').change(function(){
-                var department_id = $(this).val();
-                sectionAjax(department_id);
-            });
-
-            function sectionAjax(department_id) {
-                if(department_id){
-                    let sectionSelect = $("#section");
-                    $.ajax({
-                        type:"GET",
-                        url:"/dashboard/departments/getSections/" + department_id,
-                        success:function(res){
-                            if(res){
-
-                                sectionSelect.empty();
-                                $.each(res,function(index,section){
-                                    sectionSelect.append('<option value="'+section.id+'">'+section.name+'</option>');
-                                });
-
-                            }else{
-
-                                sectionSelect.empty();
-
-                            }
-                        }
-                    });
-                }else{
-                    $("#section").empty();
-                }
-            }
-        });
-
-    </script>
-
+    <script src="{{asset('js/components/selectSectionAjax.js')}}" type="text/javascript"></script>
 @endpush
 

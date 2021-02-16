@@ -33,6 +33,10 @@
                 <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.employees.ended_employees')}}" class="kt-menu__link"><i class="kt-menu__link-icon fas fa-user-slash"></i><span class="kt-menu__link-text">{{__('All Ended Employees')}}</span></a></li>
                 @endcan
 
+{{--                @canany(['view_employees_violations','create_employees_violations'])--}}
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.candidates.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon flaticon2-layers-1"></i><span class="kt-menu__link-text">{{__('Candidates')}}</span></a></li>
+{{--                @endcanany--}}
+
                 @canany(['view_employees_violations','create_employees_violations'])
                 <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.employees_violations.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon flaticon2-layers-1"></i><span class="kt-menu__link-text">{{__('Employees Violations')}}</span></a></li>
                 @endcanany
