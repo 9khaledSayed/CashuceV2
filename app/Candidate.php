@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class Candidate extends Model
 {
     public static $rules = [
-        'name_ar' => ['required', 'string', 'max:191'],
         'name_en' => ['required', 'string', 'max:191'],
         'nationality_id'  => 'required|max:255|exists:nationalities,id',
         'department_id'  => 'nullable|max:255|exists:departments,id',

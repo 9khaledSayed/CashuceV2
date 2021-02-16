@@ -21,7 +21,6 @@ class CreateCandidatesTable extends Migration
             $table->unsignedBigInteger('section_id')->nullable();
             $table->unsignedBigInteger('job_title_id')->nullable();
             $table->unsignedBigInteger('provider_id')->nullable();
-            $table->string('name_ar');
             $table->string('name_en');
             $table->string('residence_profession')->nullable();
             $table->string('enterprise')->nullable();

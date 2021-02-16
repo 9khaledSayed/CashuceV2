@@ -125,7 +125,6 @@ class CandidateController extends Controller
 
         if($request->status == config('enums.candidate.approved')){
             $employee = Employee::Create($candidate->only([
-                'name_ar',
                 'name_en',
                 'nationality_id',
                 'department_id',

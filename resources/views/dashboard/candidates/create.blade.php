@@ -37,106 +37,82 @@
               style="width: 80%; margin: auto">
             @csrf
             <div class="kt-portlet__body">
-                <div class="form-group row">
-                    <div class="col-6">
-                        <label>{{__('Full Name Arabic')}} *</label>
-                        <input name="name_ar"
-                               value="{{old('name_ar')}}"
-                               class="form-control @error('name_ar') is-invalid @enderror"
-                               type="text">
-                    </div>
-                    <div class="col-6">
-                        <label>{{__('Full Name English')}} *</label>
-                        <input name="name_en"
-                               value="{{old('name_en')}}"
-                               class="form-control @error('name_en') is-invalid @enderror"
-                               type="text">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label>{{__('Birthdate')}} *</label>
-                        <div class="input-group date">
-                            <input name="birthdate" type="text" value="{{old('birthdate')}}" class="form-control datepicker" readonly/>
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="la la-calendar"></i>
-                                </span>
+                <div class="kt-section divided box">
+                    <div class="kt-section__body">
+                        <h3 class="kt-section__title kt-section__title-lg">{{__('For Supplier')}}:</h3>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label>{{__('Full Name English')}} *</label>
+                                    <input name="name_en"
+                                           value="{{old('name_en')}}"
+                                           class="form-control @error('name_en') is-invalid @enderror"
+                                           type="text">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>{{__('Mobile')}} *</label>
+                                    <input name="phone" value="{{old('phone')}}" class="form-control" type="text">
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <label>{{__('Mobile')}} *</label>
-                        <input name="phone" value="{{old('phone')}}" class="form-control" type="text">
-                    </div>
-                    <div class="col-lg-4">
-                        <label>{{__('Nationality')}} *</label>
-                        <select name="nationality_id"
-                                data-size="7"
-                                data-live-search="true"
-                                data-show-subtext="true"
-                                class="form-control kt-selectpicker" title="Choose">
-                            @foreach($nationalities as $nationality)
-                                <option value="{{$nationality->id}}"
-                                        @if(old('nationality_id') == $nationality->id) selected @endif
-                                >{{$nationality->name()}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-lg-4">
-                        <label>{{__('ID Number')}} *</label>
-                        <input name="id_num" value="{{old('id_num')}}" class="form-control @error('id_num') is-invalid @enderror">
-                    </div>
-                    <div class="col-lg-4">
-                        <label>{{__('Profession in residence')}}</label>
-                        <input name="residence_profession" value="{{old('residence_profession')}}" class="form-control @error('residence_profession') is-invalid @enderror">
-                    </div>
-                    <div class="col-lg-4">
-                        <label>{{__('Position')}}</label>
-                        <select name="job_title_id" class="form-control kt-selectpicker" title="Choose">
-                            <option value="">{{__('Choose')}}</option>
-                            @foreach($jobTitles as $jobTitle)
-                                <option value="{{$jobTitle->id}}"
-                                        @if(old('job_title_id') == $jobTitle->id) selected @endif
-                                >{{$jobTitle->name()}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label>{{__('Birthdate')}} *</label>
+                                    <div class="input-group date">
+                                        <input name="birthdate" type="text" value="{{old('birthdate')}}" class="form-control datepicker" readonly/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="la la-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>{{__('Nationality')}} *</label>
+                                    <select name="nationality_id"
+                                            data-size="7"
+                                            data-live-search="true"
+                                            data-show-subtext="true"
+                                            class="form-control kt-selectpicker" title="Choose">
+                                        @foreach($nationalities as $nationality)
+                                            <option value="{{$nationality->id}}"
+                                                    @if(old('nationality_id') == $nationality->id) selected @endif
+                                            >{{$nationality->name()}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <label>{{__('Iqama Number')}} *</label>
+                                    <input name="id_num" value="{{old('id_num')}}" class="form-control @error('id_num') is-invalid @enderror">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>{{__('Profession in residence')}}</label>
+                                    <input name="residence_profession" value="{{old('residence_profession')}}" class="form-control @error('residence_profession') is-invalid @enderror">
+                                </div>
 
-                <div class="form-group row">
-                    <div class="col-6">
-                        <label>{{__('Interview Date')}} *</label>
-                        <div class="input-group date">
-                            <input name="interview_date" value="{{old('interview_date')}}" type="text" class="form-control datepicker" readonly/>
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="la la-calendar"></i>
-                                </span>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <label>{{__('Training Start Date')}}</label>
-                        <div class="input-group date">
-                            <input name="training_start_date" value="{{old('training_start_date')}}" type="text" class="form-control datepicker" readonly/>
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="la la-calendar"></i>
-                                </span>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label>{{__('Interview Date')}} *</label>
+                                    <div class="input-group date">
+                                        <input name="interview_date" value="{{old('interview_date')}}" type="text" class="form-control datepicker" readonly/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="la la-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
 
                 <div class="kt-section divided box">
                     <div class="kt-section__body">
-                        <h3 class="kt-section__title kt-section__title-lg">{{__('Department Info')}}:</h3>
+                        <h3 class="kt-section__title kt-section__title-lg">{{__('For HR Manager')}}:</h3>
                         <div class="form-group row">
                             <div class="col-lg-4">
-                                <label>{{__('Enterprise')}}</label>
+                                <label>{{__('Sponsor')}}</label>
                                 <input name="enterprise" value="{{old('enterprise')}}" class="form-control @error('enterprise') is-invalid @enderror">
                             </div>
                             <div class="col-lg-4">
@@ -157,25 +133,48 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="form-group row ">
-                    <div class="col-12">
-                        <label for="work_days">{{__('Skills')}}</label>
-                        <select class="form-control @error('skills')is-invalid @enderror kt-selectpicker"
-                                name="skills[]"
-                                id="skills"
-                                multiple="multiple"
-                                title="{{__('Select')}}">
-                            @foreach($skills as $skill)
-                                <option
-                                        value="{{$skill}}"
-                                        data-content="<span class='kt-badge kt-badge--brand kt-badge--inline kt-badge--rounded'>{{$skill}}</span>"
-                                        {{ (collect(old('skills'))->contains($skill)) ? 'selected':'' }}
-                                >{{$skill}}</option>
-                            @endforeach
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label>{{__('Position')}}</label>
+                                <select name="job_title_id" class="form-control kt-selectpicker" title="Choose">
+                                    <option value="">{{__('Choose')}}</option>
+                                    @foreach($jobTitles as $jobTitle)
+                                        <option value="{{$jobTitle->id}}"
+                                                @if(old('job_title_id') == $jobTitle->id) selected @endif
+                                        >{{$jobTitle->name()}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label>{{__('Training Start Date')}}</label>
+                                <div class="input-group date">
+                                    <input name="training_start_date" value="{{old('training_start_date')}}" type="text" class="form-control datepicker" readonly/>
+                                    <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="la la-calendar"></i>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row ">
+                            <div class="col-12">
+                                <label>{{('Skills')}}</label>
+                                <div class="kt-checkbox-inline">
+                                    @foreach($skills as $skill)
 
-                        </select>
+                                        <label class="kt-checkbox kt-checkbox--bold kt-checkbox--success">
+                                            <input type="checkbox"
+                                                   value="{{$skill}}"
+                                                   name="skills[]"
+                                                    {{ (collect(old('skills'))->contains($skill)) ? 'checked':'' }}
+                                            > {{$skill}}
+                                            <span></span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row ">
