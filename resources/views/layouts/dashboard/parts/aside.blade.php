@@ -34,7 +34,7 @@
                 @endcan
 
 {{--                @canany(['view_employees_violations','create_employees_violations'])--}}
-                <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.candidates.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon flaticon2-layers-1"></i><span class="kt-menu__link-text">{{__('Candidates')}}</span></a></li>
+                <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.candidates.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon flaticon-users-1"></i><span class="kt-menu__link-text">{{__('Candidates')}}</span></a></li>
 {{--                @endcanany--}}
 
                 @canany(['view_employees_violations','create_employees_violations'])
