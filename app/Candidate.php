@@ -72,7 +72,7 @@ class Candidate extends Model
 
     public function getSectionNameAttribute()
     {
-         return isset($this->section_id) ? Section::find($this->section_id) : __('Not Found');
+         return isset($this->section_id) ? Section::find($this->section_id)->name() : __('Not Found');
     }
 
     public function getNationalityNameAttribute()

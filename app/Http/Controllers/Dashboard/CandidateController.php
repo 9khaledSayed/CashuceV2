@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Candidate;
 use App\Department;
+use App\Employee;
 use App\Http\Controllers\Controller;
 use App\JobTitle;
 use App\Nationality;
@@ -121,6 +122,24 @@ class CandidateController extends Controller
             'status' => 'required|numeric',
             'comments' => 'nullable',
         ]));
+
+        if($request->status == config('enums.candidate.approved')){
+            $employee = Employee::Create($candidate->only([
+                'name_ar',
+                'name_en',
+                'nationality_id',
+                'department_id',
+                'job_title_id',
+                'section_id',
+                'id_num',
+                'phone',
+                'birthdate',
+            ]));
+
+            $candidate->delete();
+            return redirect(route('dashboard.candidates.index'));
+        }
+
         return redirect()->back();
     }
 
@@ -147,8 +166,4 @@ class CandidateController extends Controller
         ]);
     }
 
-    public function getDocuments(Request $request)
-    {
-
-    }
 }
