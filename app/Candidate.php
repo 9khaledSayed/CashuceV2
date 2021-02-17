@@ -61,7 +61,9 @@ class Candidate extends Model
 
     public function getSkillsAttribute($skills)
     {
-         return unserialize($this->attributes['skills']);
+        $skills = unserialize($this->attributes['skills']);
+
+         return $skills == false ? [] : $skills ;
     }
 
     public function getDepartmentNameAttribute()
