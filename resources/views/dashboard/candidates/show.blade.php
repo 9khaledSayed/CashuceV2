@@ -57,13 +57,13 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group"><label ><strong>{{__('Interview Date')}}</strong></label>
-                                <p>{{$candidate->interview_date->format('Y-m-d')}}</p>
+                            <div class="form-group"><label><strong>{{__('Age')}}</strong></label>
+                                <p>{{$candidate->birthdate->diffInYears(\Carbon\Carbon::today()) . __(' years')}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group"><label><strong>{{__('Training Start Date')}}</strong></label>
-                                <p>{{$candidate->training_start_date}}</p>
+                            <div class="form-group"><label ><strong>{{__('Interview Date')}}</strong></label>
+                                <p>{{$candidate->interview_date->format('Y-m-d')}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">

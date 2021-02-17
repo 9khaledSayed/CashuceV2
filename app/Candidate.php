@@ -26,6 +26,7 @@ class Candidate extends Model
     protected $casts = [
         'interview_date' => 'date',
         'training_start_date' => 'date:Y-m-d',
+        'birthdate' => 'date',
         'created_at' => 'date'
     ];
 
