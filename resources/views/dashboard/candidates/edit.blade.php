@@ -42,20 +42,14 @@
                     <div class="kt-section__body">
                         <h3 class="kt-section__title kt-section__title-lg">{{__('For Supplier')}}:</h3>
                         <div class="form-group row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <label>{{__('Full Name English')}} *</label>
                                 <input name="name_en"
                                        value="{{old('name_en') ?? $candidate->name_en}}"
                                        class="form-control @error('name_en') is-invalid @enderror"
                                        type="text">
                             </div>
-                            <div class="col-lg-6">
-                                <label>{{__('Mobile')}} *</label>
-                                <input name="phone" value="{{old('phone') ?? $candidate->phone}}" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label>{{__('Birthdate')}} *</label>
                                 <div class="input-group date">
                                     <input name="birthdate" type="text" value="{{old('birthdate') ?? $candidate->birthdate}}" class="form-control datepicker" readonly/>
@@ -66,7 +60,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label>{{__('Nationality')}} *</label>
                                 <select name="nationality_id"
                                         data-size="7"
@@ -82,20 +76,18 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label>{{__('Iqama Number')}} *</label>
                                 <input name="id_num" value="{{old('id_num') ?? $candidate->id_num}}" class="form-control @error('id_num') is-invalid @enderror">
                             </div>
-                            <div class="col-lg-6">
-                                <label>{{__('Profession in residence')}}</label>
+                            <div class="col-lg-4">
+                                <label>{{__('Profession In Iqama')}}</label>
                                 <input name="residence_profession" value="{{old('residence_profession') ?? $candidate->residence_profession}}" class="form-control @error('residence_profession') is-invalid @enderror">
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-12">
+                            <div class="col-4">
                                 <label>{{__('Interview Date')}} *</label>
                                 <div class="input-group date">
-                                    <input name="interview_date" value="{{old('interview_date') ?? $candidate->interview_date}}" type="text" class="form-control datepicker" readonly/>
+                                    <input name="interview_date" value="{{old('interview_date') ?? $candidate->interview_date->format('Y-m-d')}}" type="text" class="form-control datepicker" readonly/>
                                     <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="la la-calendar"></i>
@@ -103,7 +95,23 @@
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="form-group row ">
+                            <div class="col-12">
+                                <label>{{('Skills')}}</label>
+                                <div class="kt-checkbox-inline">
+                                    @foreach($skills as $skill)
+                                        <label class="kt-checkbox kt-checkbox--bold kt-checkbox--success">
+                                            <input type="checkbox"
+                                                   value="{{$skill}}"
+                                                   name="skills[]"
+                                                    {{ (collect(old('skills') ?? $candidate->skills)->contains($skill)) ? 'checked':'' }}
+                                            > {{$skill}}
+                                            <span></span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -155,25 +163,6 @@
                                     <i class="la la-calendar"></i>
                                 </span>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row ">
-                            <div class="col-12">
-                                <label>{{('Skills')}}</label>
-                                <div class="kt-checkbox-inline">
-                                    @foreach($skills as $skill)
-
-                                        <label class="kt-checkbox kt-checkbox--bold kt-checkbox--success">
-                                            <input type="checkbox"
-                                                   value="{{$skill}}"
-                                                   name="skills[]"
-                                                    {{ (collect(old('skills') ?? $candidate->skills)->contains($skill)) ? 'checked':'' }}
-                                            > {{$skill}}
-                                            <span></span>
-                                        </label>
-                                    @endforeach
                                 </div>
                             </div>
                         </div>

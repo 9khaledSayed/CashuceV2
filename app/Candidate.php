@@ -17,7 +17,6 @@ class Candidate extends Model
         'residence_profession' => 'required|string|max:255',
         'enterprise' => 'nullable|string|max:255',
         'id_num' => 'required|numeric|',
-        'phone' => 'required|string|max:30',
         'skills' => 'nullable|array',
         'birthdate' => 'required|date',
         'interview_date' => 'required|date',

@@ -131,7 +131,6 @@ class CandidateController extends Controller
                 'job_title_id',
                 'section_id',
                 'id_num',
-                'phone',
                 'birthdate',
             ]));
 

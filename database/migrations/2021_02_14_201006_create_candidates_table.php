@@ -25,7 +25,7 @@ class CreateCandidatesTable extends Migration
             $table->string('residence_profession')->nullable();
             $table->string('enterprise')->nullable();
             $table->string('id_num');
-            $table->string('phone');
+//            $table->string('phone');
             $table->text('skills')->nullable();
             $table->text('comments')->nullable();
             $table->enum('status', [1,2,3,4])->default(1);
