@@ -16,6 +16,8 @@ class CandidateController extends Controller
         'Arabic',
         'English',
         'Computer Usage',
+        'Bengali',
+        'Urdu',
     ];
 
 
@@ -40,9 +42,15 @@ class CandidateController extends Controller
                 $provider = isset($candidate->provider) ? $candidate->provider->name() : __('Not Found');
                 return [
                     'id' => $candidate->id,
-                    'name' => $candidate->name(),
-                    'provider' => $provider,
-                    'interview_date' => $candidate->interview_date->format('Y-m-d'),
+                    'name' => $candidate->name_en,
+                    'nationality' => $candidate->nationality_name,
+                    'age' => $candidate->birthdate->diffInYears(\Carbon\Carbon::today()),
+                    'iqama_no' => $candidate->id_num,
+                    'english' => in_array('English',$candidate->skills),
+                    'arabic' => in_array('Arabic',$candidate->skills),
+                    'computer' => in_array('Computer Usage',$candidate->skills),
+                    'bengali' => in_array('Bengali',$candidate->skills),
+                    'urdu' => in_array('Urdu',$candidate->skills),
                     'status_name' => $candidate->status_name,
                     'status_class' => $candidate->status_class,
                     'department' => $candidate->department_name,
@@ -51,7 +59,9 @@ class CandidateController extends Controller
             });
             return response()->json($candidates);
         }
-        return view('dashboard.candidates.index');
+        return view('dashboard.candidates.index', [
+            'departments' => Department::all(),
+        ]);
     }
 
     public function create()

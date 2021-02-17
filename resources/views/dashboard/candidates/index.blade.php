@@ -62,6 +62,39 @@
                                     </span>
                                 </div>
                             </div>
+                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        <label>{{__('Department')}}:</label>
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <select class="form-control selectpicker" id="kt_form_department">
+                                            <option value="">{{__('All')}}</option>
+                                            @forelse($departments as $department)
+                                                <option value="{{$department->name()}}">{{$department->name()}}</option>
+                                            @empty
+                                                <option disabled>{{__('There is no departments in your company')}}</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        <label>{{__('Status')}}:</label>
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <select class="form-control selectpicker" id="kt_form_status">
+                                            <option value="">{{__('All')}}</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Training">Training</option>
+                                            <option value="Approved">Approved</option>
+                                            <option value="Disapproved">Disapproved</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-xl-4 order-1 order-xl-2 kt-align-right">
@@ -86,5 +119,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{asset('js/datatables/candidates.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/datatables/candidates.js?<%=ts %>')}}" type="text/javascript"></script>
 @endpush

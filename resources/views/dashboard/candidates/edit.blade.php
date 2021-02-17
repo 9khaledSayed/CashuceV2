@@ -52,7 +52,7 @@
                             <div class="col-lg-4">
                                 <label>{{__('Birthdate')}} *</label>
                                 <div class="input-group date">
-                                    <input name="birthdate" type="text" value="{{old('birthdate') ?? $candidate->birthdate}}" class="form-control datepicker" readonly/>
+                                    <input name="birthdate" type="text" value="{{old('birthdate') ?? $candidate->birthdate->format('Y-m-d')}}" class="form-control datepicker" readonly/>
                                     <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="la la-calendar"></i>

@@ -49,7 +49,8 @@ var KTDatatableLocalSortDemo = function() {
 
             // layout definition
             layout: {
-                scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
+                scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+                height: 550,
                 footer: false, // display/hide footer
             },
 
@@ -61,7 +62,9 @@ var KTDatatableLocalSortDemo = function() {
             search: {
                 input: $('#generalSearch'),
                 delay: 400,
-            }, rows: {
+            },
+            rows: {
+                autoHide: false,
                 afterTemplate: function (row, data, index) {
                     row.find('.delete-item').on('click', function () {
                         swal.fire({
@@ -133,17 +136,58 @@ var KTDatatableLocalSortDemo = function() {
                     textAlign: 'center',
 
                 }, {
-                    field: 'provider',
-                    title: locator.__('Supplier'),
+                    field: 'nationality',
+                    title: locator.__('Nationality'),
+                    textAlign: 'center',
+
+                }, {
+                    field: 'age',
+                    title: locator.__('Age'),
                     textAlign: 'center',
                 }, {
-                    field: 'interview_date',
-                    title: locator.__('Interview Date'),
+                    field: 'iqama_no',
+                    title: locator.__('Iqama No'),
                     textAlign: 'center',
                 }, {
-                    field: 'department',
-                    title: locator.__('Department'),
+                    field: 'english',
+                    title: locator.__('English'),
                     textAlign: 'center',
+                    template: function(row) {
+                        var fontClass = row.english ? 'kt-font-success' : 'kt-font-danger';
+                        return '<span class="' + fontClass + '">' + row.english + '</span>';
+                    },
+                }, {
+                    field: 'arabic',
+                    title: locator.__('Arabic'),
+                    textAlign: 'center',
+                    template: function(row) {
+                        var fontClass = row.arabic ? 'kt-font-success' : 'kt-font-danger';
+                        return '<span class="' + fontClass + '">' + row.arabic + '</span>';
+                    },
+                }, {
+                    field: 'computer',
+                    title: locator.__('Computer'),
+                    textAlign: 'center',
+                    template: function(row) {
+                        var fontClass = row.computer ? 'kt-font-success' : 'kt-font-danger';
+                        return '<span class="' + fontClass + '">' + row.computer + '</span>';
+                    },
+                }, {
+                    field: 'bengali',
+                    title: locator.__('Bengali'),
+                    textAlign: 'center',
+                    template: function(row) {
+                        var fontClass = row.bengali ? 'kt-font-success' : 'kt-font-danger';
+                        return '<span class="' + fontClass + '">' + row.bengali + '</span>';
+                    },
+                }, {
+                    field: 'urdu',
+                    title: locator.__('Urdu'),
+                    textAlign: 'center',
+                    template: function(row) {
+                        var fontClass = row.urdu ? 'kt-font-success' : 'kt-font-danger';
+                        return '<span class="' + fontClass + '">' + row.urdu + '</span>';
+                    },
                 }, {
                     field: 'status_name',
                     title: 'Status',
@@ -151,6 +195,10 @@ var KTDatatableLocalSortDemo = function() {
                     template: function(row) {
                         return '<span class="kt-badge ' + row.status_class + ' kt-badge--inline kt-badge--pill">' + row.status_name + '</span>';
                     },
+                }, {
+                    field: 'department',
+                    title: locator.__('Department'),
+                    textAlign: 'center',
                 },{
                     field: 'created_at',
                     title: locator.__('Created'),
@@ -182,9 +230,11 @@ var KTDatatableLocalSortDemo = function() {
         });
 
         $('#kt_form_status').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'Status');
+            datatable.search($(this).val().toLowerCase(), 'status_name');
         });
-        $('#kt_form_status,#kt_form_type').selectpicker();
+        $('#kt_form_department').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'department');
+        });
 
     };
 
