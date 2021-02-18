@@ -29,6 +29,8 @@ class CreateCandidatesTable extends Migration
             $table->text('skills')->nullable();
             $table->text('comments')->nullable();
             $table->enum('status', [1,2,3,4])->default(1);
+            $table->boolean('hr_approval')->default(false);
+            $table->boolean('supervisor_approval')->default(false);
             $table->decimal('salary')->default(0);
             $table->date('birthdate');
             $table->date('interview_date');

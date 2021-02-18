@@ -199,11 +199,6 @@ var KTDatatableLocalSortDemo = function() {
                     field: 'department',
                     title: locator.__('Department'),
                     textAlign: 'center',
-                },{
-                    field: 'created_at',
-                    title: locator.__('Created'),
-                    textAlign: 'center',
-
                 }, {
                     field: 'Actions',
                     title: locator.__('Actions'),
@@ -212,19 +207,32 @@ var KTDatatableLocalSortDemo = function() {
                     overflow: 'visible',
                     autoHide: false,
                     textAlign: 'center',
-                    template:function (row){
-                        return '\
+                    template: function (row){
+                        if(row.is_provider){
+                            return '\
 		                  <div class="dropdown">\
 		                      <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown">\
 		                          <i class="la la-ellipsis-h"></i>\
 		                      </a>\
 		                      <div class="dropdown-menu dropdown-menu-right">\
 		                          <a class="dropdown-item" href="/dashboard/candidates/' + row.id + '/edit"><i class="la la-pencil-square-o"></i>' + locator.__('Edit Info') + '</a>\
-		                          <a class="dropdown-item" href="/dashboard/candidates/' + row.id + '"><i class="la la-eye"></i>' + locator.__('Show Info') + '</a>\
 		                          <a class="dropdown-item delete-item" href="#"><i class="la la-trash"></i>' + locator.__('Delete') + '</a>\
 		                      </div>\
 		                  </div>\
                         ';
+                        }else{
+                            return '\
+		                  <div class="dropdown">\
+		                      <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown">\
+		                          <i class="la la-ellipsis-h"></i>\
+		                      </a>\
+		                      <div class="dropdown-menu dropdown-menu-right">\
+		                          <a class="dropdown-item" href="/dashboard/candidates/' + row.id + '"><i class="la la-eye"></i>' + locator.__('Show Info') + '</a>\
+		                      </div>\
+		                  </div>\
+                        ';
+                        }
+
                     }
                 }],
         });

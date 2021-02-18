@@ -54,7 +54,7 @@ class CandidateController extends Controller
                     'status_name' => $candidate->status_name,
                     'status_class' => $candidate->status_class,
                     'department' => $candidate->department_name,
-                    'created_at' => $candidate->created_at->format('Y-m-d'),
+                    'is_provider' => auth()->guard('provider')->check(),
                 ];
             });
             return response()->json($candidates);
@@ -110,7 +110,11 @@ class CandidateController extends Controller
 
     public function show(Candidate $candidate)
     {
-        return view('dashboard.candidates.show', compact('candidate'));
+        return view('dashboard.candidates.show', [
+            'departments' => Department::all(),
+            'jobTitles' => JobTitle::all(),
+            'candidate' => $candidate,
+        ]);
     }
 
     public function destroy(Candidate $candidate, Request $request)
@@ -131,9 +135,32 @@ class CandidateController extends Controller
         $candidate->update($request->validate([
             'status' => 'required|numeric',
             'comments' => 'nullable',
+            'department_id'  => 'nullable|max:255|exists:departments,id',
+            'job_title_id'  => 'nullable|exists:job_titles,id',
+            'section_id'  => 'nullable|max:255|exists:sections,id',
+            'training_start_date' => 'nullable|date',
         ]));
 
-        if($request->status == config('enums.candidate.approved')){
+        if($request->status == config('enums.candidate.approved')) {
+            if(Employee::isSupervisor()){
+                $candidate->update([
+                    'supervisor_approval' => true,
+                    'status' => config('enums.candidate.approved'),
+                ]);
+            }else{
+                $candidate->update([
+                    'hr_approval' => true,
+                    'status' => config('enums.candidate.approved'),
+                ]);
+            }
+            if ($candidate->supervisor_approval && $candidate->hr_approval){
+                $candidate->update([
+                    'status' => config('enums.candidate.completed'),
+                ]);
+            }
+        }
+
+        if($request->status == 0){
             $employee = Employee::Create($candidate->only([
                 'name_en',
                 'nationality_id',

@@ -68,10 +68,29 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="Request.WorkflowInstance.State"><strong>{{__('Status')}}</strong></label>
-                                <p>
-                                    <span class="kt-badge {{$candidate->status_class}} kt-badge--inline kt-badge--pill">{{$candidate->status_name}}</span>
-                                </p>
+                                <label for="Request.WorkflowInstance.State"><strong>{{__('Operations')}}</strong></label>
+                                @if($candidate->hr_approval && $candidate->supervisor_approval)
+                                    <p>
+                                        <span class="kt-badge {{$candidate->status_class}} kt-badge--inline kt-badge--pill">{{$candidate->status_name}}</span>
+                                    </p>
+                                @else
+                                    @if($candidate->hr_approval)
+                                        <p>
+                                            <span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill">{{__('HR-Approved')}}</span>
+                                        </p>
+                                    @endif
+                                    @if($candidate->supervisor_approval)
+                                        <p>
+                                            <span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill">{{__('Supervisor-Approved')}}</span>
+                                        </p>
+                                    @endif
+                                    @if($candidate->status == config('enums.candidate.pending'))
+                                        <p>
+                                            <span class="kt-badge {{$candidate->status_class}} kt-badge--inline kt-badge--pill">{{$candidate->status_name}}</span>
+                                        </p>
+                                    @endif
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -110,7 +129,7 @@
 {{--        @can('proceed_candidates')--}}
         <div class="kt-portlet__foot mt-0">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="kt-section">
                     <h3 class="kt-section__title">{{__('Take action')}}</h3>
                     <div class="kt-section__content kt-section__content--border">
@@ -120,14 +139,63 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <div class="col-lg-6">
+                                            <label>{{__('Department')}}</label>
+                                            <select name="department_id" id="department" class="form-control kt-selectpicker" title="{{__('Choose')}}">
+                                                <option value="">{{__('Choose')}}</option>
+                                                @foreach($departments as $department)
+                                                    <option value="{{$department->id}}"
+                                                            @if((old('department_id') ?? $candidate->department_id) == $department->id) selected @endif
+                                                    >{{ $department->name() }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label>{{__('Section')}}</label>
+                                            <select name="section_id" id="section" class="form-control kt-selectpicker" title="Choose">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-6">
+                                            <label>{{__('Position')}}</label>
+                                            <select name="job_title_id" class="form-control kt-selectpicker" title="Choose">
+                                                <option value="">{{__('Choose')}}</option>
+                                                @foreach($jobTitles as $jobTitle)
+                                                    <option value="{{$jobTitle->id}}"
+                                                            @if((old('job_title_id') ?? $candidate->job_title_id) == $jobTitle->id) selected @endif
+                                                    >{{$jobTitle->name()}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-6">
+                                            <label>{{__('Training Start Date')}}</label>
+                                            <div class="input-group date">
+                                                <input name="training_start_date" value="{{old('training_start_date') ?? $candidate->training_start_date}}" type="text" class="form-control datepicker" readonly/>
+                                                <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="la la-calendar"></i>
+                                </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label class="control-label">{{__('Action')}}</label>
-                                        <select name="status"  class="form-control selectpicker" >
+                                        <select name="status" class="form-control @error('status') is-invalid @endif selectpicker" >
                                             <option value="">{{__('Choose')}}</option>
-                                            <option value="{{config('enums.candidate.pending')}}">{{__('Pending')}}</option>
-                                            <option value="{{config('enums.candidate.training')}}">{{__('Training')}}</option>
-                                            <option value="{{config('enums.candidate.approved')}}">{{__('Approved')}}</option>
-                                            <option value="{{config('enums.candidate.disapproved')}}">{{__('Disapproved')}}</option>
+                                            @if(\App\Employee::isSupervisor())
+                                                <option value="{{config('enums.candidate.approved')}}">{{__('Approved')}}</option>
+                                                <option value="{{config('enums.candidate.disapproved')}}">{{__('Disapproved')}}</option>
+                                            @else
+                                                <option value="0">{{__('Transfer To Employees List')}}</option>
+                                                <option value="{{config('enums.candidate.approved')}}">{{__('Approved')}}</option>
+                                                <option value="{{config('enums.candidate.disapproved')}}">{{__('Disapproved')}}</option>
+                                            @endif
+
                                         </select>
                                     </div>
                                 </div>
@@ -154,39 +222,41 @@
                     </div>
                 </div>
                 </div>
-                <div class="col-lg-6">
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
                     <div class="kt-section">
-                    <h3 class="kt-section__title">{{__('Documents')}}</h3>
-                    <div class="kt-section__content ">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>{{__('File Name')}}</th>
-                                <th>{{__('Action')}}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @forelse($candidate->documents as $document)
+                        <h3 class="kt-section__title">{{__('Documents')}}</h3>
+                        <div class="kt-section__content ">
+                            <table class="table">
+                                <thead>
                                 <tr>
-                                    <td>{{$document->file_name}}</td>
-                                    <td>
-                                        <a href="/dashboard/documents/{{$document->id}}/download" class="btn btn-sm btn-primary m-btn m-btn--icon">
-                                            <i class="fa fa-download"></i>{{__('Download')}}
-                                        </a>
-                                    </td>
+                                    <th>{{__('File Name')}}</th>
+                                    <th>{{__('Action')}}</th>
                                 </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="2">{{__('There is no records')}}</td>
-                                </tr>
-                            @endforelse
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                @forelse($candidate->documents as $document)
+                                    <tr>
+                                        <td>{{$document->file_name}}</td>
+                                        <td>
+                                            <a href="/dashboard/documents/{{$document->id}}/download" class="btn btn-sm btn-primary m-btn m-btn--icon">
+                                                <i class="fa fa-download"></i>{{__('Download')}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="2">{{__('There is no records')}}</td>
+                                    </tr>
+                                @endforelse
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                </div>
             </div>
-            </div>
+        </div>
 {{--        @endcan--}}
     </div>
     <!--Begin::Row-->

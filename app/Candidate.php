@@ -3,7 +3,9 @@
 namespace App;
 
 use App\Scopes\CompletedScope;
+use App\Scopes\DepartmentScope;
 use App\Scopes\ParentScope;
+use App\Scopes\SupervisorScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Candidate extends Model
@@ -35,6 +37,7 @@ class Candidate extends Model
     public static function booted()
     {
         static::addGlobalScope(new ParentScope());
+        static::addGlobalScope(new DepartmentScope());
 
         static::creating(function ($model){
             $model->company_id = Company::companyID();
@@ -91,8 +94,8 @@ class Candidate extends Model
     {
         if($this->status == config('enums.candidate.pending')){
             return __('Pending');
-        }elseif ($this->status == config('enums.candidate.training')){
-            return __('Training');
+        }elseif($this->status == config('enums.candidate.completed')){
+            return __('Completed');
         }elseif($this->status == config('enums.candidate.approved')){
             return __('Approved');
         }else{
@@ -104,8 +107,8 @@ class Candidate extends Model
     {
         if($this->status == config('enums.candidate.pending')){
             return 'kt-badge--primary';;
-        }elseif ($this->status == config('enums.candidate.training')){
-            return 'kt-badge--warning';
+        }elseif ($this->status == config('enums.candidate.completed')){
+            return 'kt-badge--success';
         }elseif($this->status == config('enums.candidate.approved')){
             return 'kt-badge--success';
         }else{

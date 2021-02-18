@@ -3,8 +3,8 @@
 return [
     'candidate' => [
         'pending' => 1,
-        'training' => 2,
+        'disapproved' => 2,
         'approved' => 3,
-        'disapproved' => 4,
+        'completed' => 4,
     ]
 ];

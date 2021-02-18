@@ -62,23 +62,26 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Department')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
-                                        <select class="form-control selectpicker" id="kt_form_department">
-                                            <option value="">{{__('All')}}</option>
-                                            @forelse($departments as $department)
-                                                <option value="{{$department->name()}}">{{$department->name()}}</option>
-                                            @empty
-                                                <option disabled>{{__('There is no departments in your company')}}</option>
-                                            @endforelse
-                                        </select>
+                            @if(!\App\Employee::isSupervisor())
+                                <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                    <div class="kt-form__group kt-form__group--inline">
+                                        <div class="kt-form__label">
+                                            <label>{{__('Department')}}:</label>
+                                        </div>
+                                        <div class="kt-form__control">
+                                            <select class="form-control selectpicker" id="kt_form_department">
+                                                <option value="">{{__('All')}}</option>
+                                                @forelse($departments as $department)
+                                                    <option value="{{$department->name()}}">{{$department->name()}}</option>
+                                                @empty
+                                                    <option disabled>{{__('There is no departments in your company')}}</option>
+                                                @endforelse
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
+
                             <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
@@ -88,8 +91,7 @@
                                         <select class="form-control selectpicker" id="kt_form_status">
                                             <option value="">{{__('All')}}</option>
                                             <option value="Pending">Pending</option>
-                                            <option value="Training">Training</option>
-                                            <option value="Approved">Approved</option>
+                                            <option value="Approved">HR-Approved</option>
                                             <option value="Disapproved">Disapproved</option>
                                         </select>
                                     </div>
