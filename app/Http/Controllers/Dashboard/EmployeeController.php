@@ -361,26 +361,33 @@ class EmployeeController extends Controller
         ]);
         $allEmployeesBeforeImport = Employee::withoutGlobalScope(CompletedScope::class)->count();
 
-        $users = (new FastExcel)->import($request->file('excel_file'), function ($row) {
+        $validatorErrors = (new FastExcel)->import($request->file('excel_file'), function ($row) {
+            $row['BirthDate'] = $row['BirthDate']->format('Y-m-d');
+            $row['Issue Date'] = $row['Issue Date']->format('Y-m-d');
+            $row['Expire Date'] = $row['Expire Date']->format('Y-m-d');
+            $row['Contract Start Date'] = $row['Contract Start Date']->format('Y-m-d');
+            $row['Contract End Date'] = $row['Contract End Date']->format('Y-m-d');
             $validator = Validator::make($row, [
                 "Name English"    => "required|String|max:191",
-                "BirthDate"    => "required|date",
+                "Name Arabic"    => "required|String|max:191",
+                "BirthDate"    => "required|date_format:Y-m-d",
                 "ID Number"    => "required|numeric",
-                "Issue Date"    => "required|date",
-                "Expire Date"    => "required|date",
+                "Issue Date"    => "required|date_format:Y-m-d",
+                "Expire Date"    => "required|date_format:Y-m-d",
                 "Mobile"    => "required",
                 "Email"    => 'sometimes|required|email|unique:employees',
                 "Password"    => "required|min:8",
                 "Job Number"    => ["required","numeric", new UniqueJopNumber()],
                 "Trail Period Days"    => "required|numeric",
                 "Contract Period Months"    => "required|numeric",
-                "Contract Start Date"    => "required|date",
-                "Contract End Date"    => "required|date",
+                "Contract Start Date"    => "required|date_format:Y-m-d",
+                "Contract End Date"    => "required|date_format:Y-m-d",
                 "Salary"    => "required|numeric",
             ]);
             if (!$validator->fails()){
                 Employee::firstOrCreate([
                     'name_en' => $row['Name English'],
+                    'name_ar' => $row['Name Arabic'],
                     'birthdate' => $row['BirthDate'],
                     'id_num' => $row['ID Number'],
                     'id_issue_date' => $row['Issue Date'],
@@ -397,10 +404,16 @@ class EmployeeController extends Controller
                     'is_completed' => false,
                 ]);
             }
+
+            return $validator->errors();
         });
 
         $allEmployeesAfterImport = Employee::withoutGlobalScope(CompletedScope::class)->count();
         $newEmployees = $allEmployeesAfterImport - $allEmployeesBeforeImport;
+
+        if ($validatorErrors->first()){
+            return redirect()->back()->withErrors($validatorErrors->first());
+        }
 
         return redirect(route('dashboard.employees.import'))->with('message', "There are $newEmployees Employees has been registered into your company");
 

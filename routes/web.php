@@ -181,12 +181,6 @@ Route::get('/ability', function (){
     ]);
 });
 
-Route::get('fix', function (){
-   $requests = \App\Request::get();
-    foreach ($requests as $request) {
-        $request->delete();
-   }
-});
 
 
 
