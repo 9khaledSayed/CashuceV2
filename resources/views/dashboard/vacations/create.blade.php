@@ -135,5 +135,5 @@
 @endsection
 
 @push('scripts')
-<script src="{{asset('js/pages/vacation.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/pages/vacation.js?<%=ts %>')}}" type="text/javascript"></script>
 @endpush

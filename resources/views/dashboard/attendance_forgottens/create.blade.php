@@ -87,5 +87,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{asset('js/pages/attendance_forgottens.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/pages/attendance_forgottens.js?<%=ts %>')}}" type="text/javascript"></script>
 @endpush
