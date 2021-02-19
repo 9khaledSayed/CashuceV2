@@ -230,7 +230,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
                 $add = $hra->value;
             }
         }
-        return $add;
+        return number_format($add, 2);
     }
     public function transfer()
     {
@@ -245,7 +245,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
                 $add = $transfer->value;
             }
         }
-        return $add;
+        return number_format($add, 2);
     }
 
     public function otherAllowances()
