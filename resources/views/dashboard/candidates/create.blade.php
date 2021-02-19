@@ -87,15 +87,8 @@
                                 <input name="residence_profession" value="{{old('residence_profession')}}" class="form-control @error('residence_profession') is-invalid @enderror">
                             </div>
                             <div class="col-lg-6">
-                                <label>{{__('Actual Sponsor')}}</label>
-                                <input name="enterprise" value="{{old('enterprise')}}" class="form-control @error('enterprise') is-invalid @enderror">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-lg-12">
                                 <label>{{__('Interview Date')}} *</label>
-                                <div class="input-group date">
+                                <div class="input-group ">
                                     <input name="interview_date" value="{{old('interview_date')}}" type="text" class="form-control datepicker" readonly/>
                                     <div class="input-group-append">
                                         <span class="input-group-text">
@@ -103,6 +96,13 @@
                                         </span>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-12">
+                                <label>{{__('Actual Sponsor')}}</label>
+                                <input name="enterprise" value="{{old('enterprise')}}" class="form-control @error('enterprise') is-invalid @enderror">
                             </div>
                         </div>
                         <div class="form-group row ">

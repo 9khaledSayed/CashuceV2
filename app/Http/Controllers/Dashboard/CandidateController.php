@@ -134,7 +134,6 @@ class CandidateController extends Controller
     {
         $candidate->update($request->validate([
             'status' => 'required|numeric',
-            'comments' => 'nullable',
             'department_id'  => 'nullable|max:255|exists:departments,id',
             'job_title_id'  => 'nullable|exists:job_titles,id',
             'section_id'  => 'nullable|max:255|exists:sections,id',
@@ -172,10 +171,12 @@ class CandidateController extends Controller
             ]));
 
             $candidate->delete();
-            return redirect(route('dashboard.candidates.index'));
+//            return redirect(route('dashboard.candidates.index'));
         }
 
-        return redirect()->back();
+        return response()->json([
+            'status' => 1
+        ]);
     }
 
     public function validator(Request $request, $id = null)
