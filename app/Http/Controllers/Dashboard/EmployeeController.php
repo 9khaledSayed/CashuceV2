@@ -361,6 +361,10 @@ class EmployeeController extends Controller
         ]);
         $allEmployeesBeforeImport = Employee::withoutGlobalScope(CompletedScope::class)->count();
 
+        $collection = (new FastExcel)->import($request->file('excel_file'));
+        if($collection->isEmpty()){
+            return redirect()->back()->withErrors('The selected file is empty');
+        }
         $validatorErrors = (new FastExcel)->import($request->file('excel_file'), function ($row) {
             $row['BirthDate'] = $row['BirthDate']->format('Y-m-d');
             $row['Issue Date'] = $row['Issue Date']->format('Y-m-d');
