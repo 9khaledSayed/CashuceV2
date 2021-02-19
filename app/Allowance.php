@@ -51,7 +51,7 @@ class Allowance extends Model
     public static function generateDefaultAllowances($companyID)
     {
         $hra = new Allowance([
-            'name_en'  => 'HRA',
+            'name_en'  => 'Housing',
             'name_ar'  => 'سكن',
             'type' => 1,
             'percentage' => 25,
@@ -59,11 +59,11 @@ class Allowance extends Model
             'is_basic' => true,
             'company_id' => $companyID
         ]);
-        $hra = new Allowance([
+        $transfer = new Allowance([
             'name_en'  => 'Transfer',
             'name_ar'  => 'مواصلات',
             'type' => 1,
-            'percentage' => 25,
+            'percentage' => 10,
             'label' => 'transfer',
             'is_basic' => true,
             'company_id' => $companyID
@@ -78,6 +78,7 @@ class Allowance extends Model
             'company_id' => $companyID
         ]);
 
+        $transfer->saveWithoutEvents(['creating']);
         $hra->saveWithoutEvents(['creating']);
         $gosi->saveWithoutEvents(['creating']);
     }

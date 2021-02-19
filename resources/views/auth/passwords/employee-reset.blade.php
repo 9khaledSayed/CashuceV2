@@ -19,6 +19,7 @@
                        type="email"
                        class="form-control @error('email') is-invalid @enderror"
                        name="email"
+                       placeholder="{{__('Email')}}"
                        value="{{ $email ?? old('email') }}"
                        required autocomplete="email" autofocus>
                 @error('email')

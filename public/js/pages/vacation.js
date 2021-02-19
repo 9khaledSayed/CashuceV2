@@ -177,4 +177,13 @@ jQuery(document).ready(function() {
         }
 
     }
+
+    $("#vacationTypeId").change(function () {
+        console.log($(this).val())
+        if($(this).val() == 0){
+            $("#reason").fadeIn()
+        }else{
+            $("#reason").fadeOut()
+        }
+    })
 });

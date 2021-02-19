@@ -48,23 +48,22 @@
                                                 <div class="kt-section">
                                                     <div class="kt-section__body">
                                                         <div class="kt-portlet__body">
-                                                            <div class="form-group row mt-1">
-                                                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                                            <div class="form-group row ">
+                                                                <div class="col-lg-4">
                                                                     <label for="LeaveTypeId">
                                                                         {{__('Vacation Type')}}
                                                                     </label>
-
-                                                                    <select class="form-control kt-selectpicker" data-val="true" name="vacation_type_id" id="vacation_id">
+                                                                    <select class="form-control kt-selectpicker" data-val="true" id="vacationTypeId" name="vacation_type_id" id="vacation_id">
                                                                         <option value="">
                                                                             {{__('Choose')}}
                                                                         </option>
+                                                                        <option value="0">{{__('Other')}}</option>
                                                                         @foreach($vacationTypes as $vacationType)
                                                                             <option value="{{$vacationType->id}}">{{$vacationType->name()}}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-
-                                                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                                                <div class="col-lg-4">
                                                                     <label for="start_date">{{__('Start Date')}}<span class="required">*</span></label>
                                                                     <div class="input-group date">
                                                                         <input name="start_date" type="text" class="form-control start_date datepicker" readonly />
@@ -75,7 +74,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                                                <div class="col-lg-4">
                                                                     <label for="end_date">{{__('End Date')}}<span class="required">*</span></label>
                                                                     <div class="input-group date">
                                                                         <input name="end_date" type="text" class="form-control end_date datepicker" readonly />
@@ -85,6 +84,12 @@
                                                                             </span>
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row" style="display: none" id="reason">
+                                                                <div class="col-lg-12">
+                                                                    <label>{{__('Reason')}}</label>
+                                                                    <input name="reason" value="{{old('reason')}}" class="form-control @error('reason') is-invalid @enderror">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row mt-3">
