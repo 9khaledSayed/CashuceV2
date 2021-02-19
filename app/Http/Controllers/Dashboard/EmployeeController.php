@@ -411,11 +411,13 @@ class EmployeeController extends Controller
         $allEmployeesAfterImport = Employee::withoutGlobalScope(CompletedScope::class)->count();
         $newEmployees = $allEmployeesAfterImport - $allEmployeesBeforeImport;
 
-        if ($validatorErrors->first()){
-            return redirect()->back()->withErrors($validatorErrors->first());
+        if (!$validatorErrors->first()->isEmpty()){
+            return redirect(route('dashboard.employees.import'))
+                ->with('message' , "There are $newEmployees Employees has been registered into your company")
+                ->withErrors($validatorErrors->first());
         }
 
-        return redirect(route('dashboard.employees.import'))->with('message', "There are $newEmployees Employees has been registered into your company");
+        return redirect(route('dashboard.employees.import'))->with('message' , "There are $newEmployees Employees has been registered into your company");
 
     }
 
