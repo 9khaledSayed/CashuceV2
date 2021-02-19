@@ -132,16 +132,15 @@ class PayrollController extends Controller
             $workDays = $payroll->include_attendance? $employee->workDays($payroll->date->month) : 30;
             $workDays = ($workDays > $payrollDay) ? $payrollDay : $workDays;  // 26 - 25
             $daysOff = $employee->daysOff();
-            $netPayBeforeDeductions = $workDays * ($employee->totalPackage()/(30));
             $deductions = $employee->deductions() + $employee->gosiDeduction();
-            $netPayAfterDeductions = $netPayBeforeDeductions  - $deductions;
+            $netPay = $workDays * (($employee->totalPackage() - $deductions)/30);
 
             Salary::create([
                 'employee_id' => $employee->id,
                 'payroll_id' => $payroll->id,
-                'salary' => $netPayBeforeDeductions,
+                'salary' => $employee->salary,
                 'deductions' => $deductions,
-                'net_salary' => $netPayAfterDeductions,
+                'net_salary' => $netPay,
                 'work_days' => $workDays,
             ]);
 
