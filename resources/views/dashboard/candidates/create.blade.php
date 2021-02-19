@@ -87,7 +87,7 @@
                                 <input name="residence_profession" value="{{old('residence_profession')}}" class="form-control @error('residence_profession') is-invalid @enderror">
                             </div>
                             <div class="col-lg-6">
-                                <label>{{__('Sponsor')}}</label>
+                                <label>{{__('Actual Sponsor')}}</label>
                                 <input name="enterprise" value="{{old('enterprise')}}" class="form-control @error('enterprise') is-invalid @enderror">
                             </div>
                         </div>
@@ -154,7 +154,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{asset('js/components/selectSectionAjax.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/components/fileUploader.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/pages/candidates.js')}}" type="text/javascript"></script>
 @endpush

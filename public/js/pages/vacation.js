@@ -96,14 +96,25 @@ var KTContactsAdd = function () {
                     success: function(response) {
                         KTApp.unprogress(btn);
                         //KTApp.unblock(formEl);
-                        swal.fire({
-                            "title": "",
-                            "text": locator.__("The operation has been done successfully !"),
-                            "type": "success",
-                            "confirmButtonClass": "btn btn-secondary"
-                        }).then(function () {
-                            // window.location.replace("/dashboard/requests/mine");
-                        });
+                        if (response.status){
+                            swal.fire({
+                                "title": "",
+                                "text": locator.__("The operation has been done successfully !"),
+                                "type": "success",
+                                "confirmButtonClass": "btn btn-secondary"
+                            }).then(function () {
+                                // window.location.replace("/dashboard/requests/mine");
+                            });
+                        }else{
+                            swal.fire({
+                                "title": "",
+                                "text": response.message,
+                                "type": "error",
+                                "confirmButtonClass": "btn btn-secondary"
+                            }).then(function () {
+                                // window.location.replace("/dashboard/requests/mine");
+                            });
+                        }
 
                     },
                     error: function (err) {

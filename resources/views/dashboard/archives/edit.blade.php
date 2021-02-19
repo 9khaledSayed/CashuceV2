@@ -523,7 +523,7 @@
                                 {{__('Previous')}}
                             </div>
                             <div class="btn btn-primary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u m-auto" id="action-save">
-                                {{__('Save')}}
+                                {{__('Save To Archives')}}
                             </div>
                             <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u m-0" data-ktwizard-type="action-submit">
                                 {{__('Submit')}}

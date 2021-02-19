@@ -87,7 +87,7 @@
                                 <input name="residence_profession" value="{{old('residence_profession') ?? $candidate->residence_profession}}" class="form-control @error('residence_profession') is-invalid @enderror">
                             </div>
                             <div class="col-lg-6">
-                                <label>{{__('Sponsor')}}</label>
+                                <label>{{__('Actual Sponsor')}}</label>
                                 <input name="enterprise" value="{{old('enterprise') ?? $candidate->enterprise}}" class="form-control @error('enterprise') is-invalid @enderror">
                             </div>
                         </div>
@@ -124,55 +124,6 @@
                     </div>
                 </div>
 
-{{--                <div class="kt-section divided box">--}}
-{{--                    <div class="kt-section__body">--}}
-{{--                        <h3 class="kt-section__title kt-section__title-lg">{{__('For HR Manager')}}:</h3>--}}
-{{--                        <div class="form-group row">--}}
-{{--                            <div class="col-lg-6">--}}
-{{--                                <label>{{__('Department')}}</label>--}}
-{{--                                <select name="department_id" id="department" class="form-control kt-selectpicker" title="{{__('Choose')}}">--}}
-{{--                                    <option value="">{{__('Choose')}}</option>--}}
-{{--                                    @foreach($departments as $department)--}}
-{{--                                        <option value="{{$department->id}}"--}}
-{{--                                                @if((old('department_id') ?? $candidate->department_id) == $department->id) selected @endif--}}
-{{--                                        >{{ $department->name() }}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-lg-6">--}}
-{{--                                <label>{{__('Section')}}</label>--}}
-{{--                                <select name="section_id" id="section" class="form-control kt-selectpicker" title="Choose">--}}
-
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group row">--}}
-{{--                            <div class="col-lg-6">--}}
-{{--                                <label>{{__('Position')}}</label>--}}
-{{--                                <select name="job_title_id" class="form-control kt-selectpicker" title="Choose">--}}
-{{--                                    <option value="">{{__('Choose')}}</option>--}}
-{{--                                    @foreach($jobTitles as $jobTitle)--}}
-{{--                                        <option value="{{$jobTitle->id}}"--}}
-{{--                                                @if((old('job_title_id') ?? $candidate->job_title_id) == $jobTitle->id) selected @endif--}}
-{{--                                        >{{$jobTitle->name()}}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-6">--}}
-{{--                                <label>{{__('Training Start Date')}}</label>--}}
-{{--                                <div class="input-group date">--}}
-{{--                                    <input name="training_start_date" value="{{old('training_start_date') ?? $candidate->training_start_date}}" type="text" class="form-control datepicker" readonly/>--}}
-{{--                                    <div class="input-group-append">--}}
-{{--                                <span class="input-group-text">--}}
-{{--                                    <i class="la la-calendar"></i>--}}
-{{--                                </span>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                </div>--}}
-
-{{--                </div>--}}
                 <div class="kt-section divided box">
                     <div class="kt-section__body">
                         <h3 class="kt-section__title kt-section__title-lg">{{__('Personal Documents')}}:</h3>

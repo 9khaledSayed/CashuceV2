@@ -23,9 +23,13 @@ class AttendanceForgottenController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create_attendance_record_forgotten_request');
-        AttendanceForgotten::create($request->validate([
-            'forgotten_date' => ['required' , new CheckAttendanceForgotten(auth()->user()->id)]
-        ]));
-        return response()->json(['status' => 'success']);
+        if (!auth()->guard('employee')->check()){
+            return response()->json(['status' => 0, 'message' => 'Sorry You can\'t use this service because you are not an employee']);
+        }else{
+            AttendanceForgotten::create($request->validate([
+                'forgotten_date' => ['required' , new CheckAttendanceForgotten(auth()->user()->id)]
+            ]));
+            return response()->json(['status' => 1]);
+        }
     }
 }

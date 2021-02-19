@@ -25,6 +25,9 @@ class VacationController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create_vacation_request');
+        if (!auth()->guard('employee')->check()){
+            return response()->json(['status' => 0, 'message' => 'Sorry You can\'t use this service because you are not an employee']);
+        }
         $vacation_type = VacationType::find($request->vacation_type_id);
         $vacation = new Vacation($request->validate([
             'start_date' => 'required|before:end_date',

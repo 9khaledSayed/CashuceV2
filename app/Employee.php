@@ -411,9 +411,9 @@ class Employee extends Authenticatable implements MustVerifyEmail
         return 0;
     }
 
-    public static function isSupervisor()
+    public static function isSupervisor($id = null)
     {
-        $id = auth()->user()->id;
+        $id = isset($id)? $id: auth()->user()->id;
         return Department::where('supervisor_id', '!=', 0)->pluck('supervisor_id')->contains($id) && !auth()->guard('company')->check();
     }
 

@@ -264,3 +264,7 @@
 
 
 @endsection
+
+@push('stack')
+    <script src="{{asset('js/components/selectSectionAjax.js')}}" type="text/javascript"></script>
+@endpush
