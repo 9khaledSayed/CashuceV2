@@ -110,7 +110,7 @@ var KTDatatableLocalSortDemo = function() {
                     autoHide: false,
                 }, {
                     field: 'hra',
-                    title: locator.__('HRA'),
+                    title: locator.__('Housing'),
                     autoHide: false,
                 }, {
                     field: 'transfer',
