@@ -38,7 +38,7 @@ class FordealPayrollController extends PayrollController
                     'officialWorkingHours' => $officialWorkingHours,
                     'officialWorkingHoursWithOverTime' => $officialWorkingHours,
                     'officialAbsentHours' => $officialAbsentHours,
-                    'hourly_wage' => number_format($employee->salary / $officialWorkingHours, 2),
+                    'hourly_wage' => number_format($employee->totalPackage() / $officialWorkingHours, 2),
                     'salary' => $employee->salary,
                     'net_pay' => $salary->net_salary,
                     'employee_id' => $employee->id,
