@@ -351,7 +351,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
     public function totalPackage()
     {
         $add = 0;
-        $deduc = 0;
+//        $deduc = 0;
         foreach ($this->allowances as $allowance) {
             if($allowance->type == 1){ // addition
                 if(isset($allowance->percentage)){
@@ -360,15 +360,15 @@ class Employee extends Authenticatable implements MustVerifyEmail
                     $add += $allowance->value;
                 }
             }
-            if($allowance->type == 0 && $allowance->label != 'gosi'){ // deduction
-                if(isset($allowance->percentage)){
-                    $deduc += $this->salary * ($allowance->percentage/100);
-                }else{
-                    $deduc += $allowance->value;
-                }
-            }
+//            if($allowance->type == 0 && $allowance->label != 'gosi'){ // deduction
+//                if(isset($allowance->percentage)){
+//                    $deduc += $this->salary * ($allowance->percentage/100);
+//                }else{
+//                    $deduc += $allowance->value;
+//                }
+//            }
         }
-        return $this->salary + $add - $deduc;
+        return $this->salary + $add;
     }
     public function totalAdditionAllowances()
     {
