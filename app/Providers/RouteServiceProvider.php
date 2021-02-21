@@ -83,7 +83,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-            ->domain($this->domain)
+//            ->domain($this->domain)
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
     }
@@ -106,7 +106,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapDashboardRoutes()
     {
         Route::group([
-            'domain' => $this->domain,
+//            'domain' => $this->domain,
             'prefix' => LaravelLocalization::setLocale() . '/dashboard',
             'namespace' => $this->dashboardNamespace,
             'middleware' => $this->groupMiddlewares,
@@ -117,7 +117,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapFordealRoutes()
     {
         Route::group([
-            'domain' => $this->domain,
+//            'domain' => $this->domain,
             'prefix' => LaravelLocalization::setLocale() . '/dashboard',
             'namespace' => $this->fordealNamespace,
             'middleware' => $this->groupMiddlewares,

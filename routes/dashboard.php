@@ -48,6 +48,9 @@ use Illuminate\Support\Facades\Route;
             Route::post('candidates/{candidate}/upload_document', 'CandidateController@uploadDocuments');
             Route::post('profile_picture/upload', 'ProfileController@uploadProfilePicture')->name('profile_picture.upload');
             Route::get('attendances/update/{attendance}', 'AttendanceController@update');
+            Route::get('vacations/assign_vacation', 'VacationController@assignVacation')->name('vacations.assign_vacation');
+            Route::post('vacations/assign_vacation', 'VacationController@storeAssignedVacation')->name('vacations.store_assigned_vacation');
+            Route::get('vacation_types/{vacation_type}/vacation_days', 'VacationTypeController@vacationDays');
             Route::post('candidates/decision/{candidate}', 'CandidateController@decision')->name('candidates.decision');
             Route::resource('attendances', 'AttendanceController')->except('show');
 

@@ -51,7 +51,7 @@
                                                     <div class="kt-section__body">
 
                                                         <div class="form-group row mt-5 mb-5">
-                                                            <div class="col-6">
+                                                            <div class="col-4">
                                                                 <label>{{__('Name In Arabic')}} *</label>
                                                                 <input name="name_ar"
                                                                        value="{{old('name_ar') ?? $vacationType->name_ar}}"
@@ -59,13 +59,21 @@
                                                                        type="text">
 
                                                             </div>
-                                                            <div class="col-6">
+                                                            <div class="col-4">
                                                                 <label>{{__('Name In English')}} *</label>
                                                                 <input name="name_en"
                                                                        value="{{old('name_en') ?? $vacationType->name_en}}"
                                                                        class="form-control @error('name_en') is-invalid @enderror"
                                                                        type="text">
 
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <label>{{__('Number Of Days')}} *</label>
+                                                                <input name="num_of_days"
+                                                                       value="{{old('num_of_days') ?? $vacationType->num_of_days}}"
+                                                                       class="form-control @error('num_of_days') is-invalid @enderror"
+                                                                       min="0"
+                                                                       type="number">
                                                             </div>
 
                                                         </div>

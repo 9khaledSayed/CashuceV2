@@ -346,6 +346,7 @@ return [
         '/dashboard/documents',
         '/dashboard/candidates/*/upload_document',
         '/dashboard/documents/*/download',
+        '/dashboard/vacation_types/*/vacation_days',
     ],
 
 ];

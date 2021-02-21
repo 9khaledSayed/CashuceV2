@@ -5,6 +5,7 @@ namespace App;
 use App\Notifications\NewRequest;
 use App\Scopes\ParentScope;
 use App\Scopes\ServiceStatusScope;
+use App\Scopes\SupervisorScope;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -32,18 +33,16 @@ class Request extends Model
 
         static::creating(static function ($model){
             $model->company_id = Company::companyID();
+
+            $employee = $model->employee;
+            $supervisor = $employee->department->supervisor;
+            if(isset($supervisor)){
+                $supervisor->notify(new NewRequest());
+            }
         });
 
         static::deleting(function($request){
             $request->requestable->delete();
-        });
-
-        static::created(function($request){
-            $employee = $request->employee;
-            $supervisor = $employee->department->supervsor;
-            if(isset($supervisor)){
-                $supervisor->notify(new NewRequest());
-            }
         });
     }
 
@@ -101,6 +100,6 @@ class Request extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class)->withoutGlobalScopes([ParentScope::class, ServiceStatusScope::class]);
+        return $this->belongsTo(Employee::class)->withoutGlobalScopes([ParentScope::class, ServiceStatusScope::class, SupervisorScope::class]);
     }
 }

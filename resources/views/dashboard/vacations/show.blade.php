@@ -82,18 +82,17 @@
                 <div class="kt-section__content kt-section__content--border">
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group"><label for="Date"><strong>{{__('Request Date')}}</strong></label><p>
-                                {{$request->created_at->format('Y-m-d')}}</p></div>
+                            <div class="form-group"><label for="To"><strong>{{__('Available Balance')}}</strong></label><p>{{$employee->leave_balance}}</p></div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group"><label for="From"><strong>{{__('Start Date')}}</strong></label><p>{{$requestable->start_date->format('Y-m-d')}}</p></div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group"><label for="To"><strong>{{__('End Date')}}</strong></label><p>{{$requestable->end_date->format('Y-m-d')}}</p></div>
+                            <div class="form-group"><label for="To"><strong>{{__('Return Date')}}</strong></label><p>{{$requestable->end_date->format('Y-m-d')}}</p></div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group"><label for="Description"><strong>{{__('Vacation Type')}}</strong></label><p>
-                                {{$requestable->vacationType()}}</p></div>
+                                {{$requestable->vacation_name}}</p></div>
                         </div>
                     </div>
 
@@ -103,52 +102,54 @@
 
         </div>
         @can('proceed_requests')
-        <div class="kt-portlet__foot mt-0">
-            <div class="kt-section">
-                <h3 class="kt-section__title">{{__('Take action')}}</h3>
-                <div class="kt-section__content kt-section__content--border">
-                    <!-- Begin Action Form-->
-                    @include('layouts.dashboard.parts.errorSection')
-                    <form method="post"   action="{{route('dashboard.requests.take_action', $request)}}">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="control-label">{{__('Action')}}</label>
-                                    <select name="status"  class="form-control selectpicker" >
-                                        <option value="">{{__('Choose')}}</option>
-                                        <option value="1">{{__('Approve')}}</option>
-                                        <option value="2">{{__('Disapprove')}}</option>
-                                    </select>
+            @if(!$request->status)
+                <div class="kt-portlet__foot mt-0">
+                    <div class="kt-section">
+                        <h3 class="kt-section__title">{{__('Take action')}}</h3>
+                        <div class="kt-section__content kt-section__content--border">
+                            <!-- Begin Action Form-->
+                            @include('layouts.dashboard.parts.errorSection')
+                            <form method="post"   action="{{route('dashboard.requests.take_action', $request)}}">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">{{__('Action')}}</label>
+                                            <select name="status"  class="form-control selectpicker" >
+                                                <option value="">{{__('Choose')}}</option>
+                                                <option value="1">{{__('Approve')}}</option>
+                                                <option value="2">{{__('Disapprove')}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="control-label">{{__('Comments')}}</label>
-                                    <textarea name="comment" class="form-control" rows="6">{{$request->comment}}</textarea>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">{{__('Comments')}}</label>
+                                            <textarea name="comment" class="form-control" rows="6">{{$request->comment}}</textarea>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+
+                                <div class="kt-form__acdtions">
+
+                                    <button type="submit" class="btn btn-success">{{__('Submit')}}</button>
+
+                                    <a href="{{route('dashboard.requests.index')}}" class="btn btn-secondary">
+                                        Cancel
+                                    </a>
+                                </div>
+                            </form>
+                            <!-- Begin Action Form END-->
+
+
+
                         </div>
-
-                        <div class="kt-form__acdtions">
-
-                            <button type="submit" class="btn btn-success">{{__('Submit')}}</button>
-
-                            <a href="{{route('dashboard.requests.index')}}" class="btn btn-secondary">
-                                Cancel
-                            </a>
-                        </div>
-                    </form>
-                    <!-- Begin Action Form END-->
-
-
+                    </div>
 
                 </div>
-            </div>
-
-        </div>
+            @endif
         @endcan
     </div>
     <!--Begin::Row-->

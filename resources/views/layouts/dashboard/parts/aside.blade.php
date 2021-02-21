@@ -88,6 +88,9 @@
                             @can('create_vacation_request')
                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.vacations.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Vacation Request')}}</span></a></li>
                             @endcan
+                            @can('create_vacation_request')
+                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.vacations.assign_vacation')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Assign Vacation')}}</span></a></li>
+                            @endcan
                             @can('create_attendance_record_forgotten_request')
                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.attendance_forgottens.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Attendance Record Forgetting Request')}}</span></a></li>
                             @endcan

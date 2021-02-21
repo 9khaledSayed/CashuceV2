@@ -14,6 +14,7 @@ class VacationType extends Model
     public static $rules = [
         'name_ar' => ['required', 'string', 'max:25'],
         'name_en' => ['required', 'string', 'max:25'],
+        'num_of_days' => ['required', 'numeric','min:0'],
     ];
 
     protected static $logUnguarded = true;

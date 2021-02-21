@@ -155,35 +155,61 @@ var KTContactsAdd = function () {
 jQuery(document).ready(function() {
     KTContactsAdd.init();
     const existBalance = $("#vacation_balance").text();
+    var startDate =  $(".start_date");
+    var endDate =  $(".end_date");
+    var vacationTypesSelect =  $("#vacationTypes");
 
-    $(".end_date, .start_date").on('focusout',function () {
-        setTotalVacationDays();
+    calculatePeriod();
+
+    $(".start_date, .end_date").focusout(function () {
+        calculatePeriod();
     });
 
-    function setTotalVacationDays() {
-        let availableBalance = existBalance;
-        let endDate = new Date($(".end_date").val());
-        let startDate = new Date($( ".start_date" ).val());
-        let diffTime = Math.abs(startDate - endDate);
-        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    $("#vacationTypes").change(function () {
+        calculatePeriod();
+    });
 
-        if(isNaN(diffDays)){
-            $("#vacation_days").text(0);
-            $("#vacation_balance").text(existBalance);
-        }else{
-            $("#vacation_days").text(diffDays);
-            $("#vacation_balance").text(availableBalance  - diffDays);
-            console.log('available');
-        }
-
-    }
-
-    $("#vacationTypeId").change(function () {
-        console.log($(this).val())
-        if($(this).val() == 0){
+    function calculatePeriod() {
+        var vacationID = vacationTypesSelect.val();
+        if(vacationID === '0'){
             $("#reason").fadeIn()
+            endDate.datepicker( "option", "disabled", false );
+            endDate.css('backgroundColor','');
+            if(startDate.val() !== '' && endDate.val() !== ''){
+                let diffDates = endDate.datepicker('getDate') - startDate.datepicker('getDate');
+                let diffInDays = Math.ceil(diffDates / (1000 * 60 * 60 * 24));
+
+
+                $("#vacation_days").text(diffInDays);
+                $("#vacation_balance").text(existBalance  - diffInDays);
+            }
         }else{
             $("#reason").fadeOut()
+            if(vacationTypesSelect.val() !== '' && startDate !== ''){
+                endDate.css('backgroundColor','#AAAA');
+                endDate.datepicker( "option", "disabled", true );
+                var vacationDays = 0;
+                $.ajax({
+                    url:'/dashboard/vacation_types/' + vacationID + '/vacation_days',
+                    method:'get',
+                    success:function (response) {
+                        vacationDays = response.vacation_days;
+                        let tempDate =  startDate.datepicker('getDate');
+                        var newEndDate = new Date();
+
+                        newEndDate.setMonth(tempDate.getMonth());
+                        newEndDate.setDate(tempDate.getDate() + vacationDays);
+                        newEndDate.setFullYear(tempDate.getFullYear());
+
+                        endDate.datepicker("setDate", newEndDate);
+                        $("#vacation_days").text(vacationDays);
+                        $("#vacation_balance").text(existBalance  - vacationDays);
+                    },
+                    error : function (res) {
+                        console.log(res.error)
+                    }
+                })
+            }
         }
-    })
+    }
 });

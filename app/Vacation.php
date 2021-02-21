@@ -13,6 +13,13 @@ class Vacation extends Model
         'created_at'  => 'date:D M d Y',
     ];
 
+    public function saveWithoutEvents(array $options=[])
+    {
+        return static::withoutEvents(function() use ($options) {
+            return $this->save($options);
+        });
+    }
+
     protected static function booted()
     {
         static::created(function($vacation){
@@ -24,9 +31,23 @@ class Vacation extends Model
         });
     }
 
-    public function vacationType()
+    protected function getVacationNameAttribute()
     {
-        return $this->{'vacation_type_' . app()->getLocale()};
+        if(isset($this->vacation_type)){
+            return $this->vacation_type->name();
+        }else{
+            return $this->{'reason_' . app()->getLocale()};
+        }
+    }
+
+//    public function vacationType()
+//    {
+//        return $this->{'vacation_type_' . app()->getLocale()};
+//    }
+
+    public function vacation_type()
+    {
+        return $this->belongsTo(VacationType::class);
     }
     public function request()
     {

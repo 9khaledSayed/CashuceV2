@@ -70,4 +70,11 @@ class VacationTypeController extends Controller
 
         return $request->validate($rules);
     }
+
+    public function vacationDays(VacationType $vacationType)
+    {
+        return response()->json([
+           'vacation_days' => $vacationType->num_of_days
+        ]);
+    }
 }

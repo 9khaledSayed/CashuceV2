@@ -36,7 +36,7 @@
             <div class="kt-grid  kt-wizard-v1 kt-wizard-v1--white droid_font" id="kt_contacts_add" data-ktwizard-state="step-first">
                 <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
                     <!--begin: Form Wizard Form-->
-                    <form action="{{route('dashboard.vacations.store')}}" method="post" class="kt-form" id="kt_contacts_add_form">
+                    <form action="{{route('dashboard.vacations.store_assigned_vacation')}}" method="post" class="kt-form" id="kt_contacts_add_form">
                     @csrf
                     <!--begin: Form Wizard Step 1-->
                         <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
@@ -49,7 +49,26 @@
                                                     <div class="kt-section__body">
                                                         <div class="kt-portlet__body">
                                                             <div class="form-group row ">
-                                                                <div class="col-lg-4">
+                                                                <div class="col-lg-3">
+                                                                    <label for="LeaveTypeId">
+                                                                        {{__('Employee')}}
+                                                                    </label>
+                                                                    <select class="form-control @error('employee_id') is-invalid @enderror kt-selectpicker"
+                                                                            id="employee_id"
+                                                                            data-size="7"
+                                                                            data-live-search="true"
+                                                                            data-show-subtext="true" name="employee_id" title="{{__('Select')}}">
+                                                                        @forelse($employees as $employee)
+                                                                            <option
+                                                                                    value="{{$employee->id}}"
+                                                                                    @if(old('employee_id') == $employee->id) selected @endif
+                                                                            >{{$employee->name() . ' - ' . $employee->job_number}}</option>
+                                                                        @empty
+                                                                            <option disabled>{{__('There is no employees under your supervision')}}</option>
+                                                                        @endforelse
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-lg-3">
                                                                     <label for="LeaveTypeId">
                                                                         {{__('Vacation Type')}}
                                                                     </label>
@@ -63,7 +82,7 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                                <div class="col-lg-4">
+                                                                <div class="col-lg-3">
                                                                     <label for="start_date">{{__('Start Date')}}<span class="required">*</span></label>
                                                                     <div class="input-group date">
                                                                         <input name="start_date" type="text" class="form-control start_date datepicker" readonly />
@@ -74,7 +93,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-4">
+                                                                <div class="col-lg-3">
                                                                     <label for="end_date">{{__('Return Date')}}<span class="required">*</span></label>
                                                                     <div class="input-group date">
                                                                         <input name="end_date" type="text" class="form-control end_date datepicker" readonly />

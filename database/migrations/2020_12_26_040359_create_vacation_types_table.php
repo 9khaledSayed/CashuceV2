@@ -18,6 +18,7 @@ class CreateVacationTypesTable extends Migration
             $table->unsignedBigInteger('company_id');
             $table->string('name_ar');
             $table->string('name_en');
+            $table->integer('num_of_days', false, true)->default(0);
             $table->timestamps();
 
             $table->unique(['company_id', 'name_ar']);

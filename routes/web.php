@@ -67,10 +67,10 @@ Route::group([
 Route::get('attendances_sheet/excel', 'Dashboard\AttendanceController@extractExcel');
 Route::get('payroll_special/excel/{payroll}', 'Dashboard\Fordeal\FordealPayrollController@excel');
 
-Route::domain('www.cashuce.com')->group(function () {
-
-    Route::redirect('/', 'https://cashuce.com');
-});
+//Route::domain('www.cashuce.com')->group(function () {
+//
+//    Route::redirect('/', 'https://cashuce.com');
+//});
 
 //Route::get('fix', function(){
 //   $fordeal = new \App\Role([
@@ -152,19 +152,6 @@ Route::get('edit', function(){
 
 });
 
-Route::get('/fix_names', function (){
-   $employees = Employee::withoutGlobalScope(new ParentScope())->withoutGlobalScope(new \App\Scopes\ServiceStatusScope)->get();
-
-    foreach ($employees as $employee) {
-        $namesARS = [$employee->fname_ar , $employee->snam_ar , $employee->tname_ar  , $employee->lname_ar];
-        $namesENS = [$employee->fname_en , $employee->snam_en , $employee->tname_en  , $employee->lname_en];
-
-        $employee->name_ar = implode(' ', array_filter($namesARS));
-        $employee->name_en = implode(' ', array_filter($namesENS));
-        $employee->save();
-   }
-    dd('done');
-});
 
 
 Route::get('/countries', function (){
