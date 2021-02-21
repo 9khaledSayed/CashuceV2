@@ -55,7 +55,18 @@ class RoleController extends Controller
     {
         $this->authorize('create_roles');
         $userRole = auth()->user()->role->label;
-        $abilities = Ability::distinct('category')->get(['name', 'category', 'label']);
+//        $abilities = Ability::distinct('category')->get(['name', 'category', 'label']);
+        $companyRole = Company::find(Company::companyID())->role;
+        if($companyRole->label == 'Super Admin'){
+            $abilities = Ability::distinct('category')->get()->filter(function($ability){
+                return $ability->for == 'public' || $ability->for == 'shared';
+            });
+        }else{
+            $companyRole = Company::find(Company::companyID())->role;
+            $abilities = Ability::distinct('category')->get()->filter(function($ability) use ($companyRole){
+                return $ability->for == $companyRole->for || $ability->for == 'shared';
+            });
+        }
         return view('dashboard.roles.create' , [
             'abilities' => $abilities,
             'categories' => $userRole == "Super Admin" ? $this->adminCategories : $this->companyCategories
@@ -79,9 +90,22 @@ class RoleController extends Controller
     public function show(Role $role)
     {
         $userRole = auth()->user()->role->label;
+
+        $companyRole = Company::find(Company::companyID())->role;
+        if($companyRole->label == 'Super Admin'){
+            $abilities = Ability::distinct('category')->get()->filter(function($ability) use ($role){
+                return $ability->for == $role->for || $ability->for == 'shared';
+            });
+        }else{
+            $companyRole = Company::find(Company::companyID())->role;
+            $abilities = Ability::distinct('category')->get()->filter(function($ability) use ($companyRole){
+                return $ability->for == $companyRole->for || $ability->for == 'shared';
+            });
+        }
+
         return view('dashboard.roles.show', [
             'role' => $role,
-            'abilities' => Ability::distinct('category')->get(['name', 'category', 'label']),
+            'abilities' => $abilities,
             'categories' => $userRole == "Super Admin" ? $this->adminCategories : $this->companyCategories,
             'role_abilities' =>$role->abilities
         ]);
