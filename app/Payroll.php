@@ -47,7 +47,8 @@ class Payroll extends Model
                 $workDays = $workDays > $payrollDay ? $payrollDay : $workDays;  // 26 - 25
                 $daysOff = $employee->daysOff();
                 $deductions = $employee->deductions() + $employee->gosiDeduction();
-                $netPay = $workDays * (($employee->totalPackage() - $deductions)/30) - $deductions;
+                $netPay = $workDays * (($employee->totalPackage() - $deductions)/30);
+                $netPay = $netPay - $deductions;
 //                $netPayAfterDeductions = $netPayBeforeDeductions  - $deductions;
 
                 Salary::create([
