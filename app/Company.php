@@ -5,6 +5,7 @@ namespace App;
 
 use App\Notifications\CompanyResetPasswordNotification;
 use App\Scopes\ParentScope;
+use App\Scopes\ServiceStatusScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -116,7 +117,7 @@ class Company extends Authenticatable
 
     public function employees()
     {
-        return $this->hasMany(Employee::class)->withoutGlobalScope(new ParentScope());
+        return $this->hasMany(Employee::class)->withoutGlobalScopes([ParentScope::class, ServiceStatusScope::class,]);
     }
 
     public static function supervisors()

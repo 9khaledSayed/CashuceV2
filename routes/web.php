@@ -1,6 +1,7 @@
 <?php
 
 use App\Ability;
+use App\Allowance;
 use App\Employee;
 use App\Scopes\ParentScope;
 use \Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -169,6 +170,22 @@ Route::get('/ability', function (){
 });
 
 
+Route::get('fix_allowances', function(){
+
+    $companies = \App\Company::all();
+    foreach ($companies as $company){
+        $allowances = \App\Allowance::where('company_id', $company->id)->withoutGlobalScope(ParentScope::class)->delete();
+        Allowance::generateDefaultAllowances($company->id);
+        $allowancesID = \App\Allowance::where('company_id', $company->id)->withoutGlobalScope(ParentScope::class)->pluck('id');
+
+        foreach ($company->employees as $employee) {
+            $employee->allowances()->delete();
+            $employee->allowances()->attach($allowancesID);
+        }
+    }
+    dd('done');
+
+});
 
 
 
