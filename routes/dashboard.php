@@ -52,6 +52,7 @@ use Illuminate\Support\Facades\Route;
             Route::post('vacations/assign_vacation', 'VacationController@storeAssignedVacation')->name('vacations.store_assigned_vacation');
             Route::get('vacation_types/{vacation_type}/vacation_days', 'VacationTypeController@vacationDays');
             Route::post('candidates/decision/{candidate}', 'CandidateController@decision')->name('candidates.decision');
+            Route::get('employees/{employee}/leave_balance', 'EmployeeController@leaveBalance')->name('employees.leave_balance');
             Route::resource('attendances', 'AttendanceController')->except('show');
 
             Route::resources([

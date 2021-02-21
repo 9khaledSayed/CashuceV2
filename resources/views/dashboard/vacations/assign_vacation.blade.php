@@ -50,11 +50,11 @@
                                                         <div class="kt-portlet__body">
                                                             <div class="form-group row ">
                                                                 <div class="col-lg-3">
-                                                                    <label for="LeaveTypeId">
+                                                                    <label for="employees">
                                                                         {{__('Employee')}}
                                                                     </label>
                                                                     <select class="form-control @error('employee_id') is-invalid @enderror kt-selectpicker"
-                                                                            id="employee_id"
+                                                                            id="employees"
                                                                             data-size="7"
                                                                             data-live-search="true"
                                                                             data-show-subtext="true" name="employee_id" title="{{__('Select')}}">
@@ -139,7 +139,7 @@
                                                                     <div class="kt-portlet kt-portlet--unelevate kt-portlet--bordered">
                                                                         <div class="kt-portlet__body text-center">
                                                                         <span class="display-4" id="vacation_balance">
-                                                                            {{auth()->user()->leave_balance ?? 0}}
+                                                                            0
                                                                         </span>
                                                                             {{__('Available Balance')}}
                                                                         </div>

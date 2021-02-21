@@ -425,5 +425,10 @@ class EmployeeController extends Controller
 
     }
 
+    public function leaveBalance(Employee $employee)
+    {
+        return response()->json(['leave_balance' => $employee->leave_balance]);
+    }
+
 
 }

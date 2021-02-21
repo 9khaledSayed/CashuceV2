@@ -154,10 +154,11 @@ var KTContactsAdd = function () {
 
 jQuery(document).ready(function() {
     KTContactsAdd.init();
-    const existBalance = $("#vacation_balance").text();
+    var existBalance = $("#vacation_balance").text();
     var startDate =  $(".start_date");
     var endDate =  $(".end_date");
     var vacationTypesSelect =  $("#vacationTypes");
+    var employeesSelect =  $("#employees");
 
     calculatePeriod();
 
@@ -165,9 +166,14 @@ jQuery(document).ready(function() {
         calculatePeriod();
     });
 
-    $("#vacationTypes").change(function () {
+    vacationTypesSelect.change(function () {
         calculatePeriod();
     });
+
+    employeesSelect.change(function () {
+        getLeaveBalance($(this).val())
+        calculatePeriod();
+    })
 
     function calculatePeriod() {
         var vacationID = vacationTypesSelect.val();
@@ -211,5 +217,18 @@ jQuery(document).ready(function() {
                 })
             }
         }
+    }
+
+
+
+    function getLeaveBalance(employeeID) {
+        $.ajax({
+            url: '/dashboard/employees/' + employeeID + '/leave_balance',
+            method: 'get',
+            success: function (response) {
+                existBalance = response.leave_balance
+                $("#vacation_balance").text(existBalance);
+            }
+        });
     }
 });
