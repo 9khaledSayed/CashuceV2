@@ -119,4 +119,27 @@ class WorkShift extends Model
         return $daysOff * 4;
     }
 
+    public function shiftInfo()
+    {
+        $format = 'h:i A';
+        if($this->type == 'normal' || $this->type == 'flexible'){
+            $startTime = Carbon::createFromTimeString($this->shift_start_time);
+            $endTime = Carbon::createFromTimeString($this->shift_end_time);
+            return $startTime->format($format) . ' - ' . $endTime->format($format);
+
+        }elseif($this->type == 'divided'){
+
+            $startTime = Carbon::createFromTimeString($this->shift_start_time);
+            $endTime = Carbon::createFromTimeString($this->shift_end_time);
+            $secondStartTime = Carbon::createFromTimeString($this->shift_start_time);
+            $secondEndTime = Carbon::createFromTimeString($this->shift_end_time);
+
+            return "<h6>First Shift :-</h6> " . $startTime->format($format) . "-"  . $endTime->format($format)
+                  ."<br><h6>Second Shift :-</h6> " . $secondStartTime->format($format) . "-"  . $secondEndTime->format($format);
+
+        }else{
+            return "<h6>Once Shift (Working hours) :-</h6> " . $this->work_hours;
+        }
+    }
+
 }

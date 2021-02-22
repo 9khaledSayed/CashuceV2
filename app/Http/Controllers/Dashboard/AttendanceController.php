@@ -31,46 +31,36 @@ class AttendanceController extends Controller
     {
         $this->authorize('view_attendance_sheet');
 
-        $fullDate = isset($request->full_date) ? $request->full_date : Carbon::today()->format('Y-m-d');
+//        $fullDate = isset($request->full_date) ? $request->full_date : Carbon::today()->format('Y-m-d');
+        $requestDate = isset($request->full_date) ? $request->full_date : Carbon::today()->format('Y-m-d');
 
 
         if ($request->ajax()) {
-            $attendances = Attendance::orderBy('created_at', 'desc')->get(); // ['company_id', 'emp_job_number', 'time_in', 'time_out', 'date']
-            $attendances = $attendances->where('date', $fullDate)->map(function ($attendance){
-                    $employee = $attendance->employee;
 
-                    if(isset($employee)){
-                        $ShiftType = $attendance->employee->workShift->type;
-                        if(isset($attendance->time_out2) && $ShiftType == 'divided'){
-                            $timeOut = $attendance->time_out2->format('h:i A') ?? null;
-                        }elseif(isset($attendance->time_out)){
-                            $timeOut = $attendance->time_out->format('h:i A') ?? null;
-                        }else{
-                            $timeOut = null;
-                        }
-                        $supervisor = $employee->supervisor? $employee->supervisor->name(): '';
-                        $department = $employee->department? $employee->department->name(): '';
-                        $provider = $employee->provider? $employee->provider->name(): '';
-                        $section = $employee->section? $employee->section->name(): '';
-                        return [
-                            'employee' => $attendance->employee,
-                            'id' => $attendance->id,
-                            'employee_id' => $attendance->employee_id,
-                            'supervisor' => $supervisor,
-                            'nationality' => $employee->nationality(),
-                            'department' => $department,
-                            'section' => $section,
-                            'provider' => $provider,
-                            'job_number' => $attendance->employee->job_number,
-                            'time_in' => $attendance->time_in->format('h:i A'),
-                            'time_out' => $timeOut,
-                            'total_working_hours' => $attendance->total_working_hours,
-                            'date' => $attendance->date,
-                        ];
-                    }
+            $employees = Employee::get()->map(function ($employee) use ($requestDate){
+                $todayAttendance = $employee->attendances()->whereDate('date', $requestDate);
+                $attendanceStatus = $todayAttendance->exists();
+                $timeIn = isset($todayAttendance->first()->time_in) ? $todayAttendance->first()->time_in->format('h:i A') : '';
+                $timeOut = isset($todayAttendance->first()->time_out) ? $todayAttendance->first()->time_out->format('h:i A') : '';
+                return [
+                    'id' => $employee->id,
+                    'attendance_id' => $attendanceStatus ? $todayAttendance->first()->id : 0,
+                    'name' => $employee->name(),
+                    'status' => $attendanceStatus ? 'Present' : 'Absent',
+                    'shift_info' => $employee->workShift->shiftInfo(),
+                    'time_in' => $attendanceStatus ? $timeIn : '',
+                    'time_out' => $attendanceStatus ? $timeOut : '',
+                    'supervisor' => $employee->supervisor_name,
+                    'nationality' => $employee->nationality_name,
+                    'department' => $employee->department_name,
+                    'section' => $employee->section->name(),
+                    'provider' => $employee->provider_name,
+                    'total_working_hours' => $attendanceStatus ? $todayAttendance->first()->total_working_hours : 0,
+                ];
 
-                })->filter();
-            return response()->json($attendances);
+            });
+
+            return response()->json($employees);
         }else{
             return view('dashboard.attendances.index', [
                 'supervisors' =>  Company::supervisors(),
@@ -78,10 +68,26 @@ class AttendanceController extends Controller
                 'providers' => Provider::get(),
                 'departments' => Department::get(),
                 'sections' => Section::get(),
-                'fullDate' => $fullDate,
+                'fullDate' => $requestDate,
             ]);
         }
 
+    }
+
+    public function absentees(Request $request)
+    {
+
+        if ($request->ajax()){
+            $absentees = Employee::get()->filter(function ($employee){
+                if ($employee->attendances()->whereDate('created_at', Carbon::today())->doesntExist()){
+                    return $employee;
+                }else{
+                    return null;
+                }
+            });
+            return  response()->json($absentees);
+        }
+        return view('dashboard.attendances.absentees');
     }
 
     public function create()

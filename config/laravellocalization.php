@@ -348,6 +348,8 @@ return [
         '/dashboard/documents/*/download',
         '/dashboard/vacation_types/*/vacation_days',
         '/dashboard/employees/*/leave_balance',
+        'en/dashboard/payrolls/*/excel',
+        'en/dashboard/payroll_special/*/excel',
     ],
 
 ];

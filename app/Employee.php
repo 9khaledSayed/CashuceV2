@@ -186,6 +186,41 @@ class Employee extends Authenticatable implements MustVerifyEmail
         $this->attributes['password'] = Hash::make($password);
     }
 
+    public function getNationalityNameAttribute()
+    {
+        $nationality = Nationality::find($this->nationality_id);
+        return $nationality ? $nationality->name() : '';
+    }
+
+    public function getRoleNameAttribute()
+    {
+        return $this->role->name();
+    }
+
+    public function getJobTitleNameAttribute()
+    {
+        $job_title = JobTitle::find($this->job_title_id);
+        return $job_title ? $job_title->name() : '';
+    }
+
+    public function getSupervisorNameAttribute()
+    {
+        $supervisor = $this->supervisor;
+        return $supervisor ? $supervisor->name() : '';
+    }
+
+    public function getDepartmentNameAttribute()
+    {
+        $department = $this->department;
+        return $department ? $department->name() : '';
+    }
+
+    public function getProviderNameAttribute()
+    {
+        $proider = $this->provider;
+        return $proider ? $proider->name() : '';
+    }
+
     public function name()
     {
         return $this->{'name_' . app()->getLocale()};

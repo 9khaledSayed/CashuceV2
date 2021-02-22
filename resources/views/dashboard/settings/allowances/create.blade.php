@@ -93,6 +93,7 @@
                                                                 <label>{{__('Value In Ryal')}} *</label>
                                                                 <input name="value"
                                                                        value="{{old('value')}}"
+                                                                       step=".01"
                                                                        class="form-control @error('value') is-invalid @enderror"
                                                                        type="number">
 
@@ -103,6 +104,7 @@
                                                                 <label>{{__('Value In Percentage')}} *</label>
                                                                 <input name="percentage"
                                                                        value="{{old('percentage')}}"
+                                                                       step=".01"
                                                                        class="form-control @error('percentage') is-invalid @enderror"
                                                                        type="number" >
 

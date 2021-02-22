@@ -28,7 +28,7 @@ var KTUserListDatatable = function() {
                 source: {
                     read: {
                         method: 'GET',
-                        url: '/dashboard/attendances',
+                        url: '/dashboard/attendances/absentees',
                     },
                 },
                 autoColumns:false,
@@ -53,59 +53,6 @@ var KTUserListDatatable = function() {
             search: {
                 input: $('#generalSearch'),
                 delay: 400,
-            },
-            rows: {
-                afterTemplate: function (row, data, index) {
-                    row.find('.edit-btn').on('click', function () {
-                        var submitBtn = $(".update-attendance-submit");
-                        var modal = $("#update-modal");
-                        var form= $(".update-attendance-form");
-
-                        form.attr('action', '/dashboard/attendances/update/' + data.attendance_id)
-                        $("#timeIn").timepicker().val(data.time_in);
-                        $("#timeOut").timepicker().val(data.time_out);
-                        modal.modal('show');
-
-                        submitBtn.click(function (e) {
-                            e.preventDefault();
-                            swal.fire({
-                                title: locator.__('Loading...'),
-                                onOpen: function () {
-                                    swal.showLoading();
-                                }
-                            });
-                            form.ajaxSubmit({
-
-                                success:function () {
-                                    swal.fire({
-                                        title: locator.__('Operation Done Successfully'),
-                                        type: 'success',
-                                        buttonsStyling: false,
-                                        confirmButtonText: locator.__("OK"),
-                                        confirmButtonClass: "btn btn-sm btn-bold btn-brand",
-                                    });
-                                    modal.modal('hide');
-                                    datatable.reload();
-                                },
-
-                                error: function (err) {
-                                    if (err.hasOwnProperty('responseJSON')) {
-                                        if (err.responseJSON.hasOwnProperty('message')) {
-                                            swal.fire({
-                                                title: locator.__('Error!'),
-                                                text: locator.__(err.responseJSON.message),
-                                                type: 'error'
-                                            });
-                                        }
-                                    }
-                                    console.log(err);
-                                }
-                            });
-
-                        });
-
-                    });
-                }
             },
 
             // columns definition
@@ -132,7 +79,7 @@ var KTUserListDatatable = function() {
                             'info'
                         ];
                         var state = states[stateNo];
-                        let name = data.name;
+                        let name = employeeName(data);
                         output = '<div class="kt-user-card-v2" >\
 								<div class="kt-user-card-v2__pic">\
 									<div class="kt-badge kt-badge--xl kt-badge--' + state + '">' + name.substring(0, 2) + '</div>\
@@ -145,53 +92,13 @@ var KTUserListDatatable = function() {
                         return output;
                     }
                 }, {
-                    field: 'status',
-                    title: locator.__('Status'),
-                }, {
-                    field: 'time_in',
-                    title: locator.__('Time In'),
-                }, {
-                    field: 'time_out',
-                    title: locator.__('Time Out'),
-                }, {
-                    field: 'total_working_hours',
-                    title: locator.__('Total Working Hours'),
-                }, {
-                    field: 'supervisor',
-                    title: locator.__('Supervisor'),
-                    visible: false,
-                },{
-                    field: 'department',
-                    title: locator.__('Department'),
+                    field: 'salary',
+                    title: locator.__('Salary'),
                     textAlign: 'center',
-                    visible: false,
-                },{
-                    field: 'section',
-                    title: locator.__('Section'),
-                    textAlign: 'center',
-                    visible: false,
                 }, {
-                    field: 'provider',
-                    title: locator.__('Provider'),
+                    field: 'contract_start_date',
+                    title: locator.__('Contract Start Date'),
                     textAlign: 'center',
-                    visible: false,
-                },{
-                    field: 'nationality',
-                    title: locator.__('Nationality'),
-                    visible: false,
-                },{
-                    field: 'Actions',
-                    title: locator.__('Actions'),
-                    sortable: false,
-                    width: 110,
-                    overflow: 'visible',
-                    autoHide: false,
-                    textAlign: 'center',
-                    template: function(row) {
-                        return '\
-                        <a class="btn btn-primary edit-btn" href="#"><i class="la la-pencil-square-o"></i>' + locator.__('Edit') + '</a>\
-                          ';
-                    },
                 }],
         });
     }

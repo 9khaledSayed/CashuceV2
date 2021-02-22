@@ -190,7 +190,7 @@
 													<i class="la la-gear"></i>
 												</span>
                         <h3 class="kt-portlet__head-title">
-                            Pie Chart
+                            {{__('Employees In Department')}}
                         </h3>
                     </div>
                 </div>
@@ -203,47 +203,49 @@
     </div>
     <!--End::Row-->
 
-    <div class="row">
-        <div class="col-xl-12">
+    @cannot('view_employees_fordeal')
+        <div class="row">
+            <div class="col-xl-12">
 
-            <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
-                <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
-                    <div class="kt-portlet__head-label">
-                        <h3 class="kt-portlet__head-title">
-                            {{__('Expiring Documents')}}
-                        </h3>
-                    </div>
-                </div>
-
-                <div class="kt-portlet__body kt-portlet__body--fit">
-                    <div class="row row-no-padding row-col-separator-lg">
-                        <div class="col-md-6 col-lg-2 col-xl-3 mx-auto">
-                            <!--begin::Total Profit-->
-                            <div class="kt-widget24">
-                                <div class="kt-widget24__details">
-                                    <div class="kt-widget24__info mx-auto">
-                                        <h4 class="kt-widget24__title">
-                                            {{__('Employees In Trail')}}
-                                        </h4>
-                                        <span class="kt-widget24__stats kt-font-brand" style="display:flex;margin: auto;width: fit-content">
-                                            {{$employeesInTrail}}
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!--end::Total Profit-->
+                <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+                    <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                                {{__('Expiring Documents')}}
+                            </h3>
                         </div>
                     </div>
-                    <!--begin: Datatable -->
-                    <div class="kt-datatable" id="expiring_documents_table"></div>
 
-                    <!--end: Datatable -->
+                    <div class="kt-portlet__body kt-portlet__body--fit">
+                        <div class="row row-no-padding row-col-separator-lg">
+                            <div class="col-md-6 col-lg-2 col-xl-3 mx-auto">
+                                <!--begin::Total Profit-->
+                                <div class="kt-widget24">
+                                    <div class="kt-widget24__details">
+                                        <div class="kt-widget24__info mx-auto">
+                                            <h4 class="kt-widget24__title">
+                                                {{__('Employees In Trail')}}
+                                            </h4>
+                                            <span class="kt-widget24__stats kt-font-brand" style="display:flex;margin: auto;width: fit-content">
+                                            {{$employeesInTrail}}
+                                        </span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--end::Total Profit-->
+                            </div>
+                        </div>
+                        <!--begin: Datatable -->
+                        <div class="kt-datatable" id="expiring_documents_table"></div>
+
+                        <!--end: Datatable -->
+                    </div>
                 </div>
             </div>
         </div>
+    @endif
 
-    </div>
     <!--Begin::Section-->
     <div class="row">
         <div class="col-xl-12">
@@ -279,16 +281,18 @@
 
                             <!--begin::New Feedbacks-->
                             <div class="kt-widget24">
-                                <div class="kt-widget24__details">
-                                    <div class="kt-widget24__info">
-                                        <h4 class="kt-widget24__title">
-                                            {{__('Absent')}}
-                                        </h4>
+                                <a href="{{route('dashboard.attendances.absentees')}}">
+                                    <div class="kt-widget24__details">
+                                        <div class="kt-widget24__info">
+                                            <h4 class="kt-widget24__title ">
+                                                {{__('Absent')}}
+                                            </h4>
+                                        </div>
+                                        <span class="kt-widget24__stats kt-font-brand">
+                                        {{$attendanceSummary['absent']}}
+                                        </span>
                                     </div>
-                                    <span class="kt-widget24__stats kt-font-brand">
-                                {{$attendanceSummary['absent']}}
-                            </span>
-                                </div>
+                                </a>
                             </div>
 
                             <!--end::New Feedbacks-->

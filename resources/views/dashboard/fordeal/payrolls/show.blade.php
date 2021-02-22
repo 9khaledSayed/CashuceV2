@@ -223,7 +223,7 @@
                             </a>
 {{--                            @endif--}}
                         @endcan
-                        <a href="/payroll_special/excel/{{$payroll->id}}" class="btn btn-primary btn-sm">
+                        <a href="{{route('dashboard.fordeal.payroll_special.excel', $payroll->id)}}" class="btn btn-primary btn-sm">
                             <i class="la la-file-excel-o"></i>
                             {{__('Export')}}
                         </a>

@@ -66,7 +66,7 @@ Route::group([
 });
 
 Route::get('attendances_sheet/excel', 'Dashboard\AttendanceController@extractExcel');
-Route::get('payroll_special/excel/{payroll}', 'Dashboard\Fordeal\FordealPayrollController@excel');
+
 
 //Route::domain('www.cashuce.com')->group(function () {
 //

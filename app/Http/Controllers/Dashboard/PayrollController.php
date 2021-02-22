@@ -9,8 +9,10 @@ use App\Payroll;
 use App\Provider;
 use App\Rules\UniqueMonth;
 use App\Salary;
+use Box\Spout\Writer\Style\StyleBuilder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class PayrollController extends Controller
 {
@@ -171,5 +173,51 @@ class PayrollController extends Controller
     public function destroy(Payroll $payroll)
     {
         //
+    }
+
+    public function excel(Payroll $payroll)
+    {
+        $fileName = 'payroll.xlsx';
+
+        $salaries = Salary::where('payroll_id', $payroll->id)->get()->map(function ($salary){
+            $employee = $salary->employee;
+            $officialWorkingHours = 240;
+            $deductions = $employee->deductions();
+            $gosiDeduction = $employee->gosiDeduction();
+
+            return [
+                'Job Number' => $employee->job_number,
+                'Employee' => $employee->name_en,
+                'Nationality' => $employee->nationality_name,
+                'Salary' => $employee->salary,
+                'Official Working Hours' => $officialWorkingHours,
+                'Hourly Wage' => number_format($employee->salary / $officialWorkingHours, 2),
+                'Housing' => $employee->hra(),
+                'Transfer' => $employee->transfer(),
+                'Other Allowances' => $employee->otherAllowances(),
+                'Total Allowances' => $employee->totalAdditionAllowances(),
+                'Total Package' => $employee->totalPackage(),
+                'Violations Deduction' => $deductions,
+                'GOSI Deduction' => $gosiDeduction,
+                'Total Deduction' => $gosiDeduction + $deductions,
+                'Net Pay' => $salary->net_salary,
+                'Work Days' => $salary->work_days,
+            ];
+        });
+
+        $header_style = (new StyleBuilder())
+            ->setFontSize(8)
+            ->setFontBold()
+            ->build();
+
+        $rows_style = (new StyleBuilder())
+            ->setFontSize(8)
+            ->setBackgroundColor("EDEDED")
+            ->build();
+
+        return (new FastExcel($salaries))
+            ->headerStyle($header_style)
+            ->rowsStyle($rows_style)
+            ->download($fileName);
     }
 }
