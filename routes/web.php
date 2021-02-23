@@ -170,7 +170,7 @@ Route::get('/ability', function (){
 });
 
 
-Route::get('fix_allowances', function(){
+Route::get('fooo', function(){
 
     $companies = \App\Company::all();
     foreach ($companies as $company){
