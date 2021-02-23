@@ -6,13 +6,13 @@ use App\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use anlutro\LaravelSettings\Facade as Setting;
+use Illuminate\Support\Facades\DB;
 
 class SettingController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:employee,company,provider');
-
     }
 
     public function setManagerID()

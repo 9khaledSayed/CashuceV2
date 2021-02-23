@@ -63,7 +63,7 @@ class PayrollController extends Controller
         $payroll = Payroll::create([
             'provider_id'        => $request->provider_id,
             'year_month'         => $request->year_month,
-            'date'               => $request->year_month . '-' . $payrollDay,
+            'date'               => $request->year_month . '-'  . Carbon::now()->format('d'),
             'issue_date'         => Carbon::now()->toDateTimeString(),
             'employees_no'       => $employees->count(),
             'total_deductions'   => $total_deductions,
@@ -123,17 +123,17 @@ class PayrollController extends Controller
             return $employee->deductions() + $employee->gosiDeduction();
         })->sum();
         $payroll->update([
-            'date'               => $payroll->year_month . '-' . $payrollDay,
+            'date'               => $payroll->year_month->format('Y-m') . '-' . Carbon::now()->format('d'),
             'issue_date'         => Carbon::now()->toDateTimeString(),
             'employees_no'       => $employees->count(),
             'total_deductions'   => $totalDeductions,
             'include_attendance' => $request->has('include_attendance'),
         ]);
+
         foreach ($employees as $employee) {
-            $payrollDay = setting('payroll_day') ?? 30;
-            $workDays = $payroll->include_attendance? $employee->workDays($payroll->date->month) : 30;
-            $workDays = ($workDays > $payrollDay) ? $payrollDay : $workDays;  // 26 - 25
-            $daysOff = $employee->daysOff();
+            $settingWorkDays = Company::settingWorkdays() ?? 30;
+            $workDays = $payroll->include_attendance? $employee->workDays($payroll->date->month) : $settingWorkDays;
+
             $deductions = $employee->deductions() + $employee->gosiDeduction();
             $netPay = $workDays * ($employee->totalPackage()/30);
             $netPay = $netPay - $deductions;

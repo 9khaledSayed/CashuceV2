@@ -6,6 +6,7 @@ use App\Scopes\ParentScope;
 use App\Scopes\ProviderScope;
 use App\Scopes\SupervisorScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Payroll extends Model
@@ -42,14 +43,13 @@ class Payroll extends Model
             $employees = Employee::get();
 
             foreach ($employees as $employee) {
-                $payrollDay = setting('payroll_day') ?? 30;
-                $workDays = $payroll->include_attendance? $employee->workDays($payroll->date->month) : 30;
-                $workDays = $workDays > $payrollDay ? $payrollDay : $workDays;  // 26 - 25
-                $daysOff = $employee->daysOff();
+
+                $settingWorkDays = Company::settingWorkdays() ?? 30;
+                $workDays = $payroll->include_attendance? $employee->workDays($payroll->date->month) : $settingWorkDays;
+//                $workDays = $workDays > $settingWorkDays ? $settingWorkDays : $workDays;  // 26 - 25
                 $deductions = $employee->deductions() + $employee->gosiDeduction();
                 $netPay = $workDays * ($employee->totalPackage()/30);
                 $netPay = $netPay - $deductions;
-//                $netPayAfterDeductions = $netPayBeforeDeductions  - $deductions;
 
                 Salary::create([
                     'employee_id' => $employee->id,

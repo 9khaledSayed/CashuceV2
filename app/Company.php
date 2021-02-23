@@ -8,6 +8,7 @@ use App\Scopes\ParentScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -132,6 +133,12 @@ class Company extends Authenticatable
     public function documents()
     {
         return $this->morphMany(Document::class, 'documentable');
+    }
+
+    public static function settingWorkdays()
+    {
+        $settingWorkDays = DB::table('settings')->where([['key', '=' , 'work_days'], ['company_id', '=', Company::companyID()]])->first();
+        return isset($settingWorkDays) ? $settingWorkDays->value : null;
     }
     //
 }

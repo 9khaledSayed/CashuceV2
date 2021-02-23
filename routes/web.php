@@ -177,14 +177,13 @@ Route::get('fooo', function(){
         $allowances = \App\Allowance::where('company_id', $company->id)->withoutGlobalScope(ParentScope::class);
 
         if($allowances->where('label', 'hra')->exists()){
-            $allowances->where('label', 'hra')->first()->update([
-                'name_en'  => 'Housing',
-                'name_ar'  => 'سكن',
-                'type' => 1,
-                'percentage' => 25,
-                'label' => 'hra',
-                'is_basic' => true,
-            ]);
+
+            $allowance = $allowances->where('label', 'hra')->first();
+
+            $allowance->name_en = 'Housing';
+            $allowance->percentage = 25;
+            $allowance->save();
+
         }else{
             $hra = new Allowance([
                 'name_en'  => 'Housing',
@@ -199,14 +198,11 @@ Route::get('fooo', function(){
         }
 
         if($allowances->where('label', 'transfer')->exists()){
-            $allowances->where('label', 'transfer')->first()->update([
-                'name_en'  => 'Transfer',
-                'name_ar'  => 'مواصلات',
-                'type' => 1,
-                'percentage' => 10,
-                'label' => 'transfer',
-                'is_basic' => true,
-            ]);
+
+            $allowance = $allowances->where('label', 'transfer')->first();
+            $allowance->percentage = 10;
+            $allowance->save();
+
         }else{
             $transfer = new Allowance([
                 'name_en'  => 'Housing',

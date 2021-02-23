@@ -98,17 +98,17 @@
                                                 </select>
                                             </div>
                                         </div>
+{{--                                        <div class="form-group row">--}}
+{{--                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('The day the payroll is calculated')}}</label>--}}
+{{--                                            <div class="col-lg-9 col-xl-6">--}}
+{{--                                                <input class="form-control @error('payroll_day') is-invalid @enderror"--}}
+{{--                                                       placeholder="" type="number"--}}
+{{--                                                       name="payroll_day"--}}
+{{--                                                       value="{{ old('payroll_day') ?? setting('payroll_day')}}">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('The day the payroll is calculated')}}</label>
-                                            <div class="col-lg-9 col-xl-6">
-                                                <input class="form-control @error('payroll_day') is-invalid @enderror"
-                                                       placeholder="" type="number"
-                                                       name="payroll_day"
-                                                       value="{{ old('payroll_day') ?? setting('payroll_day')}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('Work Days')}}</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('Work Days For Manual Payrolls')}}</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <input class="form-control @error('work_days') is-invalid @enderror"
                                                        placeholder="work days" type="number"
