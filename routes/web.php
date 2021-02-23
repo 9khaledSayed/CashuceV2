@@ -174,13 +174,50 @@ Route::get('fix_allowances', function(){
 
     $companies = \App\Company::all();
     foreach ($companies as $company){
-        $allowances = \App\Allowance::where('company_id', $company->id)->withoutGlobalScope(ParentScope::class)->delete();
-        Allowance::generateDefaultAllowances($company->id);
-        $allowancesID = \App\Allowance::where('company_id', $company->id)->withoutGlobalScope(ParentScope::class)->pluck('id');
+        $allowances = \App\Allowance::where('company_id', $company->id)->withoutGlobalScope(ParentScope::class);
 
-        foreach ($company->employees as $employee) {
-            $employee->allowances()->delete();
-            $employee->allowances()->attach($allowancesID);
+        if($allowances->where('label', 'hra')->exists()){
+            $allowances->where('label', 'hra')->first()->update([
+                'name_en'  => 'Housing',
+                'name_ar'  => 'سكن',
+                'type' => 1,
+                'percentage' => 25,
+                'label' => 'hra',
+                'is_basic' => true,
+            ]);
+        }else{
+            $hra = new Allowance([
+                'name_en'  => 'Housing',
+                'name_ar'  => 'سكن',
+                'type' => 1,
+                'percentage' => 25,
+                'label' => 'hra',
+                'is_basic' => true,
+                'company_id' => $company->id
+            ]);
+            $hra->saveWithoutEvents(['creating']);
+        }
+
+        if($allowances->where('label', 'transfer')->exists()){
+            $allowances->where('label', 'transfer')->first()->update([
+                'name_en'  => 'Transfer',
+                'name_ar'  => 'مواصلات',
+                'type' => 1,
+                'percentage' => 10,
+                'label' => 'transfer',
+                'is_basic' => true,
+            ]);
+        }else{
+            $transfer = new Allowance([
+                'name_en'  => 'Housing',
+                'name_ar'  => 'سكن',
+                'type' => 1,
+                'percentage' => 25,
+                'label' => 'hra',
+                'is_basic' => true,
+                'company_id' => $company->id
+            ]);
+            $transfer->saveWithoutEvents(['creating']);
         }
     }
     dd('done');
