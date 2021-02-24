@@ -34,7 +34,7 @@ class UniqueItem implements Rule
         if(isset($this->id)) return true; // for update method
 
         return $this->model->where([
-            ['name_ar','=', $value],
+            [$attribute,'=', $value],
             ['company_id', '=', Company::companyID()]
         ])->doesntExist();
     }

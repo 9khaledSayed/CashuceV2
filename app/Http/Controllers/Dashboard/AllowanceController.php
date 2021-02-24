@@ -78,6 +78,7 @@ class AllowanceController extends Controller
         $rules = Allowance::$rules;
 
         array_push($rules['name_ar'], new UniqueItem(new Allowance(), $id));
+        array_push($rules['name_en'], new UniqueItem(new Allowance(), $id));
         array_push($rules['percentage'], new PresentedAlone($request->value));
         array_push($rules['value'], new RequiredIfNull($request));
 

@@ -164,7 +164,7 @@ class DashboardController extends Controller
 
     public function expiringDocs(Request $request)
     {
-        $employeesInTrail = Employee::whereNotNull('test_period')->get()->count();
+        $employeesInTrail = Employee::where('test_period' , '>' , 0)->get()->count();
         $activeEmployees = Company::find(Company::companyID())->employees;
 
         if($request->ajax()){
@@ -172,12 +172,8 @@ class DashboardController extends Controller
                 $now = Carbon::now();
                 if(isset($employee->contract_end_date) && isset($employee->test_period)){
                     $serviceLeftDays = $employee->contract_end_date->diff($now)->days;
-                    $trailEndDate = $employee->contract_end_date->addDays($employee->test_period);
-                    $trailLeftDays = 0;
-                    if($trailEndDate->lt($now)){
-                        $trailLeftDays = ($employee->contract_end_date->addDays($employee->test_period))->diff($now)->days;
-
-                    }
+                    $trailLeftDays = $employee->contract_start_date->addDays($employee->test_period)->diff($now)->days;
+//
 //                    if($serviceLeftDays < 50 && $serviceLeftDays > 0){
                     return[
                         'id' => $employee->id,

@@ -7,13 +7,22 @@
             <span class="kt-login__signup-label ">{{__('Don\'t have an account yet?')}}</span>&nbsp;&nbsp;
             <a href="{{ route("register") }}" class="kt-link kt-login__signup-link">{{__('Sign Up!')}}</a>
         </div>
-{{--     <div>--}}
+     <div>
 {{--    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)--}}
 {{--        <a href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">--}}
 {{--            {{ $properties['native'] }} <i class="fa fa-globe" aria-hidden="true"></i>--}}
 {{--        </a>--}}
 {{--    @endforeach--}}
-{{--    </div>--}}
+         @if(app()->isLocale('en'))
+            <a href="{{ LaravelLocalization::getLocalizedURL('ar', null, [], true) }}">
+                {{ __('Arabic') }} <i class="fa fa-globe" aria-hidden="true"></i>
+            </a>
+         @else
+            <a href="{{ LaravelLocalization::getLocalizedURL('en', null, [], true) }}">
+                {{ __('English') }} <i class="fa fa-globe" aria-hidden="true"></i>
+            </a>
+         @endif
+    </div>
 
     </div>
 
