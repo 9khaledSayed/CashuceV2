@@ -194,16 +194,18 @@ class DashboardController extends Controller
 
     public function saudisNumber($employees)
     {
-        return $employees->map(function ($employee){
-            if ($employee->nationality() == __('Saudi')){
+        $nationality = Nationality::where('name_en', 'Saudi')->first();
+        return $employees->map(function ($employee) use ($nationality){
+            if ($employee->nationality() == $nationality->name()){
                 return $employee;
             }
         })->filter()->count();
     }
     public function nonSaudisNumber($employees)
     {
-        return $employees->map(function ($employee){
-            if ($employee->nationality() != __('Saudi')){
+        $nationality = Nationality::where('name_en', 'Saudi')->first();
+        return $employees->map(function ($employee) use ($nationality){
+            if ($employee->nationality() != $nationality->name()){
                 return $employee;
             }
         })->filter()->count();
