@@ -82,4 +82,9 @@ class Allowance extends Model
         $hra->saveWithoutEvents(['creating']);
         $gosi->saveWithoutEvents(['creating']);
     }
+
+    public function employees()
+    {
+        return $this->belongsToMany(Employee::Class);
+    }
 }

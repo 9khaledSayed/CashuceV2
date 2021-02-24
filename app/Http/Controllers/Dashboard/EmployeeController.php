@@ -203,7 +203,7 @@ class EmployeeController extends Controller
         $this->authorize('update_employees');
         if($request->ajax()){
             $employee->update($this->validator($request, $employee->id));
-            $employee->allowances()->detach($request->allowance);
+            $employee->allowances()->sync([]);
             $employee->allowances()->attach($request->allowance);
             return response()->json([
                 'status' => true,
