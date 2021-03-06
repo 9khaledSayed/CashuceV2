@@ -44,62 +44,89 @@ class LoginController extends Controller
         $this->middleware('guest:provider')->except('logout');
     }
 
-    public function loginCompanyForm()
+    protected function attemptLogin(Request $request)
     {
-        return view('auth.login', ['url' => 'company']);
-    }
-
-    public function loginEmployeeForm()
-    {
-        return view('auth.login', ['url' => 'employee']);
-    }
-
-    public function loginProviderForm()
-    {
-        return view('auth.login', ['url' => 'provider']);
-    }
-
-    public function loginCompany(Request $request )
-    {
-//        dd($request->getBaseUrl());
-        $this->validate($request, [
-            'email'   => 'required|email',
-            'password' => 'required|min:6'
-        ]);
-
-        if (Auth::guard('company')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-
-            return redirect()->intended('/dashboard');
+        $companyAttempt = Auth::guard('company')->attempt(
+            $this->credentials($request), $request->has('remember')
+        );
+        if($companyAttempt){
+            return $companyAttempt;
         }
-        return back()->withInput($request->only('email', 'remember'));
+        $providerAttempt =  Auth::guard('provider')->attempt(
+            $this->credentials($request), $request->has('remember')
+        );
 
-    }
-    public function loginEmployee(Request $request )
-    {
-        $this->validate($request, [
-            'email'   => 'required|email',
-            'password' => 'required|min:6'
-        ]);
-
-        if (Auth::guard('employee')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-
-            return redirect()->intended('/dashboard');
+        if($providerAttempt){
+            return $providerAttempt;
         }
-        return back()->withInput($request->only('email', 'remember'));
-    }
-    public function loginProvider(Request $request )
-    {
-        $this->validate($request, [
-            'email'   => 'required|email',
-            'password' => 'required|min:6'
-        ]);
 
-        if (Auth::guard('provider')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+        $employeeAttempt =  Auth::guard('employee')->attempt(
+            $this->credentials($request), $request->has('remember')
+        );
 
-            return redirect()->intended('/dashboard');
+        if($employeeAttempt){
+            return $providerAttempt;
         }
-        return back()->withInput($request->only('email', 'remember'));
+
+        return $companyAttempt;
     }
+
+//    public function loginCompanyForm()
+//    {
+//        return view('auth.login', ['url' => 'company']);
+//    }
+//
+//    public function loginEmployeeForm()
+//    {
+//        return view('auth.login', ['url' => 'employee']);
+//    }
+//
+//    public function loginProviderForm()
+//    {
+//        return view('auth.login', ['url' => 'provider']);
+//    }
+//
+//    public function loginCompany(Request $request )
+//    {
+////        dd($request->getBaseUrl());
+//        $this->validate($request, [
+//            'email'   => 'required|email',
+//            'password' => 'required|min:6'
+//        ]);
+//
+//        if (Auth::guard('company')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+//
+//            return redirect()->intended('/dashboard');
+//        }
+//        return back()->withInput($request->only('email', 'remember'));
+//
+//    }
+//    public function loginEmployee(Request $request )
+//    {
+//        $this->validate($request, [
+//            'email'   => 'required|email',
+//            'password' => 'required|min:6'
+//        ]);
+//
+//        if (Auth::guard('employee')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+//
+//            return redirect()->intended('/dashboard');
+//        }
+//        return back()->withInput($request->only('email', 'remember'));
+//    }
+//    public function loginProvider(Request $request )
+//    {
+//        $this->validate($request, [
+//            'email'   => 'required|email',
+//            'password' => 'required|min:6'
+//        ]);
+//
+//        if (Auth::guard('provider')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+//
+//            return redirect()->intended('/dashboard');
+//        }
+//        return back()->withInput($request->only('email', 'remember'));
+//    }
 
 
 

@@ -57,24 +57,7 @@
             margin: 4px;
         }
 
-        @media print {
-            .print-mode {
-                color: #fff;
-                background-color: #343a40;
-                border-color: #454d55;
-            }
-            .btnprn,lab{
-                display: none;
-            }
-            #voucher{
-                transform: rotate(90deg);
-                margin-top: 380px;
-            }
-            @page {
-                padding: 20cm;
-            }
 
-        }
 
         li
         {
@@ -100,6 +83,18 @@
         @if(app()->getLocale() == 'ar')
         .kt-login.kt-login--v1 .kt-login__wrapper .kt-login__body .kt-login__form .kt-login__options > a:not(:last-child) {
             margin: 0 0 0 1.5rem;
+        }
+        @endif
+
+        .form-control, .border11{
+            border-radius: 0 0 11px 0;
+        }
+        @if(app()->isLocale('ar'))
+            .border11{
+            border-radius: 0 0 0 0;
+        }
+        .input-group > .form-control:not(:last-child), .input-group > .custom-select:not(:last-child) {
+            border-bottom-right-radius: 11px;
         }
         @endif
     </style>

@@ -30,72 +30,73 @@
 
     <!--begin::Signin-->
     <div class="kt-login__form">
-        <div class="kt-login__title">
-            <h3>{{ __('Login')}} {{isset($url)? __(ucwords($url)) : ''}}</h3>
+        <div class="mb-5">
+            <h3> {{ __('Hello, Welcome Back!') }}</h3>
+            <h6> {{ __('Sign in if you have an account') }}</h6>
         </div>
-        @include('layouts.dashboard.parts.errorSection')
+
+        <div class="kt-user-card-v2 mb-3">
+            <div class="kt-user-card-v2__pic">
+                <img alt="photo" src="{{asset('assets/media/users/default.jpg')}}">
+            </div>
+            <div class="kt-user-card-v2__details">
+                <a class="kt-user-card-v2__name" href="#">Organization</a>
+            </div>
+        </div>
+
+
         <!--begin::Form-->
-        @isset($url)
-            <form method="POST" action="{{ route("login.$url") }}" aria-label="{{ __('Login') }}">
-        @else
-            <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
-        @endisset
+        <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
 
         @csrf
             <div class="form-group">
-                <input class="form-control @error('email') is-invalid @enderror"
-                       value="{{ old('email') }}"
-                       type="email"
-                       placeholder="{{__('Email')}}"
-                       name="email"
-                       required autocomplete="email" autofocus>
-                @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+                <label>{{__('E-mail Address')}}</label>
+                <div class="kt-input-icon kt-input-icon--left">
+                    <input class="form-control @error('email') is-invalid @enderror"
+                           value="{{ old('email') }}"
+                           type="email"
+                           placeholder="{{__('example40@gmail.com')}}"
+                           name="email"
+                           required autocomplete="email" autofocus>
+                    <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                        <span><i class="fa fa-envelope"></i></span>
+                    </span>
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
             </div>
             <div class="form-group">
-                <input class="form-control @error('password') is-invalid @enderror"
-                       type="password"
-                       placeholder="{{__('Password')}}"
-                       name="password"
-                       required autocomplete="current-password">
-                @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                <label>{{__('Password')}}</label>
+                <div class="kt-input-icon kt-input-icon--left">
+                    <input class="form-control @error('password') is-invalid @enderror"
+                           type="password"
+                           placeholder="{{__('Password')}}"
+                           name="password"
+                           required autocomplete="current-password">
+                    <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                        <span><i class="fa fa-lock"></i></span>
+                    </span>
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                </div>
                 @enderror
             </div>
             <!--begin::Action-->
-            <div class="kt-login__actions">
-                <a href="{{ route((isset($url)? $url . '.' : '') . 'password.request') }}" class="kt-link kt-login__link-forgot">
+            <div class="kt-login__actions btn-font-primary mt-2">
+                <a href="{{ route((isset($url)? $url . '.' : 'company.') . 'password.request') }}" class="kt-link kt-login__link-forgot">
                     {{ __('Forgot Your Password?') }}
                 </a>
-                <button id="" class="btn btn-primary btn-elevate kt-login__btn-primary">{{__('Sign In')}}</button>
+            </div>
+            <div class=" ">
+                <button id="" class="btn btn-primary btn-elevate" style="width: 100%">{{__('Login')}}</button>
             </div>
         </form>
-                    <!--begin::Divider-->
-                    <div class="kt-login__divider">
-                        <div class="kt-divider">
-                            <span></span>
-                            <span>OR</span>
-                            <span></span>
-                        </div>
-                    </div>
 
-                    <!--end::Divider-->
-
-                    <!--begin::Options-->
-                    <div class="kt-login__options">
-                        @foreach(['employee', 'company', 'provider'] as $guard)
-                            @if($guard != $url)
-                                <a href='{{route("login." . $guard)}}' class="btn btn-primary kt-btn">
-                                    {{__('Log In As ') . __(ucwords($guard))}}
-                                </a>
-                            @endif
-                        @endforeach
-                    </div>
 
         <!--end::Form-->
 

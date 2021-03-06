@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-    Route::name('dashboard.')->group(function () {
+Route::redirect('/', '/dashboard');
+
+Route::name('dashboard.')->prefix(LaravelLocalization::setLocale() . '/dashboard')->group(function () {
             Route::get('/', 'DashboardController@index')->name('index');
             Route::get('/departments_statistics', 'DashboardController@departmentsSection');
             Route::get('/abilities', 'AbilityController@index');

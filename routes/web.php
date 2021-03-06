@@ -18,8 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
+//    'domain' => '{company_name}.' . config('app.url'),
     'middleware' => [
         'localeCookieRedirect',
         'localizationRedirect',
@@ -27,10 +29,10 @@ Route::group([
 ], function() {
 
     Auth::routes([
-        'login' => false, // Registration Routes...
         'reset' => false, // Password Reset Routes...
         'verify' => true, // Email Verification Routes...
     ]);
+    Route::redirect('/', '/login');
 
     Route::prefix('employee')->group(function() {
         //Employee Password Reset routes
@@ -39,6 +41,7 @@ Route::group([
         Route::get('/password/reset', 'Auth\EmployeeForgotPasswordController@showLinkRequestForm')->name('employee.password.request');
         Route::get('/password/reset/{token}', 'Auth\EmployeeResetPasswordController@showResetForm')->name('employee.password.reset');
     });
+
     Route::prefix('company')->group(function() {
         //Employee Password Reset routes
         Route::post('/password/email','Auth\CompanyForgotPasswordController@sendResetLinkEmail')->name('company.password.email');
@@ -46,6 +49,7 @@ Route::group([
         Route::get('/password/reset', 'Auth\CompanyForgotPasswordController@showLinkRequestForm')->name('company.password.request');
         Route::get('/password/reset/{token}', 'Auth\CompanyResetPasswordController@showResetForm')->name('company.password.reset');
     });
+
     Route::prefix('provider')->group(function() {
         //Employee Password Reset routes
         Route::post('/password/email','Auth\ProviderForgotPasswordController@sendResetLinkEmail')->name('provider.password.email');
@@ -54,171 +58,62 @@ Route::group([
         Route::get('/password/reset/{token}', 'Auth\ProviderResetPasswordController@showResetForm')->name('provider.password.reset');
     });
 
-    Route::redirect('/', '/login/company');
-    Route::get('login/company', 'Auth\LoginController@loginCompanyForm')->name('login.company');
-    Route::get('login/employee', 'Auth\LoginController@loginEmployeeForm')->name('login.employee');
-    Route::get('login/provider', 'Auth\LoginController@loginProviderForm')->name('login.provider');
 
-    Route::post('login/company', 'Auth\LoginController@loginCompany')->name('login.company');
-    Route::post('login/employee', 'Auth\LoginController@loginEmployee')->name('login.employee');
-    Route::post('login/provider', 'Auth\LoginController@loginProvider')->name('login.provider');
+//    Route::get('login/company', 'Auth\LoginController@loginCompanyForm')->name('login.company');
+//    Route::get('login/employee', 'Auth\LoginController@loginEmployeeForm')->name('login.employee');
+//    Route::get('login/provider', 'Auth\LoginController@loginProviderForm')->name('login.provider');
+//
+//    Route::post('login/company', 'Auth\LoginController@loginCompany')->name('login.company');
+//    Route::post('login/employee', 'Auth\LoginController@loginEmployee')->name('login.employee');
+//    Route::post('login/provider', 'Auth\LoginController@loginProvider')->name('login.provider');
 
 });
 
 Route::get('attendances_sheet/excel', 'Dashboard\AttendanceController@extractExcel');
 
+Route::view('/domain', 'auth.domain_page');
 
 //Route::domain('www.cashuce.com')->group(function () {
 //
 //    Route::redirect('/', 'https://cashuce.com');
 //});
 
-//Route::get('fix', function(){
-//   $fordeal = new \App\Role([
-//       'name_arabic' => 'صلاحية Fordeal',
-//       'name_english' => 'Fordeal Role',
-//       'label' => 'fordeal',
-//       'for' => 'fordeal',
-//       'type' => 'System Role',
-//       'company_id' => 1
-//   ]);
-//    $fordeal->saveWithoutEvents(['creating']);
+
 //
+
 //
+//Route::group([
+//    'prefix' => LaravelLocalization::setLocale(),
+//    'domain' =>  'signin.' . config('app.url'),
+//    'middleware' => [
+//        'localeCookieRedirect',
+//        'localizationRedirect',
+//        'localeViewPath' ]
+//], function() {
 //
-//    \App\Ability::create([
-//        'name'  => 'create_employees_fordeal',
-//        'label' => 'Create Employees',
-//        'category' => 'employees',
-//        'for' => 'fordeal'
-//    ]);
-//    \App\Ability::create([
-//        'name'  => 'update_employees_fordeal',
-//        'label' => 'Update Employees',
-//        'category' => 'employees',
-//        'for' => 'fordeal'
-//    ]);
-//    \App\Ability::create([
-//        'name'  => 'show_employees_fordeal',
-//        'label' => 'Show Employees',
-//        'category' => 'employees',
-//        'for' => 'fordeal'
-//    ]);
-//
-//    \App\Ability::create([
-//        'name'  => 'show_payrolls_fordeal',
-//        'label' => 'Show Payrolls',
-//        'category' => 'payrolls',
-//        'for' => 'fordeal'
-//    ]);
-//
-//    \App\Ability::create([
-//        'name'  => 'view_employees_fordeal',
-//        'label' => 'View Employees',
-//        'category' => 'employees',
-//        'for' => 'fordeal'
-//    ]);
-//
-//
-//    $abilities = Ability::where('for', 'shared')->orWhere('for', 'fordeal')->get();
-//
-//    foreach($abilities->whereIn('category',[
-//        'roles',
-//        'employees',
-//        'employees_violations',
-//        'reports',
-//        'conversations',
-//        'payrolls',
-//        'requests',
-//        'employees_services',
-//        'attendances'
-//    ]) as $ability){
-//        $fordeal->allowTo($ability);
-//    }
-//
-//    dd('done');
+//    Route::get('/login', function(){
+//        return view('auth.domain_page');
+//    });
 //});
 
-
-Route::get('edit', function(){
-
-    $jobTitles = \App\JobTitle::withoutGlobalScope(ParentScope::class)->whereNull('company_id')->get();
-
-    foreach ($jobTitles as $jobTitle) {
-        $jobTitle->company_id = 5;
-        $jobTitle->save();
-
-    }
-    dd('done');
-
-});
-
-
-
-Route::get('/countries', function (){
-
-    dd(Countries::lookup('ar'));
-});
-
-Route::get('/ability', function (){
-    \App\Ability::create([
-        'name'  => 'show_payrolls_fordeal',
-        'label' => 'Show Payrolls',
-        'category' => 'payrolls',
-        'for' => 'fordeal'
-    ]);
-});
-
-
-Route::get('fooo', function(){
-
-    $companies = \App\Company::all();
-    foreach ($companies as $company){
-        $allowances = \App\Allowance::where('company_id', $company->id)->withoutGlobalScope(ParentScope::class);
-
-        if($allowances->where('label', 'hra')->exists()){
-
-            $allowance = $allowances->where('label', 'hra')->first();
-
-            $allowance->name_en = 'Housing';
-            $allowance->percentage = 25;
-            $allowance->save();
-
-        }else{
-            $hra = new Allowance([
-                'name_en'  => 'Housing',
-                'name_ar'  => 'سكن',
-                'type' => 1,
-                'percentage' => 25,
-                'label' => 'hra',
-                'is_basic' => true,
-                'company_id' => $company->id
-            ]);
-            $hra->saveWithoutEvents(['creating']);
-        }
-
-        if($allowances->where('label', 'transfer')->exists()){
-
-            $allowance = $allowances->where('label', 'transfer')->first();
-            $allowance->percentage = 10;
-            $allowance->save();
-
-        }else{
-            $transfer = new Allowance([
-                'name_en'  => 'Housing',
-                'name_ar'  => 'سكن',
-                'type' => 1,
-                'percentage' => 25,
-                'label' => 'hra',
-                'is_basic' => true,
-                'company_id' => $company->id
-            ]);
-            $transfer->saveWithoutEvents(['creating']);
-        }
-    }
-    dd('done');
-
-});
-
-
-
+//
+//Route::redirect('/',  'http://signup.localhost:8000/');
+//
+//Route::group([
+//    'prefix' => LaravelLocalization::setLocale(),
+//    'domain' =>  'signup.' . config('app.url'),
+//    'middleware' => [
+//        'localeCookieRedirect',
+//        'localizationRedirect',
+//        'localeViewPath' ]
+//], function() {
+//
+//    Auth::routes([
+//        'login' => false, // Registration Routes...
+//        'reset' => false, // Password Reset Routes...
+//        'verify' => true, // Email Verification Routes...
+//        'logout' => false, // Email Verification Routes...
+//        'password.*' => false, // Email Verification Routes...
+//        'verifications' => false, // Email Verification Routes...
+//    ]);
+//});
