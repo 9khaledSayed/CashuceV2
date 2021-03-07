@@ -5,6 +5,7 @@ namespace App;
 
 use App\Notifications\CompanyResetPasswordNotification;
 use App\Scopes\ParentScope;
+use App\Scopes\SupervisorScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -123,10 +124,8 @@ class Company extends Authenticatable
     public static function supervisors()
     {
         return Department::get()->map(function($department){
-            if($department->supervisor_id){
-               return Employee::find($department->supervisor_id);
-            }
-        })->filter();
+            return $department->supervisor;
+        })->filter()->unique();
     }
 
 
@@ -139,6 +138,11 @@ class Company extends Authenticatable
     {
         $settingWorkDays = DB::table('settings')->where([['key', '=' , 'work_days'], ['company_id', '=', Company::companyID()]])->first();
         return isset($settingWorkDays) ? $settingWorkDays->value : null;
+    }
+
+    public function HR()
+    {
+        return Employee::withoutGlobalScope(SupervisorScope::class)->find($this->hr_id);
     }
     //
 }

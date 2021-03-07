@@ -60,7 +60,6 @@ class EmployeeController extends Controller
 
                 return [
                     'id' => $employee->id,
-                    'role_id' => $employee->role->name(),
                     'supervisor' => $supervisor,
                     'nationality' => $employee->nationality(),
                     'name' => $employee->name(),
@@ -227,22 +226,22 @@ class EmployeeController extends Controller
 
     public function endService(Employee $employee, Request $request)
     {
-
         if($request->ajax()){
             $request->validate([
-                'contract_end_date' => 'required|date'
+                'contract_end_date' => 'required|date|after_or_equal:today'
             ]);
             $employee->contract_end_date = $request->contract_end_date;
             $employee->save();
 
             $response = [
-                'status' => true,
+                'status' => 1,
                 'message' => 'service will be ended in ' . $request->contract_end_date  . ' at 12:00 AM'
             ];
 
             return response()->json($response);
         }
     }
+
     public function backToService($id, Request $request)
     {
         $employee = Employee::withoutGlobalScope(new ServiceStatusScope())->find($id);
@@ -255,18 +254,24 @@ class EmployeeController extends Controller
             $employee->contract_start_date = $request->contract_start_date;
             $employee->contract_end_date = $request->contract_end_date;
 
-            if($request->contract_start_date == Carbon::today()->format('Y-m-d')){
-                $employee->service_status = 1;
-                $response = [
-                    'status' => true,
-                    'message' => 'Employee has been returned to service successfully'
-                ];
-            }else{
-                $response = [
-                    'status' => true,
-                    'message' => 'Employee will be returned to the service at ' . $request->contract_start_date
-                ];
-            }
+            $employee->service_status = 1;
+            $response = [
+                'status' => true,
+                'message' => 'Employee will be returned to the service at ' . $request->contract_start_date
+            ];
+
+//            if($request->contract_start_date == Carbon::today()->format('Y-m-d')){
+//                $employee->service_status = 1;
+//                $response = [
+//                    'status' => true,
+//                    'message' => 'Employee has been returned to service successfully'
+//                ];
+//            }else{
+//                $response = [
+//                    'status' => true,
+//                    'message' => 'Employee will be returned to the service at ' . $request->contract_start_date
+//                ];
+//            }
 
             $employee->save();
             return response()->json($response);

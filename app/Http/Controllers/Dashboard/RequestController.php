@@ -20,7 +20,22 @@ class RequestController extends Controller
     {
         $this->authorize('view_requests');
         if ($request->ajax()) {
-            $requests = Request::with('employee')->get();
+            if(auth()->guard('employee')->check()){
+                if(auth()->user()->isHR()){
+                    $requests = Request::with('employee')->get();
+
+                }elseif (auth()->user()->isSupervisor()){
+                    $requests = Request::with('employee')->get()->filter(function ($request){
+                        if ($request->employee->supervisor){
+                            return $request;
+                        }
+                    });
+                }
+
+            }else{
+                $requests = Request::with('employee')->get();
+            }
+
             return response()->json($requests);
         }
         return view('dashboard.requests.index');

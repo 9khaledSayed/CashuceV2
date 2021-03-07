@@ -100,6 +100,6 @@ class Request extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class)->withoutGlobalScopes([ParentScope::class, ServiceStatusScope::class, SupervisorScope::class]);
+        return $this->belongsTo(Employee::class)->withoutGlobalScopes([ServiceStatusScope::class, SupervisorScope::class]);
     }
 }

@@ -28,9 +28,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-//        $schedule->command('lateEmployees:notify')->everyMinute();
         $schedule->command('lateEmployees:notify')->dailyAt('20:00')->timezone('Asia/Riyadh');
-        $schedule->command('service:check')->dailyAt('20:00')->timezone('Asia/Riyadh');
+        $schedule->command('service:check')->dailyAt('23:35')->timezone('Asia/Riyadh');
     }
 
     /**

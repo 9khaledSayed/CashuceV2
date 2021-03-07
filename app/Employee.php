@@ -337,7 +337,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
     public function supervisor()
     {
-        return $this->belongsTo(Employee::class, 'supervisor_id');
+        return $this->belongsTo(Employee::class, 'supervisor_id')->withoutGlobalScope(SupervisorScope::class);
     }
 
     public function attendances()
@@ -446,10 +446,14 @@ class Employee extends Authenticatable implements MustVerifyEmail
         return 0;
     }
 
-    public static function isSupervisor($id = null)
+    public function isSupervisor()
     {
-        $id = isset($id)? $id: auth()->user()->id;
-        return Department::where('supervisor_id', '!=', 0)->pluck('supervisor_id')->contains($id) && !auth()->guard('company')->check();
+        return Department::where('supervisor_id', '!=', $this->id)->exists();
+    }
+
+    public  function isHR()
+    {
+        return $this->id == $this->company->HR()->id;
     }
 
     public static function supervisorID()

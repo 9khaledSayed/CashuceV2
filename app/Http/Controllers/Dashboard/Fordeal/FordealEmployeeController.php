@@ -41,7 +41,6 @@ class FordealEmployeeController extends EmployeeController
 
                 return [
                     'id' => $employee->id,
-                    'role_id' => $employee->role->name(),
                     'supervisor' => $supervisor,
                     'nationality' => $employee->nationality(),
                     'name' => $employee->name(),

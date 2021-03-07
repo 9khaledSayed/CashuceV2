@@ -14,9 +14,15 @@ class SupervisorScope implements Scope
 
     public function apply(Builder $builder, Model $model)
     {
-        if (Auth::hasUser()){
-            if(Employee::isSupervisor()){
-                $builder->where('supervisor_id', Employee::supervisorID());
+        if (Auth::hasUser() && Auth::guard('employee')->check()){
+            if(\auth()->user()->isSupervisor()){
+
+                $builder->where('supervisor_id', \auth()->user()->id);
+
+            }elseif(\auth()->user()->isHR()){
+
+                $builder->withoutGlobalScope(SupervisorScope::class);
+
             }
         }
 

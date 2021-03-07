@@ -121,18 +121,21 @@ var KTDatatableLocalSortDemo = function() {
                                         }
                                     }
                                     console.log(err);
+                                },
+                                success:function (res) {
+                                    if(res.status === 1){
+                                        swal.fire({
+                                            title: locator.__('Operation Done Successfully'),
+                                            text: locator.__(res.message),
+                                            type: 'success',
+                                            buttonsStyling: false,
+                                            confirmButtonText: locator.__("OK"),
+                                            confirmButtonClass: "btn btn-sm btn-bold btn-brand",
+                                        });
+                                        modal.modal('hide');
+                                        datatable.reload();
+                                    }
                                 }
-                            }).done(function (res) {
-                                swal.fire({
-                                    title: locator.__('Operation Done Successfully'),
-                                    text: locator.__(res.message),
-                                    type: 'success',
-                                    buttonsStyling: false,
-                                    confirmButtonText: locator.__("OK"),
-                                    confirmButtonClass: "btn btn-sm btn-bold btn-brand",
-                                });
-                                modal.modal('hide');
-                                datatable.reload();
                             });
 
                         });
@@ -206,11 +209,6 @@ var KTDatatableLocalSortDemo = function() {
                 }, {
                     field: 'salary',
                     title: locator.__('Salary'),
-                    textAlign: 'center',
-                }
-                , {
-                    field: 'role_id',
-                    title: locator.__('Role'),
                     textAlign: 'center',
                 }
                 , {

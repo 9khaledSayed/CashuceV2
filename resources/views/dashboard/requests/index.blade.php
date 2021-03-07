@@ -53,28 +53,13 @@
                             <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
-                                        <label>{{__('Date')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
-                                        <select class="form-control bootstrap-select" id="kt_form_date">
-                                            <option value="">{{__('All')}}</option>
-                                            <option value="1">{{__('Today')}}</option>
-                                            <option value="2">{{__('Last Week')}}</option>
-                                            <option value="3">{{__('Last Month')}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
                                         <label>{{__('Type')}}:</label>
                                     </div>
                                     <div class="kt-form__control">
                                         <select class="form-control bootstrap-select" id="kt_form_request">
                                             <option value="">{{__('All')}}</option>
-                                            <option value="App\\AttendanceForgotten">{{__('Attendance Forgotten')}}</option>
-                                            <option value="App\\Vacation">{{__('Vacation Request')}}</option>
+                                            <option value="App\AttendanceForgotten">{{__('Attendance Forgotten')}}</option>
+                                            <option value="App\Vacation">{{__('Vacation Request')}}</option>
                                         </select>
                                     </div>
                                 </div>

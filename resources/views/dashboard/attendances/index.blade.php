@@ -75,7 +75,6 @@
                     <div class="col-xl-12 order-2 order-xl-1">
                         <div class="row align-items-center">
                             <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-
                                 <div class="form-group row">
                                     <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Search')}}:</label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">

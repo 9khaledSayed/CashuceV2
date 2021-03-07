@@ -142,11 +142,6 @@ var KTDatatableLocalSortDemo = function() {
                     textAlign: 'center',
                 }
                 , {
-                    field: 'role_id',
-                    title: locator.__('Role'),
-                    textAlign: 'center',
-                }
-                , {
                     field: 'barcode',
                     title: locator.__('Barcode'),
                     template: function(raw) {

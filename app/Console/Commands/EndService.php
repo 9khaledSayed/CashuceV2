@@ -42,19 +42,21 @@ class EndService extends Command
      */
     public function handle()
     {
-        $employees = Employee::withoutGlobalScope(ParentScope::class)
-            ->withoutGlobalScope(ServiceStatusScope::class)
-            ->withoutGlobalScope(SupervisorScope::class)->get();
+        $employees = Employee::withoutGlobalScopes([ParentScope::class, ServiceStatusScope::class, SupervisorScope::class])->get();
 
         $today = Carbon::today();
         foreach ($employees as $employee){
+
             if(isset($employee->contract_end_date)){
+
+                /* End employee service if his end date less than today*/
                 if($employee->contract_end_date->lt($today)){
                     $employee->service_status = 0;
                     $employee->save();
                 }
 
-                if($employee->contract_start_date->lte($today) && $employee->contract_end_date->gte($today) && !$employee->service_status){
+                /* Return employee back to service if his contract start date edited to today*/
+                if($employee->contract_start_date->eq($today)){
                     $employee->service_status = 1;
                     $employee->save();
                 }

@@ -217,51 +217,13 @@ var KTDatatableLocalSortDemo = function() {
         });
 
 
-        $('#kt_form_date').on('change', function() {
-            var current_datetime = new Date()
-            var value = $(this).val();
-            switch (value) {
-                case '1': // today
-                    datatable.search(current_datetime.toDateString(), 'created_at');
-                    break;
-                case '2':
-                    current_datetime.setDate(current_datetime.getDate() - 7);
-                    datatable.search(current_datetime.toDateString(), 'created_at');
-                    break;
-                case '3':
-                    current_datetime.setMonth(current_datetime.getMonth() - 1);
-                    datatable.search(current_datetime.toLocaleString('default', { month: 'short' }), 'created_at');
-                    break;
-                case '4':
-                    current_datetime.setFullYear(current_datetime.getFullYear() - 1);
-                    datatable.search(current_datetime.toLocaleString('default', { month: 'short' }), 'created_at');
-                    break;
-                default:
-                    datatable.search($(this).val().toLowerCase(), 'created_at');
-            }
-        });
+
 
         $('#kt_form_request').on('change', function() {
-            var value = $(this).val();
-            switch (value) {
-                case '1': // today
-                    datatable.search( value , 'type');
-                    break;
-                case '2':
-                    datatable.search( value, 'type');
-                    break;
-                case '3':
-                    datatable.search( value, 'type');
-                    break;
-                case '4':
-                    datatable.search( value, 'type');
-                    break;
-                default:
-                    datatable.search(value, 'type');
-            }
+            datatable.search($(this).val(), 'requestable_type');
         });
 
-        $('#kt_form_date').selectpicker();
+
 
         $('#kt_form_request').selectpicker();
 

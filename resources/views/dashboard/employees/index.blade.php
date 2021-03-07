@@ -83,7 +83,7 @@
                             <div class="kt-portlet__body">
 
                                 <div class="form-group row">
-                                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Contract End Date')}}</label>
+                                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Last Working Day')}}</label>
                                     <div class="col-lg-6 col-md-9 col-sm-12">
                                         <div class="input-group date">
                                             <input name="contract_end_date" value="{{old('contract_end_date')}}" type="text" class="form-control datepicker" readonly/>
@@ -177,26 +177,26 @@
 
             <!--begin: Search Form -->
             <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
-
                 <div class="row align-items-center">
                     <div class="col-xl-12 order-2 order-xl-1">
                         <div class="row align-items-center">
                             <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Search')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
-                                        <input type="text" class="form-control" id="generalSearch">
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Search')}}:</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <div class="kt-input-icon kt-input-icon--left">
+                                            <input type="text" class="form-control" id="generalSearch">
+                                            <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                                        <span><i class="la la-search"></i></span>
+                                                    </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Supervisor')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Supervisor')}}:</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
                                         <select class="form-control selectpicker" id="kt_form_supervisor">
                                             <option value="">{{__('All')}}</option>
                                             @forelse($supervisors as $supervisor)
@@ -209,28 +209,9 @@
                                 </div>
                             </div>
                             <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Role')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
-                                        <select class="form-control selectpicker" id="kt_form_role">
-                                            <option value="">{{__('All')}}</option>
-                                            @forelse($roles as $role)
-                                                <option value="{{$role->name()}}">{{$role->name()}}</option>
-                                            @empty
-                                                <option disabled>{{__('There is no roles in your company')}}</option>
-                                            @endforelse
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Nationality')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Nationality')}}:</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
                                         <select class="form-control selectpicker" id="kt_form_nationality">
                                             <option value="">{{__('All')}}</option>
                                             @forelse($nationalities as $nationality)
@@ -242,14 +223,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row align-items-center  mt-3">
                             <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Service Statues')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Status')}}:</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
                                         <select class="form-control selectpicker" id="kt_form_service_status">
                                             <option value="">{{__('All')}}</option>
                                             <option value="1">{{__('Active')}}</option>
@@ -258,12 +235,16 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center ">
+                    <div class="col-xl-12 order-2 order-xl-1">
+                        <div class="row align-items-center">
                             <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Provider')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Provider')}}:</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
                                         <select class="form-control selectpicker" id="kt_form_provider">
                                             <option value="">{{__('All')}}</option>
                                             @forelse($providers as $provider)
@@ -276,11 +257,9 @@
                                 </div>
                             </div>
                             <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Department')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Department')}}:</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
                                         <select class="form-control selectpicker" id="kt_form_department">
                                             <option value="">{{__('All')}}</option>
                                             @forelse($departments as $department)
@@ -293,11 +272,9 @@
                                 </div>
                             </div>
                             <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
-                                <div class="kt-form__group kt-form__group--inline">
-                                    <div class="kt-form__label">
-                                        <label>{{__('Section')}}:</label>
-                                    </div>
-                                    <div class="kt-form__control">
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Section')}}:</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
                                         <select class="form-control selectpicker" id="kt_form_section">
                                             <option value="">{{__('All')}}</option>
                                             @forelse($sections as $section)
