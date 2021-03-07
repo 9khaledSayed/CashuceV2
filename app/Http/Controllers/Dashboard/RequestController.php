@@ -26,7 +26,7 @@ class RequestController extends Controller
 
                 }elseif (auth()->user()->isSupervisor()){
                     $requests = Request::with('employee')->get()->filter(function ($request){
-                        if ($request->employee->supervisor){
+                        if ($request->employee->supervisor_id == auth()->user()->id){
                             return $request;
                         }
                     });

@@ -454,10 +454,15 @@ class Employee extends Authenticatable implements MustVerifyEmail
     public  function isHR()
     {
         $hr = $this->company->HR();
+
         if(isset($hr)){
+
             return $this->id == $this->company->HR()->id;
+
         }else{
+
             return false;
+
         }
 
     }
