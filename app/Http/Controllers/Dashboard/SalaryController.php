@@ -16,6 +16,7 @@ class SalaryController extends Controller
     public function mySalaries(Request $request)
     {
         $this->authorize('view_my_salaries');
+        $this->authorize('must_be_employee');
         if($request->ajax()){
             $my_salaries = Salary::where('employee_id', auth()->user()->getAuthIdentifier())->get()->map(function ($salary){
                 return [

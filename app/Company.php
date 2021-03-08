@@ -47,6 +47,7 @@ class Company extends Authenticatable
         'cr_number' => 'nullable|max:255',
         'logo' => 'nullable|image|mimes:jpeg,png,jpg',
         'email' => 'required|string|email|max:255|unique:companies',
+        'domain' => 'required|regex:/^[a-z]+$/|max:20|unique:companies',
         'password' => ['required', 'string', 'min:8', 'confirmed'],
     ];
 

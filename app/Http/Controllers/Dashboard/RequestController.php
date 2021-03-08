@@ -54,6 +54,7 @@ class RequestController extends Controller
     public function myRequests(HttpRequest $request)
     {
         $this->authorize('view_my_requests');
+        $this->authorize('must_be_employee');
         if ($request->ajax()) {
             $requests = Request::with('employee')->where('employee_id', auth()->user()->id)->get();
             return response()->json($requests);

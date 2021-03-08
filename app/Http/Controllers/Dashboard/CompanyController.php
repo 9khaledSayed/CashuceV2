@@ -74,6 +74,7 @@ class CompanyController extends Controller
         $rules = Company::$rules;
         if($id){
             $rules['email'] = ($rules['email'] . ',email,' . $id);
+            $rules['domain'] = ($rules['domain'] . ',domain,' . $id);
         }
         return $request->validate($rules);
     }

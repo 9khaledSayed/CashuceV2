@@ -59,7 +59,7 @@
                                 <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.payrolls.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('All Payrolls')}}</span></a></li>
                                 <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.payrolls.pending')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text reportCount">{{__('Pending Payrolls')}} </span></a></li>
                                 @endcan
-                                @can('view_my_salaries')
+                                @can(['view_my_salaries', 'must_be_employee'])
                                 <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.salaries.my_salaries')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('My Salaries')}}</span></a></li>
                                 @endcan
                             </ul>
@@ -75,7 +75,7 @@
                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.requests.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('All Requests')}}</span></a></li>
                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.requests.pending_requests')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Pending Requests')}}</span></a></li>
                             @endcan
-                            @can('view_my_requests')
+                            @can(['view_my_requests', 'must_be_employee'])
                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.requests.my_requests')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('My Requests')}}</span></a></li>
                             @endcan
                         </ul>
@@ -117,7 +117,7 @@
                             @can('view_attendance_sheet')
                                 <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.attendances.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Attendance Sheet')}}</span></a></li>
                             @endcan
-                            @can(['view_my_attendance_history', 'not-company'])
+                            @can(['view_my_attendance_history', 'must_be_employee'])
                                 <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.attendances.my_attendances')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('My Attendance')}}</span></a></li>
                             @endcan
                         </ul>

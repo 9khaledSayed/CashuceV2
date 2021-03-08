@@ -61,7 +61,16 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
+                        <label for="domain">{{__('Domain')}}</label>
+                        <input
+                                class="form-control @error('domain')is-invalid @enderror"
+                                type="text"
+                                name="domain"
+                                id="domain"
+                                value="{{old('domain')}}">
+                    </div>
+                    <div class="col-lg-4">
                         <label for="password">{{__('Password')}}</label>
                         <input
                                 class="form-control @error('password')is-invalid @enderror"
@@ -71,7 +80,7 @@
                                 value=""
                                 autocomplete="new-password">
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <label for="role_id">{{__('Confirm Password')}}</label>
                         <input
                                 class="form-control @error('password_confirmation') is-invalid @enderror"

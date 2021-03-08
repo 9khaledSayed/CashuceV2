@@ -31,20 +31,24 @@
             </div>
         </div>
         <div class="kt-portlet__body">
-                <div class="form-group">
-                    <label>{{__('Role Name')}}</label>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label>{{__('Arabic Name')}}</label>
                     <input type="text"
-                           name="name"
-                           disabled
+                           name="name_arabic"
                            value="{{$role->name_arabic}}"
-                           class="form-control @error('name') is-invalid @enderror"
-                           placeholder="{{__('Enter name')}}">
-                    @error('name')
-                    <span class="invalid-feedback" style="display: block">
-                            {{$message}}
-                        </span>
-                    @enderror
+                           disabled
+                           class="form-control">
                 </div>
+                <div class="col-lg-6">
+                    <label>{{__('English Name')}}</label>
+                    <input type="text"
+                           name="name_english"
+                           value="{{$role->name_english}}"
+                           disabled
+                           class="form-control">
+                </div>
+            </div>
                 <div class="kt-section">
 
                     <div class="kt-section__content">

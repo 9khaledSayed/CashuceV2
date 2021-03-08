@@ -177,7 +177,7 @@ class AttendanceController extends Controller
     public function myAttendance()
     {
         $this->authorize('view_my_attendance_history');
-        $this->authorize('not-company');
+        $this->authorize('must_be_employee');
         return view('dashboard.attendances.my_attendances', [
             'my_attendances' => auth()->user()->attendances()->get()
         ]);

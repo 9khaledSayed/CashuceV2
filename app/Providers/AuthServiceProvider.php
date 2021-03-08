@@ -39,5 +39,12 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         });
+        Gate::define('must_be_employee', function ($user){
+            if(\auth()->guard('employee')->check()){
+                return true;
+            }else{
+                return false;
+            }
+        });
     }
 }
