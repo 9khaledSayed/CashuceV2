@@ -20,13 +20,16 @@ class CandidateController extends Controller
         'Urdu',
     ];
 
-
+    public function __construct()
+    {
+//        $this->authorize('not-company');
+    }
 
 
     public function index(Request $request)
     {
 //        $this->authorize('view_users');
-
+        $this->authorize('not-company');
         if ($request->ajax()){
             $candidates = Candidate::get();
 
@@ -67,6 +70,7 @@ class CandidateController extends Controller
     public function create()
     {
 //        $this->authorize('create_users');
+        $this->authorize('not-company');
         return view('dashboard.candidates.create', [
             'skills' => $this->skills,
             'departments' => Department::all(),
@@ -78,6 +82,7 @@ class CandidateController extends Controller
     public function store(Request $request)
     {
 //        $this->authorize('create_users');
+        $this->authorize('not-company');
         $candidate = Candidate::create($this->validator($request));
         return response()->json([
             'id' => $candidate->id
@@ -89,6 +94,7 @@ class CandidateController extends Controller
     public function edit(Candidate $candidate)
     {
 //        $this->authorize('update_users');
+        $this->authorize('not-company');
         return view('dashboard.candidates.edit', [
             'candidate' => $candidate,
             'skills' => $this->skills,
@@ -101,6 +107,7 @@ class CandidateController extends Controller
     public function update(Candidate $candidate, Request $request)
     {
 //        $this->authorize('update_users');
+        $this->authorize('not-company');
         $candidate->update($this->validator($request, $candidate->id));
         return response()->json([
             'id' => $candidate->id
@@ -110,6 +117,7 @@ class CandidateController extends Controller
 
     public function show(Candidate $candidate)
     {
+        $this->authorize('not-company');
         return view('dashboard.candidates.show', [
             'departments' => Department::all(),
             'jobTitles' => JobTitle::all(),
@@ -120,6 +128,7 @@ class CandidateController extends Controller
     public function destroy(Candidate $candidate, Request $request)
     {
 //        $this->authorize('delete_users');
+        $this->authorize('not-company');
         if($request->ajax()){
             $candidate->delete();
             return response()->json([
@@ -132,6 +141,7 @@ class CandidateController extends Controller
 
     public function decision(Candidate $candidate, Request $request)
     {
+        $this->authorize('not-company');
         $candidate->update($request->validate([
             'status' => 'required|numeric',
             'department_id'  => 'nullable|max:255|exists:departments,id',
@@ -141,7 +151,7 @@ class CandidateController extends Controller
         ]));
 
         if($request->status == config('enums.candidate.approved')) {
-            if(Employee::isSupervisor()){
+            if(auth()->user()->isSupervisor()){
                 $candidate->update([
                     'supervisor_approval' => true,
                     'status' => config('enums.candidate.approved'),

@@ -448,7 +448,8 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
     public function isSupervisor()
     {
-        return Department::where('supervisor_id', $this->id)->exists();
+
+        return !auth()->guard('company')->check() && Department::where('supervisor_id', $this->id)->exists();
     }
 
     public  function isHR()

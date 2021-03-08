@@ -101,7 +101,7 @@
             </div>
 
         </div>
-        @can('proceed_requests')
+        @can(['proceed_requests', 'not-company'])
             @if(!$request->status)
                 <div class="kt-portlet__foot mt-0">
                     <div class="kt-section">

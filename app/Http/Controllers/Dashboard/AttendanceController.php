@@ -36,8 +36,10 @@ class AttendanceController extends Controller
 
 
         if ($request->ajax()) {
+            $sortColumn = $request->sort['field'] ?? 'id';
+            $sortType = $request->sort['sort'] ?? 'asc';
 
-            $employees = Employee::get()->map(function ($employee) use ($requestDate){
+            $employees = Employee::orderBy($sortColumn, $sortType)->get()->map(function ($employee) use ($requestDate){
                 $todayAttendance = $employee->attendances()->whereDate('date', $requestDate);
                 $attendanceStatus = $todayAttendance->exists();
                 $timeIn = isset($todayAttendance->first()->time_in) ? $todayAttendance->first()->time_in->format('h:i A') : '';
@@ -175,6 +177,7 @@ class AttendanceController extends Controller
     public function myAttendance()
     {
         $this->authorize('view_my_attendance_history');
+        $this->authorize('not-company');
         return view('dashboard.attendances.my_attendances', [
             'my_attendances' => auth()->user()->attendances()->get()
         ]);

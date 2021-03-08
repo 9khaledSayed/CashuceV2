@@ -31,5 +31,13 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         });
+
+        Gate::define('not-company', function ($user){
+            if(\auth()->guard('company')->check()){
+                return false;
+            }else{
+                return true;
+            }
+        });
     }
 }

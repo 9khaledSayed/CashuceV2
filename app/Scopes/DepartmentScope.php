@@ -16,7 +16,8 @@ class DepartmentScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         if (Auth::hasUser()){
-            if(Employee::isSupervisor()){
+            if(\auth()->guard('employee')->check())
+            if(\auth()->user()->isSupervisor()){
                 $department = Department::where('supervisor_id', Auth::user()->id)->first();
                 $builder->where('department_id', $department->id);
             }

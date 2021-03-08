@@ -37,6 +37,9 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create_reports');
+        if(auth()->guard('company')->check()){
+            return redirect()->back()->withErrors(['massage' => __("Sorry You can\'t use this service because you are not an employee")]);
+        }
         Report::create($request->validate(Report::$rules));
         // TODO:: Notify Hr about this report
         return redirect(route('dashboard.reports.index'));
@@ -82,6 +85,7 @@ class ReportController extends Controller
 
     public function forwardToEmployee(Report $report)
     {
+
         $senderId = auth()->user()->id;
         $conversation =  Conversation::firstOrCreate([
             'employee_id' => $report->employee_id,

@@ -17,12 +17,14 @@ class AttendanceForgottenController extends Controller
     public function create()
     {
         $this->authorize('create_attendance_record_forgotten_request');
+        $this->authorize('not-company');
         return view('dashboard.attendance_forgottens.create');
     }
 
     public function store(Request $request)
     {
         $this->authorize('create_attendance_record_forgotten_request');
+        $this->authorize('not-company');
         if (!auth()->guard('employee')->check()){
             return response()->json(['status' => 0, 'message' => 'Sorry You can\'t use this service because you are not an employee']);
         }else{

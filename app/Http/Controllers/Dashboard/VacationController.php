@@ -18,6 +18,7 @@ class VacationController extends Controller
     public function create()
     {
         $this->authorize('create_vacation_request');
+        $this->authorize('not-company');
         $vacationTypes = VacationType::all();
         return view('dashboard.vacations.create',compact('vacationTypes'));
     }
@@ -26,6 +27,7 @@ class VacationController extends Controller
     public function assignVacation()
     {
         $this->authorize('create_vacation_request');
+        $this->authorize('not-company');
         $vacationTypes = VacationType::all();
         $employees = Employee::all();
         return view('dashboard.vacations.assign_vacation',compact('vacationTypes', 'employees'));
@@ -33,6 +35,7 @@ class VacationController extends Controller
 
     public function storeAssignedVacation(Request $request)
     {
+        $this->authorize('not-company');
         $request->validate(['employee_id' => 'required|numeric|exists:employees,id']);
 
         $vacation = new Vacation($this->validator($request));
@@ -51,6 +54,7 @@ class VacationController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create_vacation_request');
+        $this->authorize('not-company');
         if (!auth()->guard('employee')->check()){
             return response()->json(['status' => 0, 'message' => 'Sorry You can\'t use this service because you are not an employee']);
         }

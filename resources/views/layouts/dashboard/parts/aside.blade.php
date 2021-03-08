@@ -33,9 +33,9 @@
                 <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.employees.ended_employees')}}" class="kt-menu__link"><i class="kt-menu__link-icon fas fa-user-slash"></i><span class="kt-menu__link-text">{{__('All Ended Employees')}}</span></a></li>
                 @endcan
 
-{{--                @canany(['view_employees_violations','create_employees_violations'])--}}
+                @canany(['not-company'])
                 <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.candidates.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon flaticon-users-1"></i><span class="kt-menu__link-text">{{__('Candidates')}}</span></a></li>
-{{--                @endcanany--}}
+                @endcanany
 
                 @canany(['view_employees_violations','create_employees_violations'])
                 <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.employees_violations.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon flaticon2-layers-1"></i><span class="kt-menu__link-text">{{__('Employees Violations')}}</span></a></li>
@@ -45,8 +45,10 @@
                 <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.reports.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon  flaticon2-document"></i><span class="kt-menu__link-text">{{__('Reports')}}</span></a></li>
                 @endcan
 
+                @can('not-company')
                 @canany(['view_conversations','create_conversations'])
                 <li class="kt-menu__item " aria-haspopup="true" ><a href="{{route('dashboard.conversations.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon  flaticon-envelope"></i><span class="kt-menu__link-text">{{__('Conversations')}}</span></a></li>
+                @endcan
                 @endcan
 
                 @canany(['view_payrolls','view_my_salaries'])
@@ -81,6 +83,7 @@
                 </li>
                 @endcan
 
+                @can('not-company')
                 @canany(['create_vacation_request', 'create_attendance_record_forgotten_request'])
                 <li class="kt-menu__item " aria-haspopup="true" ><a href="javascript:" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-website"></i><span class="kt-menu__link-text">{{__('Employees Services')}}</span></a>
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
@@ -98,6 +101,7 @@
                     </div>
                 </li>
                 @endcan
+                @endcan
 
                 @canany(['view_attendance_record_page','view_attendance_sheet', 'view_my_attendance_history'])
                 <li class="kt-menu__item " aria-haspopup="true" ><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon  flaticon-event-calendar-symbol"></i><span class="kt-menu__link-text">{{__('Attendance')}}</span></a>
@@ -113,7 +117,7 @@
                             @can('view_attendance_sheet')
                                 <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.attendances.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Attendance Sheet')}}</span></a></li>
                             @endcan
-                            @can('view_my_attendance_history')
+                            @can(['view_my_attendance_history', 'not-company'])
                                 <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.attendances.my_attendances')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('My Attendance')}}</span></a></li>
                             @endcan
                         </ul>

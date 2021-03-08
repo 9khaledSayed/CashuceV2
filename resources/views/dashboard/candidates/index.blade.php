@@ -62,7 +62,7 @@
                                     </span>
                                 </div>
                             </div>
-                            @if(!\App\Employee::isSupervisor())
+                            @if(!auth()->user()->isSupervisor())
                                 <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                                     <div class="kt-form__group kt-form__group--inline">
                                         <div class="kt-form__label">
