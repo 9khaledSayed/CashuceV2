@@ -46,6 +46,7 @@ class AttendanceController extends Controller
                     'id' => $employee->id,
                     'attendance_id' => $attendanceStatus ? $todayAttendance->first()->id : 0,
                     'name' => $employee->name(),
+                    'job_number' => $employee->job_number,
                     'status' => $attendanceStatus ? 'Present' : 'Absent',
                     'shift_info' => $employee->workShift->shiftInfo(),
                     'time_in' => $attendanceStatus ? $timeIn : '',

@@ -90,19 +90,20 @@ var endedEmployees = function() {
                                 url: '/dashboard/employees/back_to_service/' + data.id,
                                 data : form.serialize(),
                                 error: function (err) {
-                                    if (err.hasOwnProperty('responseJSON')) {
-                                        if (err.responseJSON.hasOwnProperty('message')) {
-                                            swal.fire({
-                                                title: locator.__('Error!'),
-                                                text: locator.__(err.responseJSON.message),
-                                                type: 'error'
-                                            });
-                                        }
-                                    }
+                                    let response = err.responseJSON;
+                                    let errors = '';
+                                    $.each(response.errors, function( index, value ) {
+                                        errors += value + '\n';
+                                    });
+                                    swal.fire({
+                                        title: locator.__(response.message),
+                                        text: errors,
+                                        type: 'error'
+                                    });
                                     console.log(err);
                                 }
                             }).done(function (res) {
-                                if(res.status === true){
+                                if(res.status === 1){
                                     swal.fire({
                                         title: locator.__('Operation Done Successfully'),
                                         text: locator.__(res.message),

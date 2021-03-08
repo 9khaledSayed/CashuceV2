@@ -79,22 +79,11 @@ var KTDatatableLocalSortDemo = function() {
             }, rows: {
                 afterTemplate: function (row, data, index) {
                     row.find('.service-change').on('click', function () {
-                        var url;
-                        var submitBtn;
-                        var modal;
-                        var form;
+                        var url = '/dashboard/employees/end_service/' + data.id
+                        var submitBtn = $(".submit-end-service");
+                        var modal = $('#end-service');
+                        var form = $(".end-service-form");
 
-                        if(data.service_status){
-                            form = $(".end-service-form");
-                            modal = $('#end-service');
-                            url = '/dashboard/employees/end_service/' + data.id
-                            submitBtn = $(".submit-end-service");
-                        }else{
-                            form = $(".back-to-service-form");
-                            modal = $('#back-to-service');
-                            url = '/dashboard/employees/back_to_service/' + data.id
-                            submitBtn = $(".submit-back-to-service");
-                        }
                         modal.modal('show');
 
                         submitBtn.click(function (e) {
@@ -110,18 +99,6 @@ var KTDatatableLocalSortDemo = function() {
                                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                                 url: url,
                                 data : form.serialize(),
-                                error: function (err) {
-                                    if (err.hasOwnProperty('responseJSON')) {
-                                        if (err.responseJSON.hasOwnProperty('message')) {
-                                            swal.fire({
-                                                title: locator.__('Error!'),
-                                                text: locator.__(err.responseJSON.message),
-                                                type: 'error'
-                                            });
-                                        }
-                                    }
-                                    console.log(err);
-                                },
                                 success:function (res) {
                                     if(res.status === 1){
                                         swal.fire({
@@ -133,9 +110,23 @@ var KTDatatableLocalSortDemo = function() {
                                             confirmButtonClass: "btn btn-sm btn-bold btn-brand",
                                         });
                                         modal.modal('hide');
-                                        datatable.reload();
+                                        form.resetForm();
                                     }
-                                }
+                                },
+                                error: function (err) {
+                                    let response = err.responseJSON;
+                                    let errors = '';
+                                    $.each(response.errors, function( index, value ) {
+                                        errors += value + '\n';
+                                    });
+                                    swal.fire({
+                                        title: locator.__(response.message),
+                                        text: errors,
+                                        type: 'error'
+                                    });
+                                    console.log(err);
+                                },
+
                             });
 
                         });

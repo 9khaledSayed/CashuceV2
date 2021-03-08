@@ -419,7 +419,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{__('Update Info')}}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{__('Back To Service')}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
@@ -429,7 +429,7 @@
                         <div class="kt-portlet__body">
 
                             <div class="form-group row">
-                                <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Contract Start Date')}}</label>
+                                <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Working Start Day')}}</label>
                                 <div class="col-lg-6 col-md-9 col-sm-12">
                                     <div class="input-group date">
                                         <input name="contract_start_date" value="{{old('contract_start_date')}}" type="text" class="form-control datepicker" readonly/>
@@ -442,7 +442,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Contract End Date')}}</label>
+                                <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Last Working Day')}}</label>
                                 <div class="col-lg-6 col-md-9 col-sm-12">
                                     <div class="input-group date">
                                         <input name="contract_end_date" value="{{old('contract_end_date')}}" type="text" class="form-control datepicker" readonly/>

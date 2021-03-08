@@ -244,34 +244,28 @@ class EmployeeController extends Controller
 
     public function backToService($id, Request $request)
     {
-        $employee = Employee::withoutGlobalScope(new ServiceStatusScope())->find($id);
+        $employee = Employee::withoutGlobalScope(ServiceStatusScope::class)->find($id);
 
         if($request->ajax()){
             $request->validate([
-                'contract_start_date' => 'required|date',
-                'contract_end_date' => 'required|date',
+                'contract_start_date' => 'required|date|after_or_equal:today',
+                'contract_end_date' => 'required|date|after:contract_start_date',
             ]);
             $employee->contract_start_date = $request->contract_start_date;
             $employee->contract_end_date = $request->contract_end_date;
 
-            $employee->service_status = 1;
-            $response = [
-                'status' => true,
-                'message' => 'Employee will be returned to the service at ' . $request->contract_start_date
-            ];
-
-//            if($request->contract_start_date == Carbon::today()->format('Y-m-d')){
-//                $employee->service_status = 1;
-//                $response = [
-//                    'status' => true,
-//                    'message' => 'Employee has been returned to service successfully'
-//                ];
-//            }else{
-//                $response = [
-//                    'status' => true,
-//                    'message' => 'Employee will be returned to the service at ' . $request->contract_start_date
-//                ];
-//            }
+            if($request->contract_start_date == Carbon::today()->format('Y-m-d')){
+                $employee->service_status = 1;
+                $response = [
+                    'status' => 1,
+                    'message' => 'Employee has been returned to service successfully'
+                ];
+            }else{
+                $response = [
+                    'status' => 1,
+                    'message' => 'Employee will be returned to the service at ' . $request->contract_start_date
+                ];
+            }
 
             $employee->save();
             return response()->json($response);
