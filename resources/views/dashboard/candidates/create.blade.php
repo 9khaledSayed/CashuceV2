@@ -88,7 +88,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <label>{{__('Interview Date')}} *</label>
-                                <div class="input-group ">
+                                <div class="input-group date">
                                     <input name="interview_date" value="{{old('interview_date')}}" type="text" class="form-control datepicker" readonly/>
                                     <div class="input-group-append">
                                         <span class="input-group-text">

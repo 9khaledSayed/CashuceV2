@@ -19,6 +19,7 @@
             </div>
         </div>
     </div>
+    @include('layouts.dashboard.parts.errorSection')
     <!-- end:: Content Head -->
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">

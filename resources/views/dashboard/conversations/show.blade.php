@@ -43,11 +43,8 @@
 
                             </div>
                             <div class="kt-chat__center">
-                                <div class="kt-chat__label">
-                                    <a href="#" class="kt-chat__title">{{$receiver->name()}}</a>
-{{--                                    <span class="kt-chat__status">--}}
-{{--                                        <span class="kt-badge kt-badge--dot kt-badge--success"></span> Active--}}
-{{--                                    </span>--}}
+                                <div class="kt-chat__label h4">
+                                    <a href="#" class="kt-font-primary">{{$conversation->hr_name . ' - ' . $conversation->employee_name}}</a>
                                 </div>
 
                             </div>
@@ -98,7 +95,7 @@
                                                 </span>
 
                                             </div>
-                                            <div class="kt-chat__text kt-bg-light-brand" dir="auto">
+                                            <div class="kt-chat__text kt-bg-light-success text-black-50 font-weight-bold" dir="auto">
                                                 {!! $message->content !!}
                                             </div>
                                         </div>
@@ -108,23 +105,23 @@
                                                 <span class="kt-media kt-media--circle kt-media--sm">
                                                     <div class="kt-user-card-v2">
                                                         <div class="kt-user-card-v2__pic">
-                                                            <div class="kt-badge kt-badge--xl kt-badge--success">{{ ucwords(mb_substr( $message->sender->name() ,0,2,'utf-8'))}}</div>
+                                                            <div class="kt-badge kt-badge--xl kt-badge--brand">{{ ucwords(mb_substr( $message->sender->name() ,0,2,'utf-8'))}}</div>
                                                         </div>
                                                     </div>
                                                 </span>
                                                 <a href="#" class="kt-chat__username">{{$message->sender->name()}}</span></a>
                                                 <span class="kt-chat__datetime">{{$message->created_at->diffForHumans()}}</span>
                                             </div>
-                                            <div class="kt-chat__text kt-bg-light-success" dir="auto">
+                                            <div class="kt-chat__text kt-bg-light-brand font-weight-bold" dir="auto">
                                                 {!! $message->content !!}
                                             </div>
                                         </div>
                                     @endif
                                 @empty
-                                    <div class="kt-chat__message text-center" style="padding: 8% 0">
-                                        <div class="">
-                                            {{__('Enter new message')}}
-                                        </div>
+                                    <div class="kt-chat__message text-center" >
+                                        <h5>
+                                            {{__('There Is No Messages')}}
+                                        </h5>
                                     </div>
                                 @endforelse
 
@@ -134,12 +131,10 @@
                     </div>
                     <div class="kt-portlet__foot">
                         <div class="kt-chat__input">
-                            <form id="message_body" method="post" action="{{route('dashboard.messages.store')}}">
+                            <form id="message_body" method="post" action="{{route('dashboard.messages.store', ['conversation_id' => $conversation->id])}}">
                                 @csrf
-                                <input type="hidden" name="receiver_id" value="{{$receiver->id}}">
-                                <input type="hidden" name="conversation_id" value="{{$conversation->id}}">
-                                <div class="kt-chat__editor">
-                                    <textarea id="message" name="message" style="height: 50px" placeholder="{{__('Type here...')}}"></textarea>
+                                <div class="kt-chat__editor p-4">
+                                    <textarea id="message" name="message" class="text-black-50 font-weight-bold"  placeholder="{{__('Type here...')}}"></textarea>
                                 </div>
                                 <div class="kt_chat__actions">
                                     <button id="reply" disabled  type="submit" class="btn btn-brand btn-md btn-upper btn-bold kt-chat__reply">
@@ -171,28 +166,6 @@
                     replyBtn.attr('disabled', false);
                 }
             });
-           // $("#reply").click(function (){
-           //     $.ajax({
-           //         url: '/dashboard/messages',
-           //         type: 'post',
-           //         data:  $("#message_body").serialize() ,
-           //         success: function (data) {
-           //             swal.fire("Good job!", "Message Sent Successfully!", "success");
-           //
-           //
-           //         },
-           //         error:function(data)
-           //         {
-           //             let response = data.responseJSON;
-           //             let errors = '';
-           //             $.each(response.errors, function( index, value ) {
-           //                 errors += value + '\n';
-           //             });
-           //             swal(locator.__(response.message), errors, "info");
-           //         }
-           //
-           //     });
-           // });;
         });
         document.getElementById( 'reply' ).scrollIntoView();
     </script>

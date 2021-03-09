@@ -31,7 +31,6 @@ class AttendanceController extends Controller
     {
         $this->authorize('view_attendance_sheet');
 
-//        $fullDate = isset($request->full_date) ? $request->full_date : Carbon::today()->format('Y-m-d');
         $requestDate = isset($request->full_date) ? $request->full_date : Carbon::today()->format('Y-m-d');
 
 

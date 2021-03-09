@@ -85,6 +85,11 @@ class ReportController extends Controller
 
     public function forwardToEmployee(Report $report)
     {
+        $this->authorize('not-company');
+        if(!auth()->user()->isHR()){
+            return redirect()->back()->withErrors(['massage' => __("Sorry You can\'t use this service because you are not an HR")]);
+        }
+
 
         $senderId = auth()->user()->id;
         $conversation =  Conversation::firstOrCreate([
@@ -96,7 +101,7 @@ class ReportController extends Controller
             . " ( " .  $report->supervisor->role->name()
             . " )</h4>"
             . $report->description;
-        $conversation->newMessage($senderId, $report->employee_id, $content);
+        $conversation->newMessage($senderId, $content);
         return redirect(route('dashboard.conversations.show', $conversation));
     }
 }

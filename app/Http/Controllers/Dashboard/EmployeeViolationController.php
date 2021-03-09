@@ -120,8 +120,7 @@ class EmployeeViolationController extends Controller
     public function validator(Request $request, EmployeeViolation $employeeViolation = null)
     {
         $rules = EmployeeViolation::$rules;
-        array_push($rules['employee_id'], new NotRepeated($request, $employeeViolation));
-        $rules['date'] = $rules['date'] . Date('Y-m-d');
+        array_push($rules['employee_id'], new NotRepeated($request->violation_id, $request->date));
         return $request->validate($rules);
     }
 }

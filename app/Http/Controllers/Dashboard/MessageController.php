@@ -31,16 +31,14 @@ class MessageController extends Controller
     {
         $data = $request->validate([
             'message' => 'required|string',
-            'receiver_id' => 'required|numeric|exists:employees,id',
             'conversation_id' => 'required|numeric|exists:conversations,id'
         ]);
         Message::create([
             'sender_id' => auth()->user()->id,
-            'receiver_id' => $data['receiver_id'],
             'conversation_id' => $data['conversation_id'],
             'content' => $data['message'],
         ]);
-        //TODO::send database notification with email to the receiver
+
         return redirect()->back();
     }
 

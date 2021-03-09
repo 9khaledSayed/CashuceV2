@@ -2,6 +2,9 @@ $(function (){
     let violation_select = $("select[name=violation_id]");
     let minutesLate = $("#minutes_late");
     let absenceDays = $("#absence_days");
+    let absenceDaysInput = $("input[name='absence_days']");
+    let minutesLateInput = $("input[name='absence_days']");
+
 
     getType(violation_select.val());
     violation_select.change(function (){
@@ -17,19 +20,19 @@ $(function (){
                     switch (data.additions){
                         case 'minutes_deduc': // lateness
                             minutesLate.fadeIn();
-                            minutesLate.prop('required', true);
+                            minutesLateInput.prop('required', true);
                             absenceDays.fadeOut();
                             break;
                         case 'leave_days': // leave work
                             absenceDays.fadeIn();
-                            absenceDays.prop('required', true);
+                            absenceDaysInput.prop('required', true);
                             minutesLate.fadeOut();
                             break;
                         default :
                             absenceDays.fadeOut();
                             minutesLate.fadeOut();
-                            absenceDays.prop('required', false);
-                            minutesLate.prop('required', false);
+                            absenceDaysInput.prop('required', false);
+                            minutesLateInput.prop('required', false);
                             break;
                     }
                 },

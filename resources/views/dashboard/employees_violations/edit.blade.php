@@ -76,7 +76,7 @@
                     <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Date')}}</label>
                     <div class="col-lg-6 col-md-9 col-sm-12">
                         <div class="input-group date">
-                            <input name="date" value="{{old('date') ?? $employeeViolation->date}}" type="text" class="form-control datepicker" readonly/>
+                            <input name="date" value="{{old('date') ?? $employeeViolation->date->format('Y-m-d')}}" type="text" class="form-control datepicker" readonly/>
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="la la-calendar"></i>
@@ -89,7 +89,8 @@
                     <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Minutes late')}}</label>
                     <div class="col-lg-6 col-md-9 col-sm-12">
                         <input class="form-control @error('minutes_late') is-invalid @enderror"
-                               type="text" value="{{ old('minutes_late') ?? $employeeViolation->minutes_late}}"
+                               type="number" min="0"
+                               value="{{ old('minutes_late') ?? $employeeViolation->minutes_late}}"
                                id="minutes_late"
                                name="minutes_late">
                     </div>
@@ -98,7 +99,8 @@
                     <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Absence Days')}}</label>
                     <div class="col-lg-6 col-md-9 col-sm-12">
                         <input class="form-control @error('absence_days') is-invalid @enderror"
-                               type="text" value="{{ old('absence_days') ?? $employeeViolation->absence_days}}"
+                               type="number" min="0"
+                               value="{{ old('absence_days') ?? $employeeViolation->absence_days}}"
                                id="absence_days"
                                placeholder="{{__('example: 1 hours = 60 minutes')}}"
                                name="absence_days">

@@ -22,7 +22,7 @@ $(function (){
         rtl: KTUtil.isRTL(),
         todayBtn: "linked",
         format:'yyyy-mm-dd',
-        orientation: "bottom right",
+        orientation: "bottom",
         clearBtn: true,
         todayHighlight: true,
         templates: arrows,

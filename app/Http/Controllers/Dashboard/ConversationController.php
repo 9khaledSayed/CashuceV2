@@ -21,7 +21,11 @@ class ConversationController extends Controller
         $this->authorize('view_conversations');
         $this->authorize('not-company');
         if($request->ajax()){
-            $conversations = Conversation::with(['hr', 'employee'])->get();
+            $userID = auth()->user()->id;
+            $conversations = Conversation::where('hr_id', $userID)
+                ->orWhere('employee_id', $userID)
+                ->with(['hr', 'employee'])->get();
+
             return response()->json($conversations);
         }
         return view('dashboard.conversations.index');
@@ -42,14 +46,17 @@ class ConversationController extends Controller
         $this->authorize('create_conversations');
         $this->authorize('not-company');
 
-        if(auth()->guard('company')->check()){
-            return redirect()->back()->withErrors(['massage' => __("Sorry You can\'t use this service because you are not an employee")]);
+        if(!auth()->user()->isHR()){
+            return redirect()->back()->withErrors(['massage' => __("Sorry You can\'t use this service because you are not an HR")]);
         }
-        $request['hr_id'] = auth()->user()->id;
-        $conversation =  Conversation::firstOrCreate($request->validate([
+
+        $request->validate([
             'employee_id' => 'required|numeric|exists:employees,id',
-            'hr_id' => 'required|numeric|exists:employees,id',
-        ]));
+        ]);
+        $conversation =  Conversation::firstOrCreate([
+            'employee_id' => $request->employee_id,
+            'hr_id' => auth()->user()->id,
+        ]);
         return redirect(route('dashboard.conversations.show', $conversation->id));
 
     }
@@ -57,13 +64,13 @@ class ConversationController extends Controller
 
     public function show(Conversation $conversation)
     {
-        $this->authorize('show_conversations');
+        $this->authorize('show_my_conversations', $conversation);
         $this->authorize('not-company');
 
-        $receiver_id = (auth()->user()->id == $conversation->hr_id)?$conversation->employee_id:$conversation->hr_id;
-        $receiver = Employee::withoutGlobalScope(ParentScope::class)->find($receiver_id);
+//        $receiver_id = (auth()->user()->id == $conversation->hr_id)?$conversation->employee_id:$conversation->hr_id;
+//        $receiver = Employee::withoutGlobalScope(ParentScope::class)->find($receiver_id);
         $messages = Message::with(['receiver', 'sender'])->where('conversation_id', $conversation->id)->get();
-        return view('dashboard.conversations.show', compact('messages','conversation', 'receiver'));
+        return view('dashboard.conversations.show', compact('messages','conversation'));
     }
 
 

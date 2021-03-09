@@ -64,6 +64,15 @@ class Payroll extends Model
         });
     }
 
+    public function getTotalAllowancesAttribute()
+    {
+        $totalAllowances = 0;
+        foreach ($this->salaries as $salary){
+            $totalAllowances += $salary->employee->totalAdditionAllowances();
+        }
+        return $totalAllowances;
+    }
+
     public function creator()
     {
         $provider = $this->provider;

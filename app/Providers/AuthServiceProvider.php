@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Conversation;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -39,12 +40,18 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         });
+
         Gate::define('must_be_employee', function ($user){
             if(\auth()->guard('employee')->check()){
                 return true;
             }else{
                 return false;
             }
+        });
+
+        Gate::define('show_my_conversations', function ($user, $conversation){
+            return $conversation->hr_id == $user->id || $conversation->employee_id == $user->id;
+
         });
     }
 }

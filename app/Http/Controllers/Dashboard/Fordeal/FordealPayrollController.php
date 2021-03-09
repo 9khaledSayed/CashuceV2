@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Dashboard\Fordeal;
 
 use App\Company;
+use App\Department;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Dashboard\PayrollController;
+use App\Nationality;
 use App\Payroll;
 use App\Provider;
 use App\Rules\UniqueMonth;
 use App\Salary;
+use App\Section;
 use Box\Spout\Writer\Style\StyleBuilder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,10 +34,13 @@ class FordealPayrollController extends PayrollController
                 $officialWorkingHours = 208;
                 $officialAbsentHours = isset($employee->workShift) ? $employee->workShift->officialAbsentHours() : 0;
                 return [
+                    'id' => $salary->id,
+                    'supervisor' => $employee->supervisor_name,
+                    'department' => $employee->department_name,
+                    'section' => $employee->section_name,
+                    'nationality' => $employee->nationality_name,
                     'job_number' => $employee->job_number,
                     'employee_name' => $employee->name_en,
-                    'department' => $employee->department->name(),
-                    'supplier' => $provider,
                     'officialWorkingHours' => $officialWorkingHours,
                     'officialWorkingHoursWithOverTime' => $officialWorkingHours,
                     'officialAbsentHours' => $officialAbsentHours,
@@ -46,7 +52,13 @@ class FordealPayrollController extends PayrollController
             });
             return response()->json($salaries);
         }
-        return view('dashboard.fordeal.payrolls.show', compact('payroll'));
+        return view('dashboard.fordeal.payrolls.show', [
+            'payroll' =>  $payroll,
+            'supervisors' =>  Company::supervisors(),
+            'nationalities' => Nationality::get(),
+            'departments' => Department::get(),
+            'sections' => Section::get(),
+        ]);
     }
 
     public function excel(Payroll $payroll)

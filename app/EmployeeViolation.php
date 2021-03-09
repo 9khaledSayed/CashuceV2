@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Scopes\ParentScope;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -20,7 +21,7 @@ class EmployeeViolation extends Model
     public static $rules = [
         'employee_id' => ['required','numeric','exists:employees,id'],
         'violation_id' => 'required|numeric|exists:violations,id',
-        'date' => 'required|date|before_or_equal:',
+        'date' => 'required|date|before_or_equal:today',
         'minutes_late' => 'nullable|numeric',
         'absences_days' => 'nullable|numeric',
     ];
@@ -41,6 +42,11 @@ class EmployeeViolation extends Model
             $model->company_id = Company::companyID();
         });
 
+    }
+
+    public function getViolationDateAttribute()
+    {
+        return Carbon::createFromFormat('D M d Y', $this->date)->format('Y-m-d');
     }
 
     public function reason()

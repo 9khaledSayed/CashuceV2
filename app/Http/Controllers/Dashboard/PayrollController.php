@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Company;
+use App\Department;
 use App\Employee;
 use App\Http\Controllers\Controller;
+use App\Nationality;
 use App\Payroll;
 use App\Provider;
 use App\Rules\UniqueMonth;
 use App\Salary;
+use App\Section;
 use Box\Spout\Writer\Style\StyleBuilder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -90,8 +93,12 @@ class PayrollController extends Controller
                         'id' => $salary->id,
                         'job_number' => $employee->job_number,
                         'employee_name' => $employee->name(),
+                        'supervisor' => $employee->supervisor_name,
+                        'department' => $employee->department_name,
+                        'section' => $employee->section_name,
+                        'provider' => $employee->provider_name,
+                        'nationality' => $employee->nationality_name,
                         'employee_id' => $employee->id,
-                        'nationality' => $employee->nationality(),
                         'salary' => $employee->salary,
                         'officialWorkingHours' => $officialWorkingHours,
                         'hourly_wage' => number_format($employee->totalPackage() / $officialWorkingHours, 2),
@@ -109,7 +116,14 @@ class PayrollController extends Controller
                 });
             return response()->json($salaries);
         }
-        return view('dashboard.payrolls.show', compact('payroll'));
+        return view('dashboard.payrolls.show', [
+            'payroll' =>  $payroll,
+            'supervisors' =>  Company::supervisors(),
+            'nationalities' => Nationality::get(),
+            'providers' => Provider::get(),
+            'departments' => Department::get(),
+            'sections' => Section::get(),
+        ]);
     }
 
 

@@ -16,18 +16,14 @@ class CreateMessagesTable extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('sender_id');
-            $table->unsignedBigInteger('receiver_id');
             $table->unsignedBigInteger('conversation_id');
             $table->longText('content');
+
             $table->foreign('sender_id')
                 ->references('id')
                 ->on('employees')
                 ->onUpdate('cascade');
 
-            $table->foreign('receiver_id')
-                ->references('id')
-                ->on('employees')
-                ->onUpdate('cascade');
 
             $table->foreign('conversation_id')
                 ->references('id')

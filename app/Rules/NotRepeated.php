@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 
 class NotRepeated implements Rule
 {
-    public $form_request;
-    public $employeeViolation;
+    private $violationID;
+    private $violationDate;
 
     /**
      * Create a new rule instance.
@@ -17,10 +17,10 @@ class NotRepeated implements Rule
      * @param Request $request
      * @param null $employeeViolation
      */
-    public function __construct(Request $request, $employeeViolation = null)
+    public function __construct($violationID, $violationDate)
     {
-        $this->form_request = $request;
-        $this->employeeViolation = $employeeViolation;
+        $this->violationID = $violationID;
+        $this->violationDate = $violationDate;
     }
 
     /**
@@ -30,15 +30,13 @@ class NotRepeated implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $employeeID)
     {
-        $violationQuery = EmployeeViolation::where([
-            ['employee_id' ,'=', $this->form_request->employee_id],
-            ['date', '=', $this->form_request->date],
-            ['violation_id', '=', $this->form_request->violation_id]]);
-        if($this->employeeViolation)
-            return $violationQuery->exists() && ($violationQuery->first() == $this->employeeViolation);
-        return $violationQuery->doesntExist();
+        return $violationQuery = EmployeeViolation::where([
+            ['employee_id' ,'=', $employeeID],
+            ['date', '=', $this->violationDate],
+            ['violation_id', '=', $this->violationID]])->doesntExist();
+
     }
 
     /**

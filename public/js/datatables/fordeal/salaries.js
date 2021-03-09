@@ -97,10 +97,6 @@ var KTDatatableLocalSortDemo = function() {
                     title: locator.__('Department'),
                     autoHide: false,
                 }, {
-                    field: 'supplier',
-                    title: locator.__('Supplier'),
-                    autoHide: false,
-                }, {
                     field: 'officialWorkingHours',
                     title: locator.__('Official Working Hours'),
                     autoHide: false,
@@ -139,21 +135,24 @@ var KTDatatableLocalSortDemo = function() {
                 }]
         });
 
-        $('#from').on('change', function() {
-            checkRange();
+        $('#kt_form_supervisor').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'supervisor');
+        });
+        $('#kt_form_nationality').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'nationality');
         });
 
-        $('#to').on('change', function() {
-            checkRange();
+        $('#kt_form_department').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'department');
         });
 
-        function checkRange() {
-            var from = $("#from").val();
-            var to = $("#to").val();
-            if(from !== '' && to !== ''){
-                datatable.setDataSourceParam('from' , from);
-            }
-        }
+        $('#kt_form_provider').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'provider');
+        });
+
+        $('#kt_form_section').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'section');
+        });
 
 
     };

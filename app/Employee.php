@@ -209,6 +209,12 @@ class Employee extends Authenticatable implements MustVerifyEmail
         return $supervisor ? $supervisor->name() : '';
     }
 
+    public function getSectionNameAttribute()
+    {
+        $section = $this->section;
+        return $section ? $section->name() : '';
+    }
+
     public function getDepartmentNameAttribute()
     {
         $department = $this->department;
@@ -328,6 +334,8 @@ class Employee extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(EmployeeViolation::class, 'employee_id');
     }
+
+
 
 
     public function supervisedEmployees()

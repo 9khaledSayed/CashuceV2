@@ -571,15 +571,6 @@
                 }
             }
 
-            // $(".contractEnd").datepicker({
-            //     rtl: KTUtil.isRTL(),
-            //     todayBtn: "linked",
-            //     format:'yyyy-mm-dd',
-            //     orientation: "bottom right",
-            //     clearBtn: true,
-            //     todayHighlight: false,
-            // });
-
         });
 
     </script>
