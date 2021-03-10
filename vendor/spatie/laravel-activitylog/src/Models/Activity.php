@@ -17,6 +17,18 @@ class Activity extends Model implements ActivityContract
         'properties' => 'collection',
     ];
 
+    public function getlocalizedDescriptionAttribute()
+    {
+        $parts = explode(' ', $this->description);
+
+        if (count($parts) == 4 && app()->isLocale('ar')){
+            return implode(' ', [__($parts[1] . ' ' . $parts[2]), __($parts[3]), __($parts[0]) , __('by')]);
+        }else{
+            return $this->description . 'by';
+        }
+
+    }
+
     public function statusColor()
     {
         $pieces = explode(' ', $this->description);

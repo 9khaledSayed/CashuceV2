@@ -28,12 +28,14 @@ class DashboardController extends Controller
         $attendanceSummary = $this->attendanceSummary($request);
         $employeesStatistics = $this->employeesStatistics();
         $activities = $this->employeesActivities();
+        $departmentsStatistics = $this->departmentsSection($request);
 
         return view('dashboard.index', compact([
             'employeesStatistics',
             'activities',
             'employeesInTrail',
             'attendanceSummary',
+            'departmentsStatistics',
         ]));
     }
 
@@ -75,6 +77,7 @@ class DashboardController extends Controller
                 'name' => $department->name(),
                 'in_service' => $activeEmployeesInDepartment,
                 'percentage' => number_format($percentage, 2),
+//                'color'
             ];
         });
 

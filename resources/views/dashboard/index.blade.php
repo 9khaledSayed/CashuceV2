@@ -158,50 +158,100 @@
 
     <!--end:: Widgets/Stats-->
 
-    <!--Begin::Row-->
+
     <div class="row">
-        <div class="col-lg-6">
-            <!--begin:: Widgets/Sale Reports-->
-            <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
-                <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
-                    <div class="kt-portlet__head-label">
-                        <h3 class="kt-portlet__head-title">
-                            {{__('Employees In Departments')}}
-                        </h3>
-                    </div>
-                </div>
+        <div class="col-xl-12">
 
-                <div class="kt-portlet__body kt-portlet__body--fit">
-                    <!--begin: Datatable -->
-                    <div class="kt-datatable" id="department_statistics_table"></div>
-
-                    <!--end: Datatable -->
-                </div>
-            </div>
-
-            <!--end:: Widgets/Sale Reports-->
-        </div>
-        <div class="col-lg-6">
-            <!--begin::Portlet-->
-            <div class="kt-portlet kt-portlet--tab">
+            <!--begin:: Widgets/Support Requests-->
+            <div class="kt-portlet kt-portlet--height-fluid">
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
-												<span class="kt-portlet__head-icon kt-hidden">
-													<i class="la la-gear"></i>
-												</span>
                         <h3 class="kt-portlet__head-title">
-                            {{__('Employees In Department')}}
+                            {{__('Rate Of Employees In Department')}}
                         </h3>
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                    <div id="kt_morris_4" style="height:500px;"></div>
+                    <div class="kt-widget16">
+                        <div class="kt-widget16__items">
+                            <div class="kt-widget16__item">
+                                <span class="kt-widget16__sceduled">
+                                    {{__('Department')}}
+                                </span>
+                                <span class="kt-widget16__amount">
+                                    {{__('In Service')}}
+                                </span>
+                            </div>
+                            @foreach($departmentsStatistics as $department)
+                            <div class="kt-widget16__item">
+                                <span class="kt-widget16__date">
+                                    {{$department->name}}
+                                </span>
+                                <span class="kt-widget16__price  kt-font-brand">
+                                    {{$department->in_service}}
+                                </span>
+                            </div>
+                            @endforeach
+                        </div>
+                        <div class="kt-widget16__stats d-flex justify-content-center">
+                            <div class="kt-widget16__visual">
+                                <div class="kt-widget16__chart">
+                                    <div class="kt-widget16__stat">32</div>
+                                    <canvas id="kt_chart_support_requests" style="height: 140px; width: 140px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!--End::Dashboard 6-->
+
+            <!--end:: Widgets/Support Requests-->
         </div>
     </div>
-    <!--End::Row-->
+{{--    <!--Begin::Row-->--}}
+{{--    <div class="row">--}}
+{{--        <div class="col-lg-6">--}}
+{{--            <!--begin:: Widgets/Sale Reports-->--}}
+{{--            <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">--}}
+{{--                <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">--}}
+{{--                    <div class="kt-portlet__head-label">--}}
+{{--                        <h3 class="kt-portlet__head-title">--}}
+{{--                            {{__('Number of Employees In Departments')}}--}}
+{{--                        </h3>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+{{--                <div class="kt-portlet__body kt-portlet__body--fit">--}}
+{{--                    <!--begin: Datatable -->--}}
+{{--                    <div class="kt-datatable" id="department_statistics_table"></div>--}}
+
+{{--                    <!--end: Datatable -->--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--            <!--end:: Widgets/Sale Reports-->--}}
+{{--        </div>--}}
+{{--        <div class="col-lg-6">--}}
+{{--            <!--begin::Portlet-->--}}
+{{--            <div class="kt-portlet kt-portlet--tab">--}}
+{{--                <div class="kt-portlet__head">--}}
+{{--                    <div class="kt-portlet__head-label">--}}
+{{--												<span class="kt-portlet__head-icon kt-hidden">--}}
+{{--													<i class="la la-gear"></i>--}}
+{{--												</span>--}}
+{{--                        <h3 class="kt-portlet__head-title">--}}
+{{--                            {{__('Rate Of Employees In Department')}}--}}
+{{--                        </h3>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="kt-portlet__body">--}}
+{{--                    <div id="kt_morris_4" style="height:500px;"></div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <!--End::Dashboard 6-->--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--    <!--End::Row-->--}}
 
     @cannot('view_employees_fordeal')
         <div class="row">
@@ -341,6 +391,8 @@
         </div>
     </div>
 
+
+
     <!--End::Section-->
     <!--Begin::Row-->
     <div class="row">
@@ -385,7 +437,7 @@
                                         @forelse($activities as $activity)
                                             <div class="kt-list-timeline__item">
                                                 <span class="kt-list-timeline__badge kt-list-timeline__badge--{{$activity->statusColor()}}"></span>
-                                                <span class="kt-list-timeline__text">{{$activity->description . " by ( " . $activity->causer->name() . " )"}}</span>
+                                                <span class="kt-list-timeline__text">{{$activity->localized_description . " ( " . $activity->causer->name() . " )"}}</span>
                                                 <span class="kt-list-timeline__time">{{$activity->created_at->diffForHumans()}}</span>
                                             </div>
                                         @empty
@@ -425,6 +477,100 @@
     <script src="{{asset('js/datatables/attendance_summary.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/datatables/expiring_documents.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/datatables/ended_employees.js')}}" type="text/javascript"></script>
-    <script src="{{asset('js/datatables/departments_statistics.js?<%=ts %>')}}" type="text/javascript"></script>
+{{--    <script src="{{asset('js/datatables/departments_statistics.js?<%=ts %>')}}" type="text/javascript"></script>--}}
     <script src="{{asset('assets/plugins/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
+    <script>
+        $(function () {
+            var supportRequests = function(labels, data, colors) {
+
+                var container = KTUtil.getByID('kt_chart_support_requests');
+
+                if (!container) {
+                    return;
+                }
+
+                var randomScalingFactor = function() {
+                    return Math.round(Math.random() * 100);
+                };
+
+                var config = {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: data,
+                            // backgroundColor: [
+                            //     KTApp.getStateColor('success'),
+                            //     KTApp.getStateColor('danger'),
+                            //     KTApp.getStateColor('brand')
+                            // ]
+                            backgroundColor: colors
+                        }],
+                        labels: labels
+                    },
+                    options: {
+                        cutoutPercentage: 75,
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        legend: {
+                            display: false,
+                            position: 'top',
+                        },
+                        title: {
+                            display: false,
+                            text: 'Technology'
+                        },
+                        animation: {
+                            animateScale: true,
+                            animateRotate: true
+                        },
+                        tooltips: {
+                            enabled: true,
+                            intersect: false,
+                            mode: 'nearest',
+                            bodySpacing: 5,
+                            yPadding: 10,
+                            xPadding: 10,
+                            caretPadding: 0,
+                            displayColors: false,
+                            backgroundColor: KTApp.getStateColor('brand'),
+                            titleFontColor: '#ffffff',
+                            cornerRadius: 4,
+                            footerSpacing: 0,
+                            titleSpacing: 0
+                        }
+                    }
+                };
+
+                var ctx = container.getContext('2d');
+                var myDoughnut = new Chart(ctx, config);
+            }
+            $.ajax({
+                method:'get',
+                url:'/dashboard/departments_statistics',
+                success:function (res) {
+                    if(res.length > 0){
+                        var labels = [];
+                        var data = [];
+                        var colors = [
+                            KTApp.getStateColor('danger'),
+                            KTApp.getStateColor('success'),
+                            KTApp.getStateColor('warning'),
+                            KTApp.getStateColor('info'),
+                            KTApp.getStateColor('dark'),
+                            KTApp.getStateColor('info'),
+                            KTApp.getStateColor('secondary'),
+                            KTApp.getStateColor('muted'),
+                            ];
+                        $.each(res, function (key, department) {
+                            labels.push(department.name)
+                            data.push(department.percentage)
+                        })
+                        supportRequests(labels, data, colors);
+                    }
+
+                }
+            })
+
+        })
+    </script>
 @endpush

@@ -705,73 +705,73 @@ var KTDashboard = function() {
 
     // Support Tickets Chart.
     // Based on Chartjs plugin - http://www.chartjs.org/
-    var supportRequests = function() {
-        var container = KTUtil.getByID('kt_chart_support_requests');
-
-        if (!container) {
-            return;
-        }
-
-        var randomScalingFactor = function() {
-            return Math.round(Math.random() * 100);
-        };
-
-        var config = {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [
-                        35, 30, 35
-                    ],
-                    backgroundColor: [
-                        KTApp.getStateColor('success'),
-                        KTApp.getStateColor('danger'),
-                        KTApp.getStateColor('brand')
-                    ]
-                }],
-                labels: [
-                    'Angular',
-                    'CSS',
-                    'HTML'
-                ]
-            },
-            options: {
-                cutoutPercentage: 75,
-                responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                    display: false,
-                    position: 'top',
-                },
-                title: {
-                    display: false,
-                    text: 'Technology'
-                },
-                animation: {
-                    animateScale: true,
-                    animateRotate: true
-                },
-                tooltips: {
-                    enabled: true,
-                    intersect: false,
-                    mode: 'nearest',
-                    bodySpacing: 5,
-                    yPadding: 10,
-                    xPadding: 10, 
-                    caretPadding: 0,
-                    displayColors: false,
-                    backgroundColor: KTApp.getStateColor('brand'),
-                    titleFontColor: '#ffffff', 
-                    cornerRadius: 4,
-                    footerSpacing: 0,
-                    titleSpacing: 0
-                }
-            }
-        };
-
-        var ctx = container.getContext('2d');
-        var myDoughnut = new Chart(ctx, config);
-    }
+    // var supportRequests = function() {
+    //     var container = KTUtil.getByID('kt_chart_support_requests');
+    //
+    //     if (!container) {
+    //         return;
+    //     }
+    //
+    //     var randomScalingFactor = function() {
+    //         return Math.round(Math.random() * 100);
+    //     };
+    //
+    //     var config = {
+    //         type: 'doughnut',
+    //         data: {
+    //             datasets: [{
+    //                 data: [
+    //                     35, 30, 35
+    //                 ],
+    //                 backgroundColor: [
+    //                     KTApp.getStateColor('success'),
+    //                     KTApp.getStateColor('danger'),
+    //                     KTApp.getStateColor('brand')
+    //                 ]
+    //             }],
+    //             labels: [
+    //                 'Angular',
+    //                 'CSS',
+    //                 'HTML'
+    //             ]
+    //         },
+    //         options: {
+    //             cutoutPercentage: 75,
+    //             responsive: true,
+    //             maintainAspectRatio: false,
+    //             legend: {
+    //                 display: false,
+    //                 position: 'top',
+    //             },
+    //             title: {
+    //                 display: false,
+    //                 text: 'Technology'
+    //             },
+    //             animation: {
+    //                 animateScale: true,
+    //                 animateRotate: true
+    //             },
+    //             tooltips: {
+    //                 enabled: true,
+    //                 intersect: false,
+    //                 mode: 'nearest',
+    //                 bodySpacing: 5,
+    //                 yPadding: 10,
+    //                 xPadding: 10,
+    //                 caretPadding: 0,
+    //                 displayColors: false,
+    //                 backgroundColor: KTApp.getStateColor('brand'),
+    //                 titleFontColor: '#ffffff',
+    //                 cornerRadius: 4,
+    //                 footerSpacing: 0,
+    //                 titleSpacing: 0
+    //             }
+    //         }
+    //     };
+    //
+    //     var ctx = container.getContext('2d');
+    //     var myDoughnut = new Chart(ctx, config);
+    // }
 
     // Activities Charts.
     // Based on Chartjs plugin - http://www.chartjs.org/
@@ -2089,7 +2089,7 @@ var KTDashboard = function() {
             latestTrendsMap();
             revenueChange();
             supportCases();
-            supportRequests();
+            // supportRequests();
             activitiesChart();
             bandwidthChart1();
             bandwidthChart2();

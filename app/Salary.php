@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\ServiceStatusScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Salary extends Model
@@ -11,7 +12,7 @@ class Salary extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class)->withoutGlobalScope(ServiceStatusScope::class);
     }
 
     public function payroll()
