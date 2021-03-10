@@ -65,7 +65,20 @@ class DashboardController extends Controller
         $totalActiveEmployees = Company::find(Company::companyID())->employees->count();
         $x = 0;
         $departments =  Department::get()->map(function ($department) use ($totalActiveEmployees, &$x){
-            $colors = [ 'danger', 'success', 'brand', 'warning','info', 'dark', 'info', 'primary'];
+            $colors = [
+                '#017cc4',
+                '#e83e8c',
+                '#fd7e14',
+                '#28a745',
+                '#17a2b8',
+                '#6c757d',
+                '#343a40',
+                '#017cc4',
+                '#1dc9b7',
+                '#ffb822',
+                '#d2061e',
+                '#343a40'
+            ];
             $activeEmployeesInDepartment = $department->employees->count();
 
             if($activeEmployeesInDepartment > 0 && $totalActiveEmployees > 0){
