@@ -673,35 +673,35 @@ var KTDashboard = function() {
 
     // Support Tickets Chart.
     // Based on Morris plugin - http://morrisjs.github.io/morris.js/
-    var supportCases = function() {
-        if ($('#kt_chart_support_tickets').length == 0) {
-            return;
-        }
-
-        Morris.Donut({
-            element: 'kt_chart_support_tickets',
-            data: [{
-                    label: "Margins",
-                    value: 20
-                },
-                {
-                    label: "Profit",
-                    value: 70
-                },
-                {
-                    label: "Lost",
-                    value: 10
-                }
-            ],
-            labelColor: '#a7a7c2',
-            colors: [
-                KTApp.getStateColor('success'),
-                KTApp.getStateColor('brand'),
-                KTApp.getStateColor('danger')
-            ]
-            //formatter: function (x) { return x + "%"}
-        });
-    }
+    // var supportCases = function() {
+    //     if ($('#kt_chart_support_tickets').length == 0) {
+    //         return;
+    //     }
+    //
+    //     Morris.Donut({
+    //         element: 'kt_chart_support_tickets',
+    //         data: [{
+    //                 label: "Margins",
+    //                 value: 20
+    //             },
+    //             {
+    //                 label: "Profit",
+    //                 value: 70
+    //             },
+    //             {
+    //                 label: "Lost",
+    //                 value: 10
+    //             }
+    //         ],
+    //         labelColor: '#a7a7c2',
+    //         colors: [
+    //             KTApp.getStateColor('success'),
+    //             KTApp.getStateColor('brand'),
+    //             KTApp.getStateColor('danger')
+    //         ]
+    //         //formatter: function (x) { return x + "%"}
+    //     });
+    // }
 
     // Support Tickets Chart.
     // Based on Chartjs plugin - http://www.chartjs.org/
@@ -2088,7 +2088,7 @@ var KTDashboard = function() {
             trendsStats2();
             latestTrendsMap();
             revenueChange();
-            supportCases();
+            // supportCases();
             // supportRequests();
             activitiesChart();
             bandwidthChart1();

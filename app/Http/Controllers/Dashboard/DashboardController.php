@@ -63,9 +63,9 @@ class DashboardController extends Controller
     public function departmentsSection(Request $request)
     {
         $totalActiveEmployees = Company::find(Company::companyID())->employees->count();
-
-        $departments =  Department::get()->map(function ($department) use ($totalActiveEmployees){
-            $colors = [ 'danger', 'success', 'brand', 'warning','info', 'dark', 'info', 'primary', 'secondary', 'muted'];
+        $x = 0;
+        $departments =  Department::get()->map(function ($department) use ($totalActiveEmployees, &$x){
+            $colors = [ 'danger', 'success', 'brand', 'warning','info', 'dark', 'info', 'primary'];
             $activeEmployeesInDepartment = $department->employees->count();
 
             if($activeEmployeesInDepartment > 0 && $totalActiveEmployees > 0){
@@ -77,7 +77,7 @@ class DashboardController extends Controller
                 'name' => $department->name(),
                 'in_service' => $activeEmployeesInDepartment,
                 'percentage' => number_format($percentage, 2),
-//                'color'
+                'color' => $colors[$x++ % count($colors)]
             ];
         });
 

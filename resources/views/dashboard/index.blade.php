@@ -195,10 +195,11 @@
                         </div>
                         <div class="kt-widget16__stats d-flex justify-content-center">
                             <div class="kt-widget16__visual">
-                                <div class="kt-widget16__chart">
-                                    <div class="kt-widget16__stat">32</div>
-                                    <canvas id="kt_chart_support_requests" style="height: 140px; width: 140px;"></canvas>
+                                <div id="kt_chart_support_tickets" style="height: 200px; width: 200px;">
                                 </div>
+                            </div>
+                            <div class="kt-widget16__legends" id="legends">
+
                             </div>
                         </div>
                     </div>
@@ -481,78 +482,91 @@
     <script src="{{asset('assets/plugins/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
     <script>
         $(function () {
-            var supportRequests = function(labels, data, colors) {
+            // var supportRequests = function(labels, data, colors) {
+            //
+            //     var container = KTUtil.getByID('kt_chart_support_requests');
+            //
+            //     if (!container) {
+            //         return;
+            //     }
+            //
+            //     var randomScalingFactor = function() {
+            //         return Math.round(Math.random() * 100);
+            //     };
+            //
+            //     var config = {
+            //         type: 'doughnut',
+            //         data: {
+            //             datasets: [{
+            //                 data: data,
+            //                 // backgroundColor: [
+            //                 //     KTApp.getStateColor('success'),
+            //                 //     KTApp.getStateColor('danger'),
+            //                 //     KTApp.getStateColor('brand')
+            //                 // ]
+            //                 backgroundColor: colors
+            //             }],
+            //             labels: labels
+            //         },
+            //         options: {
+            //             cutoutPercentage: 75,
+            //             responsive: true,
+            //             maintainAspectRatio: false,
+            //             legend: {
+            //                 display: false,
+            //                 position: 'top',
+            //             },
+            //             title: {
+            //                 display: false,
+            //                 text: 'Technology'
+            //             },
+            //             animation: {
+            //                 animateScale: true,
+            //                 animateRotate: true
+            //             },
+            //             tooltips: {
+            //                 enabled: true,
+            //                 intersect: false,
+            //                 mode: 'nearest',
+            //                 bodySpacing: 5,
+            //                 yPadding: 10,
+            //                 xPadding: 10,
+            //                 caretPadding: 0,
+            //                 displayColors: false,
+            //                 backgroundColor: KTApp.getStateColor('brand'),
+            //                 titleFontColor: '#ffffff',
+            //                 cornerRadius: 4,
+            //                 footerSpacing: 0,
+            //                 titleSpacing: 0
+            //             }
+            //         }
+            //     };
+            //
+            //     var ctx = container.getContext('2d');
+            //     var myDoughnut = new Chart(ctx, config);
+            // }
 
-                var container = KTUtil.getByID('kt_chart_support_requests');
-
-                if (!container) {
+            var supportCases = function(data, colors) {
+                if ($('#kt_chart_support_tickets').length == 0) {
                     return;
                 }
 
-                var randomScalingFactor = function() {
-                    return Math.round(Math.random() * 100);
-                };
-
-                var config = {
-                    type: 'doughnut',
-                    data: {
-                        datasets: [{
-                            data: data,
-                            // backgroundColor: [
-                            //     KTApp.getStateColor('success'),
-                            //     KTApp.getStateColor('danger'),
-                            //     KTApp.getStateColor('brand')
-                            // ]
-                            backgroundColor: colors
-                        }],
-                        labels: labels
-                    },
-                    options: {
-                        cutoutPercentage: 75,
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        legend: {
-                            display: false,
-                            position: 'top',
-                        },
-                        title: {
-                            display: false,
-                            text: 'Technology'
-                        },
-                        animation: {
-                            animateScale: true,
-                            animateRotate: true
-                        },
-                        tooltips: {
-                            enabled: true,
-                            intersect: false,
-                            mode: 'nearest',
-                            bodySpacing: 5,
-                            yPadding: 10,
-                            xPadding: 10,
-                            caretPadding: 0,
-                            displayColors: false,
-                            backgroundColor: KTApp.getStateColor('brand'),
-                            titleFontColor: '#ffffff',
-                            cornerRadius: 4,
-                            footerSpacing: 0,
-                            titleSpacing: 0
-                        }
-                    }
-                };
-
-                var ctx = container.getContext('2d');
-                var myDoughnut = new Chart(ctx, config);
+                Morris.Donut({
+                    element: 'kt_chart_support_tickets',
+                    data: data,
+                    labelColor: '#a7a7c2',
+                    colors: colors,
+                    formatter: function (x) { return x + "%"}
+                });
             }
             $.ajax({
                 method:'get',
                 url:'/dashboard/departments_statistics',
                 success:function (res) {
                     if(res.length > 0){
-                        var labels = [];
                         var data = [];
                         var colors = [
-                            KTApp.getStateColor('danger'),
+
                             KTApp.getStateColor('success'),
                             KTApp.getStateColor('warning'),
                             KTApp.getStateColor('info'),
@@ -562,10 +576,24 @@
                             KTApp.getStateColor('muted'),
                             ];
                         $.each(res, function (key, department) {
-                            labels.push(department.name)
-                            data.push(department.percentage)
+                            data.push({
+                                label: department.name,
+                                value: department.percentage
+                            });
+                            colors.push(
+                                KTApp.getStateColor(department.color),
+                            );
+
+                            $("#legends").append('\
+                            <div class="kt-widget16__legend">\
+                                <span class="kt-widget16__bullet kt-bg-' + department.color + '"></span>\
+                                <span class="kt-widget16__stat">' + department.name + ' ' + department.percentage + ' %</span>\
+                            </div>\
+                        ');
                         })
-                        supportRequests(labels, data, colors);
+                        supportCases(data, colors)
+
+
                     }
 
                 }
