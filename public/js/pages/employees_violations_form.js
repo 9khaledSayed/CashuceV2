@@ -3,7 +3,7 @@ $(function (){
     let minutesLate = $("#minutes_late");
     let absenceDays = $("#absence_days");
     let absenceDaysInput = $("input[name='absence_days']");
-    let minutesLateInput = $("input[name='absence_days']");
+    let minutesLateInput = $("input[name='minutes_late']");
 
 
     getType(violation_select.val());
