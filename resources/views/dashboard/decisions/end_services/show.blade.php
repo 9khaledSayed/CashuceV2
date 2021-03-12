@@ -110,7 +110,7 @@
                                 </label>
                                 <div class="col-lg-6">
                                     <p class="form-control-plaintext service_reward">
-                                        {{$results['service_reward']}}
+                                        {{number_format($results['service_reward'], 2)}}
                                     </p>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@
                                 </label>
                                 <div class="col-lg-6">
                                     <p class="form-control-plaintext benefit">
-                                        {{$results['benefit']}}
+                                        {{number_format($results['benefit'], 2)}}
                                     </p>
                                 </div>
                             </div>
@@ -153,7 +153,7 @@
                                 </label>
                                 <div class="col-lg-6">
                                     <p class="form-control-plaintext kt-font-bold total" >
-                                        {{$results['total']}}
+                                        {{number_format($results['total'], 2)}}
                                     </p>
                                 </div>
                             </div>
