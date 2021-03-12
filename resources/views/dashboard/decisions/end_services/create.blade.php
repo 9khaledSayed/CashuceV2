@@ -222,14 +222,14 @@
                         </span>
 
                 </button>
-                <button type="submit" class="btn btn-secondary btn-sm">
+                <a href="{{route('dashboard.index')}}" class="btn btn-secondary btn-sm">
                         <span>
                             <i class="fa fa-ban"></i>
                             <span>
                                 {{__('Cancel')}}
                             </span>
                         </span>
-                </button>
+                </a>
             </div>
         </form>
     </div>
