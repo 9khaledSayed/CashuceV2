@@ -103,6 +103,21 @@
                 @endcan
                 @endcan
 
+{{--                @can('not-company')--}}
+{{--                    @canany(['create_vacation_request', 'create_attendance_record_forgotten_request'])--}}
+                        <li class="kt-menu__item " aria-haspopup="true" ><a href="javascript:" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon fa fa-gavel"></i><span class="kt-menu__link-text">{{__('Decisions')}}</span></a>
+                            <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+                                <ul class="kt-menu__subnav">
+{{--                                    @can('create_vacation_request')--}}
+                                        <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.decisions.end_services.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('End Service')}}</span></a></li>
+                                        <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.decisions.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('All Decisions')}}</span></a></li>
+{{--                                    @endcan--}}
+                                </ul>
+                            </div>
+                        </li>
+{{--                    @endcan--}}
+{{--                @endcan--}}
+
                 @canany(['view_attendance_record_page','view_attendance_sheet', 'view_my_attendance_history'])
                 <li class="kt-menu__item " aria-haspopup="true" ><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon  flaticon-event-calendar-symbol"></i><span class="kt-menu__link-text">{{__('Attendance')}}</span></a>
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>

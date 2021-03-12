@@ -60,6 +60,15 @@ Route::name('dashboard.')->prefix(LaravelLocalization::setLocale() . '/dashboard
             Route::get('attendances/absentees', 'AttendanceController@absentees')->name('attendances.absentees');
             Route::resource('attendances', 'AttendanceController')->except('show');
 
+
+            Route::prefix('decisions')->name('decisions.')->group(function (){
+                Route::resource('end_services', 'EndServiceController')->except(['index', 'edit', 'update', 'delete']);
+                Route::get('end_service_reward', 'EndServiceController@endServiceReward');
+
+            });
+
+            Route::resource('decisions', 'DecisionController')->except(['edit', 'update', 'delete']);
+
             Route::resources([
                 'employees' => 'EmployeeController',
                 'violations' => 'ViolationController',

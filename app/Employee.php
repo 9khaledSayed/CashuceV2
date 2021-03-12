@@ -8,6 +8,7 @@ use App\Scopes\ParentScope;
 use App\Scopes\ProviderScope;
 use App\Scopes\ServiceStatusScope;
 use App\Scopes\SupervisorScope;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -481,6 +482,28 @@ class Employee extends Authenticatable implements MustVerifyEmail
         return auth()->user()->id;
     }
 
+    public function duration($termination_date)
+    {
+        $termination_date = Carbon::parse($termination_date);
+        $total_days = $termination_date->diffInDays($this->contract_start_date);
+
+        $years = floor($total_days / 365);
+        $x = ($total_days / 365) - $years;
+        $months = floor($x * 12);
+        $x = ($x * 12) - $months;
+        $days = floor($x * 30);
+
+        return [
+            'months' => $months,
+            'days'   => $days,
+            'years'  => $years
+        ];
+//        return [
+//            'months' => $termination_date->diffInMonths($this->contract_start_date),
+//            'days'   => $termination_date->diffInDays($this->contract_start_date),
+//            'years'  => $termination_date->diffInYears($this->contract_start_date)
+//        ];
+    }
 
 
 }
