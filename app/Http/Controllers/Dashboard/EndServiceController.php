@@ -109,7 +109,7 @@ class EndServiceController extends Controller
             "days" => $duration['days'],
             "service_reward" => number_format($end_of_service, 2),
             "leave_balance" => $leave_balance,
-            "benefit" => $benefit,
+            "benefit" => number_format($benefit, 2),
 //            "debets" => $debets,
             "total" => number_format($total_amount, 2),
         ];
