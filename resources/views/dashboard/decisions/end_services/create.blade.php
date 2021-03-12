@@ -271,11 +271,11 @@
                             $(".years").text(data.years);
                             $(".months").text(data.months);
                             $(".days").text(data.days);
-                            $(".service_reward").text(data.service_reward.toFixed(2) + ' {{__('SAR')}}');
+                            $(".service_reward").text(data.service_reward + ' {{__('SAR')}}');
                             $(".leave_balance").text(data.leave_balance);
-                            $(".benefit").text(data.benefit.toFixed(2) + ' {{__('SAR')}}');
-                            {{--$(".debets").text(data.debets.toFixed(2) + ' {{__('SAR')}}');--}}
-                            $(".total").text(data.total.toFixed(2) + ' {{__('SAR')}}');
+                            $(".benefit").text(data.benefit + ' {{__('SAR')}}');
+                            {{--$(".debets").text(data.debets + ' {{__('SAR')}}');--}}
+                            $(".total").text(data.total + ' {{__('SAR')}}');
                             $("#info-div").fadeIn(2);
                         }
                     });
