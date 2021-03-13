@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //,company-api,employee-api,provider-api
-Route::middleware(['cors', 'json.response', 'auth:user-api'])->get('/user', function (Request $request) {
+Route::middleware(['cors', 'json.response', 'auth:user-api,company-api,employee-api,provider-api'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
