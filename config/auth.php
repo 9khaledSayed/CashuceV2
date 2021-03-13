@@ -54,8 +54,25 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'users',
+            'hash' => false,
+        ],
+        'company-api' => [
+            'driver' => 'passport',
+            'provider' => 'companies',
+            'hash' => false,
+        ],
+
+        'employee-api' => [
+            'driver' => 'passport',
+            'provider' => 'employees',
+            'hash' => false,
+        ],
+
+        'provider-api' => [
+            'driver' => 'passport',
+            'provider' => 'providers',
             'hash' => false,
         ],
     ],

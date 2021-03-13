@@ -7,15 +7,14 @@ use App\Scopes\ParentScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Passport\HasApiTokens;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Provider extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
-    use LogsActivity;
-    use CausesActivity;
+    use Notifiable, HasApiTokens, LogsActivity, CausesActivity;
 
     protected $guarded  = [];
     protected $hidden = [

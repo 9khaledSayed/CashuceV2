@@ -13,14 +13,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Passport\HasApiTokens;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Employee extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
-    use LogsActivity;
-    use CausesActivity;
+    use Notifiable, HasApiTokens, LogsActivity, CausesActivity;
 
     protected $table = 'employees';
 
