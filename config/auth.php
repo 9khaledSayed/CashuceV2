@@ -58,6 +58,7 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
         'company-api' => [
             'driver' => 'passport',
             'provider' => 'companies',

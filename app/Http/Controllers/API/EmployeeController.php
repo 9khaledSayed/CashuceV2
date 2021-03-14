@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        dd(auth()->user());
+        dd($request->user());
         dd(Employee::get());
     }
 }

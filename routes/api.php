@@ -13,19 +13,29 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-//,company-api,employee-api,provider-api
-Route::middleware(['cors', 'json.response', 'auth:user-api,company-api,employee-api,provider-api'])->get('/user', function (Request $request) {
+
+Route::middleware(['cors', 'json.response', 'auth:employee-api'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
 
 Route::group(['middleware' => ['cors']], function () {
 
     // public routes
     Route::post('/login', 'API\Auth\ApiAuthController@login')->name('login.api');
-    Route::post('/register','API\Auth\ApiAuthController@register')->name('register.api');
-    Route::post('/logout', 'API\Auth\ApiAuthController@logout')->name('logout.api');
+//    Route::post('/register','API\Auth\ApiAuthController@register')->name('register.api');
+    Route::middleware(['cors', 'json.response', 'auth:company-api,employee-api,provider-api'])->post('/logout', 'API\Auth\ApiAuthController@logout')->name('logout.api');
+
 });
 
-//Route::middleware('auth:company-api,employee-api,provider-api')->group(function () {
-//    Route::get('/employees', 'API\EmployeeController@index');
-//});
+Route::middleware(['cors', 'json.response', 'auth:employee-api'])->group(function () {
+    Route::get('/employees', 'API\EmployeeController@index');
+});
+
+Route::post('/forgot-password', 'API\Auth\ApiAuthController@forgot_password');
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('change-password', 'Api\AuthController@change_password');
+});
+
+
